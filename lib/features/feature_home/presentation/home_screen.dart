@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       () => AnnotatedRegion(
         value: SystemUiOverlayStyle(
             systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
-            systemNavigationBarIconBrightness: _coreController.isDarkMode.value
+            systemNavigationBarIconBrightness: _coreController.brightness.value == Brightness.dark
                 ? Brightness.light
                 : Brightness.dark),
         child: Scaffold(

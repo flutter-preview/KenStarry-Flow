@@ -35,17 +35,13 @@ class HomeContent extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       //  song count
-                      Obx(
-                        () => Container(
+                      Container(
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                              color: coreController.isDarkMode.value
-                                  ? bgDarkColor
-                                  : accentLight,
+                              color: Theme.of(context).primaryColorDark,
                               borderRadius: BorderRadius.circular(50)),
                           child: const Icon(Icons.play_arrow, color: accent,)
-                        ),
                       )
                     ],
                   ),

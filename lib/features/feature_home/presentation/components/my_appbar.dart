@@ -13,7 +13,7 @@ PreferredSizeWidget myAppBar({required CoreController controller}) => AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Theme.of(Get.context!).scaffoldBackgroundColor,
           statusBarIconBrightness:
-              controller.isDarkMode.value ? Brightness.light : Brightness.dark),
+          controller.brightness.value == Brightness.dark ? Brightness.light : Brightness.dark),
       backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
       elevation: 0,
       actions: [
