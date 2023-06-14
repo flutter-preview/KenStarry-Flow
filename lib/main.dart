@@ -1,3 +1,4 @@
+import 'package:flow/di/controllers_di.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
 import 'package:flow/features/feature_home/presentation/home_screen.dart';
 import 'package:flow/theme/my_theme.dart';
@@ -20,7 +21,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    Get.put(PlayerController());
+
+    //  initialize all controllers
+    initializeControllers();
   }
   
   @override
