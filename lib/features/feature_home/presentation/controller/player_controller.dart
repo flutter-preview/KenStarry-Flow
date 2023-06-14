@@ -16,7 +16,7 @@ class PlayerController extends GetxController {
         uriType: UriType.EXTERNAL);
   }
 
-  checkPermission() async {
+  Future<void> checkPermission() async {
     //  request access to storage
     var storagePermission = await Permission.storage.request();
 

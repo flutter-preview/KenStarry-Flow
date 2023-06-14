@@ -25,6 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    /// Check for storage permissions
     _playerController.checkPermission();
 
     return AnnotatedRegion(
