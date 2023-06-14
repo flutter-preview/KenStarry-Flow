@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SongCard extends StatelessWidget {
-
   final SongModel song;
   final CoreController coreController;
 
@@ -14,8 +13,8 @@ class SongCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-        () => Container(
-        padding: const EdgeInsets.all(16),
+      () => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: coreController.isDarkMode.value ? bgDarkColor : accentLight,
@@ -23,15 +22,51 @@ class SongCard extends StatelessWidget {
         child: Row(
           children: [
             //  image
-            Flexible(
-              child: Text(
-                song.displayNameWOExt,
-                style: Theme.of(context).textTheme.bodyMedium,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+            Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+              child: QueryArtworkWidget(
+                id: song.id,
+                type: ArtworkType.AUDIO,
+                artworkFit: BoxFit.cover,
+                artworkWidth: double.infinity,
+                artworkHeight: double.infinity,
+                artworkBorder: BorderRadius.circular(8),
+                nullArtworkWidget: const Icon(
+                  Icons.music_note,
+                  color: accent,
+                ),
               ),
             ),
-            // QueryArtworkWidget(id: songs[index].id, type: ArtworkType.AUDIO)
+
+            const SizedBox(
+              width: 12,
+            ),
+
+            //  songname
+            Flexible(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    song.displayNameWOExt,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 8,),
+                  Text(
+                    "${song.artist}",
+                    style: Theme.of(context).textTheme.bodySmall,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  )
+                ],
+              ),
+            ),
+
           ],
         ),
       ),
