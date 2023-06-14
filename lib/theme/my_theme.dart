@@ -19,14 +19,14 @@ class MyTheme {
           color: textBlack500
       ),
       bodyLarge: TextStyle(
-          fontSize: 20,
+          fontSize: 18,
           fontWeight: FontWeight.w700,
           color: textBlack700
       ),
       titleSmall: TextStyle(
-          fontSize: 24,
+          fontSize: 22,
           fontWeight: FontWeight.w700,
-          color: textBlack700
+          color: textBlack500
       ),
       titleMedium: TextStyle(
           fontSize: 26,
@@ -58,14 +58,14 @@ class MyTheme {
             color: textWhite500
         ),
         bodyLarge: TextStyle(
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.w700,
             color: textWhite700
         ),
         titleSmall: TextStyle(
-            fontSize: 24,
+            fontSize: 22,
             fontWeight: FontWeight.w700,
-            color: textWhite700
+            color: textWhite500
         ),
         titleMedium: TextStyle(
             fontSize: 26,
