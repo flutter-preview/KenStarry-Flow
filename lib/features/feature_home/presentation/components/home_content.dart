@@ -81,6 +81,9 @@ class HomeContent extends StatelessWidget {
                               return SongCard(
                                 song: song,
                                 coreController: coreController,
+                                onSongTapped: () {
+                                  playerController.playSong(path: song.uri!);
+                                },
                               );
                             },
                             separatorBuilder: (context, index) =>

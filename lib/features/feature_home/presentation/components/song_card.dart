@@ -7,15 +7,14 @@ import 'package:on_audio_query/on_audio_query.dart';
 class SongCard extends StatelessWidget {
   final SongModel song;
   final CoreController coreController;
+  final VoidCallback onSongTapped;
 
-  const SongCard({super.key, required this.song, required this.coreController});
+  const SongCard({super.key, required this.song, required this.coreController, required this.onSongTapped});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-
-      },
+      onTap: onSongTapped,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
