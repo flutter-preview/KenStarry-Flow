@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 extension AddGradientToText on Text {
   ShaderMask get addGradient {
     //  my gradient
-    const gradient = LinearGradient(colors: [Colors.red, Colors.blue]);
+    const gradient = LinearGradient(colors: [Colors.white, Colors.lightBlueAccent]);
 
     return ShaderMask(
       blendMode: BlendMode.srcIn,
