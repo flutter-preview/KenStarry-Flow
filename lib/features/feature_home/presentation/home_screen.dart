@@ -1,4 +1,5 @@
 import 'package:flow/core/utils/extensions.dart';
+import 'package:flow/features/feature_home/presentation/components/my_appbar.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
 import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -25,29 +26,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     /// Check for storage permissions
     _playerController.checkPermission();
 
     return AnnotatedRegion(
-      value: const SystemUiOverlayStyle(
-          systemNavigationBarColor: bgColor,
+      value: SystemUiOverlayStyle(
+          systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
           systemNavigationBarIconBrightness: Brightness.light),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            "My Songs",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ).addGradient,
-          centerTitle: true,
-          systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarColor: bgColor,
-              statusBarIconBrightness: Brightness.light),
-        ),
-        backgroundColor: bgColor,
+        appBar: myAppBar(),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: SafeArea(
             child: Obx(
           () => Padding(

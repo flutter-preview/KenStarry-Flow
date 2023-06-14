@@ -1,5 +1,6 @@
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
 import 'package:flow/features/feature_home/presentation/home_screen.dart';
+import 'package:flow/theme/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,12 +28,9 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       title: "Flow",
       home: const HomeScreen(),
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.transparent,
-          elevation: 0
-        )
-      ),
+      theme: MyTheme.lightTheme,
+      darkTheme: MyTheme.darkTheme,
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
     );
   }
