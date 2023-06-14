@@ -41,8 +41,10 @@ class HomeContent extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: Theme.of(context).primaryColorDark,
                               borderRadius: BorderRadius.circular(50)),
-                          child: const Icon(Icons.play_arrow, color: accent,)
-                      )
+                          child: const Icon(
+                            Icons.play_arrow,
+                            color: accent,
+                          ))
                     ],
                   ),
 
@@ -80,9 +82,12 @@ class HomeContent extends StatelessWidget {
                               //  song item
                               return SongCard(
                                 song: song,
+                                songIndex: index,
                                 coreController: coreController,
+                                playerController: playerController,
                                 onSongTapped: () {
-                                  playerController.playSong(path: song.uri!);
+                                  playerController.playSong(
+                                      path: song.uri!, index: index);
                                 },
                               );
                             },

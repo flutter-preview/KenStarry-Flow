@@ -11,10 +11,17 @@ class PlayerController extends GetxController {
   final isPermissionGranted = false.obs;
   final totalSongs = 0.obs;
 
-  Future<void> playSong({required String path}) async {
+  /// Index of the currently playing song
+  final Rx<int?> currentPlayingSongIndex = 0.obs;
+  final isPlaying = false.obs;
+
+  Future<void> playSong({required String path, required int index}) async {
     try {
       audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(path)));
       audioPlayer.play();
+
+      isPlaying.value = true;
+      currentPlayingSongIndex.value = index;
 
     } on Exception catch (exception) {
       throw Exception(exception);

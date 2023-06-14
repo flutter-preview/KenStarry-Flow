@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class MyTheme {
   /// Light Theme
   static ThemeData get lightTheme => ThemeData(
+      primaryColor: accent,
       scaffoldBackgroundColor: bgColorLightMode,
       primaryColorDark: accentLight,
       iconTheme: const IconThemeData(color: textBlack300),
@@ -25,6 +26,7 @@ class MyTheme {
 
   /// Dark Theme
   static ThemeData get darkTheme => ThemeData(
+      primaryColor: accent,
       scaffoldBackgroundColor: bgColorDarkMode,
       primaryColorDark: bgDarkColor,
       iconTheme: const IconThemeData(color: textWhite300),
