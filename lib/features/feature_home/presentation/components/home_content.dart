@@ -23,43 +23,82 @@ class HomeContent extends StatelessWidget {
       () => Padding(
         padding: const EdgeInsets.all(16.0),
         child: playerController.isPermissionGranted.value
-            ? FutureBuilder<List<SongModel>>(
-                future: playerController.getSongs(),
-                builder: (context, snapshot) {
-                  if (snapshot.data == null) {
-                    return const Text(
-                      "No data found",
-                      style: TextStyle(color: Colors.white),
-                    );
-                  }
-
-                  if (snapshot.data!.isEmpty) {
-                    return const Text("Empty data",
-                        style: TextStyle(color: Colors.white));
-                  }
-
-                  //  my songs
-                  var songs = snapshot.data!;
-
-                  return SizedBox(
-                    width: double.infinity,
-                    height: double.infinity,
-                    child: ListView.separated(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: songs.length,
-                      itemBuilder: (context, index) {
-                        var song = songs[index];
-                        //  song item
-                        return SongCard(song: song, coreController: coreController,);
-                      },
-                      separatorBuilder: (context, index) => const SizedBox(
-                        height: 16,
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //  title
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "All Songs",
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
+                      //  song count
+                      Obx(
+                        () => Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: coreController.isDarkMode.value
+                                  ? bgDarkColor
+                                  : accentLight,
+                              borderRadius: BorderRadius.circular(50)),
+                          child: const Icon(Icons.play_arrow, color: accent,)
+                        ),
+                      )
+                    ],
+                  ),
+
+                  const SizedBox(
+                    height: 48,
+                  ),
+                  //  songs list
+                  Expanded(
+                    child: FutureBuilder<List<SongModel>>(
+                      future: playerController.getSongs(),
+                      builder: (context, snapshot) {
+                        if (snapshot.data == null) {
+                          return const Text(
+                            "No data found",
+                            style: TextStyle(color: Colors.white),
+                          );
+                        }
+
+                        if (snapshot.data!.isEmpty) {
+                          return const Text("Empty data",
+                              style: TextStyle(color: Colors.white));
+                        }
+
+                        //  my songs
+                        var songs = snapshot.data!;
+
+                        return SizedBox(
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: ListView.separated(
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: songs.length,
+                            itemBuilder: (context, index) {
+                              var song = songs[index];
+                              //  song item
+                              return SongCard(
+                                song: song,
+                                coreController: coreController,
+                              );
+                            },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                              height: 16,
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
+                  ),
+                ],
               )
-            : Text("Permission not granted"),
+            : const Center(child: Text("Permission not granted")),
       ),
     ));
   }

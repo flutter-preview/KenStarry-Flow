@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 PreferredSizeWidget myAppBar({required CoreController controller}) => AppBar(
       title: Text(
-        "My Songs",
+        "Flow",
         style: Theme.of(Get.context!).textTheme.titleSmall,
       ),
       centerTitle: true,
