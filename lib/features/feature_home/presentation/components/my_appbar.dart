@@ -5,17 +5,23 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 PreferredSizeWidget myAppBar({required CoreController controller}) => AppBar(
-      title: const Text(
+      title: Text(
         "My Songs",
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
+        style: Theme.of(Get.context!).textTheme.titleSmall,
       ),
       centerTitle: true,
       systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Theme.of(Get.context!).scaffoldBackgroundColor,
-          statusBarIconBrightness: controller.isDarkMode.value ? Brightness.light : Brightness.dark),
+          statusBarIconBrightness:
+              controller.isDarkMode.value ? Brightness.light : Brightness.dark),
       backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
       elevation: 0,
+      actions: [
+        IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.search,
+              color: Theme.of(Get.context!).iconTheme.color,
+            ))
+      ],
     );

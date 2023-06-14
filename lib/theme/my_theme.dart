@@ -5,6 +5,7 @@ class MyTheme {
   /// Light Theme
   static ThemeData get lightTheme => ThemeData(
     scaffoldBackgroundColor: bgColorLightMode,
+    iconTheme: const IconThemeData(color: textBlack300),
     fontFamily: 'Poppins',
     textTheme: const TextTheme(
       bodySmall: TextStyle(
@@ -43,6 +44,7 @@ class MyTheme {
   /// Dark Theme
   static ThemeData get darkTheme => ThemeData(
     scaffoldBackgroundColor: bgColorDarkMode,
+      iconTheme: const IconThemeData(color: textWhite300),
       fontFamily: 'Poppins',
       textTheme: const TextTheme(
         bodySmall: TextStyle(
