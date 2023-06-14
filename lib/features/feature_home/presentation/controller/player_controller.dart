@@ -9,7 +9,7 @@ class PlayerController extends GetxController {
   final isPermissionGranted = false.obs;
 
   Future<List<SongModel>> getSongs() async {
-    return await OnAudioQuery().querySongs(
+    return await audioQuery.querySongs(
         ignoreCase: true,
         orderType: OrderType.ASC_OR_SMALLER,
         sortType: null,
