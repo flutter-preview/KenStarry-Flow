@@ -9,9 +9,9 @@ class MyTheme {
       fontFamily: 'Poppins',
       textTheme: const TextTheme(
         bodySmall: TextStyle(
-            fontSize: 12, fontWeight: FontWeight.w300, color: textBlack300),
+            fontSize: 12, fontWeight: FontWeight.w500, color: textBlack300),
         bodyMedium: TextStyle(
-            fontSize: 16, fontWeight: FontWeight.w500, color: textBlack500),
+            fontSize: 14, fontWeight: FontWeight.w500, color: textBlack500),
         bodyLarge: TextStyle(
             fontSize: 18, fontWeight: FontWeight.w700, color: textBlack700),
         titleSmall: TextStyle(
@@ -29,9 +29,9 @@ class MyTheme {
       fontFamily: 'Poppins',
       textTheme: const TextTheme(
         bodySmall: TextStyle(
-            fontSize: 12, fontWeight: FontWeight.w300, color: textWhite300),
+            fontSize: 12, fontWeight: FontWeight.w500, color: textWhite300),
         bodyMedium: TextStyle(
-            fontSize: 16, fontWeight: FontWeight.w500, color: textWhite500),
+            fontSize: 14, fontWeight: FontWeight.w500, color: textWhite500),
         bodyLarge: TextStyle(
             fontSize: 18, fontWeight: FontWeight.w700, color: textWhite700),
         titleSmall: TextStyle(
