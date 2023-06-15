@@ -37,7 +37,7 @@ class MyTheme {
         bodyMedium: TextStyle(
             fontSize: 14, fontWeight: FontWeight.w500, color: textWhite500),
         bodyLarge: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w500, color: textBlack500),
+            fontSize: 18, fontWeight: FontWeight.w500, color: textWhite500),
         titleSmall: TextStyle(
             fontSize: 22, fontWeight: FontWeight.w700, color: textWhite500),
         titleMedium: TextStyle(

@@ -45,7 +45,7 @@ class PlayerScreen extends StatelessWidget {
                 )),
           ),
 
-          //  song Name
+          //  artist and song name
           Column(
             children: [
               SizedBox(
@@ -58,7 +58,7 @@ class PlayerScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                 ),
               ),
-              Text(song.artist ?? "Unknown Artist")
+              Text(song.artist ?? "Unknown Artist", style: Theme.of(context).textTheme.bodyMedium)
             ],
           ),
 
