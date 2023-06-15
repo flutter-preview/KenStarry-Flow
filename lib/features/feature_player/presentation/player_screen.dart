@@ -14,10 +14,11 @@ class PlayerScreen extends StatelessWidget {
   final VoidCallback onNextSong;
   final VoidCallback onPreviousSong;
 
-  PlayerScreen({super.key,
-    required this.songs,
-    required this.onNextSong,
-    required this.onPreviousSong});
+  PlayerScreen(
+      {super.key,
+      required this.songs,
+      required this.onNextSong,
+      required this.onPreviousSong});
 
   @override
   Widget build(BuildContext context) {
@@ -25,91 +26,76 @@ class PlayerScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Wrap(
         alignment: WrapAlignment.center,
-        runSpacing: 20,
+        runSpacing: 22,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           Obx(
-                () =>
-                UnconstrainedBox(
-                  child: SizedBox(
-                      width: 280,
-                      height: 280,
-                      child: QueryArtworkWidget(
-                        id: songs[playerController.currentPlayingSongIndex
-                            .value!]
-                            .id,
-                        keepOldArtwork: true,
-                        type: ArtworkType.AUDIO,
-                        artworkWidth: double.infinity,
-                        artworkHeight: double.infinity,
-                        artworkBorder: BorderRadius.circular(300),
-                        artworkFit: BoxFit.cover,
-                        artworkQuality: FilterQuality.high,
-                        nullArtworkWidget: Icon(
-                          Icons.music_note_outlined,
-                          size: 120,
-                          color: Theme
-                              .of(context)
-                              .iconTheme
-                              .color,
-                        ),
-                        quality: 100,
-                      )),
-                ),
+            () => UnconstrainedBox(
+              child: SizedBox(
+                  width: 250,
+                  height: 250,
+                  child: QueryArtworkWidget(
+                    id: songs[playerController.currentPlayingSongIndex.value!]
+                        .id,
+                    keepOldArtwork: true,
+                    type: ArtworkType.AUDIO,
+                    artworkWidth: double.infinity,
+                    artworkHeight: double.infinity,
+                    artworkBorder: BorderRadius.circular(300),
+                    artworkFit: BoxFit.cover,
+                    artworkQuality: FilterQuality.high,
+                    nullArtworkWidget: Icon(
+                      Icons.music_note_outlined,
+                      size: 120,
+                      color: Theme.of(context).iconTheme.color,
+                    ),
+                    quality: 100,
+                  )),
+            ),
           ),
 
           //  artist and song name
           Obx(
-                () =>
-                Column(
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: Marquee(
-                        text: songs[playerController.currentPlayingSongIndex
-                            .value!]
-                            .displayNameWOExt,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodyLarge,
-                        pauseAfterRound: const Duration(seconds: 1),
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                      ),
-                    ),
-                    Text(
-                        songs[playerController.currentPlayingSongIndex.value!]
-                            .artist ??
-                            "Unknown Artist",
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodySmall)
-                  ],
+            () => Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: Marquee(
+                    text: songs[playerController.currentPlayingSongIndex.value!]
+                        .displayNameWOExt,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    pauseAfterRound: const Duration(seconds: 1),
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
                 ),
+                Text(
+                    songs[playerController.currentPlayingSongIndex.value!]
+                            .artist ??
+                        "Unknown Artist",
+                    style: Theme.of(context).textTheme.bodySmall)
+              ],
+            ),
           ),
 
           //  song Count
-          UnconstrainedBox(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                color: Theme
-                    .of(context)
-                    .primaryColorDark,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Row(
-                children: [
-                  Text(
-                    "12/2,777",
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodySmall,
-                  )
-                ],
+          Obx(
+            () => UnconstrainedBox(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColorDark,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      "${playerController.currentPlayingSongIndex.value! + 1} / "
+                      "${songs.length}",
+                      style: Theme.of(context).textTheme.bodySmall,
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -123,17 +109,12 @@ class PlayerScreen extends StatelessWidget {
                 width: 35,
                 height: 35,
                 decoration: BoxDecoration(
-                    color: Theme
-                        .of(context)
-                        .primaryColorDark,
+                    color: Theme.of(context).primaryColorDark,
                     borderRadius: BorderRadius.circular(100)),
                 child: Icon(
                   Icons.shuffle,
                   size: 16,
-                  color: Theme
-                      .of(context)
-                      .iconTheme
-                      .color,
+                  color: Theme.of(context).iconTheme.color,
                 ),
               ),
 
@@ -153,10 +134,7 @@ class PlayerScreen extends StatelessWidget {
                         child: Icon(
                           Icons.skip_previous_rounded,
                           size: 24,
-                          color: Theme
-                              .of(context)
-                              .iconTheme
-                              .color,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                       ),
                     ),
@@ -173,31 +151,24 @@ class PlayerScreen extends StatelessWidget {
                       },
                       borderRadius: BorderRadius.circular(100),
                       child: Obx(
-                            () =>
-                            Container(
-                                width: 70,
-                                height: 70,
-                                decoration: BoxDecoration(
-                                    color: Theme
-                                        .of(context)
-                                        .primaryColorDark,
-                                    borderRadius: BorderRadius.circular(100)),
-                                child: playerController.playerState.value ==
+                        () => Container(
+                            width: 70,
+                            height: 70,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColorDark,
+                                borderRadius: BorderRadius.circular(100)),
+                            child: playerController.playerState.value ==
                                     PlayerStates.playing
-                                    ? Icon(
-                                  Icons.pause,
-                                  size: 32,
-                                  color: Theme
-                                      .of(context)
-                                      .primaryColor,
-                                )
-                                    : Icon(
-                                  Icons.play_arrow_rounded,
-                                  size: 48,
-                                  color: Theme
-                                      .of(context)
-                                      .primaryColor,
-                                )),
+                                ? Icon(
+                                    Icons.pause,
+                                    size: 32,
+                                    color: Theme.of(context).primaryColor,
+                                  )
+                                : Icon(
+                                    Icons.play_arrow_rounded,
+                                    size: 48,
+                                    color: Theme.of(context).primaryColor,
+                                  )),
                       ),
                     ),
                     InkWell(
@@ -211,10 +182,7 @@ class PlayerScreen extends StatelessWidget {
                         child: Icon(
                           Icons.skip_next_rounded,
                           size: 24,
-                          color: Theme
-                              .of(context)
-                              .iconTheme
-                              .color,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                       ),
                     ),
@@ -227,17 +195,12 @@ class PlayerScreen extends StatelessWidget {
                 width: 35,
                 height: 35,
                 decoration: BoxDecoration(
-                    color: Theme
-                        .of(context)
-                        .primaryColorDark,
+                    color: Theme.of(context).primaryColorDark,
                     borderRadius: BorderRadius.circular(100)),
                 child: Icon(
                   Icons.repeat,
                   size: 16,
-                  color: Theme
-                      .of(context)
-                      .iconTheme
-                      .color,
+                  color: Theme.of(context).iconTheme.color,
                 ),
               ),
             ],
@@ -245,61 +208,54 @@ class PlayerScreen extends StatelessWidget {
 
           //  slider
           Obx(
-                () =>
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 40,
-                      child: Text(
-                        playerController.position.value,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodySmall,
-                      ),
-                    ),
-                    Expanded(
-                        child: Slider(
-                          value: playerController.sliderValue.value,
-                          min: const Duration(seconds: 0).inSeconds.toDouble(),
-                          max: playerController.maxSlider.value,
-                          onChanged: (newValue) {
-                            playerController.seekSong(
-                                seconds: newValue.toInt());
-                            newValue = newValue;
-
-                            if (playerController.sliderValue.value ==
-                                playerController.maxSlider.value) {
-                              //  go to next song
-                              playerController.playSong(
-                                  path: songs[playerController
-                                      .currentPlayingSongIndex.value! + 1].uri!,
-                                  index: playerController
-                                      .currentPlayingSongIndex.value! + 1);
-                            }
-                          },
-                          thumbColor: Theme
-                              .of(context)
-                              .primaryColor,
-                          activeColor: Theme
-                              .of(context)
-                              .primaryColor,
-                          inactiveColor: Theme
-                              .of(context)
-                              .primaryColorDark,
-                        )),
-                    SizedBox(
-                      width: 40,
-                      child: Text(
-                        playerController.duration.value,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodySmall,
-                      ),
-                    )
-                  ],
+            () => Row(
+              children: [
+                SizedBox(
+                  width: 40,
+                  child: Text(
+                    playerController.position.value,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                 ),
+                Expanded(
+                    child: Slider(
+                  value: playerController.sliderValue.value,
+                  min: const Duration(seconds: 0).inSeconds.toDouble(),
+                  max: playerController.maxSlider.value,
+                  onChanged: (newValue) {
+                    playerController.seekSong(seconds: newValue.toInt());
+                    newValue = newValue;
+
+                    if (playerController.sliderValue.value ==
+                        playerController.maxSlider.value) {
+                      //  go to next song
+                      playerController.playSong(
+                          path: songs[playerController
+                                      .currentPlayingSongIndex.value! +
+                                  1]
+                              .uri!,
+                          index:
+                              playerController.currentPlayingSongIndex.value! +
+                                  1);
+                    }
+                  },
+                  thumbColor: Theme.of(context).primaryColor,
+                  activeColor: Theme.of(context).primaryColor,
+                  inactiveColor: Theme.of(context).primaryColorDark,
+                )),
+                SizedBox(
+                  width: 40,
+                  child: Text(
+                    playerController.duration.value,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                )
+              ],
+            ),
+          ),
+
+          const SizedBox(
+            height: 24,
           )
         ],
       ),

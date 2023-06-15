@@ -13,7 +13,6 @@ class PlayerController extends GetxController {
   final totalSongs = 0.obs;
 
   // UI
-  final songCardScale = 1.0.obs;
   final duration = ''.obs;
   final position = ''.obs;
   final maxSlider = 0.0.obs;
@@ -23,16 +22,12 @@ class PlayerController extends GetxController {
   final Rx<int?> currentPlayingSongIndex = 0.obs;
   final playerState = PlayerStates.stopped.obs;
 
-  void scaleDown({double scale = 0.5}) => songCardScale.value = scale;
-
   ///  Play Song
   Future<void> playSong({required String path, required int index}) async {
-    await homeUseCases.playSongUseCase.invoke(path: path);
     currentPlayingSongIndex.value = index;
-    scaleDown(scale: 0.9);
-
     observeSongDuration();
     observeSongPosition();
+    await homeUseCases.playSongUseCase.invoke(path: path);
   }
 
   /// Pause Song
