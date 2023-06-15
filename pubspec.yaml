@@ -15,6 +15,7 @@ dependencies:
   on_audio_query: ^2.9.0
   permission_handler: ^10.3.0
   get_it: ^7.6.0
+  marquee: ^2.2.3
 
 dev_dependencies:
   flutter_test:
