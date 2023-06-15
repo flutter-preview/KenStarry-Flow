@@ -9,6 +9,7 @@ class PlayerController extends GetxController {
   final audioPlayer = AudioPlayer();
 
   final isPermissionGranted = false.obs;
+  final songs = List<SongModel>.empty(growable: true).obs;
   final totalSongs = 0.obs;
 
   /// Index of the currently playing song
@@ -35,6 +36,7 @@ class PlayerController extends GetxController {
         sortType: null,
         uriType: UriType.EXTERNAL);
 
+    this.songs.value = songs;
     totalSongs.value = songs.length;
     return songs;
   }

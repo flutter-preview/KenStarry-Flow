@@ -34,17 +34,28 @@ class HomeContent extends StatelessWidget {
                         "All Songs",
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
-                      //  song count
-                      Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColorDark,
-                              borderRadius: BorderRadius.circular(50)),
-                          child: const Icon(
-                            Icons.play_arrow,
-                            color: accent,
-                          ))
+                      //  play all songs from the start
+                      InkWell(
+                        borderRadius: BorderRadius.circular(50),
+                        onTap: () {
+                          if (playerController.songs.isNotEmpty) {
+                            //  start playing the first song
+                            playerController.playSong(
+                                path: playerController.songs[0].uri!,
+                                index: 0);
+                          }
+                        },
+                        child: Ink(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColorDark,
+                                borderRadius: BorderRadius.circular(50)),
+                            child: const Icon(
+                              Icons.play_arrow,
+                              color: accent,
+                            )),
+                      )
                     ],
                   ),
 
