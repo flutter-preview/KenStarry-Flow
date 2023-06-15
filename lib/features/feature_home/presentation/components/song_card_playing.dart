@@ -53,6 +53,7 @@ class SongCardPlaying extends StatelessWidget {
                           BoxDecoration(borderRadius: BorderRadius.circular(8)),
                           child: QueryArtworkWidget(
                             id: song.id,
+                            keepOldArtwork: true,
                             type: ArtworkType.AUDIO,
                             artworkFit: BoxFit.cover,
                             artworkWidth: double.infinity,

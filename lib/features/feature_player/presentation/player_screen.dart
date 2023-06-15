@@ -22,6 +22,7 @@ class PlayerScreen extends StatelessWidget {
                 height: 280,
                 child: QueryArtworkWidget(
                   id: song.id,
+                  keepOldArtwork: true,
                   type: ArtworkType.AUDIO,
                   artworkWidth: double.infinity,
                   artworkHeight: double.infinity,
