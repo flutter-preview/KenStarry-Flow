@@ -1,11 +1,15 @@
+import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlayerScreen extends StatelessWidget {
   final SongModel song;
+  final PlayerController playerController;
 
-  const PlayerScreen({super.key, required this.song});
+  const PlayerScreen(
+      {super.key, required this.song, required this.playerController});
 
   @override
   Widget build(BuildContext context) {
@@ -109,17 +113,30 @@ class PlayerScreen extends StatelessWidget {
                         color: Theme.of(context).iconTheme.color,
                       ),
                     ),
-                    Container(
-                        width: 70,
-                        height: 70,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColorDark,
-                            borderRadius: BorderRadius.circular(100)),
-                        child: Icon(
-                          Icons.play_arrow_rounded,
-                          size: 32,
-                          color: Theme.of(context).primaryColor,
-                        )),
+                    Obx(
+                      () => InkWell(
+                        onTap: (){
+                          //  play or pause music
+                        },
+                        child: Container(
+                            width: 70,
+                            height: 70,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColorDark,
+                                borderRadius: BorderRadius.circular(100)),
+                            child: playerController.isPlaying.value == true
+                                ? Icon(
+                                    Icons.pause,
+                                    size: 32,
+                                    color: Theme.of(context).primaryColor,
+                                  )
+                                : Icon(
+                                    Icons.play_arrow_rounded,
+                                    size: 48,
+                                    color: Theme.of(context).primaryColor,
+                                  )),
+                      ),
+                    ),
                     Container(
                       width: 45,
                       height: 45,
@@ -136,7 +153,7 @@ class PlayerScreen extends StatelessWidget {
                 ),
               ),
 
-              //  music speed
+              //  repeat playback
               Container(
                 width: 35,
                 height: 35,

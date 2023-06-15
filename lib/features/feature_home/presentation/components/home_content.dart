@@ -113,7 +113,10 @@ class HomeContent extends StatelessWidget {
                                             topLeft: Radius.circular(16),
                                             topRight: Radius.circular(16))),
                                     context: context,
-                                    builder: (context) => PlayerScreen(song: song,),
+                                    builder: (context) => PlayerScreen(
+                                      song: song,
+                                      playerController: playerController,
+                                    ),
                                   ).whenComplete(() {
                                     //  continue playing song
                                   });
