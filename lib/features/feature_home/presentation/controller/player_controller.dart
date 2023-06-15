@@ -16,6 +16,8 @@ class PlayerController extends GetxController {
   final songCardScale = 1.0.obs;
   final duration = ''.obs;
   final position = ''.obs;
+  final maxSlider = 0.0.obs;
+  final sliderValue = 0.0.obs;
 
   // Index of the currently playing song
   final Rx<int?> currentPlayingSongIndex = 0.obs;
@@ -55,14 +57,22 @@ class PlayerController extends GetxController {
       .invoke(onStateChanged: (state) => playerState.value = state);
 
   /// Observe Song Duration
-  void observeSongDuration() => homeUseCases.observeSongDurUseCase.invoke(
-      onDurationChanged: (dur) =>
-          duration.value = dur.toString().split(".")[0]);
+  void observeSongDuration() {
+    homeUseCases.observeSongDurUseCase.invoke(
+      onDurationChanged: (dur) {
+        duration.value = dur.toString().split(".")[0];
+        maxSlider.value = dur.inSeconds.toDouble();
+      });
+  }
 
   /// Observe Song Position
-  void observeSongPosition() => homeUseCases.observeSongPosUseCase.invoke(
-      onPositionChanged: (pos) =>
-          position.value = pos.toString().split(".")[0]);
+  void observeSongPosition() {
+    homeUseCases.observeSongPosUseCase.invoke(
+      onPositionChanged: (pos) {
+        position.value = pos.toString().split(".")[0];
+        sliderValue.value = pos.inSeconds.toDouble();
+      });
+  }
 
   /// Check Storage Permission
   Future<void> checkPermission() async {

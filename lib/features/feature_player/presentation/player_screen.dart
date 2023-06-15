@@ -7,12 +7,18 @@ import 'package:on_audio_query/on_audio_query.dart';
 import '../../feature_home/domain/model/player_states.dart';
 
 class PlayerScreen extends StatelessWidget {
-  final SongModel song;
+  final List<SongModel> songs;
   final int songIndex;
   final PlayerController playerController = Get.find();
+  final VoidCallback onNextSong;
+  final VoidCallback onPreviousSong;
 
   PlayerScreen(
-      {super.key, required this.song, required this.songIndex});
+      {super.key,
+      required this.songs,
+      required this.songIndex,
+      required this.onNextSong,
+      required this.onPreviousSong});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +34,7 @@ class PlayerScreen extends StatelessWidget {
                 width: 280,
                 height: 280,
                 child: QueryArtworkWidget(
-                  id: song.id,
+                  id: songs[playerController.currentPlayingSongIndex.value!].id,
                   keepOldArtwork: true,
                   type: ArtworkType.AUDIO,
                   artworkWidth: double.infinity,
@@ -52,13 +58,14 @@ class PlayerScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 50,
                 child: Marquee(
-                  text: song.displayNameWOExt,
+                  text: songs[playerController.currentPlayingSongIndex.value!].displayNameWOExt,
                   style: Theme.of(context).textTheme.bodyLarge,
                   pauseAfterRound: const Duration(seconds: 1),
                   crossAxisAlignment: CrossAxisAlignment.center,
                 ),
               ),
-              Text(song.artist ?? "Unknown Artist", style: Theme.of(context).textTheme.bodyMedium)
+              Text(songs[playerController.currentPlayingSongIndex.value!].artist ?? "Unknown Artist",
+                  style: Theme.of(context).textTheme.bodyMedium)
             ],
           ),
 
@@ -104,58 +111,67 @@ class PlayerScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      width: 45,
-                      height: 45,
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(100)),
-                      child: Icon(
-                        Icons.skip_previous_rounded,
-                        size: 24,
-                        color: Theme.of(context).iconTheme.color,
+                    InkWell(
+                      onTap: onPreviousSong,
+                      child: Container(
+                        width: 45,
+                        height: 45,
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(100)),
+                        child: Icon(
+                          Icons.skip_previous_rounded,
+                          size: 24,
+                          color: Theme.of(context).iconTheme.color,
+                        ),
                       ),
                     ),
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         //  play or pause music
-                        if (playerController.playerState.value == PlayerStates.playing) {
+                        if (playerController.playerState.value ==
+                            PlayerStates.playing) {
                           playerController.pauseSong();
                         } else {
-                          playerController.playSong(path: song.uri!, index: songIndex);
+                          playerController.playSong(
+                              path: songs[playerController.currentPlayingSongIndex.value!].uri!, index: songIndex);
                         }
                       },
                       borderRadius: BorderRadius.circular(100),
                       child: Obx(
-                      () => Container(
+                        () => Container(
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColorDark,
                                 borderRadius: BorderRadius.circular(100)),
-                            child: playerController.playerState.value == PlayerStates.playing
+                            child: playerController.playerState.value ==
+                                    PlayerStates.playing
                                 ? Icon(
-                              Icons.pause,
-                              size: 32,
-                              color: Theme.of(context).primaryColor,
-                            )
+                                    Icons.pause,
+                                    size: 32,
+                                    color: Theme.of(context).primaryColor,
+                                  )
                                 : Icon(
-                              Icons.play_arrow_rounded,
-                              size: 48,
-                              color: Theme.of(context).primaryColor,
-                            )),
+                                    Icons.play_arrow_rounded,
+                                    size: 48,
+                                    color: Theme.of(context).primaryColor,
+                                  )),
                       ),
                     ),
-                    Container(
-                      width: 45,
-                      height: 45,
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(100)),
-                      child: Icon(
-                        Icons.skip_next_rounded,
-                        size: 24,
-                        color: Theme.of(context).iconTheme.color,
+                    InkWell(
+                      onTap: onNextSong,
+                      child: Container(
+                        width: 45,
+                        height: 45,
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(100)),
+                        child: Icon(
+                          Icons.skip_next_rounded,
+                          size: 24,
+                          color: Theme.of(context).iconTheme.color,
+                        ),
                       ),
                     ),
                   ],
@@ -182,13 +198,18 @@ class PlayerScreen extends StatelessWidget {
           Obx(
             () => Row(
               children: [
-                Text(
-                  playerController.position.value,
-                  style: Theme.of(context).textTheme.bodySmall,
+                SizedBox(
+                  width: 40,
+                  child: Text(
+                    playerController.position.value,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                 ),
-                Flexible(
+                Expanded(
                     child: Slider(
-                  value: 0.0,
+                  value: playerController.sliderValue.value,
+                  min: const Duration(seconds: 0).inSeconds.toDouble(),
+                  max: playerController.maxSlider.value,
                   onChanged: (newValue) {
                     playerController.seekSong(seconds: newValue.toInt());
                     newValue = newValue;
@@ -197,9 +218,12 @@ class PlayerScreen extends StatelessWidget {
                   activeColor: Theme.of(context).primaryColor,
                   inactiveColor: Theme.of(context).primaryColorDark,
                 )),
-                Text(
-                  playerController.duration.value,
-                  style: Theme.of(context).textTheme.bodySmall,
+                SizedBox(
+                  width: 40,
+                  child: Text(
+                    playerController.duration.value,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                 )
               ],
             ),
