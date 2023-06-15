@@ -14,17 +14,21 @@ class PlayerController extends GetxController {
   final songs = List<SongModel>.empty(growable: true).obs;
   final totalSongs = 0.obs;
 
+  /// UI
+  final songCardScale = 1.0.obs;
+
   /// Index of the currently playing song
   final Rx<int?> currentPlayingSongIndex = 0.obs;
   final isPlaying = false.obs;
+
+  void scaleDown({double scale = 0.5}) => songCardScale.value = scale;
 
   Future<void> playSong({required String path, required int index}) async {
 
     await homeUseCases.playSongUseCase.invoke(path: path);
     isPlaying.value = true;
     currentPlayingSongIndex.value = index;
-
-    print("Current index ${currentPlayingSongIndex}");
+    scaleDown(scale: 0.9);
   }
 
   Future<List<SongModel>> getSongs() async {
