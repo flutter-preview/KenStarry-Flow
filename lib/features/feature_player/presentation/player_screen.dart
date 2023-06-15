@@ -13,7 +13,7 @@ class PlayerScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Wrap(
         alignment: WrapAlignment.center,
-        runSpacing: 24,
+        runSpacing: 20,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           UnconstrainedBox(
@@ -159,8 +159,14 @@ class PlayerScreen extends StatelessWidget {
                 "0.00",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              Flexible(child: Slider(value: 0.0, onChanged: (val) {},
-              thumbColor: Theme.of(context).primaryColor,)),
+              Flexible(
+                  child: Slider(
+                value: 0.0,
+                onChanged: (val) {},
+                thumbColor: Theme.of(context).primaryColor,
+                activeColor: Theme.of(context).primaryColor,
+                inactiveColor: Theme.of(context).primaryColorDark,
+              )),
               Text(
                 "04:00",
                 style: Theme.of(context).textTheme.bodySmall,
