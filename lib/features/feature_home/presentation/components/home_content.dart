@@ -1,6 +1,7 @@
 import 'package:flow/core/presentation/controller/core_controller.dart';
 import 'package:flow/features/feature_home/presentation/components/song_card.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
+import 'package:flow/features/feature_player/presentation/player_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -44,8 +45,7 @@ class HomeContent extends StatelessWidget {
                           if (playerController.songs.isNotEmpty) {
                             //  start playing the first song
                             playerController.playSong(
-                                path: playerController.songs[0].uri!,
-                                index: 0);
+                                path: playerController.songs[0].uri!, index: 0);
                           }
                         },
                         child: Ink(
@@ -100,6 +100,24 @@ class HomeContent extends StatelessWidget {
                                 coreController: coreController,
                                 playerController: playerController,
                                 onSongTapped: () {
+                                  //  open player screen bottom sheet
+                                  showModalBottomSheet(
+                                    isDismissible: true,
+                                    enableDrag: true,
+                                    showDragHandle: true,
+                                    isScrollControlled: true,
+                                    backgroundColor: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(16),
+                                            topRight: Radius.circular(16))),
+                                    context: context,
+                                    builder: (context) => const PlayerScreen(),
+                                  ).whenComplete(() {
+                                    //  continue playing song
+                                  });
+
                                   playerController.playSong(
                                       path: song.uri!, index: index);
                                 },
