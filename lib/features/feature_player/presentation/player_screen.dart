@@ -1,6 +1,8 @@
+import 'package:flow/di/locator.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -8,7 +10,6 @@ import '../../feature_home/domain/model/player_states.dart';
 
 class PlayerScreen extends StatelessWidget {
   final List<SongModel> songs;
-  final int songIndex;
   final PlayerController playerController = Get.find();
   final VoidCallback onNextSong;
   final VoidCallback onPreviousSong;
@@ -16,7 +17,6 @@ class PlayerScreen extends StatelessWidget {
   PlayerScreen(
       {super.key,
       required this.songs,
-      required this.songIndex,
       required this.onNextSong,
       required this.onPreviousSong});
 
@@ -29,44 +29,53 @@ class PlayerScreen extends StatelessWidget {
         runSpacing: 20,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          UnconstrainedBox(
-            child: SizedBox(
-                width: 280,
-                height: 280,
-                child: QueryArtworkWidget(
-                  id: songs[playerController.currentPlayingSongIndex.value!].id,
-                  keepOldArtwork: true,
-                  type: ArtworkType.AUDIO,
-                  artworkWidth: double.infinity,
-                  artworkHeight: double.infinity,
-                  artworkBorder: BorderRadius.circular(300),
-                  artworkFit: BoxFit.cover,
-                  artworkQuality: FilterQuality.high,
-                  nullArtworkWidget: Icon(
-                    Icons.music_note_outlined,
-                    size: 120,
-                    color: Theme.of(context).iconTheme.color,
-                  ),
-                  quality: 100,
-                )),
+          Obx(
+            () => UnconstrainedBox(
+              child: SizedBox(
+                  width: 280,
+                  height: 280,
+                  child: QueryArtworkWidget(
+                    id: songs[playerController.currentPlayingSongIndex.value!]
+                        .id,
+                    keepOldArtwork: true,
+                    type: ArtworkType.AUDIO,
+                    artworkWidth: double.infinity,
+                    artworkHeight: double.infinity,
+                    artworkBorder: BorderRadius.circular(300),
+                    artworkFit: BoxFit.cover,
+                    artworkQuality: FilterQuality.high,
+                    nullArtworkWidget: Icon(
+                      Icons.music_note_outlined,
+                      size: 120,
+                      color: Theme.of(context).iconTheme.color,
+                    ),
+                    quality: 100,
+                  )),
+            ),
           ),
 
           //  artist and song name
-          Column(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: Marquee(
-                  text: songs[playerController.currentPlayingSongIndex.value!].displayNameWOExt,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  pauseAfterRound: const Duration(seconds: 1),
-                  crossAxisAlignment: CrossAxisAlignment.center,
+          Obx(
+            () => Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: Marquee(
+                    text: songs[playerController.currentPlayingSongIndex.value!]
+                        .displayNameWOExt,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    pauseAfterRound: const Duration(seconds: 1),
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
                 ),
-              ),
-              Text(songs[playerController.currentPlayingSongIndex.value!].artist ?? "Unknown Artist",
-                  style: Theme.of(context).textTheme.bodyMedium)
-            ],
+                Text(
+                    songs[playerController.currentPlayingSongIndex.value!]
+                            .artist ??
+                        "Unknown Artist",
+                    style: Theme.of(context).textTheme.bodySmall)
+              ],
+            ),
           ),
 
           //  song Count
@@ -133,8 +142,8 @@ class PlayerScreen extends StatelessWidget {
                             PlayerStates.playing) {
                           playerController.pauseSong();
                         } else {
-                          playerController.playSong(
-                              path: songs[playerController.currentPlayingSongIndex.value!].uri!, index: songIndex);
+                          var player = locator.get<AudioPlayer>();
+                          player.play();
                         }
                       },
                       borderRadius: BorderRadius.circular(100),

@@ -115,26 +115,33 @@ class HomeContent extends StatelessWidget {
                                             topLeft: Radius.circular(16),
                                             topRight: Radius.circular(16))),
                                     context: context,
-                                    builder: (context) => PlayerScreen(
-                                        songs: songs,
-                                        songIndex: index,
-                                        onNextSong: () {
-                                          playerController.playSong(
-                                              path: songs[playerController
-                                                          .currentPlayingSongIndex
-                                                          .value! +
-                                                      1]
-                                                  .uri!,
-                                              index: index + 1);
-                                        },
-                                        onPreviousSong: () =>
+                                    builder: (context) => StatefulBuilder(
+                                      builder: (context, modalSetState) => PlayerScreen(
+                                          songs: songs,
+                                          onNextSong: () {
                                             playerController.playSong(
                                                 path: songs[playerController
-                                                            .currentPlayingSongIndex
-                                                            .value! -
-                                                        1]
+                                                    .currentPlayingSongIndex
+                                                    .value! +
+                                                    1]
                                                     .uri!,
-                                                index: index - 1)),
+                                                index: playerController
+                                                    .currentPlayingSongIndex
+                                                    .value! +
+                                                    1);
+                                          },
+                                          onPreviousSong: () =>
+                                              playerController.playSong(
+                                                  path: songs[playerController
+                                                      .currentPlayingSongIndex
+                                                      .value! -
+                                                      1]
+                                                      .uri!,
+                                                  index: playerController
+                                                      .currentPlayingSongIndex
+                                                      .value! -
+                                                      1)),
+                                    ),
                                   ).whenComplete(() {
                                     //  continue playing song
                                   });
