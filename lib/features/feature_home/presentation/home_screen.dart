@@ -5,9 +5,12 @@ import 'package:flow/features/feature_home/presentation/controller/player_contro
 import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:get/get.dart';
 
+import '../../../di/locator.dart';
+import '../domain/model/player_states.dart';
 import 'components/home_content.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,6 +23,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late final PlayerController _playerController;
   late final CoreController _coreController;
+  final audioPlayer = locator.get<AudioPlayer>();
 
   @override
   void initState() {
@@ -27,12 +31,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _playerController = Get.find<PlayerController>();
     _coreController = Get.find<CoreController>();
+
+    _playerController.isSongPlaying();
   }
 
   @override
   Widget build(BuildContext context) {
     /// Check for storage permissions
     _playerController.checkPermission();
+
+    /// Listen for songs playing
+    _playerController.isSongPlaying();
 
     return Obx(
       () => AnnotatedRegion(

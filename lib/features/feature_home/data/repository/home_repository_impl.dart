@@ -1,3 +1,4 @@
+import 'package:flow/features/feature_home/domain/model/player_states.dart';
 import 'package:flow/features/feature_home/domain/repository/home_repository.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -47,6 +48,22 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<void> pauseSong() async {
     try {
       await audioPlayer.pause();
+    } on Exception catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  @override
+  void isSongPlaying({required void Function(PlayerStates) onStateChanged}) {
+    try {
+      audioPlayer.playerStateStream.listen((state) {
+        if (state.playing) {
+          onStateChanged(PlayerStates.playing);
+        } else {
+          onStateChanged(PlayerStates.stopped);
+        }
+      });
+
     } on Exception catch (error) {
       throw Exception(error);
     }

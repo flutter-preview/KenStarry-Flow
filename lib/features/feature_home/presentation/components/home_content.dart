@@ -100,6 +100,8 @@ class HomeContent extends StatelessWidget {
                                 coreController: coreController,
                                 playerController: playerController,
                                 onSongTapped: () {
+                                  playerController.playSong(
+                                      path: song.uri!, index: index);
                                   //  open player screen bottom sheet
                                   showModalBottomSheet(
                                     isDismissible: true,
@@ -115,14 +117,11 @@ class HomeContent extends StatelessWidget {
                                     context: context,
                                     builder: (context) => PlayerScreen(
                                       song: song,
-                                      playerController: playerController,
+                                      songIndex: index,
                                     ),
                                   ).whenComplete(() {
                                     //  continue playing song
                                   });
-
-                                  playerController.playSong(
-                                      path: song.uri!, index: index);
                                 },
                               );
                             },

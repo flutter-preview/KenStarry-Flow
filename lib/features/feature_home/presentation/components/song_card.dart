@@ -1,4 +1,5 @@
 import 'package:flow/core/presentation/controller/core_controller.dart';
+import 'package:flow/features/feature_home/domain/model/player_states.dart';
 import 'package:flow/features/feature_home/presentation/components/song_card_playing.dart';
 import 'package:flow/features/feature_home/presentation/components/song_card_standard.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
@@ -26,7 +27,7 @@ class SongCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => playerController.currentPlayingSongIndex.value == songIndex &&
-              playerController.isPlaying.value == true
+              playerController.playerState.value == PlayerStates.playing
           ? SongCardPlaying(
               song: song,
               songIndex: songIndex,

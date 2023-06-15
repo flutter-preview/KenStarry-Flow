@@ -4,12 +4,15 @@ import 'package:get/get.dart';
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
+import '../../feature_home/domain/model/player_states.dart';
+
 class PlayerScreen extends StatelessWidget {
   final SongModel song;
-  final PlayerController playerController;
+  final int songIndex;
+  final PlayerController playerController = Get.find();
 
-  const PlayerScreen(
-      {super.key, required this.song, required this.playerController});
+  PlayerScreen(
+      {super.key, required this.song, required this.songIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -113,28 +116,34 @@ class PlayerScreen extends StatelessWidget {
                         color: Theme.of(context).iconTheme.color,
                       ),
                     ),
-                    Obx(
-                      () => InkWell(
-                        onTap: (){
-                          //  play or pause music
-                        },
-                        child: Container(
+                    InkWell(
+                      onTap: (){
+                        //  play or pause music
+                        if (playerController.playerState.value == PlayerStates.playing) {
+                          playerController.pauseSong();
+                        } else {
+                          playerController.playSong(path: song.uri!, index: songIndex);
+                        }
+                      },
+                      borderRadius: BorderRadius.circular(100),
+                      child: Obx(
+                      () => Container(
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColorDark,
                                 borderRadius: BorderRadius.circular(100)),
-                            child: playerController.isPlaying.value == true
+                            child: playerController.playerState.value == PlayerStates.playing
                                 ? Icon(
-                                    Icons.pause,
-                                    size: 32,
-                                    color: Theme.of(context).primaryColor,
-                                  )
+                              Icons.pause,
+                              size: 32,
+                              color: Theme.of(context).primaryColor,
+                            )
                                 : Icon(
-                                    Icons.play_arrow_rounded,
-                                    size: 48,
-                                    color: Theme.of(context).primaryColor,
-                                  )),
+                              Icons.play_arrow_rounded,
+                              size: 48,
+                              color: Theme.of(context).primaryColor,
+                            )),
                       ),
                     ),
                     Container(

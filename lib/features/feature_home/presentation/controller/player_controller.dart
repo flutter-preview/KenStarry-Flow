@@ -6,6 +6,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../di/locator.dart';
+import '../../domain/model/player_states.dart';
 
 class PlayerController extends GetxController {
   final homeUseCases = locator.get<HomeUseCases>();
@@ -14,28 +15,27 @@ class PlayerController extends GetxController {
   final songs = List<SongModel>.empty(growable: true).obs;
   final totalSongs = 0.obs;
 
-  /// UI
+  // UI
   final songCardScale = 1.0.obs;
 
-  /// Index of the currently playing song
+  // Index of the currently playing song
   final Rx<int?> currentPlayingSongIndex = 0.obs;
-  final isPlaying = false.obs;
+  final playerState = PlayerStates.stopped.obs;
 
   void scaleDown({double scale = 0.5}) => songCardScale.value = scale;
 
+  ///  Play Song
   Future<void> playSong({required String path, required int index}) async {
-
     await homeUseCases.playSongUseCase.invoke(path: path);
-    isPlaying.value = true;
     currentPlayingSongIndex.value = index;
     scaleDown(scale: 0.9);
   }
 
-  Future<void> pauseSong() async {
-    await homeUseCases.pauseSongUseCase.invoke();
-    isPlaying.value = false;
-  }
+  /// Pause Song
+  Future<void> pauseSong() async =>
+      await homeUseCases.pauseSongUseCase.invoke();
 
+  /// Get Songs
   Future<List<SongModel>> getSongs() async {
     var songs = await homeUseCases.getSongsUseCase.invoke();
 
@@ -44,6 +44,11 @@ class PlayerController extends GetxController {
     return songs;
   }
 
+  /// Check if song is playing
+  void isSongPlaying() => homeUseCases.isSongPlayingUseCase
+      .invoke(onStateChanged: (state) => playerState.value = state);
+
+  /// Check Storage Permission
   Future<void> checkPermission() async {
     //  request access to storage
     var isStorageGranted = await homeUseCases.checkPermissionUseCase.invoke();

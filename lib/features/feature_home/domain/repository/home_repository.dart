@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-abstract class HomeRepository {
+import '../model/player_states.dart';
 
+abstract class HomeRepository {
   /// Check Storage Permission
   Future<bool> checkPermission();
 
@@ -14,4 +14,7 @@ abstract class HomeRepository {
 
   /// Pause Song
   Future<void> pauseSong();
+
+  /// Check if song is playing
+  void isSongPlaying({required void Function(PlayerStates) onStateChanged});
 }
