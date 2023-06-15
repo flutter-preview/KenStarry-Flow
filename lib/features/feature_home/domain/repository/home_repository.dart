@@ -4,7 +4,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 abstract class HomeRepository {
 
   /// Check Storage Permission
-  Future<void> checkPermission();
+  Future<bool> checkPermission();
 
   /// Get All songs
   Future<List<SongModel>> getAllSongs();
