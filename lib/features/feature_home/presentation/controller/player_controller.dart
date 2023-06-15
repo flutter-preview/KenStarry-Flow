@@ -1,12 +1,14 @@
+import 'package:flow/features/feature_home/domain/use_case/home_use_cases.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../di/locator.dart';
+
 class PlayerController extends GetxController {
-  final audioQuery = OnAudioQuery();
-  final audioPlayer = AudioPlayer();
+  final homeUseCases = locator.get<HomeUseCases>();
 
   final isPermissionGranted = false.obs;
   final songs = List<SongModel>.empty(growable: true).obs;
@@ -17,24 +19,14 @@ class PlayerController extends GetxController {
   final isPlaying = false.obs;
 
   Future<void> playSong({required String path, required int index}) async {
-    try {
-      audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(path)));
-      audioPlayer.play();
 
-      isPlaying.value = true;
-      currentPlayingSongIndex.value = index;
-
-    } on Exception catch (exception) {
-      throw Exception(exception);
-    }
+    await homeUseCases.playSongUseCase.invoke(path: path);
+    isPlaying.value = true;
+    currentPlayingSongIndex.value = index;
   }
 
   Future<List<SongModel>> getSongs() async {
-    var songs = await audioQuery.querySongs(
-        ignoreCase: true,
-        orderType: OrderType.ASC_OR_SMALLER,
-        sortType: null,
-        uriType: UriType.EXTERNAL);
+    var songs = await homeUseCases.getSongsUseCase.invoke();
 
     this.songs.value = songs;
     totalSongs.value = songs.length;
@@ -43,9 +35,9 @@ class PlayerController extends GetxController {
 
   Future<void> checkPermission() async {
     //  request access to storage
-    var storagePermission = await Permission.storage.request();
+    var isStorageGranted = await homeUseCases.checkPermissionUseCase.invoke();
 
-    if (storagePermission.isGranted) {
+    if (isStorageGranted) {
       isPermissionGranted.value = true;
     } else {
       checkPermission();

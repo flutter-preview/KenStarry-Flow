@@ -6,5 +6,5 @@ class PlaySongUseCase {
   final repo = locator.get<HomeRepository>();
 
   Future<void> invoke({required String path}) async =>
-      repo.playSong(path: path);
+      await repo.playSong(path: path);
 }
