@@ -21,11 +21,14 @@ class HomeContent extends StatelessWidget {
     return SafeArea(
         child: Obx(
       () => Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: playerController.isPermissionGranted.value
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(
+                    height: 16,
+                  ),
                   //  title
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,7 +63,7 @@ class HomeContent extends StatelessWidget {
                   ),
 
                   const SizedBox(
-                    height: 48,
+                    height: 16,
                   ),
                   //  songs list
                   Expanded(
