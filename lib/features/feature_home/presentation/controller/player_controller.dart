@@ -1,9 +1,6 @@
 import 'package:flow/features/feature_home/domain/use_case/home_use_cases.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../di/locator.dart';
 import '../../domain/model/player_states.dart';
