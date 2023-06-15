@@ -37,6 +37,7 @@ class PlayerScreen extends StatelessWidget {
                   quality: 100,
                 )),
           ),
+
           //  song Name
           Column(
             children: [
@@ -52,6 +53,22 @@ class PlayerScreen extends StatelessWidget {
               ),
               Text(song.artist ?? "Unknown Artist")
             ],
+          ),
+
+          //  song Count
+          UnconstrainedBox(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColorDark,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Row(
+                children: [
+                  Text("12/2,777", style: Theme.of(context).textTheme.bodySmall,)
+                ],
+              ),
+            ),
           ),
 
           //  seekbar buttons
@@ -98,7 +115,7 @@ class PlayerScreen extends StatelessWidget {
                         child: Icon(
                           Icons.play_arrow_rounded,
                           size: 32,
-                          color: Theme.of(context).iconTheme.color,
+                          color: Theme.of(context).primaryColor,
                         )),
                     Container(
                       width: 45,
