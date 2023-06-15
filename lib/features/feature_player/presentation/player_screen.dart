@@ -65,7 +65,10 @@ class PlayerScreen extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Text("12/2,777", style: Theme.of(context).textTheme.bodySmall,)
+                  Text(
+                    "12/2,777",
+                    style: Theme.of(context).textTheme.bodySmall,
+                  )
                 ],
               ),
             ),
@@ -146,6 +149,22 @@ class PlayerScreen extends StatelessWidget {
                   color: Theme.of(context).iconTheme.color,
                 ),
               ),
+            ],
+          ),
+
+          //  slider
+          Row(
+            children: [
+              Text(
+                "0.00",
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              Flexible(child: Slider(value: 0.0, onChanged: (val) {},
+              thumbColor: Theme.of(context).primaryColor,)),
+              Text(
+                "04:00",
+                style: Theme.of(context).textTheme.bodySmall,
+              )
             ],
           )
         ],
