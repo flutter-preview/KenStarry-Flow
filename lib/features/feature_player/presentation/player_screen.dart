@@ -179,25 +179,27 @@ class PlayerScreen extends StatelessWidget {
           ),
 
           //  slider
-          Row(
-            children: [
-              Text(
-                "0.00",
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              Flexible(
-                  child: Slider(
-                value: 0.0,
-                onChanged: (val) {},
-                thumbColor: Theme.of(context).primaryColor,
-                activeColor: Theme.of(context).primaryColor,
-                inactiveColor: Theme.of(context).primaryColorDark,
-              )),
-              Text(
-                "04:00",
-                style: Theme.of(context).textTheme.bodySmall,
-              )
-            ],
+          Obx(
+            () => Row(
+              children: [
+                Text(
+                  playerController.position.value,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                Flexible(
+                    child: Slider(
+                  value: 0.0,
+                  onChanged: (val) {},
+                  thumbColor: Theme.of(context).primaryColor,
+                  activeColor: Theme.of(context).primaryColor,
+                  inactiveColor: Theme.of(context).primaryColorDark,
+                )),
+                Text(
+                  playerController.duration.value,
+                  style: Theme.of(context).textTheme.bodySmall,
+                )
+              ],
+            ),
           )
         ],
       ),

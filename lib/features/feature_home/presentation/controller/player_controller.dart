@@ -14,6 +14,8 @@ class PlayerController extends GetxController {
 
   // UI
   final songCardScale = 1.0.obs;
+  final duration = ''.obs;
+  final position = ''.obs;
 
   // Index of the currently playing song
   final Rx<int?> currentPlayingSongIndex = 0.obs;
@@ -26,6 +28,9 @@ class PlayerController extends GetxController {
     await homeUseCases.playSongUseCase.invoke(path: path);
     currentPlayingSongIndex.value = index;
     scaleDown(scale: 0.9);
+
+    observeSongDuration();
+    observeSongPosition();
   }
 
   /// Pause Song
@@ -44,6 +49,14 @@ class PlayerController extends GetxController {
   /// Check if song is playing
   void isSongPlaying() => homeUseCases.isSongPlayingUseCase
       .invoke(onStateChanged: (state) => playerState.value = state);
+
+  /// Observe Song Duration
+  void observeSongDuration() => homeUseCases.observeSongDurUseCase
+      .invoke(onDurationChanged: (dur) => duration.value = dur.toString().split(".")[0]);
+
+  /// Observe Song Position
+  void observeSongPosition() => homeUseCases.observeSongPosUseCase
+      .invoke(onPositionChanged: (pos) => position.value = pos.toString().split(".")[0]);
 
   /// Check Storage Permission
   Future<void> checkPermission() async {

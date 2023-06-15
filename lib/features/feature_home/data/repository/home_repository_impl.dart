@@ -68,4 +68,26 @@ class HomeRepositoryImpl implements HomeRepository {
       throw Exception(error);
     }
   }
+
+  @override
+  void observeSongDuration({required void Function(Duration dur) onDurationChanged}) {
+    try {
+
+      audioPlayer.durationStream.listen((d) => onDurationChanged(d!));
+
+    } on Exception catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  @override
+  void observeSongPosition({required void Function(Duration pos) onPositionChanged}) {
+    try {
+
+      audioPlayer.positionStream.listen((p) => onPositionChanged(p));
+
+    } on Exception catch (error) {
+      throw Exception(error);
+    }
+  }
 }

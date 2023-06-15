@@ -2,6 +2,8 @@ import 'package:flow/features/feature_home/domain/use_case/check_permission_use_
 import 'package:flow/features/feature_home/domain/use_case/get_songs_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/home_use_cases.dart';
 import 'package:flow/features/feature_home/domain/use_case/is_song_playing_use_case.dart';
+import 'package:flow/features/feature_home/domain/use_case/observe_song_dur_use_case.dart';
+import 'package:flow/features/feature_home/domain/use_case/observe_song_pos_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/pause_song_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/play_song_use_case.dart';
 import 'package:get_it/get_it.dart';
@@ -27,5 +29,7 @@ void playerDI({required GetIt locator}) {
       getSongsUseCase: GetSongsUseCase(),
       playSongUseCase: PlaySongUseCase(),
       pauseSongUseCase: PauseSongUseCase(),
-  isSongPlayingUseCase: IsSongPlayingUseCase()));
+      isSongPlayingUseCase: IsSongPlayingUseCase(),
+      observeSongDurUseCase: ObserveSongDurUseCase(),
+      observeSongPosUseCase: ObserveSongPosUseCase()));
 }
