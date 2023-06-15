@@ -31,6 +31,11 @@ class PlayerController extends GetxController {
     scaleDown(scale: 0.9);
   }
 
+  Future<void> pauseSong() async {
+    await homeUseCases.pauseSongUseCase.invoke();
+    isPlaying.value = false;
+  }
+
   Future<List<SongModel>> getSongs() async {
     var songs = await homeUseCases.getSongsUseCase.invoke();
 

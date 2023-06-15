@@ -24,8 +24,7 @@ class HomeRepositoryImpl implements HomeRepository {
           ignoreCase: true,
           orderType: OrderType.ASC_OR_SMALLER,
           uriType: UriType.EXTERNAL,
-          sortType: SongSortType.DISPLAY_NAME
-      );
+          sortType: SongSortType.DISPLAY_NAME);
 
       return songs;
     } on Exception catch (error) {
@@ -38,36 +37,18 @@ class HomeRepositoryImpl implements HomeRepository {
     try {
       //  play song
       await audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(path)));
-      audioPlayer.play();
+      await audioPlayer.play();
+    } on Exception catch (error) {
+      throw Exception(error);
+    }
+  }
 
+  @override
+  Future<void> pauseSong() async {
+    try {
+      await audioPlayer.pause();
     } on Exception catch (error) {
       throw Exception(error);
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

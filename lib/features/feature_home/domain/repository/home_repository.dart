@@ -11,4 +11,7 @@ abstract class HomeRepository {
 
   /// Play Song
   Future<void> playSong({required String path});
+
+  /// Pause Song
+  Future<void> pauseSong();
 }
