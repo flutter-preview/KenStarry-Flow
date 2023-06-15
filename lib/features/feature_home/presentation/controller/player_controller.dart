@@ -23,6 +23,8 @@ class PlayerController extends GetxController {
     await homeUseCases.playSongUseCase.invoke(path: path);
     isPlaying.value = true;
     currentPlayingSongIndex.value = index;
+
+    print("Current index ${currentPlayingSongIndex}");
   }
 
   Future<List<SongModel>> getSongs() async {
