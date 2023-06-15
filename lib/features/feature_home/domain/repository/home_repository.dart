@@ -10,5 +10,5 @@ abstract class HomeRepository {
   Future<List<SongModel>> getAllSongs();
 
   /// Play Song
-  Future<void> playSong();
+  Future<void> playSong({required String path});
 }

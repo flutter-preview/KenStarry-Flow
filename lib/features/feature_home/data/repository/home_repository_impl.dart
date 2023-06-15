@@ -20,24 +20,54 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<List<SongModel>> getAllSongs() async {
     try {
-
       var songs = await audioQuery.querySongs(
-        ignoreCase: true,
-        orderType: OrderType.ASC_OR_SMALLER,
-        uriType: UriType.EXTERNAL,
-        sortType: SongSortType.DISPLAY_NAME
+          ignoreCase: true,
+          orderType: OrderType.ASC_OR_SMALLER,
+          uriType: UriType.EXTERNAL,
+          sortType: SongSortType.DISPLAY_NAME
       );
 
       return songs;
-
-    } on Exception catch(error) {
+    } on Exception catch (error) {
       throw Exception(error);
     }
   }
 
   @override
-  Future<void> playSong() {
-    // TODO: implement playSong
-    throw UnimplementedError();
+  Future<void> playSong({required String path}) async {
+    try {
+      //  play song
+      await audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(path)));
+      audioPlayer.play();
+
+    } on Exception catch (error) {
+      throw Exception(error);
+    }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
