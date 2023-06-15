@@ -37,6 +37,10 @@ class PlayerController extends GetxController {
   Future<void> pauseSong() async =>
       await homeUseCases.pauseSongUseCase.invoke();
 
+  /// Seek Song
+  void seekSong({required int seconds}) =>
+      homeUseCases.seekSongUseCase.invoke(seconds: seconds);
+
   /// Get Songs
   Future<List<SongModel>> getSongs() async {
     var songs = await homeUseCases.getSongsUseCase.invoke();
@@ -51,12 +55,14 @@ class PlayerController extends GetxController {
       .invoke(onStateChanged: (state) => playerState.value = state);
 
   /// Observe Song Duration
-  void observeSongDuration() => homeUseCases.observeSongDurUseCase
-      .invoke(onDurationChanged: (dur) => duration.value = dur.toString().split(".")[0]);
+  void observeSongDuration() => homeUseCases.observeSongDurUseCase.invoke(
+      onDurationChanged: (dur) =>
+          duration.value = dur.toString().split(".")[0]);
 
   /// Observe Song Position
-  void observeSongPosition() => homeUseCases.observeSongPosUseCase
-      .invoke(onPositionChanged: (pos) => position.value = pos.toString().split(".")[0]);
+  void observeSongPosition() => homeUseCases.observeSongPosUseCase.invoke(
+      onPositionChanged: (pos) =>
+          position.value = pos.toString().split(".")[0]);
 
   /// Check Storage Permission
   Future<void> checkPermission() async {

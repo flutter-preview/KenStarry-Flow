@@ -15,6 +15,9 @@ abstract class HomeRepository {
   /// Pause Song
   Future<void> pauseSong();
 
+  /// Seek song using slider
+  void seekSong({required int seconds});
+
   /// Check if song is playing
   void isSongPlaying({required void Function(PlayerStates) onStateChanged});
 

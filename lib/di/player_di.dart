@@ -6,6 +6,7 @@ import 'package:flow/features/feature_home/domain/use_case/observe_song_dur_use_
 import 'package:flow/features/feature_home/domain/use_case/observe_song_pos_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/pause_song_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/play_song_use_case.dart';
+import 'package:flow/features/feature_home/domain/use_case/seek_song_use_case.dart';
 import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -29,6 +30,7 @@ void playerDI({required GetIt locator}) {
       getSongsUseCase: GetSongsUseCase(),
       playSongUseCase: PlaySongUseCase(),
       pauseSongUseCase: PauseSongUseCase(),
+      seekSongUseCase: SeekSongUseCase(),
       isSongPlayingUseCase: IsSongPlayingUseCase(),
       observeSongDurUseCase: ObserveSongDurUseCase(),
       observeSongPosUseCase: ObserveSongPosUseCase()));

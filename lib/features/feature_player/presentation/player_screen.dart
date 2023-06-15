@@ -189,7 +189,10 @@ class PlayerScreen extends StatelessWidget {
                 Flexible(
                     child: Slider(
                   value: 0.0,
-                  onChanged: (val) {},
+                  onChanged: (newValue) {
+                    playerController.seekSong(seconds: newValue.toInt());
+                    newValue = newValue;
+                  },
                   thumbColor: Theme.of(context).primaryColor,
                   activeColor: Theme.of(context).primaryColor,
                   inactiveColor: Theme.of(context).primaryColorDark,

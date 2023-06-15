@@ -54,6 +54,12 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
+  void seekSong({required int seconds}) {
+    var duration = Duration(seconds: seconds);
+    audioPlayer.seek(duration);
+  }
+
+  @override
   void isSongPlaying({required void Function(PlayerStates) onStateChanged}) {
     try {
       audioPlayer.playerStateStream.listen((state) {
