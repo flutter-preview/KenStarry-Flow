@@ -29,7 +29,7 @@ class SongCardStandard extends StatelessWidget {
         const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: Theme.of(context).primaryColorDark),
+            color: Theme.of(context).scaffoldBackgroundColor),
         child: Row(
           children: [
             //  image
