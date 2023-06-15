@@ -1,4 +1,5 @@
 import 'package:flow/di/controllers_di.dart';
+import 'package:flow/di/locator.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
 import 'package:flow/features/feature_home/presentation/home_screen.dart';
 import 'package:flow/theme/my_theme.dart';
@@ -6,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() {
+
+  invokeDI();
+
   runApp(const MyApp());
 }
 
