@@ -1,3 +1,5 @@
+import 'package:azlistview/azlistview.dart';
+import 'package:flow/features/feature_home/domain/model/az_item.dart';
 import 'package:flow/features/feature_home/domain/use_case/home_use_cases.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -10,6 +12,7 @@ class PlayerController extends GetxController {
 
   final isPermissionGranted = false.obs;
   final songs = List<SongModel>.empty(growable: true).obs;
+  List<ISuspensionBean> azSongs = List<ISuspensionBean>.empty(growable: true).obs;
   final totalSongs = 0.obs;
 
   // UI
@@ -21,6 +24,11 @@ class PlayerController extends GetxController {
   // Index of the currently playing song
   final Rx<int?> currentPlayingSongIndex = 0.obs;
   final playerState = PlayerStates.stopped.obs;
+
+  void initializeAZList({required List<SongModel> songs}) {
+    azSongs = songs.map((s) => AZItem(
+        title: s.displayNameWOExt, tag: s.displayNameWOExt[0].toUpperCase())).toList();
+  }
 
   ///  Play Song
   Future<void> playSong({required String path, required int index}) async {
@@ -53,20 +61,18 @@ class PlayerController extends GetxController {
 
   /// Observe Song Duration
   void observeSongDuration() {
-    homeUseCases.observeSongDurUseCase.invoke(
-      onDurationChanged: (dur) {
-        duration.value = dur.toString().split(".")[0];
-        maxSlider.value = dur.inSeconds.toDouble();
-      });
+    homeUseCases.observeSongDurUseCase.invoke(onDurationChanged: (dur) {
+      duration.value = dur.toString().split(".")[0];
+      maxSlider.value = dur.inSeconds.toDouble();
+    });
   }
 
   /// Observe Song Position
   void observeSongPosition() {
-    homeUseCases.observeSongPosUseCase.invoke(
-      onPositionChanged: (pos) {
-        position.value = pos.toString().split(".")[0];
-        sliderValue.value = pos.inSeconds.toDouble();
-      });
+    homeUseCases.observeSongPosUseCase.invoke(onPositionChanged: (pos) {
+      position.value = pos.toString().split(".")[0];
+      sliderValue.value = pos.inSeconds.toDouble();
+    });
   }
 
   /// Check Storage Permission

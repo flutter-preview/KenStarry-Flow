@@ -15,19 +15,22 @@ class SongCardPlaying extends StatelessWidget {
 
   const SongCardPlaying(
       {super.key,
-        required this.song,
-        required this.songIndex,
-        required this.coreController,
-        required this.playerController,
-        required this.onSongTapped});
+      required this.song,
+      required this.songIndex,
+      required this.coreController,
+      required this.playerController,
+      required this.onSongTapped});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onSongTapped,
       child: Container(
-        padding:
-        const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.only(
+          top: 16,
+          bottom: 16,
+          right: 16,
+        ),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             color: Theme.of(context).primaryColorDark),
@@ -37,8 +40,7 @@ class SongCardPlaying extends StatelessWidget {
             Container(
               width: 60,
               height: 60,
-              decoration:
-              BoxDecoration(borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
               child: QueryArtworkWidget(
                 id: song.id,
                 keepOldArtwork: true,
@@ -47,8 +49,7 @@ class SongCardPlaying extends StatelessWidget {
                 artworkWidth: double.infinity,
                 artworkHeight: double.infinity,
                 artworkBorder: BorderRadius.circular(8),
-                nullArtworkWidget:
-                const Icon(Icons.music_note, color: accent),
+                nullArtworkWidget: const Icon(Icons.music_note, color: accent),
               ),
             ),
 

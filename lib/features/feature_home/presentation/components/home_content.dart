@@ -1,3 +1,4 @@
+import 'package:azlistview/azlistview.dart';
 import 'package:flow/core/presentation/controller/core_controller.dart';
 import 'package:flow/features/feature_home/presentation/components/song_card.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
@@ -21,17 +22,17 @@ class HomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Obx(
-      () => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: playerController.isPermissionGranted.value
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  //  title
-                  Row(
+      () => playerController.isPermissionGranted.value
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 16,
+                ),
+                //  title
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -61,40 +62,69 @@ class HomeContent extends StatelessWidget {
                       )
                     ],
                   ),
+                ),
 
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  //  songs list
-                  Expanded(
-                    child: FutureBuilder<List<SongModel>>(
-                      future: playerController.getSongs(),
-                      builder: (context, snapshot) {
-                        if (snapshot.data == null) {
-                          return const Text(
-                            "No data found",
-                            style: TextStyle(color: Colors.white),
-                          );
-                        }
+                const SizedBox(
+                  height: 16,
+                ),
+                //  songs list
+                Expanded(
+                  child: FutureBuilder<List<SongModel>>(
+                    future: playerController.getSongs(),
+                    builder: (context, snapshot) {
+                      if (snapshot.data == null) {
+                        return const Text(
+                          "No data found",
+                          style: TextStyle(color: Colors.white),
+                        );
+                      }
 
-                        if (snapshot.data!.isEmpty) {
-                          return const Text("Empty data",
-                              style: TextStyle(color: Colors.white));
-                        }
+                      if (snapshot.data!.isEmpty) {
+                        return const Text("Empty data",
+                            style: TextStyle(color: Colors.white));
+                      }
 
-                        //  my songs
-                        var songs = snapshot.data!;
+                      //  my songs
+                      var songs = snapshot.data!;
 
-                        return SizedBox(
-                          width: double.infinity,
-                          height: double.infinity,
-                          child: ListView.separated(
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: songs.length,
-                            itemBuilder: (context, index) {
-                              var song = songs[index];
-                              //  song item
-                              return SongCard(
+                      playerController.initializeAZList(songs: songs);
+
+                      return SizedBox(
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: AzListView(
+                          data: playerController.azSongs,
+                          physics: const BouncingScrollPhysics(),
+                          indexBarOptions: IndexBarOptions(
+                              needRebuild: true,
+                              selectTextStyle:
+                                  Theme.of(context).textTheme.bodyMedium,
+                              selectItemDecoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Theme.of(context).primaryColorDark),
+                              indexHintAlignment: Alignment.centerRight,
+                              indexHintOffset: Offset(-16, 0)),
+                          indexHintBuilder: (context, hint) => Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                shape: BoxShape.circle),
+                            child: Center(
+                                child: Text(
+                              hint,
+                              style: Theme.of(context).textTheme.titleSmall,
+                            )),
+                          ),
+                          indexBarMargin: const EdgeInsets.all(0),
+                          itemCount: songs.length,
+                          itemBuilder: (context, index) {
+                            var song = songs[index];
+                            //  song item
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: SongCard(
                                 song: song,
                                 songIndex: index,
                                 coreController: coreController,
@@ -116,51 +146,48 @@ class HomeContent extends StatelessWidget {
                                             topRight: Radius.circular(24))),
                                     context: context,
                                     builder: (context) => StatefulBuilder(
-                                      builder: (context, modalSetState) => PlayerScreen(
-                                          songs: songs,
-                                          onNextSong: () {
-                                            playerController.playSong(
-                                                path: songs[playerController
-                                                    .currentPlayingSongIndex
-                                                    .value! +
-                                                    1]
-                                                    .uri!,
-                                                index: playerController
-                                                    .currentPlayingSongIndex
-                                                    .value! +
-                                                    1);
-                                          },
-                                          onPreviousSong: () =>
-                                              playerController.playSong(
-                                                  path: songs[playerController
-                                                      .currentPlayingSongIndex
-                                                      .value! -
-                                                      1]
-                                                      .uri!,
-                                                  index: playerController
-                                                      .currentPlayingSongIndex
-                                                      .value! -
-                                                      1)),
+                                      builder: (context, modalSetState) =>
+                                          PlayerScreen(
+                                              songs: songs,
+                                              onNextSong: () {
+                                                playerController.playSong(
+                                                    path: songs[playerController
+                                                                .currentPlayingSongIndex
+                                                                .value! +
+                                                            1]
+                                                        .uri!,
+                                                    index: playerController
+                                                            .currentPlayingSongIndex
+                                                            .value! +
+                                                        1);
+                                              },
+                                              onPreviousSong: () =>
+                                                  playerController.playSong(
+                                                      path: songs[playerController
+                                                                  .currentPlayingSongIndex
+                                                                  .value! -
+                                                              1]
+                                                          .uri!,
+                                                      index: playerController
+                                                              .currentPlayingSongIndex
+                                                              .value! -
+                                                          1)),
                                     ),
                                   ).whenComplete(() {
                                     //  continue playing song
                                   });
                                 },
-                              );
-                            },
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(
-                              height: 16,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
                   ),
-                ],
-              )
-            : const Center(child: Text("Permission not granted")),
-      ),
+                ),
+              ],
+            )
+          : const Center(child: Text("Permission not granted")),
     ));
   }
 }
