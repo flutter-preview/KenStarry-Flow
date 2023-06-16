@@ -1,3 +1,7 @@
+import 'package:flow/features/feature_genres/presentation/genres_screen.dart';
+import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
+import 'package:flow/features/feature_playlist/presentation/playlist_screen.dart';
+import 'package:flow/features/feature_settings/presentation/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -6,6 +10,7 @@ import 'package:just_audio/just_audio.dart';
 
 import '../../../core/presentation/controller/core_controller.dart';
 import '../../../di/locator.dart';
+import '../../feature_home/presentation/components/bottom_bar/home_bottom_bar.dart';
 import '../../feature_home/presentation/home_screen.dart';
 import '../../feature_home/presentation/components/my_appbar.dart';
 import '../../feature_home/presentation/controller/player_controller.dart';
@@ -19,7 +24,9 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   late final PlayerController _playerController;
+  late final HomeController _homeController;
   late final CoreController _coreController;
+  late final List<Widget> _screens;
   final audioPlayer = locator.get<AudioPlayer>();
 
   @override
@@ -28,7 +35,14 @@ class _MainScreenState extends State<MainScreen> {
 
     _playerController = Get.find<PlayerController>();
     _coreController = Get.find<CoreController>();
+    _homeController = Get.find<HomeController>();
 
+    _screens = [
+      HomeScreen(playerController: _playerController, coreController: _coreController),
+      const PlaylistScreen(),
+      const GenresScreen(),
+      const SettingsScreen()
+    ];
     _playerController.isSongPlaying();
   }
 
@@ -50,9 +64,22 @@ class _MainScreenState extends State<MainScreen> {
         child: Scaffold(
           appBar: myAppBar(controller: _coreController),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          body: HomeScreen(
-            playerController: _playerController,
-            coreController: _coreController,
+          body: Obx(
+            () => Stack(
+              fit: StackFit.loose,
+              children: [
+                IndexedStack(
+                  index: _homeController.currentTabIndex.value,
+                  children: _screens,
+                ),
+
+                //  Floating bottom bar
+                const Align(
+                  alignment: AlignmentDirectional.bottomCenter,
+                  child: HomeBottomBar(),
+                )
+              ]
+            ),
           ),
         ),
       ),
