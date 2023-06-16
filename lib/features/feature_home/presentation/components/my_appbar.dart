@@ -1,5 +1,5 @@
 import 'package:flow/core/presentation/controller/core_controller.dart';
-import 'package:flow/core/utils/extensions.dart';
+import 'package:flow/core/utils/text_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

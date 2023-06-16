@@ -1,5 +1,5 @@
 import 'package:flow/core/presentation/controller/core_controller.dart';
-import 'package:flow/core/utils/extensions.dart';
+import 'package:flow/core/utils/text_extensions.dart';
 import 'package:flow/features/feature_home/presentation/components/my_appbar.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
 import 'package:flow/theme/colors.dart';

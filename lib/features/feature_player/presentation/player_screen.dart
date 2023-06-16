@@ -1,3 +1,4 @@
+import 'package:flow/core/utils/string_extensions.dart';
 import 'package:flow/di/locator.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
 import 'package:flutter/material.dart';
@@ -90,8 +91,8 @@ class PlayerScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "${playerController.currentPlayingSongIndex.value! + 1} / "
-                      "${songs.length}",
+                      "${(playerController.currentPlayingSongIndex.value! + 1).toString().addCommas} / "
+                      "${songs.length.toString().addCommas}",
                       style: Theme.of(context).textTheme.bodySmall,
                     )
                   ],
