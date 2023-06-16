@@ -73,27 +73,21 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
                                 ),
                               ),
 
-                              //  play icon
-                              IconButton(
-                                  onPressed: () {
-                                    //  play or pause music
-                                    if (_playerController.playerState.value ==
-                                        PlayerStates.playing) {
-                                      _playerController.pauseSong();
-                                    } else {
-                                      var player = locator.get<AudioPlayer>();
-                                      player.play();
-                                    }
-                                  },
-                                  enableFeedback: false,
-                                  icon: Icon(
-                                    _playerController.playerState.value ==
-                                            PlayerStates.playing
-                                        ? Icons.pause
-                                        : Icons.play_arrow_rounded,
-                                    size: 24,
-                                    color: Theme.of(context).primaryColor,
-                                  ))
+                              //  collapse icon
+                              GestureDetector(
+                                onTap: (){
+                                  //  collapse bottom bar
+                                  _homeController.setBottomBarCollapsedState(isCollapsed: !_homeController.isBottomBarCollapsed.value);
+                                },
+                                child: Icon(
+                                  _homeController.isBottomBarCollapsed.value ==
+                                      true
+                                      ? Icons.keyboard_arrow_up_rounded
+                                      : Icons.keyboard_arrow_down_rounded,
+                                  size: 24,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              )
                             ],
                           ),
 
@@ -167,37 +161,65 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
                               //  next and previous icons
                               Expanded(
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    IconButton(
-                                        onPressed: () => _playerController.playSong(
+                                    GestureDetector(
+                                      onTap: (){
+                                        _playerController.playSong(
                                             path: _playerController
                                                 .songs[_playerController
-                                                        .currentPlayingSongIndex
-                                                        .value! -
-                                                    1]
+                                                .currentPlayingSongIndex
+                                                .value! -
+                                                1]
                                                 .uri!,
                                             index: _playerController
-                                                    .currentPlayingSongIndex
-                                                    .value! -
-                                                1),
-                                        icon: const Icon(
-                                            Icons.skip_previous_rounded)),
-                                    IconButton(
-                                        onPressed: () {
-                                          _playerController.playSong(
-                                              path: _playerController
-                                                  .songs[_playerController
-                                                          .currentPlayingSongIndex
-                                                          .value! +
-                                                      1]
-                                                  .uri!,
-                                              index: _playerController
-                                                      .currentPlayingSongIndex
-                                                      .value! +
-                                                  1);
-                                        },
-                                        icon: const Icon(
-                                            Icons.skip_next_rounded)),
+                                                .currentPlayingSongIndex
+                                                .value! -
+                                                1);
+                                      },
+                                      child: const Icon(
+                                          Icons.skip_previous_rounded),
+                                    ),
+
+                                    //  play icon
+                                    GestureDetector(
+                                      onTap: () {
+                                        //  play or pause music
+                                        if (_playerController.playerState.value ==
+                                            PlayerStates.playing) {
+                                          _playerController.pauseSong();
+                                        } else {
+                                          var player = locator.get<AudioPlayer>();
+                                          player.play();
+                                        }
+                                      },
+                                      child: Icon(
+                                        _playerController.playerState.value ==
+                                            PlayerStates.playing
+                                            ? Icons.pause
+                                            : Icons.play_arrow_rounded,
+                                        size: 24,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    ),
+
+                                    GestureDetector(
+                                      onTap: (){
+                                        _playerController.playSong(
+                                            path: _playerController
+                                                .songs[_playerController
+                                                .currentPlayingSongIndex
+                                                .value! +
+                                                1]
+                                                .uri!,
+                                            index: _playerController
+                                                .currentPlayingSongIndex
+                                                .value! +
+                                                1);
+                                      },
+                                      child: const Icon(
+                                          Icons.skip_next_rounded),
+                                    )
                                   ],
                                 ),
                               )
