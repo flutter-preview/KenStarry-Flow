@@ -1,64 +1,211 @@
+import 'package:azlistview/azlistview.dart';
 import 'package:flow/core/presentation/controller/core_controller.dart';
-import 'package:flow/core/utils/text_extensions.dart';
-import 'package:flow/features/feature_home/presentation/components/my_appbar.dart';
+import 'package:flow/features/feature_home/presentation/components/home_bottom_bar.dart';
+import 'package:flow/features/feature_home/presentation/components/song_card.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
-import 'package:flow/theme/colors.dart';
+import 'package:flow/features/feature_player/presentation/player_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:just_audio/just_audio.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:get/get.dart';
 
-import '../../../di/locator.dart';
-import '../domain/model/player_states.dart';
-import 'components/home_content.dart';
+import '../../../theme/colors.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  final PlayerController playerController;
+  final CoreController coreController;
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  late final PlayerController _playerController;
-  late final CoreController _coreController;
-  final audioPlayer = locator.get<AudioPlayer>();
-
-  @override
-  void initState() {
-    super.initState();
-
-    _playerController = Get.find<PlayerController>();
-    _coreController = Get.find<CoreController>();
-
-    _playerController.isSongPlaying();
-  }
+  const HomeScreen(
+      {super.key,
+      required this.playerController,
+      required this.coreController});
 
   @override
   Widget build(BuildContext context) {
-    /// Check for storage permissions
-    _playerController.checkPermission();
+    return SafeArea(
+        child: Stack(
+      fit: StackFit.loose,
+      children: [
+        //  main content
+        Obx(
+          () => playerController.isPermissionGranted.value
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    //  title
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "All Songs",
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                          //  play all songs from the start
+                          InkWell(
+                            borderRadius: BorderRadius.circular(50),
+                            onTap: () {
+                              if (playerController.songs.isNotEmpty) {
+                                //  start playing the first song
+                                playerController.playSong(
+                                    path: playerController.songs[0].uri!,
+                                    index: 0);
+                              }
+                            },
+                            child: Ink(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColorDark,
+                                    borderRadius: BorderRadius.circular(50)),
+                                child: const Icon(
+                                  Icons.play_arrow,
+                                  color: accent,
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
 
-    /// Listen for songs playing
-    _playerController.isSongPlaying();
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    //  songs list
+                    Expanded(
+                      child: FutureBuilder<List<SongModel>>(
+                        future: playerController.getSongs(),
+                        builder: (context, snapshot) {
+                          if (snapshot.data == null) {
+                            return const Text(
+                              "No data found",
+                              style: TextStyle(color: Colors.white),
+                            );
+                          }
 
-    return Obx(
-      () => AnnotatedRegion(
-        value: SystemUiOverlayStyle(
-            systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
-            systemNavigationBarIconBrightness: _coreController.brightness.value == Brightness.dark
-                ? Brightness.light
-                : Brightness.dark),
-        child: Scaffold(
-          appBar: myAppBar(controller: _coreController),
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          body: HomeContent(
-            playerController: _playerController,
-            coreController: _coreController,
-          ),
+                          if (snapshot.data!.isEmpty) {
+                            return const Text("Empty data",
+                                style: TextStyle(color: Colors.white));
+                          }
+
+                          //  my songs
+                          var songs = snapshot.data!;
+
+                          playerController.initializeAZList(songs: songs);
+
+                          return SizedBox(
+                            width: double.infinity,
+                            height: double.infinity,
+                            child: AzListView(
+                              data: playerController.azSongs,
+                              physics: const BouncingScrollPhysics(),
+                              indexBarOptions: IndexBarOptions(
+                                  needRebuild: true,
+                                  selectTextStyle:
+                                      Theme.of(context).textTheme.bodyMedium,
+                                  selectItemDecoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color:
+                                          Theme.of(context).primaryColorDark),
+                                  indexHintAlignment: Alignment.centerRight,
+                                  indexHintOffset: Offset(-16, 0)),
+                              indexHintBuilder: (context, hint) => Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    shape: BoxShape.circle),
+                                child: Center(
+                                    child: Text(
+                                  hint,
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                )),
+                              ),
+                              indexBarMargin: const EdgeInsets.all(0),
+                              itemCount: songs.length,
+                              itemBuilder: (context, index) {
+                                var song = songs[index];
+                                //  song item
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 16.0,
+                                      top: 16,
+                                      bottom: 16,
+                                      right: 28),
+                                  child: SongCard(
+                                    song: song,
+                                    songIndex: index,
+                                    coreController: coreController,
+                                    playerController: playerController,
+                                    onSongTapped: () {
+                                      playerController.playSong(
+                                          path: song.uri!, index: index);
+                                      //  open player screen bottom sheet
+                                      showModalBottomSheet(
+                                        isDismissible: true,
+                                        enableDrag: true,
+                                        showDragHandle: true,
+                                        isScrollControlled: true,
+                                        backgroundColor: Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(24),
+                                                topRight: Radius.circular(24))),
+                                        context: context,
+                                        builder: (context) => StatefulBuilder(
+                                          builder: (context, modalSetState) =>
+                                              PlayerScreen(
+                                                  songs: songs,
+                                                  onNextSong: () {
+                                                    playerController.playSong(
+                                                        path: songs[playerController
+                                                                    .currentPlayingSongIndex
+                                                                    .value! +
+                                                                1]
+                                                            .uri!,
+                                                        index: playerController
+                                                                .currentPlayingSongIndex
+                                                                .value! +
+                                                            1);
+                                                  },
+                                                  onPreviousSong: () =>
+                                                      playerController.playSong(
+                                                          path: songs[playerController
+                                                                      .currentPlayingSongIndex
+                                                                      .value! -
+                                                                  1]
+                                                              .uri!,
+                                                          index: playerController
+                                                                  .currentPlayingSongIndex
+                                                                  .value! -
+                                                              1)),
+                                        ),
+                                      ).whenComplete(() {
+                                        //  continue playing song
+                                      });
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                )
+              : const Center(child: Text("Permission not granted")),
         ),
-      ),
-    );
+
+        //  Floating bottom bar
+        Align(
+          alignment: AlignmentDirectional.bottomCenter,
+          child: HomeBottomBar(),
+        )
+      ],
+    ));
   }
 }
