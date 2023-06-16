@@ -27,7 +27,7 @@ class PlayerScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Wrap(
         alignment: WrapAlignment.center,
-        runSpacing: 16,
+        runSpacing: 20,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           Obx(
@@ -45,10 +45,18 @@ class PlayerScreen extends StatelessWidget {
                     artworkBorder: BorderRadius.circular(300),
                     artworkFit: BoxFit.cover,
                     artworkQuality: FilterQuality.high,
-                    nullArtworkWidget: Icon(
-                      Icons.music_note_outlined,
-                      size: 120,
-                      color: Theme.of(context).iconTheme.color,
+                    nullArtworkWidget: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColorDark,
+                        borderRadius: BorderRadius.circular(300)
+                      ),
+                      child: Icon(
+                        Icons.music_note_outlined,
+                        size: 120,
+                        color: Theme.of(context).iconTheme.color,
+                      ),
                     ),
                     quality: 100,
                   )),

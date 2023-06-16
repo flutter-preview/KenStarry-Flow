@@ -25,11 +25,8 @@ class SongCardStandard extends StatelessWidget {
     return InkWell(
       onTap: onSongTapped,
       child: Container(
-        padding: const EdgeInsets.only(
-          top: 16,
-          bottom: 16,
-          right: 16,
-        ),
+        padding:
+            const EdgeInsets.only(top: 16, bottom: 16, right: 16, left: 16),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             color: Theme.of(context).scaffoldBackgroundColor),
@@ -48,7 +45,14 @@ class SongCardStandard extends StatelessWidget {
                 artworkWidth: double.infinity,
                 artworkHeight: double.infinity,
                 artworkBorder: BorderRadius.circular(8),
-                nullArtworkWidget: const Icon(Icons.music_note, color: accent),
+                nullArtworkWidget: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Theme.of(context).primaryColorDark),
+                  child: const Icon(Icons.music_note, color: accent),
+                ),
               ),
             ),
 
