@@ -1,5 +1,7 @@
 import 'package:azlistview/azlistview.dart';
+import 'package:flow/core/presentation/components/show_player_bottom_sheet.dart';
 import 'package:flow/core/presentation/controller/core_controller.dart';
+import 'package:flow/features/feature_home/domain/model/player_states.dart';
 import 'package:flow/features/feature_home/presentation/components/bottom_bar/home_bottom_bar.dart';
 import 'package:flow/features/feature_home/presentation/components/song_card.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
@@ -140,52 +142,23 @@ class HomeScreen extends StatelessWidget {
                                     coreController: coreController,
                                     playerController: playerController,
                                     onSongTapped: () {
-                                      playerController.playSong(
-                                          path: song.uri!, index: index);
-                                      //  open player screen bottom sheet
-                                      showModalBottomSheet(
-                                        isDismissible: true,
-                                        enableDrag: true,
-                                        showDragHandle: true,
-                                        isScrollControlled: true,
-                                        backgroundColor: Theme.of(context)
-                                            .scaffoldBackgroundColor,
-                                        shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(24),
-                                                topRight: Radius.circular(24))),
-                                        context: context,
-                                        builder: (context) => StatefulBuilder(
-                                          builder: (context, modalSetState) =>
-                                              PlayerScreen(
-                                                  songs: songs,
-                                                  onNextSong: () {
-                                                    playerController.playSong(
-                                                        path: songs[playerController
-                                                                    .currentPlayingSongIndex
-                                                                    .value! +
-                                                                1]
-                                                            .uri!,
-                                                        index: playerController
-                                                                .currentPlayingSongIndex
-                                                                .value! +
-                                                            1);
-                                                  },
-                                                  onPreviousSong: () =>
-                                                      playerController.playSong(
-                                                          path: songs[playerController
-                                                                      .currentPlayingSongIndex
-                                                                      .value! -
-                                                                  1]
-                                                              .uri!,
-                                                          index: playerController
-                                                                  .currentPlayingSongIndex
-                                                                  .value! -
-                                                              1)),
-                                        ),
-                                      ).whenComplete(() {
-                                        //  continue playing song
-                                      });
+                                      if (playerController.playerState.value ==
+                                              PlayerStates.playing &&
+                                          playerController
+                                                  .currentPlayingSongIndex
+                                                  .value ==
+                                              index) {
+                                        //  open player screen bottom sheet
+                                        showPlayerBottomSheet(
+                                            playerController: playerController);
+                                      } else {
+                                        playerController.playSong(
+                                            path: song.uri!, index: index);
+
+                                        //  open player screen bottom sheet
+                                        showPlayerBottomSheet(
+                                            playerController: playerController);
+                                      }
                                     },
                                   ),
                                 );

@@ -1,3 +1,4 @@
+import 'package:flow/core/presentation/components/show_player_bottom_sheet.dart';
 import 'package:flow/features/feature_home/domain/model/player_states.dart';
 import 'package:flow/features/feature_home/presentation/components/bottom_bar/bottom_bar_item.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
@@ -46,137 +47,160 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
             children: [
               //  Bottom Nav Currently playing music
               _playerController.songs.isNotEmpty
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //  Track name
-                        Row(
-                          children: [
-                            //  track name
-                            Expanded(
-                              child: Text(
-                                _playerController
-                                    .songs[_playerController
-                                        .currentPlayingSongIndex.value!]
-                                    .displayNameWOExt,
-                                style: Theme.of(context).textTheme.bodySmall,
-                                overflow: TextOverflow.ellipsis,
+                  ? GestureDetector(
+                      onTap: () {
+                        showPlayerBottomSheet(playerController: _playerController);
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //  Track name
+                          Row(
+                            children: [
+                              //  track name
+                              Expanded(
+                                child: Text(
+                                  _playerController
+                                      .songs[_playerController
+                                          .currentPlayingSongIndex.value!]
+                                      .displayNameWOExt,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            ),
 
-                            //  play icon
-                            IconButton(
-                                onPressed: () {
-                                  //  play or pause music
-                                  if (_playerController.playerState.value ==
-                                      PlayerStates.playing) {
-                                    _playerController.pauseSong();
-                                  } else {
-                                    var player = locator.get<AudioPlayer>();
-                                    player.play();
-                                  }
-                                },
-                                enableFeedback: false,
-                                icon: Icon(
+                              //  play icon
+                              IconButton(
+                                  onPressed: () {
+                                    //  play or pause music
+                                    if (_playerController.playerState.value ==
+                                        PlayerStates.playing) {
+                                      _playerController.pauseSong();
+                                    } else {
+                                      var player = locator.get<AudioPlayer>();
+                                      player.play();
+                                    }
+                                  },
+                                  enableFeedback: false,
+                                  icon: Icon(
                                     _playerController.playerState.value ==
                                             PlayerStates.playing
                                         ? Icons.pause
                                         : Icons.play_arrow_rounded,
-                                size: 24,
-                                color: Theme.of(context).iconTheme.color,))
-                          ],
-                        ),
+                                    size: 24,
+                                    color: Theme.of(context).primaryColor,
+                                  ))
+                            ],
+                          ),
 
-                        //  elapsed time
-                        Row(
-                          children: [
-                            //  slider and elapsed time
-                            Expanded(
-                              flex: 2,
-                              child: Row(
-                                children: [
-                                  Text(
-                                    _playerController.position.value.toString(),
-                                    style: Theme.of(context).textTheme.bodySmall,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  //  slider
-                                  Expanded(
-                                    child: SliderTheme(
-                                      data: SliderTheme.of(context).copyWith(
-                                          trackHeight: 5,
-                                          thumbColor: Colors.transparent,
-                                          thumbShape: SliderComponentShape.noThumb),
-                                      child: Slider(
-                                        value: _playerController.sliderValue.value,
-                                        min: const Duration(seconds: 0)
-                                            .inSeconds
-                                            .toDouble(),
-                                        max: _playerController.maxSlider.value,
-                                        onChanged: (newValue) {
-                                          _playerController.seekSong(
-                                              seconds: newValue.toInt());
-                                          newValue = newValue;
-
-                                          if (_playerController.sliderValue.value ==
-                                              _playerController.maxSlider.value) {
-                                            //  go to next song
-                                            _playerController.playSong(
-                                                path: _playerController
-                                                    .songs[_playerController
-                                                            .currentPlayingSongIndex
-                                                            .value! +
-                                                        1]
-                                                    .uri!,
-                                                index: _playerController
-                                                        .currentPlayingSongIndex
-                                                        .value! +
-                                                    1);
-                                          }
-                                        },
-                                        thumbColor: Theme.of(context).primaryColor,
-                                        activeColor: Theme.of(context).primaryColor,
-                                        inactiveColor:
-                                            Theme.of(context).primaryColorDark,
-                                      ),
+                          //  elapsed time
+                          Row(
+                            children: [
+                              //  slider and elapsed time
+                              Expanded(
+                                flex: 2,
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      _playerController.position.value
+                                          .toString(),
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
+                                    //  slider
+                                    Expanded(
+                                      child: SliderTheme(
+                                        data: SliderTheme.of(context).copyWith(
+                                            trackHeight: 5,
+                                            thumbColor: Colors.transparent,
+                                            thumbShape:
+                                                SliderComponentShape.noThumb),
+                                        child: Slider(
+                                          value: _playerController
+                                              .sliderValue.value,
+                                          min: const Duration(seconds: 0)
+                                              .inSeconds
+                                              .toDouble(),
+                                          max:
+                                              _playerController.maxSlider.value,
+                                          onChanged: (newValue) {
+                                            _playerController.seekSong(
+                                                seconds: newValue.toInt());
+                                            newValue = newValue;
 
-                            //  next and previous icons
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  IconButton(onPressed: () => _playerController.playSong(
-                                      path: _playerController.songs[_playerController
-                                          .currentPlayingSongIndex
-                                          .value! -
-                                          1]
-                                          .uri!,
-                                      index: _playerController
-                                          .currentPlayingSongIndex
-                                          .value! -
-                                          1), icon: const Icon(Icons.skip_previous_rounded)),
-                                  IconButton(onPressed: (){
-                                    _playerController.playSong(
-                                        path: _playerController.songs[_playerController
-                                            .currentPlayingSongIndex
-                                            .value! +
-                                            1]
-                                            .uri!,
-                                        index: _playerController
-                                            .currentPlayingSongIndex
-                                            .value! +
-                                            1);
-                                  }, icon: const Icon(Icons.skip_next_rounded)),
-                                ],
+                                            if (_playerController
+                                                    .sliderValue.value ==
+                                                _playerController
+                                                    .maxSlider.value) {
+                                              //  go to next song
+                                              _playerController.playSong(
+                                                  path: _playerController
+                                                      .songs[_playerController
+                                                              .currentPlayingSongIndex
+                                                              .value! +
+                                                          1]
+                                                      .uri!,
+                                                  index: _playerController
+                                                          .currentPlayingSongIndex
+                                                          .value! +
+                                                      1);
+                                            }
+                                          },
+                                          thumbColor:
+                                              Theme.of(context).primaryColor,
+                                          activeColor:
+                                              Theme.of(context).primaryColor,
+                                          inactiveColor: Theme.of(context)
+                                              .primaryColorDark,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                            )
-                          ],
-                        ),
-                      ],
+
+                              //  next and previous icons
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    IconButton(
+                                        onPressed: () => _playerController.playSong(
+                                            path: _playerController
+                                                .songs[_playerController
+                                                        .currentPlayingSongIndex
+                                                        .value! -
+                                                    1]
+                                                .uri!,
+                                            index: _playerController
+                                                    .currentPlayingSongIndex
+                                                    .value! -
+                                                1),
+                                        icon: const Icon(
+                                            Icons.skip_previous_rounded)),
+                                    IconButton(
+                                        onPressed: () {
+                                          _playerController.playSong(
+                                              path: _playerController
+                                                  .songs[_playerController
+                                                          .currentPlayingSongIndex
+                                                          .value! +
+                                                      1]
+                                                  .uri!,
+                                              index: _playerController
+                                                      .currentPlayingSongIndex
+                                                      .value! +
+                                                  1);
+                                        },
+                                        icon: const Icon(
+                                            Icons.skip_next_rounded)),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     )
                   : const SizedBox.shrink(),
 
