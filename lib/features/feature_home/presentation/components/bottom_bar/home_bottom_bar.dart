@@ -3,6 +3,9 @@ import 'package:flow/features/feature_home/presentation/components/bottom_bar/bo
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
+
+import '../../../../../di/locator.dart';
 
 class HomeBottomBar extends StatefulWidget {
   const HomeBottomBar({super.key});
@@ -63,7 +66,16 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
 
                             //  play icon
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  //  play or pause music
+                                  if (_playerController.playerState.value ==
+                                      PlayerStates.playing) {
+                                    _playerController.pauseSong();
+                                  } else {
+                                    var player = locator.get<AudioPlayer>();
+                                    player.play();
+                                  }
+                                },
                                 enableFeedback: false,
                                 icon: Icon(
                                     _playerController.playerState.value ==
@@ -74,6 +86,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
                                 color: Theme.of(context).iconTheme.color,))
                           ],
                         ),
+
                         //  elapsed time
                         Row(
                           children: [
@@ -136,8 +149,28 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
                             Expanded(
                               child: Row(
                                 children: [
-                                  IconButton(onPressed: (){}, icon: const Icon(Icons.skip_previous_rounded)),
-                                  IconButton(onPressed: (){}, icon: const Icon(Icons.skip_next_rounded)),
+                                  IconButton(onPressed: () => _playerController.playSong(
+                                      path: _playerController.songs[_playerController
+                                          .currentPlayingSongIndex
+                                          .value! -
+                                          1]
+                                          .uri!,
+                                      index: _playerController
+                                          .currentPlayingSongIndex
+                                          .value! -
+                                          1), icon: const Icon(Icons.skip_previous_rounded)),
+                                  IconButton(onPressed: (){
+                                    _playerController.playSong(
+                                        path: _playerController.songs[_playerController
+                                            .currentPlayingSongIndex
+                                            .value! +
+                                            1]
+                                            .uri!,
+                                        index: _playerController
+                                            .currentPlayingSongIndex
+                                            .value! +
+                                            1);
+                                  }, icon: const Icon(Icons.skip_next_rounded)),
                                 ],
                               ),
                             )
@@ -146,6 +179,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
                       ],
                     )
                   : const SizedBox.shrink(),
+
               //  Bottom nav icons
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
