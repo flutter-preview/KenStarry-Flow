@@ -123,7 +123,10 @@ class HomeContent extends StatelessWidget {
                             //  song item
                             return Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                                  const EdgeInsets.only(left: 16.0,
+                                  top: 16,
+                                  bottom: 16,
+                                  right: 28),
                               child: SongCard(
                                 song: song,
                                 songIndex: index,

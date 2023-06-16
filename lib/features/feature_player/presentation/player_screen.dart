@@ -27,7 +27,7 @@ class PlayerScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Wrap(
         alignment: WrapAlignment.center,
-        runSpacing: 22,
+        runSpacing: 16,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           Obx(
