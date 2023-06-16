@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
       home: const HomeScreen(),
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkTheme,
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
     );
   }
