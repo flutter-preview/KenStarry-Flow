@@ -1,6 +1,7 @@
 import 'package:flow/core/presentation/components/show_player_bottom_sheet.dart';
 import 'package:flow/features/feature_home/domain/model/player_states.dart';
 import 'package:flow/features/feature_home/presentation/components/bottom_bar/bottom_bar_item.dart';
+import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,11 +18,13 @@ class HomeBottomBar extends StatefulWidget {
 
 class _HomeBottomBarState extends State<HomeBottomBar> {
   late final PlayerController _playerController;
+  late final HomeController _homeController;
 
   @override
   void initState() {
     super.initState();
     _playerController = Get.find();
+    _homeController = Get.find();
   }
 
   @override
@@ -49,7 +52,8 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
               _playerController.songs.isNotEmpty
                   ? GestureDetector(
                       onTap: () {
-                        showPlayerBottomSheet(playerController: _playerController);
+                        showPlayerBottomSheet(
+                            playerController: _playerController);
                       },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -205,17 +209,41 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
                   : const SizedBox.shrink(),
 
               //  Bottom nav icons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  //  home icon
-                  bottomBarItem(title: "Home", icon: Icons.home),
-                  bottomBarItem(
-                      title: "Playlist", icon: Icons.playlist_play_rounded),
-                  bottomBarItem(
-                      title: "Genres", icon: Icons.music_note_outlined),
-                  bottomBarItem(title: "Settings", icon: Icons.settings),
-                ],
+              Obx(
+                () => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    //  home icon
+                    bottomBarItem(
+                        title: "Home",
+                        icon: Icons.home,
+                        isSelected: _homeController.currentTabIndex.value == 0,
+                        onTap: () {
+                          _homeController.setBottomNavTabIndex(index: 0);
+                        }),
+                    bottomBarItem(
+                        title: "Playlist",
+                        icon: Icons.playlist_play_rounded,
+                        isSelected: _homeController.currentTabIndex.value == 1,
+                        onTap: () {
+                          _homeController.setBottomNavTabIndex(index: 1);
+                        }),
+                    bottomBarItem(
+                        title: "Genres",
+                        icon: Icons.music_note_outlined,
+                        isSelected: _homeController.currentTabIndex.value == 2,
+                        onTap: () {
+                          _homeController.setBottomNavTabIndex(index: 2);
+                        }),
+                    bottomBarItem(
+                        title: "Settings",
+                        icon: Icons.settings,
+                        isSelected: _homeController.currentTabIndex.value == 3,
+                        onTap: () {
+                          _homeController.setBottomNavTabIndex(index: 3);
+                        }),
+                  ],
+                ),
               )
             ],
           ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// General Colors
 const accent = Color(0xFF00b4d8);
-const accentLight = Color(0xfff4faff);
+const accentLight = Color(0xfff1f9ff);
 
 /// Light Mode Colors
 const bgColorLightMode = Color(0xFFFFFFFF);
