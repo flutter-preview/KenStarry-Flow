@@ -11,7 +11,7 @@ class PlayerController extends GetxController {
   final homeUseCases = locator.get<HomeUseCases>();
 
   final isPermissionGranted = false.obs;
-  final songs = List<SongModel>.empty(growable: true).obs;
+  final RxList<SongModel> songs = <SongModel>[].obs;
   List<ISuspensionBean> azSongs = List<ISuspensionBean>.empty(growable: true).obs;
   final totalSongs = 0.obs;
 
@@ -24,6 +24,8 @@ class PlayerController extends GetxController {
   // Index of the currently playing song
   final Rx<int?> currentPlayingSongIndex = 0.obs;
   final playerState = PlayerStates.stopped.obs;
+
+  void initializeSongs({required List<SongModel> songs}) => this.songs.value = songs;
 
   void initializeAZList({required List<SongModel> songs}) {
     azSongs = songs.map((s) => AZItem(

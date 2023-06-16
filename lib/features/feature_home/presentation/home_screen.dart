@@ -92,7 +92,7 @@ class HomeScreen extends StatelessWidget {
 
                           //  my songs
                           var songs = snapshot.data!;
-
+                          playerController.initializeSongs(songs: songs);
                           playerController.initializeAZList(songs: songs);
 
                           return SizedBox(
