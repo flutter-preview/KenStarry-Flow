@@ -1,6 +1,6 @@
 import 'package:azlistview/azlistview.dart';
 import 'package:flow/core/presentation/controller/core_controller.dart';
-import 'package:flow/features/feature_home/presentation/components/home_bottom_bar.dart';
+import 'package:flow/features/feature_home/presentation/components/bottom_bar/home_bottom_bar.dart';
 import 'package:flow/features/feature_home/presentation/components/song_card.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
 import 'package:flow/features/feature_player/presentation/player_screen.dart';
