@@ -83,7 +83,8 @@ class PlayerScreen extends StatelessWidget {
           Obx(
             () => UnconstrainedBox(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColorDark,
                   borderRadius: BorderRadius.circular(16),
@@ -255,8 +256,37 @@ class PlayerScreen extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(
-            height: 24,
+          //  quick actions
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //  playlist icon
+              IconButton(
+                  onPressed: () {},
+                  color: Theme.of(context).primaryColorDark,
+                  icon: Icon(
+                    Icons.playlist_add,
+                    color: Theme.of(context).primaryColor,
+                  )),
+
+              //  favourites
+              IconButton(
+                  onPressed: () {},
+                  color: Theme.of(context).primaryColorDark,
+                  icon: Icon(
+                    Icons.favorite_outline_rounded,
+                    color: Theme.of(context).primaryColor,
+                  )),
+
+              //  playback
+              IconButton(
+                  onPressed: () {},
+                  color: Theme.of(context).primaryColorDark,
+                  icon: Icon(
+                    Icons.one_x_mobiledata_rounded,
+                    color: Theme.of(context).primaryColor,
+                  )),
+            ],
           )
         ],
       ),
