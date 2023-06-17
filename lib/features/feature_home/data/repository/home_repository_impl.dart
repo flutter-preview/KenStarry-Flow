@@ -1,3 +1,4 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flow/features/feature_home/domain/model/player_states.dart';
 import 'package:flow/features/feature_home/domain/repository/home_repository.dart';
 import 'package:just_audio/just_audio.dart';
@@ -10,6 +11,7 @@ import '../../../../di/locator.dart';
 class HomeRepositoryImpl implements HomeRepository {
   final audioQuery = locator.get<OnAudioQuery>();
   final audioPlayer = locator.get<AudioPlayer>();
+  final audioHandler = locator.get<AudioHandler>();
 
   @override
   Future<bool> checkPermission() async {
@@ -34,11 +36,12 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<void> playSong({required String path}) async {
+  Future<void> playSong({required List<MediaItem> mediaItems, required int index}) async {
     try {
       //  play song
-      await audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(path)));
-      await audioPlayer.play();
+      // await audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(path)));
+      // await audioPlayer.play();
+      await audioHandler.playMediaItem(mediaItems[index]);
     } on Exception catch (error) {
       throw Exception(error);
     }
@@ -47,7 +50,7 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<void> pauseSong() async {
     try {
-      await audioPlayer.pause();
+      await audioHandler.pause();
     } on Exception catch (error) {
       throw Exception(error);
     }

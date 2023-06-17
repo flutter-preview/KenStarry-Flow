@@ -9,6 +9,6 @@ import 'package:on_audio_query/on_audio_query.dart';
 var locator = GetIt.instance;
 
 Future<void> invokeDI() async {
-  playerDI(locator: locator);
+  await playerDI(locator: locator);
   await coreDI(locator: locator);
 }

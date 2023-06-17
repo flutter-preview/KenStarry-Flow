@@ -7,7 +7,6 @@ import '../../../features/feature_home/domain/use_case/home_use_cases.dart';
 
 class MyAudioHandler extends BaseAudioHandler {
   final _player = locator.get<AudioPlayer>();
-  final homeUseCases = locator.get<HomeUseCases>();
 
   List<MediaItem> songsMediaItems = [];
   final _playlist = ConcatenatingAudioSource(children: []);

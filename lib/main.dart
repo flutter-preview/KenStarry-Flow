@@ -5,8 +5,9 @@ import 'package:flow/theme/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() async {
+Future<void> main() async {
 
+  WidgetsFlutterBinding.ensureInitialized();
   await invokeDI();
 
   runApp(const MyApp());

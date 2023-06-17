@@ -1,3 +1,4 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flow/features/feature_home/domain/use_case/check_permission_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/get_songs_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/home_use_cases.dart';
@@ -11,21 +12,33 @@ import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
+import '../core/data/source/my_audio_handler.dart';
 import '../features/feature_home/data/repository/home_repository_impl.dart';
 import '../features/feature_home/domain/repository/home_repository.dart';
 
-void playerDI({required GetIt locator}) {
+/// ORDER MATTERS!!
+Future<void> playerDI({required GetIt locator}) async {
+
   /// Initialize Audio Player
-  locator.registerLazySingleton<AudioPlayer>(() => AudioPlayer());
+  locator.registerSingleton<AudioPlayer>(AudioPlayer());
 
   /// Initialize Audio Query
-  locator.registerLazySingleton<OnAudioQuery>(() => OnAudioQuery());
+  locator.registerSingleton<OnAudioQuery>(OnAudioQuery());
+
+  /// Registering our audio handler
+  locator.registerSingleton<AudioHandler>(await AudioService.init(
+      builder: () => MyAudioHandler(),
+      config: const AudioServiceConfig(
+          androidNotificationChannelId: 'com.kenstarry.flow.audio',
+          androidNotificationChannelName: 'Flow Audio Service',
+          androidNotificationOngoing: true,
+          androidStopForegroundOnPause: true)));
 
   /// Provide Home Repository
-  locator.registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl());
+  locator.registerSingleton<HomeRepository>(HomeRepositoryImpl());
 
   /// Provide Home Use Cases
-  locator.registerLazySingleton<HomeUseCases>(() => HomeUseCases(
+  locator.registerSingleton<HomeUseCases>(HomeUseCases(
       checkPermissionUseCase: CheckPermissionUseCase(),
       getSongsUseCase: GetSongsUseCase(),
       playSongUseCase: PlaySongUseCase(),

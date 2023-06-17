@@ -1,3 +1,4 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 import '../model/player_states.dart';
@@ -10,7 +11,7 @@ abstract class HomeRepository {
   Future<List<SongModel>> getAllSongs();
 
   /// Play Song
-  Future<void> playSong({required String path});
+  Future<void> playSong({required List<MediaItem> mediaItems, required int index});
 
   /// Pause Song
   Future<void> pauseSong();

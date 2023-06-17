@@ -72,8 +72,8 @@ class PlayerController extends GetxController {
     currentPlayingSongIndex.value = index;
     observeSongDuration();
     observeSongPosition();
-    // await homeUseCases.playSongUseCase.invoke(path: path);
-    await _audioHandler.playMediaItem(mediaItems[index]);
+    await homeUseCases.playSongUseCase
+        .invoke(mediaItems: mediaItems, index: index);
   }
 
   /// Pause Song
