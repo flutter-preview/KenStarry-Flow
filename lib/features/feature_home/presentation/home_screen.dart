@@ -4,6 +4,7 @@ import 'package:flow/core/presentation/controller/core_controller.dart';
 import 'package:flow/features/feature_home/domain/model/player_states.dart';
 import 'package:flow/features/feature_home/presentation/components/bottom_bar/home_bottom_bar.dart';
 import 'package:flow/features/feature_home/presentation/components/song_card.dart';
+import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
 import 'package:flow/features/feature_player/presentation/player_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +16,13 @@ import '../../../theme/colors.dart';
 class HomeScreen extends StatelessWidget {
   final PlayerController playerController;
   final CoreController coreController;
+  final HomeController homeController;
 
   const HomeScreen(
       {super.key,
       required this.playerController,
-      required this.coreController});
+      required this.coreController,
+      required this.homeController});
 
   @override
   Widget build(BuildContext context) {
@@ -141,14 +144,16 @@ class HomeScreen extends StatelessWidget {
                                             index) {
                                       //  open player screen bottom sheet
                                       showPlayerBottomSheet(
-                                          playerController: playerController);
+                                          playerController: playerController,
+                                      homeController: homeController);
                                     } else {
                                       playerController.playSong(
                                           path: song.uri!, index: index);
 
                                       //  open player screen bottom sheet
                                       showPlayerBottomSheet(
-                                          playerController: playerController);
+                                          playerController: playerController,
+                                      homeController: homeController);
                                     }
                                   },
                                 ),

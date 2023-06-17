@@ -1,4 +1,4 @@
-import 'package:flow/features/feature_genres/presentation/genres_screen.dart';
+import 'package:flow/features/feature_genres/presentation/artists_screen.dart';
 import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:flow/features/feature_playlist/presentation/playlist_screen.dart';
 import 'package:flow/features/feature_settings/presentation/settings_screen.dart';
@@ -38,9 +38,10 @@ class _MainScreenState extends State<MainScreen> {
     _homeController = Get.find<HomeController>();
 
     _screens = [
-      HomeScreen(playerController: _playerController, coreController: _coreController),
+      HomeScreen(playerController: _playerController, coreController: _coreController,
+      homeController: _homeController,),
       const PlaylistScreen(),
-      const GenresScreen(),
+      const ArtistsScreen(),
       const SettingsScreen()
     ];
     _playerController.isSongPlaying();

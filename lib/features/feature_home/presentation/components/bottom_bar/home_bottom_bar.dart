@@ -48,7 +48,8 @@ class _HomeBottomBarState extends State<HomeBottomBar>
                   ? GestureDetector(
                       onTap: () {
                         showPlayerBottomSheet(
-                            playerController: _playerController);
+                            playerController: _playerController,
+                            homeController: _homeController);
                       },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,9 +66,11 @@ class _HomeBottomBarState extends State<HomeBottomBar>
                                         .songs[_playerController
                                             .currentPlayingSongIndex.value!]
                                         .displayNameWOExt,
-                                    style: Theme.of(context).textTheme.bodySmall,
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
                                     pauseAfterRound: const Duration(seconds: 1),
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                   ),
                                 ),
                               ),
@@ -274,7 +277,7 @@ class _HomeBottomBarState extends State<HomeBottomBar>
                           _homeController.setBottomNavTabIndex(index: 1);
                         }),
                     bottomBarItem(
-                        title: "Genres",
+                        title: "Artists",
                         icon: Icons.music_note_outlined,
                         isSelected: _homeController.currentTabIndex.value == 2,
                         onTap: () {

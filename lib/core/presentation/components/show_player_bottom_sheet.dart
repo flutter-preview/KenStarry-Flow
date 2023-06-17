@@ -1,10 +1,11 @@
+import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../features/feature_player/presentation/player_screen.dart';
 
-void showPlayerBottomSheet({required PlayerController playerController}) =>
+void showPlayerBottomSheet({required PlayerController playerController, required HomeController homeController}) =>
     showModalBottomSheet(
       isDismissible: true,
       enableDrag: true,
@@ -20,28 +21,19 @@ void showPlayerBottomSheet({required PlayerController playerController}) =>
             songs: playerController.songs,
             onNextSong: () {
               playerController.playSong(
-                  path: playerController.songs[playerController
-                      .currentPlayingSongIndex
-                      .value! +
-                      1]
+                  path: playerController
+                      .songs[
+                          playerController.currentPlayingSongIndex.value! + 1]
                       .uri!,
-                  index: playerController
-                      .currentPlayingSongIndex
-                      .value! +
-                      1);
+                  index: playerController.currentPlayingSongIndex.value! + 1);
             },
-            onPreviousSong: () =>
-                playerController.playSong(
-                    path: playerController.songs[playerController
-                        .currentPlayingSongIndex
-                        .value! -
-                        1]
-                        .uri!,
-                    index: playerController
-                        .currentPlayingSongIndex
-                        .value! -
-                        1)),
-  ),
-).whenComplete(() {
-  //  continue playing song
-});
+            onPreviousSong: () => playerController.playSong(
+                path: playerController
+                    .songs[playerController.currentPlayingSongIndex.value! - 1]
+                    .uri!,
+                index: playerController.currentPlayingSongIndex.value! - 1)),
+      ),
+    ).whenComplete(() {
+      //  open home screen
+      homeController.setBottomNavTabIndex(index: 0);
+    });
