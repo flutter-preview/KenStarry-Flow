@@ -38,9 +38,6 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<void> playSong({required List<MediaItem> mediaItems, required int index}) async {
     try {
-      //  play song
-      // await audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(path)));
-      // await audioPlayer.play();
       await audioHandler.playMediaItem(mediaItems[index]);
     } on Exception catch (error) {
       throw Exception(error);
@@ -59,13 +56,13 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   void seekSong({required int seconds}) {
     var duration = Duration(seconds: seconds);
-    audioPlayer.seek(duration);
+    audioHandler.seek(duration);
   }
 
   @override
   void isSongPlaying({required void Function(PlayerStates) onStateChanged}) {
     try {
-      audioPlayer.playerStateStream.listen((state) {
+      audioHandler.playbackState.listen((state) {
         if (state.playing) {
           onStateChanged(PlayerStates.playing);
         } else {
