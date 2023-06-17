@@ -17,18 +17,16 @@ class MyAudioHandler extends BaseAudioHandler {
     _player.playbackEventStream.map(_transformEvent).pipe(playbackState);
   }
 
-
   @override
   Future<void> playMediaItem(MediaItem mediaItem) async {
     this.mediaItem.add(mediaItem);
     _player.setAudioSource(_createAudioSource(mediaItem));
+    _player.play();
   }
 
   /// Play
   @override
-  Future<void> play() async {
-    await _player.play();
-  }
+  Future<void> play() async => await _player.play();
 
   /// Pause
   @override
@@ -37,6 +35,14 @@ class MyAudioHandler extends BaseAudioHandler {
   /// Seek
   @override
   Future<void> seek(Duration position) async => await _player.seek(position);
+
+  /// Next
+  @override
+  Future<void> skipToNext() async => await _player.seekToNext();
+
+  /// Previous
+  @override
+  Future<void> skipToPrevious() async => await _player.seekToPrevious();
 
   /// Queue Playback
   @override
