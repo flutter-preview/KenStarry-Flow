@@ -4,5 +4,5 @@ import 'package:flow/features/feature_home/domain/repository/home_repository.dar
 class PlayPrevSongUseCase {
   final repo = locator.get<HomeRepository>();
 
-  Future<void> invoke() async => await repo.playPrevSong();
+  Future<void> invoke({required int index}) async => await repo.playPrevSong(index: index);
 }

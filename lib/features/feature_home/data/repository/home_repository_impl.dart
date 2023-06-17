@@ -38,7 +38,7 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<void> playSong({required List<MediaItem> mediaItems, required int index}) async {
     try {
-      await audioHandler.playMediaItem(mediaItems[index]);
+      await audioHandler.skipToQueueItem(index);
     } on Exception catch (error) {
       throw Exception(error);
     }
@@ -54,7 +54,7 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<void> playNextSong() async {
+  Future<void> playNextSong({required int index}) async {
     try {
       await audioHandler.skipToNext();
     } on Exception catch (error) {
@@ -63,7 +63,7 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<void> playPrevSong() async {
+  Future<void> playPrevSong({required int index}) async {
     try {
       await audioHandler.skipToPrevious();
     } on Exception catch (error) {

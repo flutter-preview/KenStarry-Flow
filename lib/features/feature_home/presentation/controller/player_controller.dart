@@ -45,6 +45,8 @@ class PlayerController extends GetxController {
     });
   }
 
+  /// Listen to total duration from audio handler
+
   void initializeSongs({required List<SongModel> songs}) {
     this.songs.value = songs;
 
@@ -82,13 +84,19 @@ class PlayerController extends GetxController {
   }
 
   /// Next Song
-  Future<void> playNextSong() async {
-    await homeUseCases.playNextSongUseCase.invoke();
+  Future<void> playNextSong({required int index}) async {
+    currentPlayingSongIndex.value = index;
+    observeSongDuration();
+    observeSongPosition();
+    await homeUseCases.playNextSongUseCase.invoke(index: index);
   }
 
   /// Prev Song
-  Future<void> playPrevSong() async {
-    await homeUseCases.playPrevSongUseCase.invoke();
+  Future<void> playPrevSong({required int index}) async {
+    currentPlayingSongIndex.value = index;
+    observeSongDuration();
+    observeSongPosition();
+    await homeUseCases.playPrevSongUseCase.invoke(index: index);
   }
 
   /// Seek Song

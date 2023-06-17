@@ -12,8 +12,8 @@ class MyAudioHandler extends BaseAudioHandler {
   final _playlist = ConcatenatingAudioSource(children: []);
 
   MyAudioHandler() {
-    // _notifyAudioHandlerAboutPlaybackEvents();
     _player.playbackEventStream.map(_transformEvent).pipe(playbackState);
+    _listenForCurrentSongIndexChanges();
   }
 
   @override
@@ -46,7 +46,9 @@ class MyAudioHandler extends BaseAudioHandler {
 
   @override
   Future<void> skipToQueueItem(int index) async {
+    mediaItem.add(songsMediaItems[index]);
     await _player.setAudioSource(_playlist[index]);
+    _player.play();
   }
 
   /// Queue Playback
@@ -68,12 +70,20 @@ class MyAudioHandler extends BaseAudioHandler {
         tag: mediaItem);
   }
 
+  void _listenForCurrentSongIndexChanges() {
+    _player.currentIndexStream.listen((index) {
+      final playlist = queue.value;
+      if (index == null || playlist.isEmpty) return;
+      mediaItem.add(playlist[index]);
+    });
+  }
+
   PlaybackState _transformEvent(PlaybackEvent event) {
     return PlaybackState(
       controls: [
-        MediaControl.rewind,
+        MediaControl.skipToPrevious,
         _player.playing ? MediaControl.pause : MediaControl.play,
-        MediaControl.fastForward,
+        MediaControl.skipToNext,
       ],
       systemActions: const {
         MediaAction.seek,
