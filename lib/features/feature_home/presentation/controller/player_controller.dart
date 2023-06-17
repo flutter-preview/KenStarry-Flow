@@ -1,4 +1,6 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:azlistview/azlistview.dart';
+import 'package:flow/core/data/source/my_audio_handler.dart';
 import 'package:flow/features/feature_home/domain/model/az_item.dart';
 import 'package:flow/features/feature_home/domain/use_case/home_use_cases.dart';
 import 'package:get/get.dart';
@@ -9,11 +11,15 @@ import '../../domain/model/player_states.dart';
 
 class PlayerController extends GetxController {
   final homeUseCases = locator.get<HomeUseCases>();
+  final _audioHandler = locator.get<AudioHandler>();
 
   final isPermissionGranted = false.obs;
   final RxList<SongModel> songs = <SongModel>[].obs;
-  List<ISuspensionBean> azSongs = List<ISuspensionBean>.empty(growable: true).obs;
+  List<ISuspensionBean> azSongs =
+      List<ISuspensionBean>.empty(growable: true).obs;
   final totalSongs = 0.obs;
+
+  late List<MediaItem> mediaItems;
 
   // UI
   final duration = ''.obs;
@@ -25,11 +31,40 @@ class PlayerController extends GetxController {
   final Rx<int?> currentPlayingSongIndex = 0.obs;
   final playerState = PlayerStates.stopped.obs;
 
-  void initializeSongs({required List<SongModel> songs}) => this.songs.value = songs;
+  @override
+  void onInit() {
+    super.onInit();
+    _listenToChangesInPlaylist();
+  }
 
-  void initializeAZList({required List<SongModel> songs}) {
-    azSongs = songs.map((s) => AZItem(
-        title: s.displayNameWOExt, tag: s.displayNameWOExt[0].toUpperCase())).toList();
+  /// Listen To Playlist changed from audio handler
+  void _listenToChangesInPlaylist() {
+    _audioHandler.queue.listen((playlist) {
+      if (playlist.isEmpty) return;
+      // songs.value = playlist.map((item) => SongModel().id).toList();
+    });
+  }
+
+  void initializeSongs({required List<SongModel> songs}) {
+    this.songs.value = songs;
+
+    azSongs = songs
+        .map((s) => AZItem(
+            title: s.displayNameWOExt,
+            tag: s.displayNameWOExt[0].toUpperCase()))
+        .toList();
+
+    mediaItems = songs
+        .map((song) => MediaItem(
+            id: song.id.toString(),
+            title: song.title,
+            album: song.album,
+            duration: Duration(milliseconds: song.duration!),
+            extras: {'url': song.uri}))
+        .toList();
+
+    //  Add media to audio handler
+    _audioHandler.addQueueItems(mediaItems);
   }
 
   ///  Play Song
@@ -37,16 +72,19 @@ class PlayerController extends GetxController {
     currentPlayingSongIndex.value = index;
     observeSongDuration();
     observeSongPosition();
-    await homeUseCases.playSongUseCase.invoke(path: path);
+    // await homeUseCases.playSongUseCase.invoke(path: path);
+    await _audioHandler.playMediaItem(mediaItems[index]);
   }
 
   /// Pause Song
-  Future<void> pauseSong() async =>
-      await homeUseCases.pauseSongUseCase.invoke();
+  Future<void> pauseSong() async {
+    await homeUseCases.pauseSongUseCase.invoke();
+  }
 
   /// Seek Song
-  void seekSong({required int seconds}) =>
-      homeUseCases.seekSongUseCase.invoke(seconds: seconds);
+  void seekSong({required int seconds}) {
+    homeUseCases.seekSongUseCase.invoke(seconds: seconds);
+  }
 
   /// Get Songs
   Future<List<SongModel>> getSongs() async {

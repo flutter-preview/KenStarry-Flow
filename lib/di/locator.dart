@@ -1,3 +1,4 @@
+import 'package:flow/di/core_di.dart';
 import 'package:flow/di/player_di.dart';
 import 'package:flow/features/feature_home/data/repository/home_repository_impl.dart';
 import 'package:flow/features/feature_home/domain/repository/home_repository.dart';
@@ -7,6 +8,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 var locator = GetIt.instance;
 
-void invokeDI() {
+Future<void> invokeDI() async {
   playerDI(locator: locator);
+  await coreDI(locator: locator);
 }
