@@ -57,8 +57,8 @@ class PlayerController extends GetxController {
     mediaItems = songs
         .map((song) => MediaItem(
             id: song.id.toString(),
-            title: song.title,
-            album: song.album,
+            title: song.displayNameWOExt,
+            artist: song.artist,
             duration: Duration(milliseconds: song.duration!),
             extras: {'url': song.uri}))
         .toList();
