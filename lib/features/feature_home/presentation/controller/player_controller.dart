@@ -81,6 +81,16 @@ class PlayerController extends GetxController {
     await homeUseCases.pauseSongUseCase.invoke();
   }
 
+  /// Next Song
+  Future<void> playNextSong() async {
+    await homeUseCases.playNextSongUseCase.invoke();
+  }
+
+  /// Prev Song
+  Future<void> playPrevSong() async {
+    await homeUseCases.playPrevSongUseCase.invoke();
+  }
+
   /// Seek Song
   void seekSong({required int seconds}) {
     homeUseCases.seekSongUseCase.invoke(seconds: seconds);

@@ -43,6 +43,12 @@ class MyAudioHandler extends BaseAudioHandler {
   @override
   Future<void> skipToPrevious() async => await _player.seekToPrevious();
 
+
+  @override
+  Future<void> skipToQueueItem(int index) async {
+    await _player.setAudioSource(_playlist[index]);
+  }
+
   /// Queue Playback
   @override
   Future<void> addQueueItems(List<MediaItem> mediaItems) async {

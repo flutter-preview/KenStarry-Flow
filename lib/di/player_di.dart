@@ -6,6 +6,8 @@ import 'package:flow/features/feature_home/domain/use_case/is_song_playing_use_c
 import 'package:flow/features/feature_home/domain/use_case/observe_song_dur_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/observe_song_pos_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/pause_song_use_case.dart';
+import 'package:flow/features/feature_home/domain/use_case/play_next_song_use_case.dart';
+import 'package:flow/features/feature_home/domain/use_case/play_prev_song_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/play_song_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/seek_song_use_case.dart';
 import 'package:get_it/get_it.dart';
@@ -18,7 +20,6 @@ import '../features/feature_home/domain/repository/home_repository.dart';
 
 /// ORDER MATTERS!!
 Future<void> playerDI({required GetIt locator}) async {
-
   /// Initialize Audio Player
   locator.registerSingleton<AudioPlayer>(AudioPlayer());
 
@@ -46,5 +47,7 @@ Future<void> playerDI({required GetIt locator}) async {
       seekSongUseCase: SeekSongUseCase(),
       isSongPlayingUseCase: IsSongPlayingUseCase(),
       observeSongDurUseCase: ObserveSongDurUseCase(),
-      observeSongPosUseCase: ObserveSongPosUseCase()));
+      observeSongPosUseCase: ObserveSongPosUseCase(),
+      playNextSongUseCase: PlayNextSongUseCase(),
+      playPrevSongUseCase: PlayPrevSongUseCase()));
 }

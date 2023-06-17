@@ -16,6 +16,12 @@ abstract class HomeRepository {
   /// Pause Song
   Future<void> pauseSong();
 
+  /// Next Song
+  Future<void> playNextSong();
+
+  /// Prev Song
+  Future<void> playPrevSong();
+
   /// Seek song using slider
   void seekSong({required int seconds});
 

@@ -54,6 +54,24 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
+  Future<void> playNextSong() async {
+    try {
+      await audioHandler.skipToNext();
+    } on Exception catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  @override
+  Future<void> playPrevSong() async {
+    try {
+      await audioHandler.skipToPrevious();
+    } on Exception catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  @override
   void seekSong({required int seconds}) {
     var duration = Duration(seconds: seconds);
     audioHandler.seek(duration);

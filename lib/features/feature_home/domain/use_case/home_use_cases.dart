@@ -1,6 +1,8 @@
 import 'package:flow/features/feature_home/domain/use_case/check_permission_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/get_songs_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/pause_song_use_case.dart';
+import 'package:flow/features/feature_home/domain/use_case/play_next_song_use_case.dart';
+import 'package:flow/features/feature_home/domain/use_case/play_prev_song_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/play_song_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/seek_song_use_case.dart';
 
@@ -17,6 +19,8 @@ class HomeUseCases {
   final IsSongPlayingUseCase isSongPlayingUseCase;
   final ObserveSongDurUseCase observeSongDurUseCase;
   final ObserveSongPosUseCase observeSongPosUseCase;
+  final PlayNextSongUseCase playNextSongUseCase;
+  final PlayPrevSongUseCase playPrevSongUseCase;
 
   HomeUseCases(
       {required this.checkPermissionUseCase,
@@ -26,5 +30,7 @@ class HomeUseCases {
       required this.seekSongUseCase,
       required this.isSongPlayingUseCase,
       required this.observeSongDurUseCase,
-      required this.observeSongPosUseCase});
+      required this.observeSongPosUseCase,
+      required this.playNextSongUseCase,
+      required this.playPrevSongUseCase});
 }
