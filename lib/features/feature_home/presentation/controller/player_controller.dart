@@ -141,7 +141,6 @@ class PlayerController extends GetxController {
     if (isStorageGranted) {
       isPermissionGranted.value = true;
     } else {
-      checkPermission();
       isPermissionGranted.value = false;
     }
   }

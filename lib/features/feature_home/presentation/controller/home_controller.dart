@@ -12,27 +12,8 @@ class HomeController extends GetxController {
   /// Bottom bar collapsed state
   final isBottomBarCollapsed = false.obs;
 
-  /// Main Appbar
-  final Rx<PreferredSizeWidget?> mainAppBar = myAppBar().obs;
-
   void setBottomNavTabIndex({required int index}) {
     currentTabIndex.value = index;
-
-    //  change the app bar
-    switch (index) {
-      case 0:
-        mainAppBar.value = myAppBar();
-        break;
-      case 1:
-        mainAppBar.value = myAppBar();
-        break;
-      case 2:
-        mainAppBar.value = null;
-        break;
-      case 3:
-        mainAppBar.value = myAppBar();
-        break;
-    }
   }
 
   void setBottomBarCollapsedState({required bool isCollapsed}) => isBottomBarCollapsed.value = isCollapsed;

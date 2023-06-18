@@ -1,5 +1,6 @@
 import 'package:flow/features/feature_artists/presentation/components/artists_list.dart';
 import 'package:flow/features/feature_artists/presentation/controller/artists_controller.dart';
+import 'package:flow/features/feature_main/presentation/components/artists_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -32,45 +33,7 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
-          SliverAppBar(
-            systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: Theme.of(Get.context!).scaffoldBackgroundColor,
-                statusBarIconBrightness:
-                    controller.brightness.value == Brightness.dark
-                        ? Brightness.light
-                        : Brightness.dark),
-            actions: [
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.sort_rounded,
-                    color: Theme.of(Get.context!).iconTheme.color,
-                  )),
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.search,
-                    color: Theme.of(Get.context!).iconTheme.color,
-                  )),
-            ],
-            expandedHeight: 200,
-            floating: false,
-            pinned: true,
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                "Artists",
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              centerTitle: true,
-              collapseMode: CollapseMode.parallax,
-              background: Icon(
-                Icons.music_note_outlined,
-                size: 56,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-          ),
+          artistsAppBar(),
           //  list of artists
           FutureBuilder<List<ArtistModel>>(
               future: _artistsController.getArtists(),
