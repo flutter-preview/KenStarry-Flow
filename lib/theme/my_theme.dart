@@ -15,9 +15,9 @@ class MyTheme {
         bodyMedium: TextStyle(
             fontSize: 14, fontWeight: FontWeight.w500, color: textBlack500),
         bodyLarge: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w500, color: textBlack500),
+            fontSize: 16, fontWeight: FontWeight.w500, color: textBlack500),
         titleSmall: TextStyle(
-            fontSize: 22, fontWeight: FontWeight.w700, color: textBlack500),
+            fontSize: 18, fontWeight: FontWeight.w700, color: textBlack500),
         titleMedium: TextStyle(
             fontSize: 26, fontWeight: FontWeight.bold, color: textBlack900),
         titleLarge: TextStyle(
@@ -37,9 +37,9 @@ class MyTheme {
         bodyMedium: TextStyle(
             fontSize: 14, fontWeight: FontWeight.w500, color: textWhite500),
         bodyLarge: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w500, color: textWhite500),
+            fontSize: 16, fontWeight: FontWeight.w500, color: textWhite500),
         titleSmall: TextStyle(
-            fontSize: 22, fontWeight: FontWeight.w700, color: textWhite500),
+            fontSize: 18, fontWeight: FontWeight.w700, color: textWhite500),
         titleMedium: TextStyle(
             fontSize: 26, fontWeight: FontWeight.bold, color: textWhite900),
         titleLarge: TextStyle(

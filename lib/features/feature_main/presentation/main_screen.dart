@@ -38,8 +38,11 @@ class _MainScreenState extends State<MainScreen> {
     _homeController = Get.find<HomeController>();
 
     _screens = [
-      HomeScreen(playerController: _playerController, coreController: _coreController,
-      homeController: _homeController,),
+      HomeScreen(
+        playerController: _playerController,
+        coreController: _coreController,
+        homeController: _homeController,
+      ),
       const PlaylistScreen(),
       const ArtistsScreen(),
       const SettingsScreen()
@@ -54,35 +57,40 @@ class _MainScreenState extends State<MainScreen> {
 
     /// Listen for songs playing
     _playerController.isSongPlaying();
-
     return Obx(
-          () => AnnotatedRegion(
-        value: SystemUiOverlayStyle(
-            systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
-            systemNavigationBarIconBrightness: _coreController.brightness.value == Brightness.dark
-                ? Brightness.light
-                : Brightness.dark),
-        child: Scaffold(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          body: Obx(
-                () => Stack(
-                fit: StackFit.loose,
-                children: [
-                  IndexedStack(
-                    index: _homeController.currentTabIndex.value,
-                    children: _screens,
-                  ),
+      () => AnnotatedRegion(
+          value: SystemUiOverlayStyle(
+              systemNavigationBarColor:
+                  Theme.of(context).scaffoldBackgroundColor,
+              systemNavigationBarIconBrightness:
+                  _coreController.brightness.value == Brightness.dark
+                      ? Brightness.light
+                      : Brightness.dark),
+          child: Scaffold(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            body: Obx(
+              () => _playerController.isPermissionGranted.value
+                  ? Stack(fit: StackFit.loose, children: [
+                      IndexedStack(
+                        index: _homeController.currentTabIndex.value,
+                        children: _screens,
+                      ),
 
-                  //  Floating bottom bar
-                  const Align(
-                    alignment: AlignmentDirectional.bottomCenter,
-                    child: HomeBottomBar(),
-                  )
-                ]
+                      //  Floating bottom bar
+                      const Align(
+                        alignment: AlignmentDirectional.bottomCenter,
+                        child: HomeBottomBar(),
+                      )
+                    ])
+                  : Center(
+                      child: FilledButton(
+                      child: const Text("Permission not granted"),
+                      onPressed: () {
+                        _playerController.checkPermission();
+                      },
+                    )),
             ),
-          ),
-        )
-      ),
+          )),
     );
   }
 }

@@ -38,93 +38,90 @@ class _HomeScreenState extends State<HomeScreen> {
           myAppBar(),
           SliverToBoxAdapter(
             child: //  play all songs from the start
-                InkWell(
-              borderRadius: BorderRadius.circular(50),
-              onTap: () {
-                if (widget.playerController.songs.isNotEmpty) {
-                  //  start playing the first song
-                  widget.playerController.playSong(
-                      path: widget.playerController.songs[0].uri!, index: 0);
-                }
-              },
-              child: Ink(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorDark,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: const Icon(
-                    Icons.play_arrow,
-                    color: accent,
-                  )),
+                UnconstrainedBox(
+              child: InkWell(
+                borderRadius: BorderRadius.circular(50),
+                onTap: () {
+                  if (widget.playerController.songs.isNotEmpty) {
+                    //  start playing the first song
+                    widget.playerController.playSong(
+                        path: widget.playerController.songs[0].uri!, index: 0);
+                  }
+                },
+                child: Ink(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColorDark,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: const Icon(
+                      Icons.play_arrow,
+                      color: accent,
+                    )),
+              ),
             ),
           ),
-          Obx(
-            () => widget.playerController.isPermissionGranted.value
-                ? FutureBuilder<List<SongModel>>(
-                    future: widget.playerController.getSongs(),
-                    builder: (context, snapshot) {
-                      if (snapshot.data == null) {
-                        return const SliverToBoxAdapter(
-                          child: Text(
-                            "No data found",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        );
-                      }
+          FutureBuilder<List<SongModel>>(
+            future: widget.playerController.getSongs(),
+            builder: (context, snapshot) {
+              if (snapshot.data == null) {
+                return const SliverToBoxAdapter(
+                  child: Text(
+                    "No data found",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                );
+              }
 
-                      if (snapshot.data!.isEmpty) {
-                        return const SliverToBoxAdapter(
-                          child: Text("Empty data",
-                              style: TextStyle(color: Colors.white)),
-                        );
-                      }
+              if (snapshot.data!.isEmpty) {
+                return const SliverToBoxAdapter(
+                  child: Text("Empty data",
+                      style: TextStyle(color: Colors.white)),
+                );
+              }
 
-                      //  my songs
-                      var songs = snapshot.data!;
-                      widget.playerController.initializeSongs(songs: songs);
+              //  my songs
+              var songs = snapshot.data!;
+              widget.playerController.initializeSongs(songs: songs);
 
-                      return SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                              (context, index) => SongCard(
-                                    song: songs[index],
-                                    songIndex: index,
-                                    coreController: widget.coreController,
-                                    playerController: widget.playerController,
-                                    onSongTapped: () {
-                                      if (widget.playerController.playerState
-                                                  .value ==
-                                              PlayerStates.playing &&
-                                          widget
-                                                  .playerController
-                                                  .currentPlayingSongIndex
-                                                  .value ==
-                                              index) {
-                                        //  open player screen bottom sheet
-                                        showPlayerBottomSheet(
-                                            playerController:
-                                                widget.playerController,
-                                            homeController:
-                                                widget.homeController);
-                                      } else {
-                                        widget.playerController.playSong(
-                                            path: songs[index].uri!,
-                                            index: index);
+              return SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                          (context, index) => SongCard(
+                        song: songs[index],
+                        songIndex: index,
+                        coreController: widget.coreController,
+                        playerController: widget.playerController,
+                        onSongTapped: () {
+                          if (widget.playerController.playerState
+                              .value ==
+                              PlayerStates.playing &&
+                              widget
+                                  .playerController
+                                  .currentPlayingSongIndex
+                                  .value ==
+                                  index) {
+                            //  open player screen bottom sheet
+                            showPlayerBottomSheet(
+                                playerController:
+                                widget.playerController,
+                                homeController:
+                                widget.homeController);
+                          } else {
+                            widget.playerController.playSong(
+                                path: songs[index].uri!,
+                                index: index);
 
-                                        //  open player screen bottom sheet
-                                        showPlayerBottomSheet(
-                                            playerController:
-                                                widget.playerController,
-                                            homeController:
-                                                widget.homeController);
-                                      }
-                                    },
-                                  ),
-                              childCount: songs.length));
-                    },
-                  )
-                : const SliverToBoxAdapter(
-                    child: Center(child: Text("Permission not granted"))),
+                            //  open player screen bottom sheet
+                            showPlayerBottomSheet(
+                                playerController:
+                                widget.playerController,
+                                homeController:
+                                widget.homeController);
+                          }
+                        },
+                      ),
+                      childCount: songs.length));
+            },
           )
         ],
       ),
