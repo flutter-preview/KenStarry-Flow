@@ -9,6 +9,7 @@ import 'package:flow/features/feature_home/presentation/controller/player_contro
 import 'package:flow/features/feature_main/presentation/components/my_appbar.dart';
 import 'package:flow/features/feature_player/presentation/player_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -48,96 +49,109 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            myAppBar(),
-            SliverToBoxAdapter(
-              child: //  play all songs from the start
-                  UnconstrainedBox(
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(50),
-                  onTap: () {
-                    if (_playerController.songs.isNotEmpty) {
-                      //  start playing the first song
-                      _playerController.playSong(
-                          path: _playerController.songs[0].uri!, index: 0);
-                    }
-                  },
-                  child: Ink(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColorDark,
-                          borderRadius: BorderRadius.circular(50)),
-                      child: const Icon(
-                        Icons.play_arrow,
-                        color: accent,
-                      )),
+        child: NotificationListener<UserScrollNotification>(
+          onNotification: (scrollNotification){
+            final ScrollDirection direction = scrollNotification.direction;
+
+            if (direction == ScrollDirection.reverse) {
+              _homeController.setBottomBarHiddenState(isHidden: true);
+            } else if (direction == ScrollDirection.forward) {
+              _homeController.setBottomBarHiddenState(isHidden: false);
+            }
+
+            return true;
+          },
+          child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              myAppBar(),
+              SliverToBoxAdapter(
+                child: //  play all songs from the start
+                    UnconstrainedBox(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(50),
+                    onTap: () {
+                      if (_playerController.songs.isNotEmpty) {
+                        //  start playing the first song
+                        _playerController.playSong(
+                            path: _playerController.songs[0].uri!, index: 0);
+                      }
+                    },
+                    child: Ink(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColorDark,
+                            borderRadius: BorderRadius.circular(50)),
+                        child: const Icon(
+                          Icons.play_arrow,
+                          color: accent,
+                        )),
+                  ),
                 ),
               ),
-            ),
-            FutureBuilder<List<SongModel>>(
-              future: _playerController.getSongs(),
-              builder: (context, snapshot) {
-                if (snapshot.data == null) {
-                  return const SliverToBoxAdapter(
-                    child: Text(
-                      "No data found",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  );
-                }
+              FutureBuilder<List<SongModel>>(
+                future: _playerController.getSongs(),
+                builder: (context, snapshot) {
+                  if (snapshot.data == null) {
+                    return const SliverToBoxAdapter(
+                      child: Text(
+                        "No data found",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    );
+                  }
 
-                if (snapshot.data!.isEmpty) {
-                  return const SliverToBoxAdapter(
-                    child: Text("Empty data",
-                        style: TextStyle(color: Colors.white)),
-                  );
-                }
+                  if (snapshot.data!.isEmpty) {
+                    return const SliverToBoxAdapter(
+                      child: Text("Empty data",
+                          style: TextStyle(color: Colors.white)),
+                    );
+                  }
 
-                //  my songs
-                var songs = snapshot.data!;
-                _playerController.initializeSongs(songs: songs);
+                  //  my songs
+                  var songs = snapshot.data!;
+                  _playerController.initializeSongs(songs: songs);
 
-                return SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                        (context, index) => Padding(
-                          padding:
-                              const EdgeInsets.symmetric(vertical: 8.0),
-                          child: SongCard(
-                            song: songs[index],
-                            songIndex: index,
-                            coreController: _coreController,
-                            playerController: _playerController,
-                            onSongTapped: () {
-                              if (_playerController.playerState.value ==
-                                      PlayerStates.playing &&
-                                  _playerController
-                                          .currentPlayingSongIndex
-                                          .value ==
-                                      index) {
-                                //  open player screen bottom sheet
-                                showPlayerBottomSheet(
-                                    playerController: _playerController,
-                                    homeController: _homeController);
-                              } else {
-                                _playerController.playSong(
-                                    path: songs[index].uri!,
-                                    index: index);
+                  return SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                          (context, index) => Padding(
+                            padding:
+                                const EdgeInsets.symmetric(vertical: 8.0),
+                            child: SongCard(
+                              song: songs[index],
+                              songIndex: index,
+                              coreController: _coreController,
+                              playerController: _playerController,
+                              onSongTapped: () {
+                                if (_playerController.playerState.value ==
+                                        PlayerStates.playing &&
+                                    _playerController
+                                            .currentPlayingSongIndex
+                                            .value ==
+                                        index) {
+                                  //  open player screen bottom sheet
+                                  showPlayerBottomSheet(
+                                      playerController: _playerController,
+                                      homeController: _homeController);
+                                } else {
+                                  _playerController.playSong(
+                                      path: songs[index].uri!,
+                                      index: index);
 
-                                //  open player screen bottom sheet
-                                showPlayerBottomSheet(
-                                    playerController: _playerController,
-                                    homeController: _homeController);
-                              }
-                            },
+                                  //  open player screen bottom sheet
+                                  showPlayerBottomSheet(
+                                      playerController: _playerController,
+                                      homeController: _homeController);
+                                }
+                              },
+                            ),
                           ),
-                        ),
-                        childCount: songs.length));
-              },
-            )
-          ],
+                          childCount: songs.length));
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

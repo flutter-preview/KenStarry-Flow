@@ -12,6 +12,9 @@ class HomeController extends GetxController {
   /// Bottom bar collapsed state
   final isBottomBarCollapsed = false.obs;
 
+  /// Hide Bottom bar
+  final isBottomBarHidden = false.obs;
+
   /// List Controller
   final AutoScrollController controller = AutoScrollController(
       viewportBoundaryGetter: () =>
@@ -21,6 +24,8 @@ class HomeController extends GetxController {
   void setBottomNavTabIndex({required int index}) {
     currentTabIndex.value = index;
   }
+
+  void setBottomBarHiddenState({required bool isHidden}) => isBottomBarHidden.value = isHidden;
 
   void setBottomBarCollapsedState({required bool isCollapsed}) =>
       isBottomBarCollapsed.value = isCollapsed;
