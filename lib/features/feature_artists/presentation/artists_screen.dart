@@ -28,15 +28,22 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Text("Artists", style: Theme.of(context).textTheme.titleMedium),
+            Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text("Artists",
+                      style: Theme.of(context).textTheme.titleMedium),
+                )),
 
-            const SizedBox(height: 24,),
+            const SizedBox(
+              height: 24,
+            ),
 
             //  list of artists
             FutureBuilder<List<ArtistModel>>(
                 future: _artistsController.getArtists(),
                 builder: (context, snapshot) {
-
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const CircularProgressIndicator();
                   }
@@ -54,8 +61,9 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
                   _artistsController.setArtists(artists: artists);
 
                   //  our list of artists
-                  return Expanded(child: ArtistsList(artistsController: _artistsController));
-
+                  return Expanded(
+                      child:
+                          ArtistsList(artistsController: _artistsController));
                 })
           ],
         ),
