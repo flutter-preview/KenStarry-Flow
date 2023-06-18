@@ -1,20 +1,41 @@
 import 'package:flow/features/feature_main/presentation/components/artists_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../../../feature_main/presentation/components/my_appbar.dart';
 
 class HomeController extends GetxController {
-
   /// Current selected tab index
   final currentTabIndex = 0.obs;
 
   /// Bottom bar collapsed state
   final isBottomBarCollapsed = false.obs;
 
+  /// List Controller
+  late final AutoScrollController controller;
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    AutoScrollController(
+        viewportBoundaryGetter: () =>
+            Rect.fromLTRB(0, 0, 0, MediaQuery
+                .of(Get.context!)
+                .padding
+                .bottom),
+        axis: Axis.vertical);
+  }
+
   void setBottomNavTabIndex({required int index}) {
     currentTabIndex.value = index;
   }
 
-  void setBottomBarCollapsedState({required bool isCollapsed}) => isBottomBarCollapsed.value = isCollapsed;
+  void setBottomBarCollapsedState({required bool isCollapsed}) =>
+      isBottomBarCollapsed.value = isCollapsed;
+
+  void scrollToIndex(
+      {required int index, AutoScrollPosition preferPosition = AutoScrollPosition
+          .begin}) => controller.scrollToIndex(index, preferPosition: preferPosition);
 }
