@@ -28,17 +28,6 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Align(
-                alignment: AlignmentDirectional.centerStart,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text("Artists",
-                      style: Theme.of(context).textTheme.titleMedium),
-                )),
-
-            const SizedBox(
-              height: 24,
-            ),
 
             //  list of artists
             FutureBuilder<List<ArtistModel>>(

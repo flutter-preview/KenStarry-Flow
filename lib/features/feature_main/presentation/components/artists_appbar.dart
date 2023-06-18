@@ -11,9 +11,10 @@ PreferredSizeWidget artistsAppBar() {
   return AppBar(
       title: Text(
         "Artists",
-        style: Theme.of(Get.context!).textTheme.bodyLarge,
+        style: Theme.of(Get.context!).textTheme.titleSmall,
       ),
-      centerTitle: true,
+      centerTitle: false,
+      toolbarHeight: 100,
       systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Theme.of(Get.context!).scaffoldBackgroundColor,
           statusBarIconBrightness:
@@ -24,9 +25,15 @@ PreferredSizeWidget artistsAppBar() {
         IconButton(
             onPressed: () {},
             icon: Icon(
+              Icons.sort_rounded,
+              color: Theme.of(Get.context!).iconTheme.color,
+            )),
+        IconButton(
+            onPressed: () {},
+            icon: Icon(
               Icons.search,
               color: Theme.of(Get.context!).iconTheme.color,
-            ))
+            )),
       ],
     );
 }
