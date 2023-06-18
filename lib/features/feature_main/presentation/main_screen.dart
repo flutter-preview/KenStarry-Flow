@@ -12,7 +12,7 @@ import '../../../core/presentation/controller/core_controller.dart';
 import '../../../di/locator.dart';
 import '../../feature_home/presentation/components/bottom_bar/home_bottom_bar.dart';
 import '../../feature_home/presentation/home_screen.dart';
-import '../../feature_home/presentation/components/my_appbar.dart';
+import 'components/my_appbar.dart';
 import '../../feature_home/presentation/controller/player_controller.dart';
 
 class MainScreen extends StatefulWidget {
@@ -62,24 +62,26 @@ class _MainScreenState extends State<MainScreen> {
             systemNavigationBarIconBrightness: _coreController.brightness.value == Brightness.dark
                 ? Brightness.light
                 : Brightness.dark),
-        child: Scaffold(
-          appBar: myAppBar(controller: _coreController),
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          body: Obx(
-            () => Stack(
-              fit: StackFit.loose,
-              children: [
-                IndexedStack(
-                  index: _homeController.currentTabIndex.value,
-                  children: _screens,
-                ),
+        child: Obx(
+            () => Scaffold(
+            appBar: _homeController.mainAppBar.value,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            body: Obx(
+              () => Stack(
+                fit: StackFit.loose,
+                children: [
+                  IndexedStack(
+                    index: _homeController.currentTabIndex.value,
+                    children: _screens,
+                  ),
 
-                //  Floating bottom bar
-                const Align(
-                  alignment: AlignmentDirectional.bottomCenter,
-                  child: HomeBottomBar(),
-                )
-              ]
+                  //  Floating bottom bar
+                  const Align(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    child: HomeBottomBar(),
+                  )
+                ]
+              ),
             ),
           ),
         ),

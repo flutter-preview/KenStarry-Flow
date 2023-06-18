@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-PreferredSizeWidget myAppBar({required CoreController controller}) => AppBar(
+PreferredSizeWidget artistsAppBar() {
+
+  final CoreController controller = Get.find();
+
+  return AppBar(
       title: Text(
-        "Flow",
+        "Artists",
         style: Theme.of(Get.context!).textTheme.bodyLarge,
       ),
       centerTitle: true,
@@ -25,3 +29,4 @@ PreferredSizeWidget myAppBar({required CoreController controller}) => AppBar(
             ))
       ],
     );
+}
