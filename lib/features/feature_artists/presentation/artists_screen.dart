@@ -16,7 +16,9 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text("Artists", style: Theme.of(context).textTheme.titleMedium,)
+            Text("Artists", style: Theme.of(context).textTheme.titleMedium),
+
+            //  list of artists
           ],
         ),
       ),

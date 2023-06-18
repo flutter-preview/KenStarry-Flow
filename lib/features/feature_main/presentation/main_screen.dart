@@ -1,4 +1,4 @@
-import 'package:flow/features/feature_genres/presentation/artists_screen.dart';
+import 'package:flow/features/feature_artists/presentation/artists_screen.dart';
 import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:flow/features/feature_playlist/presentation/playlist_screen.dart';
 import 'package:flow/features/feature_settings/presentation/settings_screen.dart';
