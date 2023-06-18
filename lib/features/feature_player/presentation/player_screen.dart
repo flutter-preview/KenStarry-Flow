@@ -9,9 +9,8 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 import '../../feature_home/domain/model/player_states.dart';
 
-class PlayerScreen extends StatelessWidget {
+class PlayerScreen extends StatefulWidget {
   final List<SongModel> songs;
-  final PlayerController playerController = Get.find();
   final VoidCallback onNextSong;
   final VoidCallback onPreviousSong;
 
@@ -20,6 +19,29 @@ class PlayerScreen extends StatelessWidget {
       required this.songs,
       required this.onNextSong,
       required this.onPreviousSong});
+
+  @override
+  State<PlayerScreen> createState() => _PlayerScreenState();
+}
+
+class _PlayerScreenState extends State<PlayerScreen>
+    with TickerProviderStateMixin {
+  final PlayerController playerController = Get.find();
+  late final AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController =
+        AnimationController(duration: Duration(seconds: 1), vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +58,8 @@ class PlayerScreen extends StatelessWidget {
                   width: 250,
                   height: 250,
                   child: QueryArtworkWidget(
-                    id: songs[playerController.currentPlayingSongIndex.value!]
+                    id: widget
+                        .songs[playerController.currentPlayingSongIndex.value!]
                         .id,
                     keepOldArtwork: true,
                     type: ArtworkType.AUDIO,
@@ -49,9 +72,8 @@ class PlayerScreen extends StatelessWidget {
                       width: double.infinity,
                       height: double.infinity,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColorDark,
-                        borderRadius: BorderRadius.circular(300)
-                      ),
+                          color: Theme.of(context).primaryColorDark,
+                          borderRadius: BorderRadius.circular(300)),
                       child: Icon(
                         Icons.music_note_outlined,
                         size: 120,
@@ -71,7 +93,8 @@ class PlayerScreen extends StatelessWidget {
                   width: double.infinity,
                   height: 50,
                   child: Marquee(
-                    text: songs[playerController.currentPlayingSongIndex.value!]
+                    text: widget
+                        .songs[playerController.currentPlayingSongIndex.value!]
                         .displayNameWOExt,
                     style: Theme.of(context).textTheme.bodyLarge,
                     pauseAfterRound: const Duration(seconds: 1),
@@ -79,7 +102,9 @@ class PlayerScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                    songs[playerController.currentPlayingSongIndex.value!]
+                    widget
+                            .songs[
+                                playerController.currentPlayingSongIndex.value!]
                             .artist ??
                         "Unknown Artist",
                     style: Theme.of(context).textTheme.bodySmall)
@@ -101,7 +126,7 @@ class PlayerScreen extends StatelessWidget {
                   children: [
                     Text(
                       "${(playerController.currentPlayingSongIndex.value! + 1).toString().addCommas} / "
-                      "${songs.length.toString().addCommas}",
+                      "${widget.songs.length.toString().addCommas}",
                       style: Theme.of(context).textTheme.bodySmall,
                     )
                   ],
@@ -134,7 +159,7 @@ class PlayerScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     InkWell(
-                      onTap: onPreviousSong,
+                      onTap: widget.onPreviousSong,
                       child: Container(
                         width: 45,
                         height: 45,
@@ -149,40 +174,35 @@ class PlayerScreen extends StatelessWidget {
                       ),
                     ),
                     InkWell(
-                      onTap: () {
-                        //  play or pause music
-                        if (playerController.playerState.value ==
-                            PlayerStates.playing) {
-                          playerController.pauseSong();
-                        } else {
-                          var player = locator.get<AudioPlayer>();
-                          player.play();
-                        }
-                      },
-                      borderRadius: BorderRadius.circular(100),
-                      child: Obx(
-                        () => Container(
+                        onTap: () {
+                          //  play or pause music
+                          if (playerController.playerState.value ==
+                              PlayerStates.playing) {
+                            _animationController.forward();
+                            playerController.pauseSong();
+                          } else {
+                            _animationController.reverse();
+                            var player = locator.get<AudioPlayer>();
+                            player.play();
+                          }
+                        },
+                        borderRadius: BorderRadius.circular(100),
+                        child: Container(
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColorDark,
                                 borderRadius: BorderRadius.circular(100)),
-                            child: playerController.playerState.value ==
-                                    PlayerStates.playing
-                                ? Icon(
-                                    Icons.pause,
-                                    size: 32,
-                                    color: Theme.of(context).primaryColor,
-                                  )
-                                : Icon(
-                                    Icons.play_arrow_rounded,
-                                    size: 48,
-                                    color: Theme.of(context).primaryColor,
-                                  )),
-                      ),
-                    ),
+                            child: Center(
+                              child: AnimatedIcon(
+                                icon: AnimatedIcons.pause_play,
+                                progress: _animationController,
+                                size: 36,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ))),
                     InkWell(
-                      onTap: onNextSong,
+                      onTap: widget.onNextSong,
                       child: Container(
                         width: 45,
                         height: 45,
@@ -240,7 +260,8 @@ class PlayerScreen extends StatelessWidget {
                         playerController.maxSlider.value) {
                       //  go to next song
                       playerController.playSong(
-                          path: songs[playerController
+                          path: widget
+                              .songs[playerController
                                       .currentPlayingSongIndex.value! +
                                   1]
                               .uri!,
