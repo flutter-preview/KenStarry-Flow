@@ -19,6 +19,7 @@ dependencies:
   scroll_to_index: ^3.0.1
   azlistview: ^2.0.0
   audio_service: ^0.18.10
+  scrollable_positioned_list: ^0.2.3
 
 dev_dependencies:
   flutter_test:

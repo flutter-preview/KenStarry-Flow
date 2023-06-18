@@ -17,7 +17,8 @@ void showPlayerBottomSheet({required PlayerController playerController, required
               topLeft: Radius.circular(24), topRight: Radius.circular(24))),
       context: Get.context!,
       builder: (context) => StatefulBuilder(
-        builder: (context, modalSetState) => PlayerScreen(
+        builder: (context, modalSetState) {
+          return PlayerScreen(
             songs: playerController.songs,
             onNextSong: () {
               playerController.playSong(
@@ -31,7 +32,8 @@ void showPlayerBottomSheet({required PlayerController playerController, required
                 path: playerController
                     .songs[playerController.currentPlayingSongIndex.value! - 1]
                     .uri!,
-                index: playerController.currentPlayingSongIndex.value! - 1)),
+                index: playerController.currentPlayingSongIndex.value! - 1));
+        },
       ),
     ).whenComplete(() {
       //  open home screen

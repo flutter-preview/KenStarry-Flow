@@ -13,20 +13,10 @@ class HomeController extends GetxController {
   final isBottomBarCollapsed = false.obs;
 
   /// List Controller
-  late final AutoScrollController controller;
-
-  @override
-  void onInit() {
-    super.onInit();
-
-    AutoScrollController(
-        viewportBoundaryGetter: () =>
-            Rect.fromLTRB(0, 0, 0, MediaQuery
-                .of(Get.context!)
-                .padding
-                .bottom),
-        axis: Axis.vertical);
-  }
+  final AutoScrollController controller = AutoScrollController(
+      viewportBoundaryGetter: () =>
+          Rect.fromLTRB(0, 0, 0, MediaQuery.of(Get.context!).padding.bottom),
+      axis: Axis.vertical);
 
   void setBottomNavTabIndex({required int index}) {
     currentTabIndex.value = index;
@@ -36,6 +26,8 @@ class HomeController extends GetxController {
       isBottomBarCollapsed.value = isCollapsed;
 
   void scrollToIndex(
-      {required int index, AutoScrollPosition preferPosition = AutoScrollPosition
-          .begin}) => controller.scrollToIndex(index, preferPosition: preferPosition);
+          {required int index,
+          AutoScrollPosition preferPosition = AutoScrollPosition.middle}) async =>
+      controller.scrollToIndex(index,
+          preferPosition: preferPosition, duration: const Duration(milliseconds: 50));
 }

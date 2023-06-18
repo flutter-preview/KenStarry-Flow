@@ -12,62 +12,63 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:get/get.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../theme/colors.dart';
 
 class HomeScreen extends StatefulWidget {
-  final PlayerController playerController;
-  final CoreController coreController;
-  final HomeController homeController;
-
-  const HomeScreen(
-      {super.key,
-      required this.playerController,
-      required this.coreController,
-      required this.homeController});
+  const HomeScreen({
+    super.key,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  //  scroll controller
-  late final AutoScrollController controller;
+  late final PlayerController _playerController;
+  late final CoreController _coreController;
+  late final HomeController _homeController;
 
   @override
   void initState() {
     super.initState();
+
+    _playerController = Get.find();
+    _coreController = Get.find();
+    _homeController = Get.find();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: CustomScrollView(
-          controller: controller,
+          controller: _homeController.controller,
           physics: const BouncingScrollPhysics(),
           slivers: [
             myAppBar(),
             SliverToBoxAdapter(
               child: //  play all songs from the start
-                  UnconstrainedBox(
+              UnconstrainedBox(
                 child: InkWell(
                   borderRadius: BorderRadius.circular(50),
                   onTap: () {
-                    if (widget.playerController.songs.isNotEmpty) {
+                    if (_playerController.songs.isNotEmpty) {
                       //  start playing the first song
-                      widget.playerController.playSong(
-                          path: widget.playerController.songs[0].uri!,
-                          index: 0);
+                      _playerController.playSong(
+                          path: _playerController.songs[0].uri!, index: 0);
                     }
                   },
                   child: Ink(
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColorDark,
+                          color: Theme
+                              .of(context)
+                              .primaryColorDark,
                           borderRadius: BorderRadius.circular(50)),
                       child: const Icon(
                         Icons.play_arrow,
@@ -77,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             FutureBuilder<List<SongModel>>(
-              future: widget.playerController.getSongs(),
+              future: _playerController.getSongs(),
               builder: (context, snapshot) {
                 if (snapshot.data == null) {
                   return const SliverToBoxAdapter(
@@ -97,42 +98,43 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 //  my songs
                 var songs = snapshot.data!;
-                widget.playerController.initializeSongs(songs: songs);
+                _playerController.initializeSongs(songs: songs);
 
                 return SliverList(
                     delegate: SliverChildBuilderDelegate(
-                        (context, index) => AutoScrollTag(
+                            (context, index) =>
+                            AutoScrollTag(
                               key: ValueKey(index),
-                              controller: controller,
+                              controller: _homeController.controller,
                               index: index,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                padding:
+                                const EdgeInsets.symmetric(vertical: 8.0),
                                 child: SongCard(
                                   song: songs[index],
                                   songIndex: index,
-                                  coreController: widget.coreController,
-                                  playerController: widget.playerController,
+                                  coreController: _coreController,
+                                  playerController: _playerController,
                                   onSongTapped: () {
-                                    if (widget.playerController.playerState
-                                                .value ==
-                                            PlayerStates.playing &&
-                                        widget.playerController
-                                                .currentPlayingSongIndex.value ==
+                                    if (_playerController.playerState.value ==
+                                        PlayerStates.playing &&
+                                        _playerController
+                                            .currentPlayingSongIndex
+                                            .value ==
                                             index) {
                                       //  open player screen bottom sheet
                                       showPlayerBottomSheet(
-                                          playerController:
-                                              widget.playerController,
-                                          homeController: widget.homeController);
+                                          playerController: _playerController,
+                                          homeController: _homeController);
                                     } else {
-                                      widget.playerController.playSong(
-                                          path: songs[index].uri!, index: index);
+                                      _playerController.playSong(
+                                          path: songs[index].uri!,
+                                          index: index);
 
                                       //  open player screen bottom sheet
                                       showPlayerBottomSheet(
-                                          playerController:
-                                              widget.playerController,
-                                          homeController: widget.homeController);
+                                          playerController: _playerController,
+                                          homeController: _homeController);
                                     }
                                   },
                                 ),

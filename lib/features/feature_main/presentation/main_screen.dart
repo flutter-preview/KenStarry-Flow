@@ -38,11 +38,7 @@ class _MainScreenState extends State<MainScreen> {
     _homeController = Get.find<HomeController>();
 
     _screens = [
-      HomeScreen(
-        playerController: _playerController,
-        coreController: _coreController,
-        homeController: _homeController,
-      ),
+      const HomeScreen(),
       const PlaylistScreen(),
       const ArtistsScreen(),
       const SettingsScreen()
