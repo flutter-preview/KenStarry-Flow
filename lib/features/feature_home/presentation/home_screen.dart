@@ -48,110 +48,96 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: VsScrollbar(
-          controller: _homeController.controller,
-          showTrackOnHover: true,
-          isAlwaysShown: true,
-          style: VsScrollbarStyle(
-            color: Theme.of(context).primaryColor
-          ),
-          child: CustomScrollView(
-            controller: _homeController.controller,
-            physics: const BouncingScrollPhysics(),
-            slivers: [
-              myAppBar(),
-              SliverToBoxAdapter(
-                child: //  play all songs from the start
-                    UnconstrainedBox(
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(50),
-                    onTap: () {
-                      if (_playerController.songs.isNotEmpty) {
-                        //  start playing the first song
-                        _playerController.playSong(
-                            path: _playerController.songs[0].uri!, index: 0);
-                      }
-                    },
-                    child: Ink(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColorDark,
-                            borderRadius: BorderRadius.circular(50)),
-                        child: const Icon(
-                          Icons.play_arrow,
-                          color: accent,
-                        )),
-                  ),
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            myAppBar(),
+            SliverToBoxAdapter(
+              child: //  play all songs from the start
+                  UnconstrainedBox(
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(50),
+                  onTap: () {
+                    if (_playerController.songs.isNotEmpty) {
+                      //  start playing the first song
+                      _playerController.playSong(
+                          path: _playerController.songs[0].uri!, index: 0);
+                    }
+                  },
+                  child: Ink(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColorDark,
+                          borderRadius: BorderRadius.circular(50)),
+                      child: const Icon(
+                        Icons.play_arrow,
+                        color: accent,
+                      )),
                 ),
               ),
-              FutureBuilder<List<SongModel>>(
-                future: _playerController.getSongs(),
-                builder: (context, snapshot) {
-                  if (snapshot.data == null) {
-                    return const SliverToBoxAdapter(
-                      child: Text(
-                        "No data found",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    );
-                  }
+            ),
+            FutureBuilder<List<SongModel>>(
+              future: _playerController.getSongs(),
+              builder: (context, snapshot) {
+                if (snapshot.data == null) {
+                  return const SliverToBoxAdapter(
+                    child: Text(
+                      "No data found",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  );
+                }
 
-                  if (snapshot.data!.isEmpty) {
-                    return const SliverToBoxAdapter(
-                      child: Text("Empty data",
-                          style: TextStyle(color: Colors.white)),
-                    );
-                  }
+                if (snapshot.data!.isEmpty) {
+                  return const SliverToBoxAdapter(
+                    child: Text("Empty data",
+                        style: TextStyle(color: Colors.white)),
+                  );
+                }
 
-                  //  my songs
-                  var songs = snapshot.data!;
-                  _playerController.initializeSongs(songs: songs);
+                //  my songs
+                var songs = snapshot.data!;
+                _playerController.initializeSongs(songs: songs);
 
-                  return SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                          (context, index) => AutoScrollTag(
-                                key: ValueKey(index),
-                                controller: _homeController.controller,
-                                index: index,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: SongCard(
-                                    song: songs[index],
-                                    songIndex: index,
-                                    coreController: _coreController,
+                return SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                        (context, index) => Padding(
+                          padding:
+                              const EdgeInsets.symmetric(vertical: 8.0),
+                          child: SongCard(
+                            song: songs[index],
+                            songIndex: index,
+                            coreController: _coreController,
+                            playerController: _playerController,
+                            onSongTapped: () {
+                              if (_playerController.playerState.value ==
+                                      PlayerStates.playing &&
+                                  _playerController
+                                          .currentPlayingSongIndex
+                                          .value ==
+                                      index) {
+                                //  open player screen bottom sheet
+                                showPlayerBottomSheet(
                                     playerController: _playerController,
-                                    onSongTapped: () {
-                                      if (_playerController.playerState.value ==
-                                              PlayerStates.playing &&
-                                          _playerController
-                                                  .currentPlayingSongIndex
-                                                  .value ==
-                                              index) {
-                                        //  open player screen bottom sheet
-                                        showPlayerBottomSheet(
-                                            playerController: _playerController,
-                                            homeController: _homeController);
-                                      } else {
-                                        _playerController.playSong(
-                                            path: songs[index].uri!,
-                                            index: index);
+                                    homeController: _homeController);
+                              } else {
+                                _playerController.playSong(
+                                    path: songs[index].uri!,
+                                    index: index);
 
-                                        //  open player screen bottom sheet
-                                        showPlayerBottomSheet(
-                                            playerController: _playerController,
-                                            homeController: _homeController);
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ),
-                          childCount: songs.length));
-                },
-              )
-            ],
-          ),
+                                //  open player screen bottom sheet
+                                showPlayerBottomSheet(
+                                    playerController: _playerController,
+                                    homeController: _homeController);
+                              }
+                            },
+                          ),
+                        ),
+                        childCount: songs.length));
+              },
+            )
+          ],
         ),
       ),
     );
