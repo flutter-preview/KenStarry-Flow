@@ -25,7 +25,7 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             Text("Artists", style: Theme.of(context).textTheme.titleMedium),

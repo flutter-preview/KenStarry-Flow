@@ -1,3 +1,4 @@
+import 'package:flow/features/feature_artists/presentation/components/artist_card.dart';
 import 'package:flow/features/feature_artists/presentation/controller/artists_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,12 +12,16 @@ class ArtistsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => GridView.builder(
-        physics: const BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200, crossAxisSpacing: 8, mainAxisSpacing: 8, childAspectRatio: 1),
+              maxCrossAxisExtent: 200,
+              mainAxisExtent: 180,
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 8,
+              childAspectRatio: 1),
           itemCount: artistsController.artists.length,
           itemBuilder: (context, index) {
-            return Text("Hey");
+            return ArtistCard(artist: artistsController.artists[index]);
           }),
     );
   }
