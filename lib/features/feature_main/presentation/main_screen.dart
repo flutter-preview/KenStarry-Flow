@@ -62,12 +62,10 @@ class _MainScreenState extends State<MainScreen> {
             systemNavigationBarIconBrightness: _coreController.brightness.value == Brightness.dark
                 ? Brightness.light
                 : Brightness.dark),
-        child: Obx(
-            () => Scaffold(
-            appBar: _homeController.mainAppBar.value,
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            body: Obx(
-              () => Stack(
+        child: Scaffold(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          body: Obx(
+                () => Stack(
                 fit: StackFit.loose,
                 children: [
                   IndexedStack(
@@ -81,10 +79,9 @@ class _MainScreenState extends State<MainScreen> {
                     child: HomeBottomBar(),
                   )
                 ]
-              ),
             ),
           ),
-        ),
+        )
       ),
     );
   }

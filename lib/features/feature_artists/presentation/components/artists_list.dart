@@ -10,18 +10,15 @@ class ArtistsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => GridView.builder(
-          physics: const BouncingScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-              mainAxisExtent: 200,
-              crossAxisSpacing: 16,
-              childAspectRatio: 1),
-          itemCount: artistsController.artists.length,
-          itemBuilder: (context, index) {
-            return ArtistCard(artist: artistsController.artists[index]);
-          }),
-    );
+    return SliverGrid(
+        delegate: SliverChildBuilderDelegate((context, index) {
+          return Obx(
+              () => ArtistCard(artist: artistsController.artists[index]));
+        }),
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200,
+            mainAxisExtent: 200,
+            crossAxisSpacing: 16,
+            childAspectRatio: 1));
   }
 }
