@@ -9,9 +9,15 @@ class ArtistsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemBuilder: (context, index) {});
+    return Obx(
+      () => GridView.builder(
+        physics: const BouncingScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 200, crossAxisSpacing: 8, mainAxisSpacing: 8, childAspectRatio: 1),
+          itemCount: artistsController.artists.length,
+          itemBuilder: (context, index) {
+            return Text("Hey");
+          }),
+    );
   }
 }

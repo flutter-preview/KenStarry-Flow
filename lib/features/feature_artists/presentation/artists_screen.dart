@@ -30,6 +30,8 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
           children: [
             Text("Artists", style: Theme.of(context).textTheme.titleMedium),
 
+            const SizedBox(height: 24,),
+
             //  list of artists
             FutureBuilder<List<ArtistModel>>(
                 future: _artistsController.getArtists(),
@@ -52,7 +54,7 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
                   _artistsController.setArtists(artists: artists);
 
                   //  our list of artists
-                  return ArtistsList(artistsController: _artistsController);
+                  return Expanded(child: ArtistsList(artistsController: _artistsController));
 
                 })
           ],

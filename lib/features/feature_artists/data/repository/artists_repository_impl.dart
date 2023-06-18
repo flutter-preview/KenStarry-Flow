@@ -17,7 +17,7 @@ class ArtistsRepositoryImpl implements ArtistsRepository {
         uriType: UriType.EXTERNAL,
         ignoreCase: true
       );
-      
+
       return artists;
 
     } on Exception catch (e) {
