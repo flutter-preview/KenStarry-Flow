@@ -25,9 +25,9 @@ class HomeController extends GetxController {
   void setBottomBarCollapsedState({required bool isCollapsed}) =>
       isBottomBarCollapsed.value = isCollapsed;
 
-  void scrollToIndex(
+  Future<void> scrollToIndex(
           {required int index,
           AutoScrollPosition preferPosition = AutoScrollPosition.middle}) async =>
       controller.scrollToIndex(index,
-          preferPosition: preferPosition, duration: const Duration(milliseconds: 50));
+          preferPosition: preferPosition, duration: const Duration(milliseconds: 10));
 }

@@ -97,6 +97,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  draggable_scrollbar:
+    dependency: "direct main"
+    description:
+      name: draggable_scrollbar
+      sha256: a906e27fc1ee056e2942d66989dd0cb5b70a361e7d44af566cfa1b584054eac3
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
   fading_edge_scrollview:
     dependency: transitive
     description:
@@ -565,6 +573,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  vs_scrollbar:
+    dependency: "direct main"
+    description:
+      name: vs_scrollbar
+      sha256: "1c602b0a2d5cb8e1b025ee448c0a459af6786e4d1d5460f984666e81706dbce0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
   win32:
     dependency: transitive
     description:

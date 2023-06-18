@@ -5,8 +5,11 @@ import 'package:get/get.dart';
 
 import '../../../features/feature_player/presentation/player_screen.dart';
 
-void showPlayerBottomSheet({required PlayerController playerController, required HomeController homeController}) =>
-    showModalBottomSheet(
+void showPlayerBottomSheet({required PlayerController playerController, required HomeController homeController}) {
+
+  homeController.scrollToIndex(index: playerController.currentPlayingSongIndex.value!);
+
+  showModalBottomSheet(
       isDismissible: true,
       enableDrag: true,
       showDragHandle: true,
@@ -39,3 +42,4 @@ void showPlayerBottomSheet({required PlayerController playerController, required
       //  open home screen
       homeController.setBottomNavTabIndex(index: 0);
     });
+}
