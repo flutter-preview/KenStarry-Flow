@@ -15,9 +15,8 @@ class ArtistsList extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 200,
-              mainAxisExtent: 180,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
+              mainAxisExtent: 200,
+              crossAxisSpacing: 16,
               childAspectRatio: 1),
           itemCount: artistsController.artists.length,
           itemBuilder: (context, index) {

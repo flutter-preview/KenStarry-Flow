@@ -18,15 +18,29 @@ class ArtistCard extends StatelessWidget {
             id: artist.id,
             type: ArtworkType.ARTIST,
             artworkFit: BoxFit.cover,
-            artworkWidth: 130,
-            artworkHeight: 130,
+            artworkWidth: 140,
+            artworkHeight: 140,
             artworkQuality: FilterQuality.high,
             keepOldArtwork: true,
             quality: 100,
+            nullArtworkWidget: Container(
+                width: 140,
+                height: 140,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColorDark,
+                    borderRadius: BorderRadius.circular(100)),
+                child: Icon(
+                  Icons.broken_image_rounded,
+                  color: Theme.of(context).iconTheme.color,
+                  size: 48,
+                )),
           ),
         ),
         //  Artist details
-        Text(artist.artist, style: Theme.of(context).textTheme.bodyMedium,)
+        Text(
+          artist.artist,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
       ],
     );
   }
