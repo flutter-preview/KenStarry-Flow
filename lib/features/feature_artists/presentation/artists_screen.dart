@@ -35,24 +35,58 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
             systemOverlayStyle: SystemUiOverlayStyle(
                 statusBarColor: Theme.of(Get.context!).scaffoldBackgroundColor,
                 statusBarIconBrightness:
-                controller.brightness.value == Brightness.dark ? Brightness.light : Brightness.dark),
-            title: Text("Artists"),
-            expandedHeight: 250,
+                    controller.brightness.value == Brightness.dark
+                        ? Brightness.light
+                        : Brightness.dark),
+            actions: [
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.sort_rounded,
+                    color: Theme.of(Get.context!).iconTheme.color,
+                  )),
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.search,
+                    color: Theme.of(Get.context!).iconTheme.color,
+                  )),
+            ],
+            expandedHeight: 200,
+            floating: false,
+            pinned: true,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(
+                "Artists",
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              centerTitle: true,
+              collapseMode: CollapseMode.parallax,
+              background: Icon(
+                Icons.music_note_outlined,
+                size: 56,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
           ),
           //  list of artists
           FutureBuilder<List<ArtistModel>>(
               future: _artistsController.getArtists(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const SliverToBoxAdapter(child: CircularProgressIndicator());
+                  return const SliverToBoxAdapter(
+                      child: CircularProgressIndicator());
                 }
 
                 if (snapshot.data == null) {
-                  return const SliverToBoxAdapter(child: Center(child: Text("No data found")));
+                  return const SliverToBoxAdapter(
+                      child: Center(child: Text("No data found")));
                 }
 
                 if (snapshot.data!.isEmpty) {
-                  return const SliverToBoxAdapter(child: Center(child: Text("No artists yet")));
+                  return const SliverToBoxAdapter(
+                      child: Center(child: Text("No artists yet")));
                 }
 
                 //  get artists
