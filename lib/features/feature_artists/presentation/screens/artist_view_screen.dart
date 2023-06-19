@@ -63,34 +63,37 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColorDark,
+      backgroundColor: Theme
+          .of(context)
+          .primaryColorDark,
       appBar: artistAppBar(controller: _coreController),
       body: SafeArea(
         child: Column(
           children: [
             //  Page View
             Obx(
-              () => SizedBox(
-                height: 250,
-                child: PageView.builder(
-                  controller: _pageController,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: _artistsController.artists.length,
-                  itemBuilder: (context, index) {
-                    return ArtistViewCard(
-                        artistModel: _artistsController.artists[index]);
-                  },
-                  onPageChanged: (page) {
-                    //  get all artist songs
-                    _artistsController.getArtistSongs(
-                        artist: _artistsController.artists[page],
-                        songs: _playerController.songs);
+                  () =>
+                  SizedBox(
+                    height: 250,
+                    child: PageView.builder(
+                      controller: _pageController,
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: _artistsController.artists.length,
+                      itemBuilder: (context, index) {
+                        return ArtistViewCard(
+                            artistModel: _artistsController.artists[index]);
+                      },
+                      onPageChanged: (page) {
+                        //  get all artist songs
+                        _artistsController.getArtistSongs(
+                            artist: _artistsController.artists[page],
+                            songs: _playerController.songs);
 
-                    _playerController.setTotalSongsDuration(
-                        songs: _artistsController.artistSongs);
-                  },
-                ),
-              ),
+                        _playerController.setTotalSongsDuration(
+                            songs: _artistsController.artistSongs);
+                      },
+                    ),
+                  ),
             ),
 
             //  songs
@@ -100,7 +103,9 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    color: Theme
+                        .of(context)
+                        .scaffoldBackgroundColor,
                     borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(24),
                         topLeft: Radius.circular(24))),
@@ -116,14 +121,20 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
                               //  title
                               Text(
                                 "Songs",
-                                style: Theme.of(context).textTheme.titleSmall,
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .titleSmall,
                               ),
                               const SizedBox(
                                 width: 8,
                               ),
                               Icon(
                                 Icons.chevron_right,
-                                color: Theme.of(context).iconTheme.color,
+                                color: Theme
+                                    .of(context)
+                                    .iconTheme
+                                    .color,
                                 size: 16,
                               ),
                               const SizedBox(
@@ -131,12 +142,18 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
                               ),
                               //  song count
                               Obx(
-                                () => Text(
-                                  _artistsController.artistSongs.length == 1
-                                      ? "${_artistsController.artistSongs.length} song"
-                                      : "${_artistsController.artistSongs.length} songs",
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
+                                    () =>
+                                    Text(
+                                      _artistsController.artistSongs.length == 1
+                                          ? "${_artistsController.artistSongs
+                                          .length} song"
+                                          : "${_artistsController.artistSongs
+                                          .length} songs",
+                                      style: Theme
+                                          .of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                    ),
                               ),
                               //  total song duration
                             ],
@@ -145,49 +162,64 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
 
                         //  song duration
                         Obx(
-                          () => Text(
-                            _playerController.totalSongsDuration.value,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
+                              () =>
+                              Text(
+                                _playerController.totalSongsDuration.value,
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .bodyMedium,
+                              ),
                         ),
                       ],
                     ),
 
                     //  songs list
                     Obx(
-                      () => Expanded(
-                        child: ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: _artistsController.artistSongs.length,
-                            itemBuilder: (context, index) => SongCard(
-                                  song: _artistsController.artistSongs[index],
-                                  songIndex: index,
-                                  coreController: _coreController,
-                                  playerController: _playerController,
-                                  onSongTapped: () {
-                                    if (_playerController.playerState.value ==
-                                            PlayerStates.playing &&
-                                        _playerController
-                                                .currentPlayingSongIndex.value ==
-                                            index) {
-                                      //  open player screen bottom sheet
-                                      showPlayerBottomSheet(
-                                          playerController: _playerController,
-                                          homeController: _homeController);
-                                    } else {
-                                      _playerController.playSong(
-                                          path: _artistsController
-                                              .artistSongs[index].uri!,
-                                          index: index);
+                          () =>
+                          Expanded(
+                            child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: _artistsController.artistSongs
+                                    .length,
+                                itemBuilder: (context, index) =>
+                                    SongCard(
+                                      song: _artistsController
+                                          .artistSongs[index],
+                                      songIndex: index,
+                                      coreController: _coreController,
+                                      playerController: _playerController,
+                                      onSongTapped: () {
+                                        //  get index of this song from the main songs list
+                                        final currentIndex = _playerController
+                                            .songs.indexOf(_artistsController
+                                            .artistSongs[index]);
 
-                                      //  open player screen bottom sheet
-                                      showPlayerBottomSheet(
-                                          playerController: _playerController,
-                                          homeController: _homeController);
-                                    }
-                                  },
-                                )),
-                      ),
+                                        if (_playerController.playerState
+                                            .value ==
+                                            PlayerStates.playing &&
+                                            _playerController
+                                                .currentPlayingSongIndex
+                                                .value ==
+                                                currentIndex) {
+                                          //  open player screen bottom sheet
+                                          showPlayerBottomSheet(
+                                              playerController: _playerController,
+                                              homeController: _homeController);
+                                        } else {
+                                          _playerController.playSong(
+                                              path: _playerController
+                                                  .songs[currentIndex].uri!,
+                                              index: currentIndex);
+
+                                          //  open player screen bottom sheet
+                                          showPlayerBottomSheet(
+                                              playerController: _playerController,
+                                              homeController: _homeController);
+                                        }
+                                      },
+                                    )),
+                          ),
                     )
                   ],
                 ),
