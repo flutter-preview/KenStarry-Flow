@@ -61,7 +61,7 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColorDark,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: artistAppBar(controller: _coreController),
       body: SafeArea(
         child: Column(

@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 
 PreferredSizeWidget artistAppBar({required CoreController controller}) => AppBar(
   systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: Theme.of(Get.context!).primaryColorDark,
+      statusBarColor: Theme.of(Get.context!).scaffoldBackgroundColor,
       statusBarIconBrightness:
       controller.brightness.value == Brightness.dark
           ? Brightness.light
           : Brightness.dark),
-  backgroundColor: Theme.of(Get.context!).primaryColorDark,
+  backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
   elevation: 0,
   leading: IconButton(
     onPressed: () {

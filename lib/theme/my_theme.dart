@@ -28,7 +28,7 @@ class MyTheme {
   static ThemeData get darkTheme => ThemeData(
       primaryColor: accent,
       scaffoldBackgroundColor: bgColorDarkMode,
-      primaryColorDark: accentDark,
+      primaryColorDark: bgDarkColor,
       iconTheme: const IconThemeData(color: textWhite300),
       fontFamily: 'Poppins',
       textTheme: const TextTheme(

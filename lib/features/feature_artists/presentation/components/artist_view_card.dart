@@ -28,7 +28,7 @@ class ArtistViewCard extends StatelessWidget {
                 width: 200,
                 height: 200,
                 decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    color: Theme.of(context).primaryColorDark,
                     borderRadius: BorderRadius.circular(100)),
                 child: Icon(
                   Icons.broken_image_rounded,
@@ -42,7 +42,7 @@ class ArtistViewCard extends StatelessWidget {
         //  Artist details
         Text(
           artistModel.artist,
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme.of(context).textTheme.titleSmall,
         ),
       ],
     );
