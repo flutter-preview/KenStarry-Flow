@@ -101,7 +101,7 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
                       children: [
                         //  title
                         Text("Songs", style: Theme.of(context).textTheme.titleSmall,),
-                        Icon(Icons.chevron_right, color: Theme.of(context).iconTheme.color,)
+                        Icon(Icons.chevron_right, color: Theme.of(context).iconTheme.color, size: 16,)
                         //  song count
                         //  total song duration
                       ],
