@@ -13,7 +13,7 @@ class ArtistCard extends StatelessWidget {
     return GestureDetector(
       onTap: (){
         // Open Artist View screen
-        Get.to(() => ArtistViewScreen());
+        Get.to(() => ArtistViewScreen(artist: artist,));
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
