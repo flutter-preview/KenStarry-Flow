@@ -64,6 +64,27 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
 
+                          //  library button
+                          Expanded(child: Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: UnconstrainedBox(
+                              child: Container(
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColorDark,
+                                  borderRadius: BorderRadius.circular(30)
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.library_books, color: Theme.of(context).primaryColor, size: 16,),
+                                    const SizedBox(width: 8,),
+                                    Text("Library", style: Theme.of(context).textTheme.bodyMedium,),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )),
+
                           //  shuffle songs
                           InkWell(
                             borderRadius: BorderRadius.circular(100),
