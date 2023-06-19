@@ -28,7 +28,7 @@ class ArtistViewCard extends StatelessWidget {
                 width: 200,
                 height: 200,
                 decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColorDark,
+                    color: Theme.of(context).scaffoldBackgroundColor,
                     borderRadius: BorderRadius.circular(100)),
                 child: Icon(
                   Icons.broken_image_rounded,

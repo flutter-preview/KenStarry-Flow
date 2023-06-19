@@ -94,9 +94,11 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
                     )
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //  title
-                    Text("Songs")
+                    Text("Songs", style: Theme.of(context).textTheme.titleSmall,)
                   ],
                 ),
               ),
