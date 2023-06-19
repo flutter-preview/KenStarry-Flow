@@ -1,6 +1,8 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:azlistview/azlistview.dart';
 import 'package:flow/core/data/source/my_audio_handler.dart';
+import 'package:flow/core/utils/math_utils.dart';
+import 'package:flow/core/utils/string_extensions.dart';
 import 'package:flow/features/feature_home/domain/model/az_item.dart';
 import 'package:flow/features/feature_home/domain/use_case/home_use_cases.dart';
 import 'package:get/get.dart';
@@ -18,6 +20,7 @@ class PlayerController extends GetxController {
   List<ISuspensionBean> azSongs =
       List<ISuspensionBean>.empty(growable: true).obs;
   final totalSongs = 0.obs;
+  final totalSongsDuration = ''.obs;
 
   late List<MediaItem> mediaItems;
 
@@ -45,8 +48,17 @@ class PlayerController extends GetxController {
     });
   }
 
-  /// Listen to total duration from audio handler
+  void setTotalSongsDuration({required List<SongModel> songs}) {
+    var durations = songs.map((song) => song.duration);
+    var totalDuration = durations
+        .reduce((dur, element) => dur! + element!.toInt())!;
 
+    totalSongsDuration.value = MathUtils.printToMinutesSeconds(Duration(milliseconds: totalDuration));
+
+    print("TOTAL DURATION: $totalSongsDuration");
+  }
+
+  /// Listen to total duration from audio handler
   void initializeSongs({required List<SongModel> songs}) {
     this.songs.value = songs;
 
