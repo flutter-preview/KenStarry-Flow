@@ -25,7 +25,7 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
 
     //  scroll to the index where the artist has been clicked
     _pageController = PageController(
-        viewportFraction: 0.8,
+        viewportFraction: 0.7,
         initialPage: _artistsController.artists
             .indexWhere((a) => a.artist == widget.artist.artist));
   }
@@ -45,8 +45,7 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
             //  Page View
             Obx(
               () => Container(
-                height: 350,
-                color: Colors.blue,
+                height: 300,
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: PageView.builder(
                     controller: _pageController,
