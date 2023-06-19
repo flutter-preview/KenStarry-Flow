@@ -107,8 +107,14 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
                           Icons.chevron_right,
                           color: Theme.of(context).iconTheme.color,
                           size: 16,
-                        )
+                        ),
                         //  song count
+                        Obx(
+                          () => Text(
+                            "${_artistsController.artistSongs.length} songs",
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                        ),
                         //  total song duration
                       ],
                     )

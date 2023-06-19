@@ -24,7 +24,7 @@ class ArtistsController extends GetxController {
   void getArtistSongs(
       {required ArtistModel artist, required List<SongModel> songs}) {
     //  filter the songs
-    songs.retainWhere((song) => song.artist == artist.artist);
-    artistSongs.value = songs;
+    final filteredList = songs.where((song) => song.artistId == artist.id).toList();
+    artistSongs.value = filteredList;
   }
 }
