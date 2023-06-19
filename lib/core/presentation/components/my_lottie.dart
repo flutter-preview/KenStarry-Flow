@@ -32,6 +32,8 @@ class _MyLottieState extends State<MyLottie> with TickerProviderStateMixin {
     return Lottie.asset(widget.lottie,
         animate: true,
         reverse: false,
+        width: 250,
+        height: 250,
         controller: _lottieController, onLoaded: (composition) {
       _lottieController.duration = composition.duration;
       _lottieController.forward();

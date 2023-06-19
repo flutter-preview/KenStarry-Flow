@@ -1,5 +1,6 @@
 import 'package:flow/features/feature_artists/presentation/artists_screen.dart';
 import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
+import 'package:flow/features/feature_main/presentation/components/grant_permission_screen.dart';
 import 'package:flow/features/feature_playlist/presentation/playlist_screen.dart';
 import 'package:flow/features/feature_settings/presentation/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -80,13 +81,7 @@ class _MainScreenState extends State<MainScreen> {
                         child: HomeBottomBar(),
                       )
                     ])
-                  : Center(
-                      child: FilledButton(
-                      child: const Text("Permission not granted"),
-                      onPressed: () {
-                        _playerController.checkPermission();
-                      },
-                    )),
+                  : GrantPermissionPage(),
             ),
           )),
     );
