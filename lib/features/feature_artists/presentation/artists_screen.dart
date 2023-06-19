@@ -59,7 +59,9 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
 
                 //  our list of artists
                 return ArtistsList(artistsController: _artistsController);
-              })
+              }),
+
+          const SliverToBoxAdapter(child: SizedBox(height: 120))
         ],
       ),
     );

@@ -11,7 +11,8 @@ class ArtistsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverGrid(
-        delegate: SliverChildBuilderDelegate((context, index) {
+        delegate: SliverChildBuilderDelegate(
+            childCount: artistsController.artists.length, (context, index) {
           return Obx(
               () => ArtistCard(artist: artistsController.artists[index]));
         }),

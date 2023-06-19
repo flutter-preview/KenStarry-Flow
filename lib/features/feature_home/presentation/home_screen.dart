@@ -67,28 +67,37 @@ class _HomeScreenState extends State<HomeScreen> {
               myAppBar(),
               SliverToBoxAdapter(
                 child: //  play all songs from the start
-                    UnconstrainedBox(
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(50),
-                    onTap: () {
-                      if (_playerController.songs.isNotEmpty) {
-                        //  start playing the first song
-                        _playerController.playSong(
-                            path: _playerController.songs[0].uri!, index: 0);
-                      }
-                    },
-                    child: Ink(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColorDark,
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Icon(
-                          Icons.play_arrow,
-                          color: Theme.of(context).primaryColor,
-                        )),
-                  ),
-                ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+
+                          //  play button
+                          InkWell(
+                            borderRadius: BorderRadius.circular(100),
+                            onTap: () {
+                              if (_playerController.songs.isNotEmpty) {
+                                //  start playing the first song
+                                _playerController.playSong(
+                                    path: _playerController.songs[0].uri!, index: 0);
+                              }
+                            },
+                            child: Ink(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColorDark,
+                                    borderRadius: BorderRadius.circular(50)),
+                                child: Icon(
+                                  Icons.play_arrow,
+                                  color: Theme.of(context).primaryColor,
+                                  size: 32,
+                                )),
+                          ),
+                        ],
+                      ),
+                    ),
               ),
               FutureBuilder<List<SongModel>>(
                 future: _playerController.getSongs(),
