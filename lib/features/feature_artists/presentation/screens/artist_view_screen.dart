@@ -67,9 +67,8 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
           children: [
             //  Page View
             Obx(
-              () => Container(
-                height: 300,
-                padding: const EdgeInsets.symmetric(vertical: 16),
+              () => SizedBox(
+                height: 250,
                 child: PageView.builder(
                     controller: _pageController,
                     physics: const BouncingScrollPhysics(),
@@ -83,8 +82,23 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
 
             //  songs
             Expanded(
+              flex: 2,
               child: Container(
-                color: Theme.of(context).scaffoldBackgroundColor,
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(24),
+                        topLeft: Radius.circular(24)
+                    )
+                ),
+                child: Column(
+                  children: [
+                    //  title
+                    Text("Songs")
+                  ],
+                ),
               ),
             )
           ],
