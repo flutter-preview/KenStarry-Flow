@@ -1,24 +1,15 @@
-import 'package:azlistview/azlistview.dart';
 import 'package:flow/core/presentation/components/show_player_bottom_sheet.dart';
 import 'package:flow/core/presentation/controller/core_controller.dart';
 import 'package:flow/features/feature_home/domain/model/player_states.dart';
-import 'package:flow/features/feature_home/presentation/components/bottom_bar/home_bottom_bar.dart';
 import 'package:flow/features/feature_home/presentation/components/song_card.dart';
 import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flow/features/feature_main/presentation/components/my_appbar.dart';
-import 'package:flow/features/feature_player/presentation/player_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:get/get.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:draggable_scrollbar/draggable_scrollbar.dart';
-import 'package:vs_scrollbar/vs_scrollbar.dart';
 
-import '../../../theme/colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -72,6 +63,27 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
+
+                          //  shuffle songs
+                          InkWell(
+                            borderRadius: BorderRadius.circular(100),
+                            onTap: () {
+                              //  show songs
+                            },
+                            child: Ink(
+                                width: 35,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColorDark,
+                                    borderRadius: BorderRadius.circular(50)),
+                                child: Icon(
+                                  Icons.shuffle,
+                                  color: Theme.of(context).iconTheme.color,
+                                  size: 20,
+                                )),
+                          ),
+
+                          const SizedBox(width: 8),
 
                           //  play button
                           InkWell(
