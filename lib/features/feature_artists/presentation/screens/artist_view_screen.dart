@@ -47,13 +47,20 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
       backgroundColor: Theme.of(context).primaryColorDark,
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Theme.of(context).primaryColorDark,
-          statusBarIconBrightness: _coreController.brightness.value == Brightness.dark
-              ? Brightness.light
-              : Brightness.dark
-        ),
+            statusBarColor: Theme.of(context).primaryColorDark,
+            statusBarIconBrightness:
+                _coreController.brightness.value == Brightness.dark
+                    ? Brightness.light
+                    : Brightness.dark),
         backgroundColor: Theme.of(context).primaryColorDark,
         elevation: 0,
+        leading: IconButton(
+          onPressed: () {},
+          icon: Icon(
+            Icons.arrow_back,
+            color: Theme.of(context).iconTheme.color,
+          ),
+        ),
       ),
       body: SafeArea(
         child: Column(
