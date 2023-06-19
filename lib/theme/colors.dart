@@ -1,8 +1,29 @@
 import 'package:flutter/material.dart';
 
-/// General Colors
+/// General Colors - light 90%, dark 70%
 const accent = Color(0xFF00b4d8);
-const accentLight = Color(0xfff1f9ff);
+const accentLight = Color(0xffe2faff);
+const accentDark = Color(0xff003641);
+
+const accent2 = Color(0xFFfb8500);
+const accent2Light = Color(0xfffff3e5);
+const accent2Dark = Color(0xff4b2800);
+
+const accent3 = Color(0xFFef233c);
+const accent3Light = Color(0xfffde9eb);
+const accent3Dark = Color(0xff4d060e);
+
+const accent4 = Color(0xFFff006e);
+const accent4Light = Color(0xffffe5f1);
+const accent4Dark = Color(0xff4d0021);
+
+const accent5 = Color(0xFF00f5d4);
+const accent5Light = Color(0xffe4fffb);
+const accent5Dark = Color(0xff004940);
+
+const accent6 = Color(0xFFffd60a);
+const accent6Light = Color(0xfffffbe6);
+const accent6Dark = Color(0xff4f4200);
 
 /// Light Mode Colors
 const bgColorLightMode = Color(0xFFFFFFFF);
