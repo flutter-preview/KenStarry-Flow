@@ -6,16 +6,25 @@ import 'package:on_audio_query/on_audio_query.dart';
 import '../../../../di/locator.dart';
 
 class ArtistsController extends GetxController {
-
   /// Use Cases
   final artistsUseCases = locator.get<ArtistsUseCases>();
 
   /// All Artists
   final artists = <ArtistModel>[].obs;
 
+  final artistSongs = <SongModel>[].obs;
+
+  void setArtists({required List<ArtistModel> artists}) =>
+      this.artists.value = artists;
+
+  Future<List<ArtistModel>> getArtists() async =>
+      await artistsUseCases.getArtists();
+
   /// Get Artist Songs
-
-  void setArtists({required List<ArtistModel> artists}) => this.artists.value = artists;
-
-  Future<List<ArtistModel>> getArtists() async => await artistsUseCases.getArtists();
+  void getArtistSongs(
+      {required ArtistModel artist, required List<SongModel> songs}) {
+    //  filter the songs
+    songs.retainWhere((song) => song.artist == artist.artist);
+    artistSongs.value = songs;
+  }
 }

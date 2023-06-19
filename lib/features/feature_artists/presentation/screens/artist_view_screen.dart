@@ -1,6 +1,7 @@
 import 'package:flow/features/feature_artists/presentation/components/artist_view_appbar.dart';
 import 'package:flow/features/feature_artists/presentation/components/artist_view_card.dart';
 import 'package:flow/features/feature_artists/presentation/controller/artists_controller.dart';
+import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -20,14 +21,16 @@ class ArtistViewScreen extends StatefulWidget {
 class _ArtistViewScreenState extends State<ArtistViewScreen> {
   late final ArtistsController _artistsController;
   late final CoreController _coreController;
+  late final PlayerController _playerController;
   late PageController _pageController;
 
   @override
   void initState() {
     super.initState();
 
-    _artistsController = Get.find();
+    _artistsController = Get.find<ArtistsController>();
     _coreController = Get.find<CoreController>();
+    _playerController = Get.find<PlayerController>();
 
     //  scroll to the index where the artist has been clicked
     _pageController = PageController(
