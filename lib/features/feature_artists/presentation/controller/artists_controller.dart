@@ -27,4 +27,6 @@ class ArtistsController extends GetxController {
     final filteredList = songs.where((song) => song.artistId == artist.id).toList();
     artistSongs.value = filteredList;
   }
+
+  /// Get Artist songs total duration
 }

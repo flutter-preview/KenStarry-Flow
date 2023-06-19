@@ -2,7 +2,7 @@ import 'package:flow/core/presentation/components/show_player_bottom_sheet.dart'
 import 'package:flow/features/feature_home/domain/model/player_states.dart';
 import 'package:flow/features/feature_home/presentation/components/bottom_bar/bottom_bar_item.dart';
 import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
-import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
+import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';

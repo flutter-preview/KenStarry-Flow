@@ -4,7 +4,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 import '../../../../core/presentation/controller/core_controller.dart';
 import '../../../../theme/colors.dart';
-import '../controller/player_controller.dart';
+import '../../../../core/presentation/controller/player_controller.dart';
 
 class SongCardPlaying extends StatelessWidget {
   final SongModel song;

@@ -1,6 +1,6 @@
 import 'package:flow/core/utils/string_extensions.dart';
 import 'package:flow/di/locator.dart';
-import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
+import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';

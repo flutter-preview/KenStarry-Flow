@@ -1,7 +1,7 @@
 import 'package:flow/features/feature_artists/presentation/components/artist_view_appbar.dart';
 import 'package:flow/features/feature_artists/presentation/components/artist_view_card.dart';
 import 'package:flow/features/feature_artists/presentation/controller/artists_controller.dart';
-import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
+import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:on_audio_query/on_audio_query.dart';

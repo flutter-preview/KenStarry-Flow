@@ -5,7 +5,7 @@ import 'package:flow/features/feature_home/domain/model/player_states.dart';
 import 'package:flow/features/feature_home/presentation/components/bottom_bar/home_bottom_bar.dart';
 import 'package:flow/features/feature_home/presentation/components/song_card.dart';
 import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
-import 'package:flow/features/feature_home/presentation/controller/player_controller.dart';
+import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flow/features/feature_main/presentation/components/my_appbar.dart';
 import 'package:flow/features/feature_player/presentation/player_screen.dart';
 import 'package:flutter/material.dart';

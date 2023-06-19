@@ -13,7 +13,7 @@ import '../../../di/locator.dart';
 import '../../feature_home/presentation/components/bottom_bar/home_bottom_bar.dart';
 import '../../feature_home/presentation/home_screen.dart';
 import 'components/my_appbar.dart';
-import '../../feature_home/presentation/controller/player_controller.dart';
+import '../../../core/presentation/controller/player_controller.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
