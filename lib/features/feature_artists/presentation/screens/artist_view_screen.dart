@@ -37,6 +37,12 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
         viewportFraction: 0.7,
         initialPage: _artistsController.artists
             .indexWhere((a) => a.artist == widget.artist.artist));
+
+    //  get all artist songs
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _artistsController.getArtistSongs(
+          artist: widget.artist, songs: _playerController.songs);
+    });
   }
 
   @override
@@ -58,13 +64,20 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
               () => SizedBox(
                 height: 250,
                 child: PageView.builder(
-                    controller: _pageController,
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: _artistsController.artists.length,
-                    itemBuilder: (context, index) {
-                      return ArtistViewCard(
-                          artistModel: _artistsController.artists[index]);
-                    }),
+                  controller: _pageController,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: _artistsController.artists.length,
+                  itemBuilder: (context, index) {
+                    return ArtistViewCard(
+                        artistModel: _artistsController.artists[index]);
+                  },
+                  onPageChanged: (page) {
+                    //  get all artist songs
+                    _artistsController.getArtistSongs(
+                        artist: _artistsController.artists[page],
+                        songs: _playerController.songs);
+                  },
+                ),
               ),
             ),
 
