@@ -6,14 +6,10 @@ import 'package:flow/features/feature_artists/presentation/controller/artists_co
 import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/presentation/components/show_player_bottom_sheet.dart';
 import '../../../../core/presentation/controller/core_controller.dart';
-import '../../../feature_home/domain/model/player_states.dart';
-import '../../../feature_home/presentation/components/song_card.dart';
 
 class ArtistViewScreen extends StatefulWidget {
   final ArtistModel artist;

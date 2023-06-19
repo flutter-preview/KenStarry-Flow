@@ -13,7 +13,9 @@ PreferredSizeWidget artistAppBar({required CoreController controller}) => AppBar
   backgroundColor: Theme.of(Get.context!).primaryColorDark,
   elevation: 0,
   leading: IconButton(
-    onPressed: () {},
+    onPressed: () {
+      Get.back(canPop: true);
+    },
     icon: Icon(
       Icons.arrow_back,
       color: Theme.of(Get.context!).iconTheme.color,
