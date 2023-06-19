@@ -97,8 +97,15 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    //  title
-                    Text("Songs", style: Theme.of(context).textTheme.titleSmall,)
+                    Row(
+                      children: [
+                        //  title
+                        Text("Songs", style: Theme.of(context).textTheme.titleSmall,),
+                        Icon(Icons.chevron_right, color: Theme.of(context).iconTheme.color,)
+                        //  song count
+                        //  total song duration
+                      ],
+                    )
                   ],
                 ),
               ),
