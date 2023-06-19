@@ -13,6 +13,8 @@ class ArtistsController extends GetxController {
   /// All Artists
   final artists = <ArtistModel>[].obs;
 
+  /// Get Artist Songs
+
   void setArtists({required List<ArtistModel> artists}) => this.artists.value = artists;
 
   Future<List<ArtistModel>> getArtists() async => await artistsUseCases.getArtists();
