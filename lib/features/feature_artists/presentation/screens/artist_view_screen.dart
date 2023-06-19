@@ -182,18 +182,20 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
                                 physics: const BouncingScrollPhysics(),
                                 itemCount: _artistsController.artistSongs
                                     .length,
-                                itemBuilder: (context, index) =>
-                                    SongCard(
+                                itemBuilder: (context, index) {
+
+                                  //  get index of this song from the main songs list
+                                  final currentIndex = _playerController
+                                      .songs.indexOf(_artistsController
+                                      .artistSongs[index]);
+
+                                  return SongCard(
                                       song: _artistsController
                                           .artistSongs[index],
-                                      songIndex: index,
+                                      songIndex: currentIndex,
                                       coreController: _coreController,
                                       playerController: _playerController,
                                       onSongTapped: () {
-                                        //  get index of this song from the main songs list
-                                        final currentIndex = _playerController
-                                            .songs.indexOf(_artistsController
-                                            .artistSongs[index]);
 
                                         if (_playerController.playerState
                                             .value ==
@@ -218,7 +220,8 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
                                               homeController: _homeController);
                                         }
                                       },
-                                    )),
+                                    );
+                                }),
                           ),
                     )
                   ],
