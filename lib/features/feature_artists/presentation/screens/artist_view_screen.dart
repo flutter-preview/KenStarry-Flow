@@ -103,16 +103,20 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
                           "Songs",
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
+                        const SizedBox(width: 8,),
                         Icon(
                           Icons.chevron_right,
                           color: Theme.of(context).iconTheme.color,
                           size: 16,
                         ),
+                        const SizedBox(width: 16,),
                         //  song count
                         Obx(
                           () => Text(
-                            "${_artistsController.artistSongs.length} songs",
-                            style: Theme.of(context).textTheme.titleSmall,
+                            _artistsController.artistSongs.length == 1
+                                ? "${_artistsController.artistSongs.length} song"
+                                : "${_artistsController.artistSongs.length} songs",
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
                         //  total song duration
