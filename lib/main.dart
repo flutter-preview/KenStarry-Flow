@@ -1,3 +1,4 @@
+import 'package:flow/core/domain/models/user.dart';
 import 'package:flow/di/controllers_di.dart';
 import 'package:flow/di/locator.dart';
 import 'package:flow/features/feature_main/presentation/main_screen.dart';
@@ -16,6 +17,7 @@ Future<void> main() async {
   await path_provider.getApplicationDocumentsDirectory();
 
   await Hive.initFlutter(appDocumentDirectory.path);
+  Hive.registerAdapter(UserAdapter());
 
   await invokeDI();
 
