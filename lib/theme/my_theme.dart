@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 class MyTheme {
   /// Light Theme
   static ThemeData get lightTheme => ThemeData(
-      primaryColor: accent6,
+      primaryColor: accent4,
       scaffoldBackgroundColor: bgColorLightMode,
-      primaryColorDark: accent6Light,
+      primaryColorDark: accent4Light,
       iconTheme: const IconThemeData(color: textBlack300),
       fontFamily: 'Poppins',
       textTheme: const TextTheme(

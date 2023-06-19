@@ -50,7 +50,7 @@ class SongCardPlaying extends StatelessWidget {
                 artworkWidth: double.infinity,
                 artworkHeight: double.infinity,
                 artworkBorder: BorderRadius.circular(8),
-                nullArtworkWidget: const Icon(Icons.music_note, color: accent),
+                nullArtworkWidget: Icon(Icons.music_note, color: Theme.of(context).primaryColor),
               ),
             ),
 

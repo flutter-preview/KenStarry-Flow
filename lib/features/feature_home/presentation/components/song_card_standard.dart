@@ -51,7 +51,7 @@ class SongCardStandard extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: Theme.of(context).primaryColorDark),
-                  child: const Icon(Icons.music_note, color: accent),
+                  child: Icon(Icons.music_note, color: Theme.of(context).primaryColor),
                 ),
               ),
             ),

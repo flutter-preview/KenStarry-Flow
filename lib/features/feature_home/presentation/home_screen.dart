@@ -83,9 +83,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         decoration: BoxDecoration(
                             color: Theme.of(context).primaryColorDark,
                             borderRadius: BorderRadius.circular(50)),
-                        child: const Icon(
+                        child: Icon(
                           Icons.play_arrow,
-                          color: accent,
+                          color: Theme.of(context).primaryColor,
                         )),
                   ),
                 ),
