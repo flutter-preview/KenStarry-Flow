@@ -26,6 +26,8 @@ dependencies:
   # Hive Dependency
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  # for OS -Specific directory paths
+  path_provider: ^2.0.15
 
 dev_dependencies:
   flutter_test:
