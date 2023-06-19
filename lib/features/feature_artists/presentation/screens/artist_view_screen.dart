@@ -1,3 +1,4 @@
+import 'package:flow/features/feature_artists/presentation/components/artist_view_appbar.dart';
 import 'package:flow/features/feature_artists/presentation/components/artist_view_card.dart';
 import 'package:flow/features/feature_artists/presentation/controller/artists_controller.dart';
 import 'package:flutter/material.dart';
@@ -45,23 +46,7 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColorDark,
-      appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Theme.of(context).primaryColorDark,
-            statusBarIconBrightness:
-                _coreController.brightness.value == Brightness.dark
-                    ? Brightness.light
-                    : Brightness.dark),
-        backgroundColor: Theme.of(context).primaryColorDark,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.arrow_back,
-            color: Theme.of(context).iconTheme.color,
-          ),
-        ),
-      ),
+      appBar: artistAppBar(controller: _coreController),
       body: SafeArea(
         child: Column(
           children: [
@@ -90,9 +75,7 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
                     color: Theme.of(context).scaffoldBackgroundColor,
                     borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(24),
-                        topLeft: Radius.circular(24)
-                    )
-                ),
+                        topLeft: Radius.circular(24))),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,8 +83,15 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
                     Row(
                       children: [
                         //  title
-                        Text("Songs", style: Theme.of(context).textTheme.titleSmall,),
-                        Icon(Icons.chevron_right, color: Theme.of(context).iconTheme.color, size: 16,)
+                        Text(
+                          "Songs",
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        Icon(
+                          Icons.chevron_right,
+                          color: Theme.of(context).iconTheme.color,
+                          size: 16,
+                        )
                         //  song count
                         //  total song duration
                       ],
