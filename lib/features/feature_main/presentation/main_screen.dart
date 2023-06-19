@@ -48,14 +48,16 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    /// Check for storage permissions
-    _playerController.checkPermission();
-
     /// Listen for songs playing
     _playerController.isSongPlaying();
     return Obx(
       () => AnnotatedRegion(
           value: SystemUiOverlayStyle(
+              statusBarColor: Theme.of(context).scaffoldBackgroundColor,
+              statusBarIconBrightness:
+                  _coreController.brightness.value == Brightness.dark
+                      ? Brightness.light
+                      : Brightness.dark,
               systemNavigationBarColor:
                   Theme.of(context).scaffoldBackgroundColor,
               systemNavigationBarIconBrightness:
