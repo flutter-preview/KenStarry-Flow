@@ -21,19 +21,30 @@ class GrantPermissionPage extends StatelessWidget {
               "Flow",
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            const SizedBox(height: 24,),
+            const SizedBox(height: 16,),
+
+            Text(
+              "Let's begin your musical journey...",
+              style: Theme.of(context).textTheme.bodyMedium,
+              textAlign: TextAlign.center,
+            ),
+
+            const SizedBox(height: 48,),
+
             //  lottie
             const MyLottie(lottie: 'assets/lottie/flow_music_alt.json'),
-            const SizedBox(height: 24,),
+
+            const SizedBox(height: 48,),
+
             Center(
                 child: FilledButton(
-              child: const Text("Permission not granted"),
               onPressed: () {
                 _playerController.checkPermission();
               },
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
                       Theme.of(context).primaryColor)),
+              child: const Text("Grant Permissions"),
             ))
           ],
         ),
