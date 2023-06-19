@@ -29,7 +29,7 @@ SliverAppBar myAppBar() {
             color: Theme.of(Get.context!).iconTheme.color,
           )),
     ],
-    expandedHeight: 200,
+    expandedHeight: 100,
     floating: false,
     pinned: true,
     backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
@@ -40,11 +40,6 @@ SliverAppBar myAppBar() {
       ),
       centerTitle: true,
       collapseMode: CollapseMode.parallax,
-      background: Icon(
-        Icons.music_note_outlined,
-        size: 56,
-        color: Theme.of(Get.context!).primaryColor,
-      ),
     ),
   );
 }
