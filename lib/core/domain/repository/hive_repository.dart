@@ -7,7 +7,7 @@ abstract class HiveRepository {
   Future<void> addUserPrefs({required User user});
 
   /// Get User Preferences
-  ValueListenable<Box> getUserPrefs();
+  void getUserPrefs({required Function(ValueListenable<Box> box) observeBox});
 
   /// Update User Preferences
   Future<void> updateUserPrefs({required User user});

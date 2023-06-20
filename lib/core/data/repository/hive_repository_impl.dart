@@ -17,7 +17,8 @@ class HiveRepositoryImpl implements HiveRepository {
   Future<void> deleteUserPrefs() async => await userBox.delete('user');
 
   @override
-  ValueListenable<Box> getUserPrefs() => userBox.listenable();
+  void getUserPrefs({required Function(ValueListenable<Box> box) observeBox}) =>
+      observeBox(userBox.listenable());
 
   @override
   Future<void> updateUserPrefs({required User user}) async =>

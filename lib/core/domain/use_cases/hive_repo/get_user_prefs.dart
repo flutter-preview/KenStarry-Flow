@@ -8,5 +8,6 @@ import '../../models/user.dart';
 class GetUserPrefs {
   final repo = locator.get<HiveRepository>();
 
-  ValueListenable<Box> call() => repo.getUserPrefs();
+  void call({required Function(ValueListenable<Box> box) observeBox}) =>
+      repo.getUserPrefs(observeBox: observeBox);
 }

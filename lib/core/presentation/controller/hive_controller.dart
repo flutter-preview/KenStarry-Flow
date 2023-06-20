@@ -9,14 +9,16 @@ class HiveController extends GetxController {
   final useCases = locator.get<HiveUseCases>();
 
   /// User Prefs
-  final userPrefs = null.obs;
+  final Rx<ValueListenable<Box>?> userPrefs = null.obs;
 
   Future<void> addUserPrefs({required User user}) async =>
       await useCases.addUserPrefs.call(user: user);
 
   Future<void> deleteUserPrefs() async => await useCases.deleteUserPrefs();
 
-  ValueListenable<Box> getUserPrefs() => useCases.getUserPrefs();
+  void getUserPrefs({required Function(ValueListenable<Box> box) observeBox}) {
+    observeBox(box) => userPrefs.value = box;
+  }
 
   Future<void> updateUserPrefs({required User user}) async =>
       await useCases.updateUserPrefs.call(user: user);
