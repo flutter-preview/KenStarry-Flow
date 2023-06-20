@@ -1,6 +1,8 @@
+import 'package:flow/core/domain/models/user.dart';
+
 abstract class HiveRepository {
   /// Add User Preferences
-  Future<void> addUserPrefs();
+  Future<void> addUserPrefs({required User user});
 
   /// Get User Preferences
   Future<void> getUserPrefs();
