@@ -1,3 +1,4 @@
+import 'package:flow/features/feature_playlist/presentation/components/playlist_appbar.dart';
 import 'package:flutter/material.dart';
 
 class PlaylistScreen extends StatefulWidget {
@@ -10,6 +11,13 @@ class PlaylistScreen extends StatefulWidget {
 class _PlaylistScreenState extends State<PlaylistScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: CustomScrollView(
+        slivers: [
+          playlistAppBar()
+        ],
+      ),
+    );
   }
 }
