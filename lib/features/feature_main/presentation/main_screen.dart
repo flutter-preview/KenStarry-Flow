@@ -62,43 +62,40 @@ class _MainScreenState extends State<MainScreen> {
           final userPrefs = box.get('user') as User?;
 
           if (userPrefs == null) {
-            _hiveController.addUserPrefs(user: User(hasGrantedPermission: false));
+            _hiveController.addUserPrefs(
+                user: User(hasGrantedPermission: false));
           }
 
-          return Obx(
-            () => AnnotatedRegion(
-                value: SystemUiOverlayStyle(
-                    statusBarColor: Theme.of(context).scaffoldBackgroundColor,
-                    statusBarIconBrightness:
-                        _coreController.brightness.value == Brightness.dark
-                            ? Brightness.light
-                            : Brightness.dark,
-                    systemNavigationBarColor:
-                        Theme.of(context).scaffoldBackgroundColor,
-                    systemNavigationBarIconBrightness:
-                        _coreController.brightness.value == Brightness.dark
-                            ? Brightness.light
-                            : Brightness.dark),
-                child: Scaffold(
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  body: Obx(
-                    () => _playerController.isPermissionGranted.value
-                        ? Stack(fit: StackFit.loose, children: [
-                            IndexedStack(
-                              index: _homeController.currentTabIndex.value,
-                              children: _screens,
-                            ),
+          return AnnotatedRegion(
+              value: SystemUiOverlayStyle(
+                  statusBarColor: Theme.of(context).scaffoldBackgroundColor,
+                  statusBarIconBrightness:
+                      _coreController.brightness.value == Brightness.dark
+                          ? Brightness.light
+                          : Brightness.dark,
+                  systemNavigationBarColor:
+                      Theme.of(context).scaffoldBackgroundColor,
+                  systemNavigationBarIconBrightness:
+                      _coreController.brightness.value == Brightness.dark
+                          ? Brightness.light
+                          : Brightness.dark),
+              child: Scaffold(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                body: userPrefs!.hasGrantedPermission
+                    ? Stack(fit: StackFit.loose, children: [
+                        IndexedStack(
+                          index: _homeController.currentTabIndex.value,
+                          children: _screens,
+                        ),
 
-                            //  Floating bottom bar
-                            const Align(
-                              alignment: AlignmentDirectional.bottomCenter,
-                              child: HomeBottomBar(),
-                            )
-                          ])
-                        : GrantPermissionPage(),
-                  ),
-                )),
-          );
+                        //  Floating bottom bar
+                        const Align(
+                          alignment: AlignmentDirectional.bottomCenter,
+                          child: HomeBottomBar(),
+                        )
+                      ])
+                    : GrantPermissionPage(),
+              ));
         });
   }
 }
