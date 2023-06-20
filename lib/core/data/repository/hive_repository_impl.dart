@@ -1,5 +1,7 @@
 import 'package:flow/core/domain/repository/hive_repository.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
 import '../../domain/models/user.dart';
 import '../../utils/hive_utils.dart';
@@ -15,14 +17,9 @@ class HiveRepositoryImpl implements HiveRepository {
   Future<void> deleteUserPrefs() async => await userBox.delete('user');
 
   @override
-  Future<void> getUserPrefs() {
-    // TODO: implement getUserPrefs
-    throw UnimplementedError();
-  }
+  ValueListenable<Box> getUserPrefs() => userBox.listenable();
 
   @override
-  Future<void> updateUserPrefs() {
-    // TODO: implement updateUserPrefs
-    throw UnimplementedError();
-  }
+  Future<void> updateUserPrefs({required User user}) async =>
+      await userBox.put('user', user);
 }
