@@ -3,8 +3,10 @@ import 'package:lottie/lottie.dart';
 
 class MyLottie extends StatefulWidget {
   final String lottie;
+  final double width;
+  final double height;
 
-  const MyLottie({super.key, required this.lottie});
+  const MyLottie({super.key, required this.lottie, this.width = 250, this.height = 250});
 
   @override
   State<MyLottie> createState() => _MyLottieState();
@@ -31,12 +33,13 @@ class _MyLottieState extends State<MyLottie> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Lottie.asset(widget.lottie,
         animate: true,
-        reverse: false,
-        width: 250,
-        height: 250,
+        reverse: true,
+        width: widget.width,
+        height: widget.height,
         controller: _lottieController, onLoaded: (composition) {
       _lottieController.duration = composition.duration;
       _lottieController.forward();
+      _lottieController.repeat();
     });
   }
 }

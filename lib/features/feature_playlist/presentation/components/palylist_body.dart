@@ -1,0 +1,16 @@
+import 'package:flow/core/presentation/components/my_lottie.dart';
+import 'package:flutter/material.dart';
+
+class PlaylistBody extends StatelessWidget {
+  const PlaylistBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Center(
+        child: SizedBox(
+            child: MyLottie(lottie: 'assets/lottie/playlist.json', width: 300, height: 300,)),
+      ),
+    );
+  }
+}

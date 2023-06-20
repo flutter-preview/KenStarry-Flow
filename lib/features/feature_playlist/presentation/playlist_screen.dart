@@ -1,3 +1,4 @@
+import 'package:flow/features/feature_playlist/presentation/components/palylist_body.dart';
 import 'package:flow/features/feature_playlist/presentation/components/playlist_appbar.dart';
 import 'package:flutter/material.dart';
 
@@ -25,11 +26,13 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
               child: Row(
                 children: [
                   //  add new playlist
-                  addNewPlaylistBtn(onTap: () {})
+                  addNewPlaylistBtn(onTap: () {}),
                 ],
               ),
             ),
-          )
+          ),
+          //  body
+          PlaylistBody()
         ],
       ),
     );
