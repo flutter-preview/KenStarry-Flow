@@ -9,7 +9,7 @@ class PlaylistBody extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Center(
         child: SizedBox(
-            child: MyLottie(lottie: 'assets/lottie/playlist.json', width: 300, height: 300,)),
+            child: MyLottie(lottie: 'assets/lottie/playlist_grey_2.json', width: 300, height: 300,)),
       ),
     );
   }
