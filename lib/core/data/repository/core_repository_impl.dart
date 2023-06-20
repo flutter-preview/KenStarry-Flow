@@ -5,30 +5,4 @@ import 'package:flow/core/utils/hive_utils.dart';
 import 'package:hive/hive.dart';
 
 class CoreRepositoryImpl implements CoreRepository {
-
-  final Box userBox = Hive.box(HiveUtils.userBox);
-
-  @override
-  Future<void> addUserPrefs() {
-    // TODO: implement addUserPrefs
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> deleteUserPrefs() {
-    // TODO: implement deleteUserPrefs
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> getUserPrefs() {
-    // TODO: implement getUserPrefs
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> updateUserPrefs() {
-    // TODO: implement updateUserPrefs
-    throw UnimplementedError();
-  }
 }
