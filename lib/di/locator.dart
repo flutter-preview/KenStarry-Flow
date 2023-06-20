@@ -1,5 +1,6 @@
 import 'package:flow/di/artists_di.dart';
 import 'package:flow/di/core_di.dart';
+import 'package:flow/di/hive_di.dart';
 import 'package:flow/di/player_di.dart';
 import 'package:get_it/get_it.dart';
 
@@ -9,4 +10,5 @@ Future<void> invokeDI() async {
   await playerDI(locator: locator);
   artistsDI(locator: locator);
   await coreDI(locator: locator);
+  hiveDI(locator: locator);
 }
