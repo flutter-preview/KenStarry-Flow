@@ -3,6 +3,7 @@ import 'package:flow/core/utils/hive_utils.dart';
 import 'package:flow/di/controllers_di.dart';
 import 'package:flow/di/locator.dart';
 import 'package:flow/features/feature_main/presentation/main_screen.dart';
+import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
 import 'package:flow/theme/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ Future<void> main() async {
 
   await Hive.initFlutter(appDocumentDirectory.path);
   Hive.registerAdapter(UserAdapter());
+  Hive.registerAdapter(PlaylistAdapter());
 
   await invokeDI();
 
@@ -45,7 +47,10 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       title: "Flow",
       home: FutureBuilder(
-        future: Future.wait([Hive.openBox(HiveUtils.userBox)]),
+        future: Future.wait([
+          Hive.openBox(HiveUtils.userBox),
+          Hive.openBox(HiveUtils.playlistBox)
+        ]),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasError) {
