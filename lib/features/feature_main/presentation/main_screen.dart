@@ -83,9 +83,11 @@ class _MainScreenState extends State<MainScreen> {
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 body: userPrefs!.hasGrantedPermission
                     ? Stack(fit: StackFit.loose, children: [
-                        IndexedStack(
-                          index: _homeController.currentTabIndex.value,
-                          children: _screens,
+                        Obx(
+                          () => IndexedStack(
+                            index: _homeController.currentTabIndex.value,
+                            children: _screens,
+                          ),
                         ),
 
                         //  Floating bottom bar
