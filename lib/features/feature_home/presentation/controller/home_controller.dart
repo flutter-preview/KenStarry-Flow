@@ -23,7 +23,6 @@ class HomeController extends GetxController {
 
   void setBottomNavTabIndex({required int index}) {
     currentTabIndex.value = index;
-    print("");
   }
 
   void setBottomBarHiddenState({required bool isHidden}) => isBottomBarHidden.value = isHidden;

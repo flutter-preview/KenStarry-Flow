@@ -21,6 +21,7 @@ class HiveRepositoryImpl implements HiveRepository {
       observeBox(userBox.listenable());
 
   @override
-  Future<void> updateUserPrefs({required User user}) async =>
-      await userBox.put('user', user);
+  Future<void> updateUserPrefs({required User user}) async {
+    await userBox.put('user', user);
+  }
 }

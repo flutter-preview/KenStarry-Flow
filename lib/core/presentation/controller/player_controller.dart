@@ -153,7 +153,6 @@ class PlayerController extends GetxController {
     var isStorageGranted = await homeUseCases.checkPermissionUseCase.invoke();
 
     if (isStorageGranted) {
-      isPermissionGranted.value = true;
       //  save the value to the database
       _hive_controller.updateUserPrefs(user: User(hasGrantedPermission: true));
     } else {
