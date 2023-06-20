@@ -29,7 +29,10 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   //  add new playlist
-                  addNewPlaylistBtn(onTap: () {}),
+                  addNewPlaylistBtn(onTap: () {
+                    //  open create playlist bottomsheet
+                    
+                  }),
 
                   Row(
                     children: [
