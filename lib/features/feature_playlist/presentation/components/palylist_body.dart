@@ -8,8 +8,17 @@ class PlaylistBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Center(
-        child: SizedBox(
-            child: MyLottie(lottie: 'assets/lottie/playlist_grey_2.json', width: 300, height: 300,)),
+        child: Column(
+          children: [
+            SizedBox(
+                child: MyLottie(
+              lottie: 'assets/lottie/playlist_grey_2.json',
+              width: 300,
+              height: 300,
+            )),
+            Text("No Playlists yet.")
+          ],
+        ),
       ),
     );
   }
