@@ -1,3 +1,5 @@
+import 'package:flow/core/domain/models/user.dart';
+import 'package:flow/core/presentation/controller/hive_controller.dart';
 import 'package:flow/features/feature_artists/presentation/artists_screen.dart';
 import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:flow/features/feature_main/presentation/components/grant_permission_screen.dart';
@@ -27,6 +29,7 @@ class _MainScreenState extends State<MainScreen> {
   late final PlayerController _playerController;
   late final HomeController _homeController;
   late final CoreController _coreController;
+  late final HiveController _hiveController;
   late final List<Widget> _screens;
   final audioPlayer = locator.get<AudioPlayer>();
 
@@ -37,6 +40,7 @@ class _MainScreenState extends State<MainScreen> {
     _playerController = Get.find<PlayerController>();
     _coreController = Get.find<CoreController>();
     _homeController = Get.find<HomeController>();
+    _hiveController = Get.find<HiveController>();
 
     _screens = [
       const HomeScreen(),
@@ -51,39 +55,50 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     /// Listen for songs playing
     _playerController.isSongPlaying();
-    return Obx(
-      () => AnnotatedRegion(
-          value: SystemUiOverlayStyle(
-              statusBarColor: Theme.of(context).scaffoldBackgroundColor,
-              statusBarIconBrightness:
-                  _coreController.brightness.value == Brightness.dark
-                      ? Brightness.light
-                      : Brightness.dark,
-              systemNavigationBarColor:
-                  Theme.of(context).scaffoldBackgroundColor,
-              systemNavigationBarIconBrightness:
-                  _coreController.brightness.value == Brightness.dark
-                      ? Brightness.light
-                      : Brightness.dark),
-          child: Scaffold(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            body: Obx(
-              () => _playerController.isPermissionGranted.value
-                  ? Stack(fit: StackFit.loose, children: [
-                      IndexedStack(
-                        index: _homeController.currentTabIndex.value,
-                        children: _screens,
-                      ),
 
-                      //  Floating bottom bar
-                      const Align(
-                        alignment: AlignmentDirectional.bottomCenter,
-                        child: HomeBottomBar(),
-                      )
-                    ])
-                  : GrantPermissionPage(),
-            ),
-          )),
-    );
+    return ValueListenableBuilder(
+        valueListenable: _hiveController.userPrefs.value,
+        builder: (context, box, widget) {
+          final userPrefs = box.get('user') as User?;
+
+          if (userPrefs == null) {
+            _hiveController.addUserPrefs(user: User(hasGrantedPermission: false));
+          }
+
+          return Obx(
+            () => AnnotatedRegion(
+                value: SystemUiOverlayStyle(
+                    statusBarColor: Theme.of(context).scaffoldBackgroundColor,
+                    statusBarIconBrightness:
+                        _coreController.brightness.value == Brightness.dark
+                            ? Brightness.light
+                            : Brightness.dark,
+                    systemNavigationBarColor:
+                        Theme.of(context).scaffoldBackgroundColor,
+                    systemNavigationBarIconBrightness:
+                        _coreController.brightness.value == Brightness.dark
+                            ? Brightness.light
+                            : Brightness.dark),
+                child: Scaffold(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  body: Obx(
+                    () => _playerController.isPermissionGranted.value
+                        ? Stack(fit: StackFit.loose, children: [
+                            IndexedStack(
+                              index: _homeController.currentTabIndex.value,
+                              children: _screens,
+                            ),
+
+                            //  Floating bottom bar
+                            const Align(
+                              alignment: AlignmentDirectional.bottomCenter,
+                              child: HomeBottomBar(),
+                            )
+                          ])
+                        : GrantPermissionPage(),
+                  ),
+                )),
+          );
+        });
   }
 }
