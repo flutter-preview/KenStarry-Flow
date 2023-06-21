@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 Widget addNewPlaylistBtn({required VoidCallback onTap}) =>
     GestureDetector(onTap: onTap, child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
         color: Theme.of(Get.context!).primaryColorDark
