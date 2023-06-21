@@ -1,5 +1,6 @@
 import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
+import 'package:flow/features/feature_playlist/presentation/components/bottomsheets/playlist_picker_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -36,7 +37,10 @@ void showPlayerBottomSheet({required PlayerController playerController, required
                     .songs[playerController.currentPlayingSongIndex.value! - 1]
                     .uri!,
                 index: playerController.currentPlayingSongIndex.value! - 1),
-          onPlaylistClicked: (){},);
+          onPlaylistClicked: (){
+              //  open playlist picker bottom sheet
+            playlistPickerSheet();
+          },);
         },
       ),
     ).whenComplete(() {
