@@ -20,6 +20,17 @@ class PlaylistRepositoryImpl implements PlaylistRepository {
   @override
   Future<void> updatePlaylist(
       {required int index, required Playlist playlist}) async {
-    await playlistBox.putAt(index, playlist);
+    //  get current playlist data
+    var currentPlaylist = playlistBox.getAt(index) as Playlist;
+    var updatedPlaylist = Playlist(
+        playlistName: playlist.playlistName ?? currentPlaylist.playlistName,
+        playlistImageUri:
+            playlist.playlistImageUri ?? currentPlaylist.playlistImageUri,
+        playlistCreatedDate:
+            playlist.playlistCreatedDate ?? currentPlaylist.playlistCreatedDate,
+        playlistSongIds:
+            playlist.playlistSongIds ?? currentPlaylist.playlistSongIds);
+
+    await playlistBox.putAt(index, updatedPlaylist);
   }
 }
