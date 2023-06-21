@@ -55,7 +55,7 @@ class _PlaylistBodyState extends State<PlaylistBody> {
 
                         showSnackbar(title: "${playlist
                             .playlistName} Deleted Successfully",
-                            message: "",
+                            message: "Deleted successfully",
                             iconData: Icons.delete_outline_rounded);
                       },
                     ))

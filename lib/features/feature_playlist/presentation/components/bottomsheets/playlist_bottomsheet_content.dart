@@ -3,6 +3,8 @@ import 'package:flow/features/feature_playlist/presentation/controller/playlist_
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../core/presentation/components/show_snackbar.dart';
+
 class PlaylistBottomSheetContent extends StatefulWidget {
   const PlaylistBottomSheetContent({super.key});
 
@@ -99,6 +101,12 @@ class _PlaylistBottomSheetContentState
                     _playlistController.addPlaylist(
                         playlist: Playlist(
                             playlistName: _playlistNameController.text));
+
+                    Navigator.of(context).pop();
+
+                    showSnackbar(title: "${_playlistNameController.text} Created",
+                        message: "Playlist created successfully!",
+                        iconData: Icons.playlist_add_check_rounded);
                   },
                   child: Text("Save"))
             ],
