@@ -5,7 +5,7 @@ abstract class PlaylistRepository {
   /// Add Playlist
   Future<void> addPlaylist({required Playlist playlist});
   /// Update Playlist
-  Future<void> updatePlaylist();
+  Future<void> updatePlaylist({required int index, required Playlist playlist});
   /// Delete Playlist
-  Future<void> deletePlaylist();
+  Future<void> deletePlaylist({required int index});
 }
