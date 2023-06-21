@@ -1,3 +1,4 @@
+import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
 import 'package:flow/features/feature_playlist/presentation/controller/playlist_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class _PlaylistBottomSheetContentState
     _playlistNameController = TextEditingController();
 
     _playlistNameController.addListener(() {
-      //  do something with our text
+      //  update text inside controller
     });
   }
 
@@ -81,9 +82,11 @@ class _PlaylistBottomSheetContentState
                           Theme.of(context).scaffoldBackgroundColor),
                       foregroundColor: MaterialStateProperty.all(
                           Theme.of(context).primaryColor)),
-                  onPressed: () {},
+                  onPressed: () => Navigator.pop(context),
                   child: Text("Cancel")),
-              const SizedBox(width: 8,),
+              const SizedBox(
+                width: 8,
+              ),
               TextButton(
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
@@ -91,7 +94,12 @@ class _PlaylistBottomSheetContentState
                       foregroundColor: MaterialStateProperty.all(Colors.white),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)))),
-                  onPressed: () {},
+                  onPressed: () {
+                    //  add playlist to database
+                    _playlistController.addPlaylist(
+                        playlist: Playlist(
+                            playlistName: _playlistNameController.text));
+                  },
                   child: Text("Save"))
             ],
           )

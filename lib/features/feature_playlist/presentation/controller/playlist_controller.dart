@@ -12,6 +12,8 @@ class PlaylistController extends GetxController {
   final useCases = locator.get<PlaylistUseCases>();
   final playlists = Hive.box(HiveUtils.playlistBox).listenable().obs;
 
+  final playlistNameInput = ''.obs;
+
   // Add Playlist
   Future<void> addPlaylist({required Playlist playlist}) async =>
       await useCases.addPlaylist(playlist: playlist);
