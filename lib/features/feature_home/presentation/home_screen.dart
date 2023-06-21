@@ -42,7 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(left: 8.0,
+        top: 8),
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
@@ -158,10 +159,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: AzListView(
                       data: _playerController.azSongs,
                       itemScrollController: _scrollController,
+                      physics: const BouncingScrollPhysics(),
+                      indexBarOptions: IndexBarOptions(
+                        needRebuild: true,
+                        selectTextStyle: Theme.of(context).textTheme.bodySmall,
+                        selectItemDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Theme.of(context).primaryColor
+                        ),
+                        indexHintAlignment: Alignment.centerRight,
+                        indexHintOffset: Offset(-15, 0)
+                      ),
                       itemCount: songs.length,
                       itemBuilder: (context, index) => Padding(
                         padding:
-                        const EdgeInsets.symmetric(vertical: 8.0),
+                        const EdgeInsets.only(top: 8.0, bottom: 8, left: 8, right: 24),
                         child: SongCard(
                           song: songs[index],
                           songIndex: index,
