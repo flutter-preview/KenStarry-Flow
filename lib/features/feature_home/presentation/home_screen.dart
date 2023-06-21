@@ -162,7 +162,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       physics: const BouncingScrollPhysics(),
                       indexBarOptions: IndexBarOptions(
                         needRebuild: true,
-                        selectTextStyle: Theme.of(context).textTheme.bodySmall,
+                        selectTextStyle: TextStyle(
+                          fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+                          fontWeight: Theme.of(context).textTheme.bodySmall?.fontWeight,
+                          color: Colors.black
+                        ),
                         selectItemDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                           color: Theme.of(context).primaryColor
