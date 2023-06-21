@@ -20,6 +20,7 @@ class PlaylistCard extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColorDark,
                   borderRadius: BorderRadius.circular(24)),
+              child: Icon(Icons.music_note_outlined, color: Theme.of(context).iconTheme.color, size: 48,),
             ),
             //  songs count
             Align(
@@ -60,6 +61,7 @@ class PlaylistCard extends StatelessWidget {
                             "Delete",
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
+                          onTap: (){},
                         ),
                       ])
             ],
