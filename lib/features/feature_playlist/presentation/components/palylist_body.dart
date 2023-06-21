@@ -42,7 +42,7 @@ class _PlaylistBodyState extends State<PlaylistBody> {
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       children: playlists
-                          .map((playlist) => PlaylistCard(playlist: playlist))
+                          .map((playlist) => PlaylistCard(playlist: playlist, onDelete: () {},))
                           .toList(),
                     )
                   : const Center(

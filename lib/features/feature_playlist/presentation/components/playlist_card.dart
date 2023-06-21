@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class PlaylistCard extends StatelessWidget {
   final Playlist playlist;
+  final VoidCallback onDelete;
 
-  const PlaylistCard({super.key, required this.playlist});
+  const PlaylistCard({super.key, required this.playlist, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +73,9 @@ class PlaylistCard extends StatelessWidget {
               PopupMenuButton(
                   itemBuilder: (context) =>
                   [
+                    //  delete icon
                     PopupMenuItem(
+                      onTap: onDelete,
                       child: Row(
                         children: [
                           Icon(
@@ -90,7 +93,6 @@ class PlaylistCard extends StatelessWidget {
                           )
                         ],
                       ),
-                      onTap: () {},
                     ),
                   ])
             ],
