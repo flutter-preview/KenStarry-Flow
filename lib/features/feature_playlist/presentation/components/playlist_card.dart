@@ -1,6 +1,5 @@
 import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
 import 'package:flutter/material.dart';
-import 'package:marquee/marquee.dart';
 
 class PlaylistCard extends StatelessWidget {
   final Playlist playlist;
@@ -61,18 +60,16 @@ class PlaylistCard extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //  playlist name
               Expanded(
-                child: SizedBox(
-                  height: 35,
-                  child: Marquee(
-                    text: playlist.playlistName ?? "",
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    pauseAfterRound: const Duration(seconds: 1),
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                  ),
+                child: Text(
+                  playlist.playlistName ?? "No name",
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyMedium,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               //  playlist more action
