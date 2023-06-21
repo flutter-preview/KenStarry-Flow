@@ -13,12 +13,14 @@ class PlayerScreen extends StatefulWidget {
   final List<SongModel> songs;
   final VoidCallback onNextSong;
   final VoidCallback onPreviousSong;
+  final VoidCallback onPlaylistClicked;
 
   PlayerScreen(
       {super.key,
       required this.songs,
       required this.onNextSong,
-      required this.onPreviousSong});
+      required this.onPreviousSong,
+      required this.onPlaylistClicked});
 
   @override
   State<PlayerScreen> createState() => _PlayerScreenState();
@@ -34,7 +36,7 @@ class _PlayerScreenState extends State<PlayerScreen>
     super.initState();
 
     _animationController =
-        AnimationController(duration: Duration(seconds: 1), vsync: this);
+        AnimationController(duration: const Duration(seconds: 1), vsync: this);
   }
 
   @override
@@ -291,7 +293,7 @@ class _PlayerScreenState extends State<PlayerScreen>
             children: [
               //  playlist icon
               IconButton(
-                  onPressed: () {},
+                  onPressed: widget.onPlaylistClicked,
                   color: Theme.of(context).primaryColorDark,
                   icon: Icon(
                     Icons.playlist_add,

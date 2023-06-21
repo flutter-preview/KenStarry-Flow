@@ -35,7 +35,8 @@ void showPlayerBottomSheet({required PlayerController playerController, required
                 path: playerController
                     .songs[playerController.currentPlayingSongIndex.value! - 1]
                     .uri!,
-                index: playerController.currentPlayingSongIndex.value! - 1));
+                index: playerController.currentPlayingSongIndex.value! - 1),
+          onPlaylistClicked: (){},);
         },
       ),
     ).whenComplete(() {
