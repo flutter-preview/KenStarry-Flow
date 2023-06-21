@@ -18,18 +18,21 @@ class PlaylistCard extends StatelessWidget {
               width: 150,
               height: 150,
               decoration: BoxDecoration(
-                  color: Colors.red, borderRadius: BorderRadius.circular(24)),
+                  color: Theme.of(context).primaryColorDark,
+                  borderRadius: BorderRadius.circular(24)),
             ),
             //  songs count
             Align(
               alignment: AlignmentDirectional.centerEnd,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColorDark,
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(color: Theme.of(context).scaffoldBackgroundColor, width: 5)
-                ),
+                    color: Theme.of(context).primaryColorDark,
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        width: 5)),
                 child: Text(
                   "30",
                   style: Theme.of(context).textTheme.bodySmall,
@@ -42,12 +45,23 @@ class PlaylistCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //  playlist name
               Text(
                 playlist.playlistName ?? "No name",
                 style: Theme.of(context).textTheme.bodyMedium,
-              )
+              ),
+              //  playlist more action
+              PopupMenuButton(
+                  itemBuilder: (context) => [
+                        PopupMenuItem(
+                          child: Text(
+                            "Delete",
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ),
+                      ])
             ],
           ),
         )
