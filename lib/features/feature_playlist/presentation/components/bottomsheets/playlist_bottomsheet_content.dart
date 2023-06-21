@@ -60,6 +60,11 @@ class _PlaylistBottomSheetContentState
             cursorColor: Theme.of(context).primaryColor,
             decoration: InputDecoration(
                 hintText: "Playlist Name",
+                hintStyle: TextStyle(
+                  color: Theme.of(context).textTheme.bodyMedium?.color,
+                  fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
+                  fontWeight: Theme.of(context).textTheme.bodyMedium?.fontWeight
+                ),
                 icon: Icon(
                   Icons.playlist_add,
                   color: Theme.of(context).primaryColor,
