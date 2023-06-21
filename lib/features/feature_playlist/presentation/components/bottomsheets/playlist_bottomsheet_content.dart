@@ -50,9 +50,22 @@ class _PlaylistBottomSheetContentState
             autofocus: true,
             controller: _playlistNameController,
             keyboardType: TextInputType.text,
+            maxLength: 200,
+            maxLines: 1,
             textInputAction: TextInputAction.done,
             style: Theme.of(context).textTheme.bodyLarge,
             cursorColor: Theme.of(context).primaryColor,
+            decoration: InputDecoration(
+              hintText: "Playlist Name",
+              icon: Icon(Icons.playlist_add, color: Theme.of(context).primaryColor,),
+              contentPadding: const EdgeInsets.all(16),
+              filled: true,
+              fillColor: Theme.of(context).primaryColorDark,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide.none
+              )
+            ),
             cursorOpacityAnimates: true,
             onChanged: (text) {},
           )
