@@ -6,11 +6,12 @@ class PlaylistBottomSheetContent extends StatefulWidget {
   const PlaylistBottomSheetContent({super.key});
 
   @override
-  State<PlaylistBottomSheetContent> createState() => _PlaylistBottomSheetContentState();
+  State<PlaylistBottomSheetContent> createState() =>
+      _PlaylistBottomSheetContentState();
 }
 
-class _PlaylistBottomSheetContentState extends State<PlaylistBottomSheetContent> {
-
+class _PlaylistBottomSheetContentState
+    extends State<PlaylistBottomSheetContent> {
   late final PlaylistController _playlistController;
 
   @override
@@ -21,6 +22,19 @@ class _PlaylistBottomSheetContentState extends State<PlaylistBottomSheetContent>
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Padding(
+      padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+          top: 8,
+          left: 16,
+          right: 16),
+      child: Wrap(
+        runSpacing: 16,
+        children: [
+          //  Header
+          Text("Add Playlist")
+        ],
+      ),
+    );
   }
 }
