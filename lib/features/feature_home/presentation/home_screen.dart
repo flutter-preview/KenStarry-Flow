@@ -174,6 +174,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         indexHintAlignment: Alignment.centerRight,
                         indexHintOffset: Offset(-15, 0)
                       ),
+                      indexHintBuilder: (context, hint) => Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(16)
+                        ),
+                        child: Center(
+                          child: Text(hint, style: TextStyle(
+                            fontWeight: Theme.of(context).textTheme.titleLarge?.fontWeight,
+                            fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
+                            color: Colors.black
+                          )),
+                        ),
+                      ),
                       itemCount: songs.length,
                       itemBuilder: (context, index) => Padding(
                         padding:
