@@ -10,7 +10,8 @@ import '../../domain/model/playlist.dart';
 
 class PlaylistController extends GetxController {
   final useCases = locator.get<PlaylistUseCases>();
-  final playlists = Hive.box(HiveUtils.playlistBox).listenable().obs;
+  final playlistsBox = Hive.box(HiveUtils.playlistBox).listenable().obs;
+  final playlists = <Playlist>[].obs;
 
   final playlistNameInput = ''.obs;
 

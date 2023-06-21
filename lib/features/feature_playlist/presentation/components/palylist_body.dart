@@ -1,5 +1,6 @@
 import 'package:flow/core/presentation/components/my_lottie.dart';
 import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
+import 'package:flow/features/feature_playlist/presentation/components/playlist_card.dart';
 import 'package:flow/features/feature_playlist/presentation/controller/playlist_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,33 +25,41 @@ class _PlaylistBodyState extends State<PlaylistBody> {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: ValueListenableBuilder(
-          valueListenable: _playlistController.playlists.value,
-          builder: (context, box, widget) {
-            //  playlists
-            return box.length != 0
-                ? ListView.builder(
-                    itemCount: box.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      final playlist = box.getAt(index) as Playlist?;
-
-                      return Text(playlist?.playlistName ?? "Nothing");
-                    })
-                : Center(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                            child: MyLottie(
-                          lottie: 'assets/lottie/playlist_grey_2.json',
-                          width: 300,
-                          height: 300,
-                        )),
-                        Text("No Playlists yet.")
-                      ],
-                    ),
-                  );
-          }),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: ValueListenableBuilder(
+            valueListenable: _playlistController.playlistsBox.value,
+            builder: (context, box, widget) {
+              final List<Playlist>? playlists = box.values.cast<Playlist>().toList();
+              //  playlists
+              return box.length != 0 && playlists != null
+                  ? GridView(
+                      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 200,
+                          mainAxisExtent: 150,
+                          mainAxisSpacing: 8,
+                          crossAxisSpacing: 8),
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      children: playlists
+                          .map((playlist) => PlaylistCard(playlist: playlist))
+                          .toList(),
+                    )
+                  : const Center(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                              child: MyLottie(
+                            lottie: 'assets/lottie/playlist_grey_2.json',
+                            width: 300,
+                            height: 300,
+                          )),
+                          Text("No Playlists yet.")
+                        ],
+                      ),
+                    );
+            }),
+      ),
     );
   }
 }
