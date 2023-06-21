@@ -38,7 +38,7 @@ class _PlaylistBodyState extends State<PlaylistBody> {
 
               //  playlists
               return box.length != 0 && playlists != null
-                  ? GridView(
+                  ? GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithMaxCrossAxisExtent(
                               maxCrossAxisExtent: 200,
@@ -47,22 +47,25 @@ class _PlaylistBodyState extends State<PlaylistBody> {
                               crossAxisSpacing: 8),
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
-                      children: playlists
-                          .map((playlist) => PlaylistCard(
-                                playlist: playlist,
-                                onDelete: () {
-                                  //  delete playlist
-                                  _playlistController.deletePlaylist(
-                                      index: playlists.indexOf(playlist));
+                      itemCount: playlists.length,
+                      itemBuilder: (context, index) {
+                        var playlist = playlists[index];
 
-                                  showSnackbar(
-                                      title:
-                                          "${playlist.playlistName} Deleted Successfully",
-                                      message: "Playlist successfully!",
-                                      iconData: Icons.delete_outline_rounded);
-                                },
-                              ))
-                          .toList(),
+                        return PlaylistCard(
+                          playlist: playlist,
+                          onDelete: () {
+                            //  delete playlist
+                            _playlistController.deletePlaylist(
+                                index: playlists.indexOf(playlist));
+
+                            showSnackbar(
+                                title:
+                                    "${playlist.playlistName} Deleted Successfully",
+                                message: "Playlist successfully!",
+                                iconData: Icons.delete_outline_rounded);
+                          },
+                        );
+                      },
                     )
                   : const Center(
                       child: Column(
