@@ -20,6 +20,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
           playlistAppBar(),
           //  header
@@ -83,7 +84,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
             ),
           ),
           //  body
-          PlaylistBody()
+          const PlaylistBody(),
+
+          const SliverToBoxAdapter(child: SizedBox(height: 250,))
         ],
       ),
     );
