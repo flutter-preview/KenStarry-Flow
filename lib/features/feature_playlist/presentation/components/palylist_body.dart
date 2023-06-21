@@ -36,7 +36,7 @@ class _PlaylistBodyState extends State<PlaylistBody> {
                   ? GridView(
                       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                           maxCrossAxisExtent: 200,
-                          mainAxisExtent: 150,
+                          mainAxisExtent: 200,
                           mainAxisSpacing: 8,
                           crossAxisSpacing: 8),
                       physics: const BouncingScrollPhysics(),
