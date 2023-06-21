@@ -1,4 +1,5 @@
 import 'package:flow/core/presentation/components/my_lottie.dart';
+import 'package:flow/core/presentation/components/show_snackbar.dart';
 import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
 import 'package:flow/features/feature_playlist/presentation/components/playlist_card.dart';
 import 'package:flow/features/feature_playlist/presentation/controller/playlist_controller.dart';
@@ -31,42 +32,48 @@ class _PlaylistBodyState extends State<PlaylistBody> {
             valueListenable: _playlistController.playlistsBox.value,
             builder: (context, box, widget) {
               final List<Playlist>? playlists =
-                  box.values.cast<Playlist>().toList();
+              box.values.cast<Playlist>().toList();
               //  playlists
               return box.length != 0 && playlists != null
                   ? GridView(
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200,
-                              mainAxisExtent: 200,
-                              mainAxisSpacing: 8,
-                              crossAxisSpacing: 8),
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      children: playlists
-                          .map((playlist) => PlaylistCard(
-                                playlist: playlist,
-                                onDelete: () {
-                                  //  delete playlist
-                                  _playlistController.deletePlaylist(
-                                      index: playlists.indexOf(playlist));
-                                },
-                              ))
-                          .toList(),
-                    )
+                gridDelegate:
+                const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 200,
+                    mainAxisExtent: 200,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8),
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                children: playlists
+                    .map((playlist) =>
+                    PlaylistCard(
+                      playlist: playlist,
+                      onDelete: () {
+                        //  delete playlist
+                        _playlistController.deletePlaylist(
+                            index: playlists.indexOf(playlist));
+
+                        showSnackbar(title: "${playlist
+                            .playlistName} Deleted Successfully",
+                            message: "",
+                            iconData: Icons.delete_outline_rounded);
+                      },
+                    ))
+                    .toList(),
+              )
                   : const Center(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                              child: MyLottie(
-                            lottie: 'assets/lottie/playlist_grey_2.json',
-                            width: 300,
-                            height: 300,
-                          )),
-                          Text("No Playlists yet.")
-                        ],
-                      ),
-                    );
+                child: Column(
+                  children: [
+                    SizedBox(
+                        child: MyLottie(
+                          lottie: 'assets/lottie/playlist_grey_2.json',
+                          width: 300,
+                          height: 300,
+                        )),
+                    Text("No Playlists yet.")
+                  ],
+                ),
+              );
             }),
       ),
     );
