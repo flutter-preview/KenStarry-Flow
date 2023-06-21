@@ -162,6 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       physics: const BouncingScrollPhysics(),
                       indexBarOptions: IndexBarOptions(
                         needRebuild: true,
+                        textStyle: Theme.of(context).textTheme.bodySmall!,
                         selectTextStyle: TextStyle(
                           fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
                           fontWeight: Theme.of(context).textTheme.bodySmall?.fontWeight,
@@ -174,6 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         indexHintAlignment: Alignment.centerRight,
                         indexHintOffset: Offset(-15, 0)
                       ),
+                      indexBarMargin: EdgeInsets.symmetric(vertical: 16),
                       indexHintBuilder: (context, hint) => Container(
                         width: 60,
                         height: 60,
