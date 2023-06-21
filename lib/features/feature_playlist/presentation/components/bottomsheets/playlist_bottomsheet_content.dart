@@ -13,11 +13,17 @@ class PlaylistBottomSheetContent extends StatefulWidget {
 class _PlaylistBottomSheetContentState
     extends State<PlaylistBottomSheetContent> {
   late final PlaylistController _playlistController;
+  late final TextEditingController _playlistNameController;
 
   @override
   void initState() {
     super.initState();
     _playlistController = Get.find<PlaylistController>();
+    _playlistNameController = TextEditingController();
+
+    _playlistNameController.addListener(() {
+      //  do something with our text
+    });
   }
 
   @override
@@ -32,9 +38,49 @@ class _PlaylistBottomSheetContentState
         runSpacing: 16,
         children: [
           //  Header
-          Text("Add Playlist")
+          Align(
+              alignment: AlignmentDirectional.center,
+              child: Text(
+                "Add Playlist",
+                style: Theme.of(context).textTheme.titleSmall,
+              )),
+
+          //  Playlist Name
+          TextField(
+            autofocus: true,
+            controller: _playlistNameController,
+            keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.done,
+            style: Theme.of(context).textTheme.bodyLarge,
+            cursorColor: Theme.of(context).primaryColor,
+            cursorOpacityAnimates: true,
+            onChanged: (text) {},
+          )
         ],
       ),
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
