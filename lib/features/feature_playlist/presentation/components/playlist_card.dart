@@ -27,11 +27,12 @@ class PlaylistCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColorDark,
-                  borderRadius: BorderRadius.circular(30)
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(color: Theme.of(context).scaffoldBackgroundColor, width: 5)
                 ),
                 child: Text(
-                  "135",
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  "30",
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
             )
