@@ -1,3 +1,5 @@
+import 'package:azlistview/azlistview.dart';
+import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flow/core/presentation/components/show_player_bottom_sheet.dart';
 import 'package:flow/core/presentation/controller/core_controller.dart';
 import 'package:flow/features/feature_home/domain/model/player_states.dart';
@@ -9,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:get/get.dart';
-
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -24,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late final PlayerController _playerController;
   late final CoreController _coreController;
   late final HomeController _homeController;
+  late final ItemScrollController _scrollController;
 
   @override
   void initState() {
@@ -32,11 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
     _playerController = Get.find();
     _coreController = Get.find();
     _homeController = Get.find();
+    _scrollController = ItemScrollController();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -47,78 +50,86 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverToBoxAdapter(
               child: //  play all songs from the start
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-
-                        //  library button
-                        Expanded(child: Align(
-                          alignment: AlignmentDirectional.centerStart,
-                          child: UnconstrainedBox(
-                            child: Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColorDark,
-                                borderRadius: BorderRadius.circular(30)
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.library_books, color: Theme.of(context).primaryColor, size: 16,),
-                                  const SizedBox(width: 8,),
-                                  Text("Library", style: Theme.of(context).textTheme.bodyMedium,),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )),
-
-                        //  shuffle songs
-                        InkWell(
-                          borderRadius: BorderRadius.circular(100),
-                          onTap: () {
-                            //  show songs
-                          },
-                          child: Ink(
-                              width: 35,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColorDark,
-                                  borderRadius: BorderRadius.circular(50)),
-                              child: Icon(
-                                Icons.shuffle,
-                                color: Theme.of(context).iconTheme.color,
-                                size: 20,
-                              )),
-                        ),
-
-                        const SizedBox(width: 8),
-
-                        //  play button
-                        InkWell(
-                          borderRadius: BorderRadius.circular(100),
-                          onTap: () {
-                            if (_playerController.songs.isNotEmpty) {
-                              //  start playing the first song
-                              _playerController.playSong(
-                                  path: _playerController.songs[0].uri!, index: 0);
-                            }
-                          },
-                          child: Ink(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColorDark,
-                                  borderRadius: BorderRadius.circular(50)),
-                              child: Icon(
-                                Icons.play_arrow,
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    //  library button
+                    Expanded(
+                        child: Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: UnconstrainedBox(
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColorDark,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.library_books,
                                 color: Theme.of(context).primaryColor,
-                                size: 32,
-                              )),
+                                size: 16,
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Text(
+                                "Library",
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
+                      ),
+                    )),
+
+                    //  shuffle songs
+                    InkWell(
+                      borderRadius: BorderRadius.circular(100),
+                      onTap: () {
+                        //  show songs
+                      },
+                      child: Ink(
+                          width: 35,
+                          height: 35,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColorDark,
+                              borderRadius: BorderRadius.circular(50)),
+                          child: Icon(
+                            Icons.shuffle,
+                            color: Theme.of(context).iconTheme.color,
+                            size: 20,
+                          )),
                     ),
-                  ),
+
+                    const SizedBox(width: 8),
+
+                    //  play button
+                    InkWell(
+                      borderRadius: BorderRadius.circular(100),
+                      onTap: () {
+                        if (_playerController.songs.isNotEmpty) {
+                          //  start playing the first song
+                          _playerController.playSong(
+                              path: _playerController.songs[0].uri!, index: 0);
+                        }
+                      },
+                      child: Ink(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColorDark,
+                              borderRadius: BorderRadius.circular(50)),
+                          child: Icon(
+                            Icons.play_arrow,
+                            color: Theme.of(context).primaryColor,
+                            size: 32,
+                          )),
+                    ),
+                  ],
+                ),
+              ),
             ),
             FutureBuilder<List<SongModel>>(
               future: _playerController.getSongs(),
@@ -143,41 +154,42 @@ class _HomeScreenState extends State<HomeScreen> {
                 var songs = snapshot.data!;
                 _playerController.initializeSongs(songs: songs);
 
-                return SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                        (context, index) => Padding(
-                          padding:
-                              const EdgeInsets.symmetric(vertical: 8.0),
-                          child: SongCard(
-                            song: songs[index],
-                            songIndex: index,
-                            coreController: _coreController,
-                            playerController: _playerController,
-                            onSongTapped: () {
-                              if (_playerController.playerState.value ==
-                                      PlayerStates.playing &&
-                                  _playerController
-                                          .currentPlayingSongIndex
-                                          .value ==
-                                      index) {
-                                //  open player screen bottom sheet
-                                showPlayerBottomSheet(
-                                    playerController: _playerController,
-                                    homeController: _homeController);
-                              } else {
-                                _playerController.playSong(
-                                    path: songs[index].uri!,
-                                    index: index);
+                return SliverFillRemaining(
+                  child: AzListView(
+                      data: _playerController.azSongs,
+                      itemScrollController: _scrollController,
+                      itemCount: songs.length,
+                      itemBuilder: (context, index) => Padding(
+                        padding:
+                        const EdgeInsets.symmetric(vertical: 8.0),
+                        child: SongCard(
+                          song: songs[index],
+                          songIndex: index,
+                          coreController: _coreController,
+                          playerController: _playerController,
+                          onSongTapped: () {
+                            if (_playerController.playerState.value ==
+                                PlayerStates.playing &&
+                                _playerController
+                                    .currentPlayingSongIndex.value ==
+                                    index) {
+                              //  open player screen bottom sheet
+                              showPlayerBottomSheet(
+                                  playerController: _playerController,
+                                  homeController: _homeController);
+                            } else {
+                              _playerController.playSong(
+                                  path: songs[index].uri!, index: index);
 
-                                //  open player screen bottom sheet
-                                showPlayerBottomSheet(
-                                    playerController: _playerController,
-                                    homeController: _homeController);
-                              }
-                            },
-                          ),
+                              //  open player screen bottom sheet
+                              showPlayerBottomSheet(
+                                  playerController: _playerController,
+                                  homeController: _homeController);
+                            }
+                          },
                         ),
-                        childCount: songs.length));
+                      )),
+                );
               },
             )
           ],
