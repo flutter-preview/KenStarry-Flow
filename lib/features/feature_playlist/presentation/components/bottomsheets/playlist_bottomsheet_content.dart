@@ -56,44 +56,47 @@ class _PlaylistBottomSheetContentState
             style: Theme.of(context).textTheme.bodyLarge,
             cursorColor: Theme.of(context).primaryColor,
             decoration: InputDecoration(
-              hintText: "Playlist Name",
-              icon: Icon(Icons.playlist_add, color: Theme.of(context).primaryColor,),
-              contentPadding: const EdgeInsets.all(16),
-              filled: true,
-              fillColor: Theme.of(context).primaryColorDark,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide.none
-              )
-            ),
+                hintText: "Playlist Name",
+                icon: Icon(
+                  Icons.playlist_add,
+                  color: Theme.of(context).primaryColor,
+                ),
+                contentPadding: const EdgeInsets.all(16),
+                filled: true,
+                fillColor: Theme.of(context).primaryColorDark,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide.none)),
             cursorOpacityAnimates: true,
             onChanged: (text) {},
+          ),
+
+          //  playlist submit buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).scaffoldBackgroundColor),
+                      foregroundColor: MaterialStateProperty.all(
+                          Theme.of(context).primaryColor)),
+                  onPressed: () {},
+                  child: Text("Cancel")),
+              const SizedBox(width: 8,),
+              TextButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).primaryColor),
+                      foregroundColor: MaterialStateProperty.all(Colors.white),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)))),
+                  onPressed: () {},
+                  child: Text("Save"))
+            ],
           )
         ],
       ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
