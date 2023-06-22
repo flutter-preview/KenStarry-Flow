@@ -11,4 +11,4 @@ Future createPlaylistBottomSheet() => showModalBottomSheet(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(24), topRight: Radius.circular(24))),
     context: Get.context!,
-    builder: (context) => const PlaylistBottomSheetContent());
+    builder: (context) => const CreatePlaylistBottomSheetContent());

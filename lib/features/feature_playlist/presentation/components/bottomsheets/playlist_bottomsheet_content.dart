@@ -5,16 +5,16 @@ import 'package:get/get.dart';
 
 import '../../../../../core/presentation/components/show_snackbar.dart';
 
-class PlaylistBottomSheetContent extends StatefulWidget {
-  const PlaylistBottomSheetContent({super.key});
+class CreatePlaylistBottomSheetContent extends StatefulWidget {
+  const CreatePlaylistBottomSheetContent({super.key});
 
   @override
-  State<PlaylistBottomSheetContent> createState() =>
-      _PlaylistBottomSheetContentState();
+  State<CreatePlaylistBottomSheetContent> createState() =>
+      _CreatePlaylistBottomSheetContentState();
 }
 
-class _PlaylistBottomSheetContentState
-    extends State<PlaylistBottomSheetContent> {
+class _CreatePlaylistBottomSheetContentState
+    extends State<CreatePlaylistBottomSheetContent> {
   late final PlaylistController _playlistController;
   late final TextEditingController _playlistNameController;
 

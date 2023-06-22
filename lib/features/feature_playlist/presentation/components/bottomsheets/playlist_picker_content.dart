@@ -38,6 +38,7 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          //  header
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -105,7 +106,41 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                           children: [Text("No Playlists yet.")],
                         ),
                       );
-              })
+              }),
+
+          const SizedBox(
+            height: 16,
+          ),
+
+          //  sybmit button
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).scaffoldBackgroundColor),
+                      foregroundColor: MaterialStateProperty.all(
+                          Theme.of(context).primaryColor)),
+                  onPressed: () => Navigator.pop(context),
+                  child: Text("Cancel")),
+              const SizedBox(
+                width: 8,
+              ),
+              TextButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).primaryColor),
+                      foregroundColor: MaterialStateProperty.all(Colors.white),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)))),
+                  onPressed: () {
+                    //  add song to selected playlists
+
+                  },
+                  child: Text("Save"))
+            ],
+          )
         ],
       ),
     );
