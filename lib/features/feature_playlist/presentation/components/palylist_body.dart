@@ -3,6 +3,7 @@ import 'package:flow/core/presentation/components/show_snackbar.dart';
 import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
 import 'package:flow/features/feature_playlist/presentation/components/playlist_card.dart';
 import 'package:flow/features/feature_playlist/presentation/controller/playlist_controller.dart';
+import 'package:flow/features/feature_playlist/presentation/screens/view_playlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -66,6 +67,7 @@ class _PlaylistBodyState extends State<PlaylistBody> {
                           },
                           onTap: (){
                             //  open view playlist screen
+                            Get.to(() => ViewPlaylistScreen(playlist: playlist,));
                           },
                         );
                       },
