@@ -113,8 +113,8 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                                     .selectedPlaylistIndex.value,
                                 count: playlists.length,
                                 effect: ExpandingDotsEffect(
-                                    dotHeight: 12,
-                                    dotWidth: 12,
+                                    dotHeight: 8,
+                                    dotWidth: 8,
                                     activeDotColor:
                                         Theme.of(context).primaryColor,
                                     dotColor: Theme.of(context)
