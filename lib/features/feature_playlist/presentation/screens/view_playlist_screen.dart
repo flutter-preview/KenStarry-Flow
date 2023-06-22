@@ -1,10 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flow/core/presentation/controller/core_controller.dart';
+import 'package:flow/core/presentation/controller/player_controller.dart';
+import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
 import 'package:flow/features/feature_playlist/presentation/components/view_playlist_carousel_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../../core/presentation/components/show_player_bottom_sheet.dart';
+import '../../../feature_home/domain/model/player_states.dart';
+import '../../../feature_home/presentation/components/song_card.dart';
 import '../controller/playlist_controller.dart';
 
 class ViewPlaylistScreen extends StatefulWidget {
@@ -18,12 +24,18 @@ class ViewPlaylistScreen extends StatefulWidget {
 
 class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
   late final PlaylistController _playlistController;
+  late final PlayerController _playerController;
+  late final CoreController _coreController;
+  late final HomeController _homeController;
   late final CarouselController _carouselController;
 
   @override
   void initState() {
     super.initState();
-    _playlistController = PlaylistController();
+    _playlistController = Get.find<PlaylistController>();
+    _playerController = Get.find<PlayerController>();
+    _coreController = Get.find<CoreController>();
+    _homeController = Get.find<HomeController>();
     _carouselController = CarouselController();
   }
 
@@ -78,24 +90,33 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                                     enlargeCenterPage: true,
                                     enableInfiniteScroll: false,
                                     viewportFraction: 0.8,
-                                    scrollPhysics: const BouncingScrollPhysics(),
+                                    scrollPhysics:
+                                        const BouncingScrollPhysics(),
                                     onPageChanged: (index, reason) {
-                                      _playlistController.setSelectedPlaylistIndex(
-                                          index: index);
+                                      _playlistController
+                                          .setSelectedPlaylistIndex(
+                                              index: index);
+
+                                      _playlistController.getPlaylistSongs(
+                                          playlist: _playlistController
+                                              .playlists[index]);
                                     })),
 
-                            const SizedBox(height: 8,),
+                            const SizedBox(
+                              height: 8,
+                            ),
 
                             //  carousel indicators
                             Obx(
-                                  () => AnimatedSmoothIndicator(
-                                activeIndex:
-                                _playlistController.selectedPlaylistIndex.value,
+                              () => AnimatedSmoothIndicator(
+                                activeIndex: _playlistController
+                                    .selectedPlaylistIndex.value,
                                 count: playlists.length,
                                 effect: ExpandingDotsEffect(
                                     dotHeight: 12,
                                     dotWidth: 12,
-                                    activeDotColor: Theme.of(context).primaryColor,
+                                    activeDotColor:
+                                        Theme.of(context).primaryColor,
                                     dotColor: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
@@ -108,10 +129,52 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                             ),
                           ],
                         ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Expanded(
+                            child: Obx(
+                          () => _playlistController.playlistSongs.isNotEmpty ? ListView.builder(
+                              itemCount:
+                                  _playlistController.playlistSongs.length,
+                              itemBuilder: (context, index) {
+                                var currentSongIndex = _playerController.songs
+                                    .indexOf(_playlistController
+                                        .playlistSongs[index]);
 
-                        const SizedBox(height: 16,),
+                                return SongCard(
+                                  song:
+                                      _playlistController.playlistSongs[index],
+                                  songIndex: currentSongIndex,
+                                  coreController: _coreController,
+                                  playerController: _playerController,
+                                  onSongTapped: () {
+                                    if (_playerController.playerState.value ==
+                                            PlayerStates.playing &&
+                                        _playerController
+                                                .currentPlayingSongIndex
+                                                .value ==
+                                            currentSongIndex) {
+                                      //  open player screen bottom sheet
+                                      showPlayerBottomSheet(
+                                          playerController: _playerController,
+                                          homeController: _homeController);
+                                    } else {
+                                      _playerController.playSong(
+                                          path: _playerController
+                                              .songs[currentSongIndex].uri!,
+                                          index: currentSongIndex);
 
-                        Expanded(child: ListView.builder(itemBuilder: (context, index){}))
+                                      //  open player screen bottom sheet
+                                      showPlayerBottomSheet(
+                                          playerController: _playerController,
+                                          homeController: _homeController);
+                                    }
+                                  },
+                                );
+                              })
+                              : CircularProgressIndicator(),
+                        ))
                       ],
                     )
                   : const CircularProgressIndicator();
