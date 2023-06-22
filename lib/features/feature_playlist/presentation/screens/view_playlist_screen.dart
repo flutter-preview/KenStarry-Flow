@@ -63,7 +63,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
               if (playlists != null) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   _playlistController.setSelectedPlaylistIndex(
-                        index: playlists.indexOf(playlist));
+                      index: playlists.indexOf(playlist));
 
                   _playlistController.getPlaylistSongs(playlist: playlist);
                 });
@@ -133,48 +133,62 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                           height: 16,
                         ),
                         Expanded(
+                            flex: 3,
                             child: Obx(
-                          () => _playlistController.playlistSongs.isNotEmpty ? ListView.builder(
-                              itemCount:
-                                  _playlistController.playlistSongs.length,
-                              itemBuilder: (context, index) {
-                                var currentSongIndex = _playerController.songs
-                                    .indexOf(_playlistController
-                                        .playlistSongs[index]);
+                              () => _playlistController.playlistSongs.isNotEmpty
+                                  ? ListView.builder(
+                                      physics: const BouncingScrollPhysics(),
+                                      itemCount: _playlistController
+                                          .playlistSongs.length,
+                                      itemBuilder: (context, index) {
+                                        var currentSongIndex = _playerController
+                                            .songs
+                                            .indexOf(_playlistController
+                                                .playlistSongs[index]);
 
-                                return SongCard(
-                                  song:
-                                      _playlistController.playlistSongs[index],
-                                  songIndex: currentSongIndex,
-                                  coreController: _coreController,
-                                  playerController: _playerController,
-                                  onSongTapped: () {
-                                    if (_playerController.playerState.value ==
-                                            PlayerStates.playing &&
-                                        _playerController
-                                                .currentPlayingSongIndex
-                                                .value ==
-                                            currentSongIndex) {
-                                      //  open player screen bottom sheet
-                                      showPlayerBottomSheet(
+                                        return SongCard(
+                                          song: _playlistController
+                                              .playlistSongs[index],
+                                          songIndex: currentSongIndex,
+                                          coreController: _coreController,
                                           playerController: _playerController,
-                                          homeController: _homeController);
-                                    } else {
-                                      _playerController.playSong(
-                                          path: _playerController
-                                              .songs[currentSongIndex].uri!,
-                                          index: currentSongIndex);
+                                          onSongTapped: () {
+                                            if (_playerController
+                                                        .playerState.value ==
+                                                    PlayerStates.playing &&
+                                                _playerController
+                                                        .currentPlayingSongIndex
+                                                        .value ==
+                                                    currentSongIndex) {
+                                              //  open player screen bottom sheet
+                                              showPlayerBottomSheet(
+                                                  playerController:
+                                                      _playerController,
+                                                  homeController:
+                                                      _homeController);
+                                            } else {
+                                              _playerController.playSong(
+                                                  path: _playerController
+                                                      .songs[currentSongIndex]
+                                                      .uri!,
+                                                  index: currentSongIndex);
 
-                                      //  open player screen bottom sheet
-                                      showPlayerBottomSheet(
-                                          playerController: _playerController,
-                                          homeController: _homeController);
-                                    }
-                                  },
-                                );
-                              })
-                              : CircularProgressIndicator(),
-                        ))
+                                              //  open player screen bottom sheet
+                                              showPlayerBottomSheet(
+                                                  playerController:
+                                                      _playerController,
+                                                  homeController:
+                                                      _homeController);
+                                            }
+                                          },
+                                        );
+                                      })
+                                  : const Expanded(
+                                      child: Align(
+                                      alignment: AlignmentDirectional.center,
+                                      child: Text("No songs yet"),
+                                    )),
+                            ))
                       ],
                     )
                   : const CircularProgressIndicator();
