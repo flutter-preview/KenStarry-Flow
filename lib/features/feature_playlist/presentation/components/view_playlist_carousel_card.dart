@@ -11,22 +11,51 @@ class ViewPlaylistCarouselCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
       child: Column(
         children: [
           //  image
           Expanded(
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(24),
-                child: Image.asset(
-                  'assets/images/lady5.jpg',
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                )),
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(24),
+                      child: Image.asset(
+                        'assets/images/lady5.jpg',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      )),
+                ),
+                //  play button
+                Align(
+                  alignment: AlignmentDirectional.bottomEnd,
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          width: 5),
+                      color: Theme.of(context).primaryColorDark,
+                    ),
+                    child: Icon(
+                      Icons.play_arrow_rounded,
+                      color: Theme.of(context).primaryColor,
+                      size: 32,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
 
-          Text(playlist.playlistName ?? "", style: Theme.of(context).textTheme.titleMedium,)
+          Text(
+            playlist.playlistName ?? "",
+            style: Theme.of(context).textTheme.titleSmall,
+          )
         ],
       ),
     );
