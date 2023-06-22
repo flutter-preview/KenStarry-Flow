@@ -2,7 +2,6 @@ import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
 import 'package:flutter/material.dart';
 
 class ViewPlaylistScreen extends StatefulWidget {
-
   final Playlist playlist;
 
   const ViewPlaylistScreen({super.key, required this.playlist});
@@ -15,6 +14,12 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading:
+            IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
+        elevation: 0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      ),
       body: Text("Hello"),
     );
   }
