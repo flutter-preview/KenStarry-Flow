@@ -1,3 +1,4 @@
+import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flow/features/feature_playlist/presentation/components/playlist_card_small.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,12 +17,14 @@ class PlaylistPickerContent extends StatefulWidget {
 
 class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
   late final PlaylistController _playlistController;
+  late final PlayerController _playerController;
 
   @override
   void initState() {
     super.initState();
 
     _playlistController = Get.find<PlaylistController>();
+    _playerController = Get.find<PlayerController>();
   }
 
   @override
@@ -98,7 +101,9 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                               },
                             );
                           },
-                          separatorBuilder: (context, index) => const SizedBox(height: 16,),
+                          separatorBuilder: (context, index) => const SizedBox(
+                            height: 16,
+                          ),
                         ),
                       )
                     : const Center(
@@ -134,10 +139,30 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                       foregroundColor: MaterialStateProperty.all(Colors.white),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)))),
-                  onPressed: () {
-                    //  get the current playlist songs
-                    //  add this song to the playlist
-                    //  post the results back to the database and update with the new list
+                  onPressed: () async {
+                    //  do this for each selected playlist
+                    for (var playlist in _playlistController.pickedPlaylists) {
+                      //  get index of selected playlist
+                      var index =
+                          _playlistController.playlists.indexOf(playlist);
+                      //  get the current playlist songs
+                      Playlist currentPlaylist =
+                          await _playlistController.getPlaylist(index: index);
+                      //  add this song to the playlist
+                      List<String>? songIDsInPlaylist =
+                          currentPlaylist.playlistSongIds;
+                      //  add songs to the current playlist
+                      songIDsInPlaylist?.add(_playerController
+                          .songs[
+                              _playerController.currentPlayingSongIndex.value!]
+                          .id
+                          .toString());
+                      //  post the results back to the database and update with the new list
+                      _playlistController.updatePlaylist(
+                          index: index,
+                          playlist:
+                              Playlist(playlistSongIds: songIDsInPlaylist));
+                    }
                   },
                   child: Text("Save"))
             ],
