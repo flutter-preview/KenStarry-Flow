@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
 import 'package:flow/features/feature_playlist/presentation/components/view_playlist_carousel_card.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../controller/playlist_controller.dart';
@@ -34,49 +35,57 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
               onPressed: () {},
               icon: Icon(
                 Icons.arrow_back,
-                color: Theme
-                    .of(context)
-                    .iconTheme
-                    .color,
+                color: Theme.of(context).iconTheme.color,
               )),
           elevation: 0,
-          backgroundColor: Theme
-              .of(context)
-              .scaffoldBackgroundColor,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         ),
         body: ValueListenableBuilder(
             valueListenable: _playlistController.playlistsBox.value,
             builder: (context, box, widget) {
               final List<Playlist>? playlists =
-              box.values.cast<Playlist>().toList();
+                  box.values.cast<Playlist>().toList();
 
               return playlists != null
                   ? Column(
-                children: [
-                  //  carousel playlist slider
-                  CarouselSlider.builder(
-                      itemCount: playlists.length,
-                      itemBuilder: (context, index, realIndex) {
-                        final currentPlaylist = playlists[index];
+                      children: [
+                        //  carousel playlist slider
+                        CarouselSlider.builder(
+                            itemCount: playlists.length,
+                            itemBuilder: (context, index, realIndex) {
+                              final currentPlaylist = playlists[index];
 
-                        return ViewPlaylistCarouselCard(
-                            playlist: currentPlaylist);
-                      },
-                      options: CarouselOptions(
-                          height: 250,
-                          initialPage: playlists.indexOf(playlist),
-                          enlargeCenterPage: true,
-                          enableInfiniteScroll: false,
-                          scrollPhysics: const BouncingScrollPhysics(),
-                          onPageChanged: (index, reason) {
+                              return ViewPlaylistCarouselCard(
+                                  playlist: currentPlaylist);
+                            },
+                            options: CarouselOptions(
+                                height: 250,
+                                initialPage: playlists.indexOf(playlist),
+                                enlargeCenterPage: true,
+                                enableInfiniteScroll: false,
+                                scrollPhysics: const BouncingScrollPhysics(),
+                                onPageChanged: (index, reason) {
+                                  _playlistController.setSelectedPlaylistIndex(
+                                      index: index);
+                                })),
 
-                          }))
-
-                  //  carousel indicators
-                  AnimatedSmoothIndicator(
-                      activeIndex: activeIndex, count: playlists.length)
-                ],
-              )
+                        //  carousel indicators
+                        Obx(
+                          () => AnimatedSmoothIndicator(
+                            activeIndex:
+                                _playlistController.selectedPlaylistIndex.value,
+                            count: playlists.length,
+                            effect: ExpandingDotsEffect(
+                              dotHeight: 12,
+                              dotWidth: 12,
+                              activeDotColor: Theme.of(context).primaryColor,
+                              dotColor: Theme.of(context).textTheme.bodySmall!.color!.withOpacity(0.5)
+                            ),
+                            onDotClicked: (index){},
+                          ),
+                        )
+                      ],
+                    )
                   : const CircularProgressIndicator();
             }));
   }
