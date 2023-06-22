@@ -85,7 +85,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                                 },
                                 carouselController: _carouselController,
                                 options: CarouselOptions(
-                                    height: 300,
+                                    height: 270,
                                     initialPage: playlists.indexOf(playlist),
                                     enlargeCenterPage: true,
                                     enableInfiniteScroll: false,
@@ -136,53 +136,56 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                             flex: 3,
                             child: Obx(
                               () => _playlistController.playlistSongs.isNotEmpty
-                                  ? ListView.builder(
-                                      physics: const BouncingScrollPhysics(),
-                                      itemCount: _playlistController
-                                          .playlistSongs.length,
-                                      itemBuilder: (context, index) {
-                                        var currentSongIndex = _playerController
-                                            .songs
-                                            .indexOf(_playlistController
-                                                .playlistSongs[index]);
+                                  ? Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                    child: ListView.builder(
+                                        physics: const BouncingScrollPhysics(),
+                                        itemCount: _playlistController
+                                            .playlistSongs.length,
+                                        itemBuilder: (context, index) {
+                                          var currentSongIndex = _playerController
+                                              .songs
+                                              .indexOf(_playlistController
+                                                  .playlistSongs[index]);
 
-                                        return SongCard(
-                                          song: _playlistController
-                                              .playlistSongs[index],
-                                          songIndex: currentSongIndex,
-                                          coreController: _coreController,
-                                          playerController: _playerController,
-                                          onSongTapped: () {
-                                            if (_playerController
-                                                        .playerState.value ==
-                                                    PlayerStates.playing &&
-                                                _playerController
-                                                        .currentPlayingSongIndex
-                                                        .value ==
-                                                    currentSongIndex) {
-                                              //  open player screen bottom sheet
-                                              showPlayerBottomSheet(
-                                                  playerController:
-                                                      _playerController,
-                                                  homeController:
-                                                      _homeController);
-                                            } else {
-                                              _playerController.playSong(
-                                                  path: _playerController
-                                                      .songs[currentSongIndex]
-                                                      .uri!,
-                                                  index: currentSongIndex);
+                                          return SongCard(
+                                            song: _playlistController
+                                                .playlistSongs[index],
+                                            songIndex: currentSongIndex,
+                                            coreController: _coreController,
+                                            playerController: _playerController,
+                                            onSongTapped: () {
+                                              if (_playerController
+                                                          .playerState.value ==
+                                                      PlayerStates.playing &&
+                                                  _playerController
+                                                          .currentPlayingSongIndex
+                                                          .value ==
+                                                      currentSongIndex) {
+                                                //  open player screen bottom sheet
+                                                showPlayerBottomSheet(
+                                                    playerController:
+                                                        _playerController,
+                                                    homeController:
+                                                        _homeController);
+                                              } else {
+                                                _playerController.playSong(
+                                                    path: _playerController
+                                                        .songs[currentSongIndex]
+                                                        .uri!,
+                                                    index: currentSongIndex);
 
-                                              //  open player screen bottom sheet
-                                              showPlayerBottomSheet(
-                                                  playerController:
-                                                      _playerController,
-                                                  homeController:
-                                                      _homeController);
-                                            }
-                                          },
-                                        );
-                                      })
+                                                //  open player screen bottom sheet
+                                                showPlayerBottomSheet(
+                                                    playerController:
+                                                        _playerController,
+                                                    homeController:
+                                                        _homeController);
+                                              }
+                                            },
+                                          );
+                                        }),
+                                  )
                                   : const Expanded(
                                       child: Align(
                                       alignment: AlignmentDirectional.center,

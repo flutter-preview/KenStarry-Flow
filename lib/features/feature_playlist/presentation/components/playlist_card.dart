@@ -1,18 +1,32 @@
 import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
+import 'package:flow/features/feature_playlist/presentation/controller/playlist_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class PlaylistCard extends StatelessWidget {
+class PlaylistCard extends StatefulWidget {
   final Playlist playlist;
   final VoidCallback onDelete;
   final VoidCallback onTap;
 
-  const PlaylistCard(
+  PlaylistCard(
       {super.key, required this.playlist, required this.onDelete, required this.onTap});
 
   @override
+  State<PlaylistCard> createState() => _PlaylistCardState();
+}
+
+class _PlaylistCardState extends State<PlaylistCard> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -40,7 +54,7 @@ class PlaylistCard extends StatelessWidget {
                 alignment: AlignmentDirectional.centerEnd,
                 child: Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColorDark,
                       borderRadius: BorderRadius.circular(30),
@@ -48,7 +62,7 @@ class PlaylistCard extends StatelessWidget {
                           color: Theme.of(context).scaffoldBackgroundColor,
                           width: 5)),
                   child: Text(
-                    "30",
+                    widget.playlist.playlistSongIds?.length.toString() ?? '0',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
@@ -64,7 +78,7 @@ class PlaylistCard extends StatelessWidget {
                 //  playlist name
                 Expanded(
                   child: Text(
-                    playlist.playlistName ?? "No name",
+                    widget.playlist.playlistName ?? "No name",
                     style: Theme.of(context).textTheme.bodyMedium,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -74,7 +88,7 @@ class PlaylistCard extends StatelessWidget {
                     itemBuilder: (context) => [
                           //  delete icon
                           PopupMenuItem(
-                            onTap: onDelete,
+                            onTap: widget.onDelete,
                             child: Row(
                               children: [
                                 Icon(
