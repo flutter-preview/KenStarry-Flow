@@ -30,7 +30,7 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350,
+      height: 400,
       width: double.infinity,
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
@@ -163,6 +163,8 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                           playlist:
                               Playlist(playlistSongIds: songIDsInPlaylist));
                     }
+
+                    Get.back(canPop: true);
                   },
                   child: Text("Save"))
             ],
