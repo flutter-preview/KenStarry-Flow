@@ -52,13 +52,13 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                               final currentPlaylist = playlists[index];
 
                               return ViewPlaylistCarouselCard(
-                                  playlist: currentPlaylist!);
+                                  playlist: currentPlaylist);
                             },
                             options: CarouselOptions(
-                                height: 200,
+                                height: 250,
                                 initialPage: 1,
                                 enlargeCenterPage: true,
-                                enableInfiniteScroll: true,
+                                enableInfiniteScroll: false,
                             scrollPhysics: const BouncingScrollPhysics()))
                       ],
                     )
