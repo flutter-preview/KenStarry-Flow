@@ -32,7 +32,7 @@ class _HomeBottomBarState extends State<HomeBottomBar>
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: Theme.of(context).primaryColorDark),

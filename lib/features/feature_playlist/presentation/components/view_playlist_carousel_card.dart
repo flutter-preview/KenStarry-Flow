@@ -18,16 +18,22 @@ class ViewPlaylistCarouselCard extends StatelessWidget {
           Expanded(
             flex: 5,
             child: Stack(
+              fit: StackFit.expand,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8),
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(24),
-                      child: Image.asset(
-                        'assets/images/lady5.jpg',
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      )),
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColorDark,
+                      borderRadius: BorderRadius.circular(24)
+                    ),
+                    child: Icon(
+                      Icons.music_note_outlined,
+                      size: 64,
+                      color: Theme.of(context).iconTheme.color,
+                    ),
+                  ),
                 ),
                 //  play button
                 Align(

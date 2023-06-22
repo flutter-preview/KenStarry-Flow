@@ -41,11 +41,11 @@ class _PlaylistCardState extends State<PlaylistCard> {
                     borderRadius: BorderRadius.circular(24)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(24),
-                  child: Image.asset(
-                    'assets/images/lady5.jpg',
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: BoxFit.cover,
+                  child: Center(
+                    child: Icon(
+                      Icons.music_note_outlined,
+                      size: 32,
+                    ),
                   ),
                 ),
               ),
