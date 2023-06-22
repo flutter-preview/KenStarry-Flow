@@ -49,58 +49,69 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                   box.values.cast<Playlist>().toList();
 
               if (playlists != null) {
-                WidgetsBinding.instance.addPostFrameCallback((_) =>
-                    _playlistController.setSelectedPlaylistIndex(
-                        index: playlists.indexOf(playlist)));
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  _playlistController.setSelectedPlaylistIndex(
+                        index: playlists.indexOf(playlist));
+
+                  _playlistController.getPlaylistSongs(playlist: playlist);
+                });
               }
 
               return playlists != null
                   ? Column(
                       children: [
-                        //  carousel playlist slider
-                        CarouselSlider.builder(
-                            itemCount: playlists.length,
-                            itemBuilder: (context, index, realIndex) {
-                              final currentPlaylist = playlists[index];
+                        Column(
+                          children: [
+                            //  carousel playlist slider
+                            CarouselSlider.builder(
+                                itemCount: playlists.length,
+                                itemBuilder: (context, index, realIndex) {
+                                  final currentPlaylist = playlists[index];
 
-                              return ViewPlaylistCarouselCard(
-                                  playlist: currentPlaylist);
-                            },
-                            carouselController: _carouselController,
-                            options: CarouselOptions(
-                                height: 300,
-                                initialPage: playlists.indexOf(playlist),
-                                enlargeCenterPage: true,
-                                enableInfiniteScroll: false,
-                                viewportFraction: 0.8,
-                                scrollPhysics: const BouncingScrollPhysics(),
-                                onPageChanged: (index, reason) {
-                                  _playlistController.setSelectedPlaylistIndex(
-                                      index: index);
-                                })),
+                                  return ViewPlaylistCarouselCard(
+                                      playlist: currentPlaylist);
+                                },
+                                carouselController: _carouselController,
+                                options: CarouselOptions(
+                                    height: 300,
+                                    initialPage: playlists.indexOf(playlist),
+                                    enlargeCenterPage: true,
+                                    enableInfiniteScroll: false,
+                                    viewportFraction: 0.8,
+                                    scrollPhysics: const BouncingScrollPhysics(),
+                                    onPageChanged: (index, reason) {
+                                      _playlistController.setSelectedPlaylistIndex(
+                                          index: index);
+                                    })),
 
-                        const SizedBox(height: 8,),
+                            const SizedBox(height: 8,),
 
-                        //  carousel indicators
-                        Obx(
-                          () => AnimatedSmoothIndicator(
-                            activeIndex:
+                            //  carousel indicators
+                            Obx(
+                                  () => AnimatedSmoothIndicator(
+                                activeIndex:
                                 _playlistController.selectedPlaylistIndex.value,
-                            count: playlists.length,
-                            effect: ExpandingDotsEffect(
-                                dotHeight: 12,
-                                dotWidth: 12,
-                                activeDotColor: Theme.of(context).primaryColor,
-                                dotColor: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .color!
-                                    .withOpacity(0.5)),
-                            onDotClicked: (index) {
-                              _carouselController.animateToPage(index);
-                            },
-                          ),
-                        )
+                                count: playlists.length,
+                                effect: ExpandingDotsEffect(
+                                    dotHeight: 12,
+                                    dotWidth: 12,
+                                    activeDotColor: Theme.of(context).primaryColor,
+                                    dotColor: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .color!
+                                        .withOpacity(0.5)),
+                                onDotClicked: (index) {
+                                  _carouselController.animateToPage(index);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 16,),
+
+                        Expanded(child: ListView.builder(itemBuilder: (context, index){}))
                       ],
                     )
                   : const CircularProgressIndicator();
