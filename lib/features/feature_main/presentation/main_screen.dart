@@ -3,7 +3,7 @@ import 'package:flow/core/presentation/controller/hive_controller.dart';
 import 'package:flow/features/feature_artists/presentation/artists_screen.dart';
 import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:flow/features/feature_main/presentation/components/grant_permission_screen.dart';
-import 'package:flow/features/feature_playlist/presentation/playlist_screen.dart';
+import 'package:flow/features/feature_playlist/presentation/screens/playlist_screen.dart';
 import 'package:flow/features/feature_settings/presentation/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

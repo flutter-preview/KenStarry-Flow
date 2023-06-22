@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import 'components/new_playlist_button.dart';
+import '../components/new_playlist_button.dart';
 
 class PlaylistScreen extends StatefulWidget {
   const PlaylistScreen({super.key});

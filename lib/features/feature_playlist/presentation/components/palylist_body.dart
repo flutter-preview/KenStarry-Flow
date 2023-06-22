@@ -64,6 +64,9 @@ class _PlaylistBodyState extends State<PlaylistBody> {
                                 message: "Playlist successfully!",
                                 iconData: Icons.delete_outline_rounded);
                           },
+                          onTap: (){
+                            //  open view playlist screen
+                          },
                         );
                       },
                     )
