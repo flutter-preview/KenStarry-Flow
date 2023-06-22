@@ -18,11 +18,13 @@ class ViewPlaylistScreen extends StatefulWidget {
 
 class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
   late final PlaylistController _playlistController;
+  late final CarouselController _carouselController;
 
   @override
   void initState() {
     super.initState();
     _playlistController = PlaylistController();
+    _carouselController = CarouselController();
   }
 
   @override
@@ -46,6 +48,12 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
               final List<Playlist>? playlists =
                   box.values.cast<Playlist>().toList();
 
+              if (playlists != null) {
+                WidgetsBinding.instance.addPostFrameCallback((_) =>
+                    _playlistController.setSelectedPlaylistIndex(
+                        index: playlists.indexOf(playlist)));
+              }
+
               return playlists != null
                   ? Column(
                       children: [
@@ -58,6 +66,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                               return ViewPlaylistCarouselCard(
                                   playlist: currentPlaylist);
                             },
+                            carouselController: _carouselController,
                             options: CarouselOptions(
                                 height: 250,
                                 initialPage: playlists.indexOf(playlist),
@@ -76,12 +85,17 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                                 _playlistController.selectedPlaylistIndex.value,
                             count: playlists.length,
                             effect: ExpandingDotsEffect(
-                              dotHeight: 12,
-                              dotWidth: 12,
-                              activeDotColor: Theme.of(context).primaryColor,
-                              dotColor: Theme.of(context).textTheme.bodySmall!.color!.withOpacity(0.5)
-                            ),
-                            onDotClicked: (index){},
+                                dotHeight: 12,
+                                dotWidth: 12,
+                                activeDotColor: Theme.of(context).primaryColor,
+                                dotColor: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .color!
+                                    .withOpacity(0.5)),
+                            onDotClicked: (index) {
+                              _carouselController.animateToPage(index);
+                            },
                           ),
                         )
                       ],
