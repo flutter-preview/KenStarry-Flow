@@ -13,32 +13,20 @@ class ViewPlaylistCarouselCard extends StatelessWidget {
       height: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
-      child: Stack(
-        fit: StackFit.expand,
+      child: Column(
         children: [
           //  image
-          ClipRRect(
-              borderRadius: BorderRadius.circular(24),
-              child: Image.asset(
-                'assets/images/lady5.jpg',
-                fit: BoxFit.cover,
-              )),
+          Expanded(
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: Image.asset(
+                  'assets/images/lady5.jpg',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                )),
+          ),
 
-          //  details
-          Align(
-            alignment: AlignmentDirectional.bottomCenter,
-            child: Container(
-              width: double.infinity,
-              height: 100,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(24),
-                  bottomLeft: Radius.circular(24)
-                ),
-                color: Colors.black,
-              ),
-            ),
-          )
+          Text(playlist.playlistName ?? "", style: Theme.of(context).textTheme.titleMedium,)
         ],
       ),
     );
