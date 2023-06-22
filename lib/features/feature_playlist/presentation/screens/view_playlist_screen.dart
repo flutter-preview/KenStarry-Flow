@@ -68,15 +68,18 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                             },
                             carouselController: _carouselController,
                             options: CarouselOptions(
-                                height: 250,
+                                height: 300,
                                 initialPage: playlists.indexOf(playlist),
                                 enlargeCenterPage: true,
                                 enableInfiniteScroll: false,
+                                viewportFraction: 0.8,
                                 scrollPhysics: const BouncingScrollPhysics(),
                                 onPageChanged: (index, reason) {
                                   _playlistController.setSelectedPlaylistIndex(
                                       index: index);
                                 })),
+
+                        const SizedBox(height: 8,),
 
                         //  carousel indicators
                         Obx(

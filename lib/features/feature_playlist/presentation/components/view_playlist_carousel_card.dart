@@ -16,6 +16,7 @@ class ViewPlaylistCarouselCard extends StatelessWidget {
         children: [
           //  image
           Expanded(
+            flex: 5,
             child: Stack(
               children: [
                 Padding(
@@ -52,9 +53,16 @@ class ViewPlaylistCarouselCard extends StatelessWidget {
             ),
           ),
 
-          Text(
-            playlist.playlistName ?? "",
-            style: Theme.of(context).textTheme.titleSmall,
+          const SizedBox(height: 16,),
+
+          Expanded(
+            child: Align(
+              alignment: AlignmentDirectional.center,
+              child: Text(
+                playlist.playlistName ?? "",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
           )
         ],
       ),

@@ -19,7 +19,7 @@ class MyTheme {
         titleSmall: TextStyle(
             fontSize: 18, fontWeight: FontWeight.w700, color: textBlack500),
         titleMedium: TextStyle(
-            fontSize: 26, fontWeight: FontWeight.bold, color: textBlack900),
+            fontSize: 22, fontWeight: FontWeight.bold, color: textBlack900),
         titleLarge: TextStyle(
             fontSize: 30, fontWeight: FontWeight.bold, color: textBlack900),
       ));
@@ -41,7 +41,7 @@ class MyTheme {
         titleSmall: TextStyle(
             fontSize: 18, fontWeight: FontWeight.w700, color: textWhite500),
         titleMedium: TextStyle(
-            fontSize: 26, fontWeight: FontWeight.bold, color: textWhite900),
+            fontSize: 22, fontWeight: FontWeight.bold, color: textWhite900),
         titleLarge: TextStyle(
             fontSize: 30, fontWeight: FontWeight.bold, color: textWhite900),
       ));
