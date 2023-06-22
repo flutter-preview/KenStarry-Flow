@@ -27,8 +27,12 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading:
-              IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
+          leading: IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).iconTheme.color,
+              )),
           elevation: 0,
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         ),
@@ -38,20 +42,27 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
               final List<Playlist>? playlists =
                   box.values.cast<Playlist>().toList();
 
-              return Column(
-                children: [
-                  //  carousel playlist slider
-                  CarouselSlider.builder(
-                      itemCount: playlists?.length ?? 0,
-                      itemBuilder: (context, index, realIndex) {
-                        final currentPlaylist = playlists?[index];
-                        return ViewPlaylistCarouselCard(
-                            playlist: currentPlaylist!);
-                      },
-                      options:
-                          CarouselOptions(height: 300))
-                ],
-              );
+              return playlists != null
+                  ? Column(
+                      children: [
+                        //  carousel playlist slider
+                        CarouselSlider.builder(
+                            itemCount: playlists.length,
+                            itemBuilder: (context, index, realIndex) {
+                              final currentPlaylist = playlists[index];
+
+                              return ViewPlaylistCarouselCard(
+                                  playlist: currentPlaylist!);
+                            },
+                            options: CarouselOptions(
+                                height: 200,
+                                initialPage: 1,
+                                enlargeCenterPage: true,
+                                enableInfiniteScroll: true,
+                            scrollPhysics: const BouncingScrollPhysics()))
+                      ],
+                    )
+                  : const CircularProgressIndicator();
             }));
   }
 }

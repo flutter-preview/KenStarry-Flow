@@ -9,7 +9,10 @@ class ViewPlaylistCarouselCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red,
+      width: double.infinity,
+      height: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      child: Image.asset('assets/images/lady5.jpg', fit: BoxFit.cover,),
     );
   }
 }
