@@ -38,9 +38,26 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Playlists",
-            style: Theme.of(context).textTheme.titleSmall,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Add to Playlist",
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              //  playlist count
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColorDark,
+                  borderRadius: BorderRadius.circular(30)
+                ),
+                child: Text(
+                  "${_playlistController.playlists.length} playlists",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+            ],
           ),
 
           const SizedBox(height: 16,),
