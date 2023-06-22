@@ -41,11 +41,11 @@ class PlaylistCardSmall extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(16)),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(16),
-                              child: Image.asset(
-                                'assets/images/lady5.jpg',
-                                width: double.infinity,
-                                height: double.infinity,
-                                fit: BoxFit.cover,
+                              child: Center(
+                                child: Icon(
+                                  Icons.music_note_outlined,
+                                  size: 24,
+                                ),
                               ),
                             ),
                           ),
