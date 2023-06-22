@@ -43,6 +43,8 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
             style: Theme.of(context).textTheme.titleSmall,
           ),
 
+          const SizedBox(height: 16,),
+
           //  all playlists
           ValueListenableBuilder(
               valueListenable: _playlistController.playlistsBox.value,
@@ -55,13 +57,7 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                 //  playlists
                 return box.length != 0 && playlists != null
                     ? Expanded(
-                      child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 150,
-                                  mainAxisExtent: 200,
-                                  mainAxisSpacing: 8,
-                                  crossAxisSpacing: 8),
+                        child: ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: playlists.length,
@@ -73,7 +69,7 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                             );
                           },
                         ),
-                    )
+                      )
                     : const Center(
                         child: Column(
                           children: [Text("No Playlists yet.")],

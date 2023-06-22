@@ -8,13 +8,12 @@ class PlaylistCardSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
       children: [
         //  playlist Image
         SizedBox(
-          width: 100,
-          height: 100,
+          width: 80,
+          height: 80,
           child: Stack(
             children: [
               Padding(
@@ -24,9 +23,9 @@ class PlaylistCardSmall extends StatelessWidget {
                   height: double.infinity,
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColorDark,
-                      borderRadius: BorderRadius.circular(24)),
+                      borderRadius: BorderRadius.circular(16)),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(24),
+                    borderRadius: BorderRadius.circular(16),
                     child: Image.asset(
                       'assets/images/lady5.jpg',
                       width: double.infinity,
@@ -36,12 +35,13 @@ class PlaylistCardSmall extends StatelessWidget {
                   ),
                 ),
               ),
-              //  songs count
+
+              //  playlist selected
               Align(
-                alignment: AlignmentDirectional.topEnd,
+                alignment: AlignmentDirectional.topStart,
                 child: Container(
-                  width: 35,
-                  height: 35,
+                  width: 30,
+                  height: 30,
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColorDark,
                       borderRadius: BorderRadius.circular(100),
@@ -61,18 +61,22 @@ class PlaylistCardSmall extends StatelessWidget {
           ),
         ),
 
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        const SizedBox(width: 16,),
+
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //  playlist name
-              Expanded(
-                child: Text(
-                  playlist.playlistName ?? "No name",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  overflow: TextOverflow.ellipsis,
-                ),
+              Text(
+                playlist.playlistName ?? "No name",
+                style: Theme.of(context).textTheme.bodyMedium,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 8,),
+              Text(
+                "5 songs",
+                style: Theme.of(context).textTheme.bodySmall,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
