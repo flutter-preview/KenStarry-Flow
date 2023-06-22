@@ -33,4 +33,9 @@ class PlaylistRepositoryImpl implements PlaylistRepository {
 
     await playlistBox.putAt(index, updatedPlaylist);
   }
+
+  @override
+  Future<Playlist> getPlaylist({required int index}) async {
+    return await playlistBox.getAt(index) as Playlist;
+  }
 }

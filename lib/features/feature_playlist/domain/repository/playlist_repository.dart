@@ -8,4 +8,6 @@ abstract class PlaylistRepository {
   Future<void> updatePlaylist({required int index, required Playlist playlist});
   /// Delete Playlist
   Future<void> deletePlaylist({required int index});
+  /// Get Playlist at index
+  Future<Playlist> getPlaylist({required int index});
 }

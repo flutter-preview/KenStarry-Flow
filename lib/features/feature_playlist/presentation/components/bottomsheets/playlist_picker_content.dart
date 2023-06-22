@@ -135,8 +135,9 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)))),
                   onPressed: () {
-                    //  add song to selected playlists
-
+                    //  get the current playlist songs
+                    //  add this song to the playlist
+                    //  post the results back to the database and update with the new list
                   },
                   child: Text("Save"))
             ],
