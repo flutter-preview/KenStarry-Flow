@@ -13,8 +13,18 @@ class PlaylistController extends GetxController {
   final playlistsBox = Hive.box(HiveUtils.playlistBox).listenable().obs;
   final playlists = <Playlist>[].obs;
 
+  //  Playlist Picker Sheet
+  final pickedPlaylists = <Playlist>[].obs;
+
   void initializePlaylists({required List<Playlist>? playlists}) =>
       this.playlists.value = playlists ?? [];
+
+  //  Playlist picker sheet
+  void pickPlaylistToAddSong({required Playlist playlist}) =>
+      pickedPlaylists.add(playlist);
+
+  void unPickPlaylistToAddSong({required Playlist playlist}) =>
+      pickedPlaylists.remove(playlist);
 
   // Add Playlist
   Future<void> addPlaylist({required Playlist playlist}) async =>

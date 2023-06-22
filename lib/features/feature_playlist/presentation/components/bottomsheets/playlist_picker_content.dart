@@ -47,11 +47,11 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
               ),
               //  playlist count
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColorDark,
-                  borderRadius: BorderRadius.circular(30)
-                ),
+                    color: Theme.of(context).primaryColorDark,
+                    borderRadius: BorderRadius.circular(30)),
                 child: Text(
                   "${_playlistController.playlists.length} playlists",
                   style: Theme.of(context).textTheme.bodySmall,
@@ -60,7 +60,9 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
             ],
           ),
 
-          const SizedBox(height: 16,),
+          const SizedBox(
+            height: 16,
+          ),
 
           //  all playlists
           ValueListenableBuilder(
@@ -74,7 +76,7 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                 //  playlists
                 return box.length != 0 && playlists != null
                     ? Expanded(
-                        child: ListView.builder(
+                        child: ListView.separated(
                           physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: playlists.length,
@@ -83,8 +85,19 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
 
                             return PlaylistCardSmall(
                               playlist: playlist,
+                              playlistController: _playlistController,
+                              onTap: () {
+                                _playlistController.pickedPlaylists
+                                        .contains(playlist)
+                                    ? _playlistController
+                                        .unPickPlaylistToAddSong(
+                                            playlist: playlist)
+                                    : _playlistController.pickPlaylistToAddSong(
+                                        playlist: playlist);
+                              },
                             );
                           },
+                          separatorBuilder: (context, index) => const SizedBox(height: 16,),
                         ),
                       )
                     : const Center(
