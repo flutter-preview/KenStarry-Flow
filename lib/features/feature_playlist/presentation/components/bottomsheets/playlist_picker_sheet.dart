@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 Future playlistPickerSheet() => showModalBottomSheet(
     isDismissible: true,
     isScrollControlled: true,
-    showDragHandle: true,
+    showDragHandle: false,
     backgroundColor: Colors.transparent,
     shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
