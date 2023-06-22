@@ -7,8 +7,5 @@ Future playlistPickerSheet() => showModalBottomSheet(
     isScrollControlled: true,
     showDragHandle: false,
     backgroundColor: Colors.transparent,
-    shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24), topRight: Radius.circular(24))),
     context: Get.context!,
     builder: (context) => const PlaylistPickerContent());

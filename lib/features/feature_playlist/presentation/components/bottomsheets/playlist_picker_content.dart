@@ -32,7 +32,7 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(24),
         color: Theme.of(context).scaffoldBackgroundColor,
       ),
       child: Column(
