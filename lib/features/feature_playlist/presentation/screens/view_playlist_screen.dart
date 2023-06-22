@@ -25,6 +25,9 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    var playlist = widget.playlist;
+
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -56,7 +59,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                             },
                             options: CarouselOptions(
                                 height: 250,
-                                initialPage: 1,
+                                initialPage: playlists.indexOf(playlist),
                                 enlargeCenterPage: true,
                                 enableInfiniteScroll: false,
                             scrollPhysics: const BouncingScrollPhysics()))
