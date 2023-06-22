@@ -15,6 +15,11 @@ class PlaylistController extends GetxController {
   //  Playlist Picker Sheet
   final pickedPlaylists = <Playlist>[].obs;
 
+  /// VIEW PLAYLIST SCREEN
+  final selectedPlaylistIndex = 0.obs;
+
+  void setSelectedPlaylistIndex({required int index}) => selectedPlaylistIndex.value = index;
+
   void initializePlaylists({required List<Playlist>? playlists}) =>
       this.playlists.value = playlists ?? [];
 
