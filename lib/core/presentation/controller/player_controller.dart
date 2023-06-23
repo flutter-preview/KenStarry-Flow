@@ -84,12 +84,6 @@ class PlayerController extends GetxController {
     });
   }
 
-  /// Skip Buttons update
-  // void _updateSkipButtons() {
-  //   final mediaItem = _audioHandler.mediaItem.value;
-  //   final playlist = _audioHandler.queue.value;
-  // }
-
   void setTotalSongsDuration({required List<SongModel> songs}) {
     var durations = songs.map((song) => song.duration);
     var totalDuration =
