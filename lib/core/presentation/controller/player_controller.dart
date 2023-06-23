@@ -72,6 +72,9 @@ class PlayerController extends GetxController {
         //  seek to the begining and start
         _audioHandler.seek(Duration.zero);
         _audioHandler.pause();
+
+        //  increment the current playing song index
+        currentPlayingSongIndex.value = (currentPlayingSongIndex.value! + 1);
       }
     });
   }
