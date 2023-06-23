@@ -66,6 +66,16 @@ class MyAudioHandler extends BaseAudioHandler {
     queue.add(newQueue);
   }
 
+  @override
+  Future<void> removeQueueItemAt(int index) async {
+    if (_playlistQueue.length > index) {
+      await _playlistQueue.removeAt(index);
+
+      final newQueue = queue.value..removeAt(index);
+      queue.add(newQueue);
+    }
+  }
+
   //  creating an audio source
   UriAudioSource _createAudioSource(MediaItem mediaItem) {
     return AudioSource.uri(Uri.parse(mediaItem.extras!['url'] as String),
