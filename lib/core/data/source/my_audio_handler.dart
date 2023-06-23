@@ -15,6 +15,7 @@ class MyAudioHandler extends BaseAudioHandler {
     _player.playbackEventStream.map(_transformEvent).pipe(playbackState);
     _listenForCurrentSongIndexChanges();
     _listenForDurationChanges();
+    _listenForSequenceStateChanges();
   }
 
   @override
@@ -100,6 +101,18 @@ class MyAudioHandler extends BaseAudioHandler {
       
       queue.add(newQueue);
       mediaItem.add(newMediaItem);
+    });
+  }
+
+  /// Sequence Changes
+  void _listenForSequenceStateChanges() {
+    _player.sequenceStateStream.listen((SequenceState? sequenceState) {
+      final sequence = sequenceState?.effectiveSequence;
+
+      if (sequence == null || sequence.isEmpty) return;
+
+      final items = sequence.map((source) => source.tag as MediaItem);
+      queue.add(items.toList());
     });
   }
 
