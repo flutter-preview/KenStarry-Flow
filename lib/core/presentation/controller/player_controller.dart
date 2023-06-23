@@ -75,6 +75,19 @@ class PlayerController extends GetxController {
     });
   }
 
+  /// Listen to Song Changes (Next and Prev)
+  void _listenToChangesInSong() {
+    _audioHandler.mediaItem.listen((mediaItem) {
+      currentPlayingSongIndex.value = mediaItems.indexOf(mediaItem!);
+    });
+  }
+
+  /// Skip Buttons update
+  // void _updateSkipButtons() {
+  //   final mediaItem = _audioHandler.mediaItem.value;
+  //   final playlist = _audioHandler.queue.value;
+  // }
+
   void setTotalSongsDuration({required List<SongModel> songs}) {
     var durations = songs.map((song) => song.duration);
     var totalDuration =
