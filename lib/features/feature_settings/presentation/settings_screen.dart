@@ -14,14 +14,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
           //  appbar
           settingsAppBar(),
           //  general settings
-          SliverList(
-              delegate: SliverChildBuilderDelegate(
-                  (context, index) => SettingsConstants.settings[index],
-                  childCount: SettingsConstants.settings.length))
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: Text("General", style: Theme.of(context).textTheme.titleSmall,),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                    (context, index) => SettingsConstants.settings[index],
+                    childCount: SettingsConstants.settings.length)),
+          )
         ],
       ),
     );
