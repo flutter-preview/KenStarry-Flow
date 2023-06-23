@@ -20,8 +20,10 @@ class SettingsCard extends StatelessWidget {
       child: Row(
         children: [
           //  icon
-
+          Icon(iconData, size: 24, color: color,),
+          const SizedBox(width: 8,),
           //  title
+          Text(title, style: Theme.of(context).textTheme.bodyMedium,)
         ],
       ),
     );
