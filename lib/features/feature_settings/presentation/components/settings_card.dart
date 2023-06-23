@@ -12,18 +12,19 @@ class SettingsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: Theme.of(context).primaryColorDark,
         borderRadius: BorderRadius.circular(16)
       ),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
           //  icon
           Icon(iconData, size: 24, color: color,),
           const SizedBox(width: 8,),
           //  title
-          Text(title, style: Theme.of(context).textTheme.bodyMedium,)
+          Text(title, style: Theme.of(context).textTheme.bodyLarge,)
         ],
       ),
     );
