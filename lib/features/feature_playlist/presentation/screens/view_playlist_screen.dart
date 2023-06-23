@@ -169,11 +169,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                                                     homeController:
                                                         _homeController);
                                               } else {
-                                                _playerController.playSong(
-                                                    path: _playerController
-                                                        .songs[currentSongIndex]
-                                                        .uri!,
-                                                    index: currentSongIndex);
+                                                _playerController.playSong(index: currentSongIndex);
 
                                                 //  open player screen bottom sheet
                                                 showPlayerBottomSheet(

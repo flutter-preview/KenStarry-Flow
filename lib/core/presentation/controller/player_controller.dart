@@ -69,12 +69,9 @@ class PlayerController extends GetxController {
       } else if (processingState != AudioProcessingState.completed) {
         playerState.value = PlayerStates.playing;
       } else {
-        //  seek to the begining and start
-        _audioHandler.seek(Duration.zero);
-        _audioHandler.pause();
-
         //  increment the current playing song index
-        currentPlayingSongIndex.value = (currentPlayingSongIndex.value! + 1);
+        currentPlayingSongIndex.value = currentPlayingSongIndex.value! + 1;
+        playSong(index: currentPlayingSongIndex.value!);
       }
     });
   }
@@ -134,7 +131,7 @@ class PlayerController extends GetxController {
   }
 
   ///  Play Song
-  Future<void> playSong({required String path, required int index}) async {
+  Future<void> playSong({required int index}) async {
     currentPlayingSongIndex.value = index;
     observeSongDuration();
     observeSongPosition();

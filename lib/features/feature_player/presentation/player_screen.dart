@@ -261,13 +261,7 @@ class _PlayerScreenState extends State<PlayerScreen>
                     if (playerController.sliderValue.value ==
                         playerController.maxSlider.value) {
                       //  go to next song
-                      playerController.playSong(
-                          path: widget
-                              .songs[playerController
-                                      .currentPlayingSongIndex.value! +
-                                  1]
-                              .uri!,
-                          index:
+                      playerController.playSong(index:
                               playerController.currentPlayingSongIndex.value! +
                                   1);
                     }

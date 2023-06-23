@@ -112,8 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       onTap: () {
                         if (_playerController.songs.isNotEmpty) {
                           //  start playing the first song
-                          _playerController.playSong(
-                              path: _playerController.songs[0].uri!, index: 0);
+                          _playerController.playSong(index: 0);
                         }
                       },
                       child: Ink(
@@ -211,8 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   playerController: _playerController,
                                   homeController: _homeController);
                             } else {
-                              _playerController.playSong(
-                                  path: songs[index].uri!, index: index);
+                              _playerController.playSong(index: index);
 
                               //  open player screen bottom sheet
                               showPlayerBottomSheet(
