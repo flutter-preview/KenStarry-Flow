@@ -9,7 +9,7 @@ class MyAudioHandler extends BaseAudioHandler {
   final _player = locator.get<AudioPlayer>();
 
   List<MediaItem> songsMediaItems = [];
-  final _playlist = ConcatenatingAudioSource(children: []);
+  final _playlistQueue = ConcatenatingAudioSource(children: []);
 
   MyAudioHandler() {
     _player.playbackEventStream.map(_transformEvent).pipe(playbackState);
@@ -47,7 +47,7 @@ class MyAudioHandler extends BaseAudioHandler {
   @override
   Future<void> skipToQueueItem(int index) async {
     mediaItem.add(songsMediaItems[index]);
-    await _player.setAudioSource(_playlist[index]);
+    await _player.setAudioSource(_playlistQueue[index]);
     _player.play();
   }
 
@@ -57,7 +57,7 @@ class MyAudioHandler extends BaseAudioHandler {
     songsMediaItems = mediaItems;
     //  manage Just Audio
     final audioSource = mediaItems.map((song) => _createAudioSource(song));
-    _playlist.addAll(audioSource.toList());
+    _playlistQueue.addAll(audioSource.toList());
 
     //  notify audio handler
     final newQueue = queue.value..addAll(mediaItems);
@@ -75,6 +75,26 @@ class MyAudioHandler extends BaseAudioHandler {
       final playlist = queue.value;
       if (index == null || playlist.isEmpty) return;
       mediaItem.add(playlist[index]);
+    });
+  }
+
+  void listenForDurationChanges() {
+    _player.durationStream.listen((duration) {
+      var index = _player.currentIndex;
+      final newQueue = queue.value;
+
+      if (index == null || newQueue.isEmpty) return;
+
+      if  (_player.shuffleModeEnabled) {
+        index = _player.shuffleIndices![index];
+      }
+
+      final oldMediaItem = newQueue[index];
+      final newMediaItem = oldMediaItem.copyWith(duration: duration);
+      newQueue[index] = newMediaItem;
+      
+      queue.add(newQueue);
+      mediaItem.add(newMediaItem);
     });
   }
 
