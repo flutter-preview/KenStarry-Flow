@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class MyTheme {
   /// Light Theme
-  static ThemeData get lightTheme => ThemeData(
+  static ThemeData get
+  lightTheme => ThemeData(
       primaryColor: accent,
       scaffoldBackgroundColor: bgColorLightMode,
       primaryColorDark: accentLight,
