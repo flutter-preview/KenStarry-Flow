@@ -27,11 +27,12 @@ void showPlayerBottomSheet(
         return PlayerScreen(
           songs: playerController.songs,
           onNextSong: () {
-            playerController.playSong(
-                path: playerController
-                    .songs[playerController.currentPlayingSongIndex.value! + 1]
-                    .uri!,
-                index: playerController.currentPlayingSongIndex.value! + 1);
+            // playerController.playSong(
+            //     path: playerController
+            //         .songs[playerController.currentPlayingSongIndex.value! + 1]
+            //         .uri!,
+            //     index: playerController.currentPlayingSongIndex.value! + 1);
+            playerController.playNextSong(index: playerController.currentPlayingSongIndex.value! + 1);
           },
           onPreviousSong: () => playerController.playSong(
               path: playerController

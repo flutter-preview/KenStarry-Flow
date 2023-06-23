@@ -19,6 +19,10 @@ class MyAudioHandler extends BaseAudioHandler {
     _listenForSequenceStateChanges();
   }
 
+  void setSongIndex({required int index}) {
+    currentSongIndex = index;
+  }
+
   @override
   Future<void> playMediaItem(MediaItem mediaItem) async {
     this.mediaItem.add(mediaItem);
@@ -35,7 +39,14 @@ class MyAudioHandler extends BaseAudioHandler {
   Future<void> pause() async => await _player.pause();
 
   @override
-  Future<void> skipToNext() async => await _player.seekToNext();
+  Future<void> skipToNext() async {
+    currentSongIndex += 1;
+    mediaItem.add(songsMediaItems[currentSongIndex]);
+    await _player.setAudioSource(_playlistQueue[currentSongIndex]);
+    _player.play();
+
+    _listenForDurationChanges();
+  }
 
   @override
   Future<void> skipToPrevious() async => await _player.seekToPrevious();
@@ -110,7 +121,7 @@ class MyAudioHandler extends BaseAudioHandler {
 
       if (index == null || newQueue.isEmpty) return;
 
-      if  (_player.shuffleModeEnabled) {
+      if (_player.shuffleModeEnabled) {
         index = _player.shuffleIndices![index];
       }
 
