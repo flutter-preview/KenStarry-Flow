@@ -47,7 +47,8 @@ class PlayerController extends GetxController {
   void _listenToChangesInPlaylist() {
     _audioHandler.queue.listen((playlist) {
       if (playlist.isEmpty) return;
-      // songs.value = playlist.map((item) => SongModel().id).toList();
+      // songs.value = playlist.map((item) => SongModel()).toList();
+      print(playlist.toString());
     });
   }
 
@@ -81,6 +82,21 @@ class PlayerController extends GetxController {
 
     //  Add media to audio handler
     _audioHandler.addQueueItems(mediaItems);
+  }
+
+  Future<void> setCurrentSong({required SongModel song}) async {
+    //  remove currently playing song
+    _audioHandler.removeQueueItemAt(0);
+
+    var mediaItem = MediaItem(
+        id: song.id.toString(),
+        title: song.displayNameWOExt,
+        artist: song.artist,
+        duration: Duration(milliseconds: song.duration!),
+        extras: {'url': song.uri});
+
+    _audioHandler.addQueueItem(mediaItem);
+    _audioHandler.play();
   }
 
   ///  Play Song

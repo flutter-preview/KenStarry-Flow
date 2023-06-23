@@ -7,6 +7,7 @@ import '../../../features/feature_home/domain/use_case/home_use_cases.dart';
 
 class MyAudioHandler extends BaseAudioHandler {
   final _player = locator.get<AudioPlayer>();
+  int currentSongIndex = 0;
 
   List<MediaItem> songsMediaItems = [];
   final _playlistQueue = ConcatenatingAudioSource(children: []);
@@ -37,20 +38,23 @@ class MyAudioHandler extends BaseAudioHandler {
   @override
   Future<void> seek(Duration position) async => await _player.seek(position);
 
-  /// Next
-  @override
-  Future<void> skipToNext() async => await _player.seekToNext();
-
-  /// Previous
-  @override
-  Future<void> skipToPrevious() async => await _player.seekToPrevious();
-
-
   @override
   Future<void> skipToQueueItem(int index) async {
+    currentSongIndex = index;
     mediaItem.add(songsMediaItems[index]);
     await _player.setAudioSource(_playlistQueue[index]);
     _player.play();
+  }
+
+  @override
+  Future<void> addQueueItem(MediaItem mediaItem) async {
+    //  manage Just Audio
+    final audioSource = _createAudioSource(mediaItem);
+    _playlistQueue.add(audioSource);
+
+    //  notify audio handler
+    final newQueue = queue.value..add(mediaItem);
+    queue.add(newQueue);
   }
 
   /// Queue Playback
@@ -108,7 +112,7 @@ class MyAudioHandler extends BaseAudioHandler {
       final oldMediaItem = newQueue[index];
       final newMediaItem = oldMediaItem.copyWith(duration: duration);
       newQueue[index] = newMediaItem;
-      
+
       queue.add(newQueue);
       mediaItem.add(newMediaItem);
     });
