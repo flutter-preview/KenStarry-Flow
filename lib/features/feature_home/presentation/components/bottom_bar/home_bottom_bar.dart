@@ -44,7 +44,7 @@ class _HomeBottomBarState extends State<HomeBottomBar>
             runSpacing: 8,
             children: [
               //  Bottom Nav Currently playing music
-              _playerController.songs.isNotEmpty
+              _playerController.songs.isNotEmpty && _playerController.currentPlayingSongIndex.value != null
                   ? GestureDetector(
                       onTap: () {
                         showPlayerBottomSheet(
