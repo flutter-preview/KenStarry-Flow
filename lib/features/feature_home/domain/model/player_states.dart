@@ -1,1 +1,1 @@
-enum PlayerStates { playing, stopped, idle, loading, buffering, ready, completed }
+enum PlayerStates { playing, paused, stopped, idle, loading, buffering, ready, completed }

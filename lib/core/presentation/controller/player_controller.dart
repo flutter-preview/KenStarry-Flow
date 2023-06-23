@@ -36,11 +36,13 @@ class PlayerController extends GetxController {
   // Index of the currently playing song
   final Rx<int?> currentPlayingSongIndex = 0.obs;
   final playerState = PlayerStates.stopped.obs;
+  final isPlaying = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     _listenToChangesInPlaylist();
+    _listenToPlaybackState();
   }
 
   /// Listen To Playlist changed from audio handler
@@ -49,6 +51,23 @@ class PlayerController extends GetxController {
       if (playlist.isEmpty) return;
       // songs.value = playlist.map((item) => SongModel()).toList();
       print(playlist.toString());
+    });
+  }
+
+  /// Listen to Playback states
+  void _listenToPlaybackState() {
+    _audioHandler.playbackState.listen((playbackState) {
+      final isPlaying = playbackState.playing;
+      final processingState = playbackState.processingState;
+
+      if (processingState == AudioProcessingState.loading ||
+          processingState == AudioProcessingState.buffering) {
+        playerState.value = PlayerStates.paused;
+      } else if (!isPlaying) {
+        playerState.value = PlayerStates.paused;
+      } else if (processingState != AudioProcessingState.completed) {
+        playerState.value = PlayerStates.playing;
+      }
     });
   }
 
