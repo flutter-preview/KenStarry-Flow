@@ -1,3 +1,4 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flow/core/domain/models/user.dart';
 import 'package:flow/core/utils/hive_utils.dart';
 import 'package:flow/di/controllers_di.dart';
@@ -14,7 +15,7 @@ import 'package:hive/hive.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-
+  
   //  splash screen
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 

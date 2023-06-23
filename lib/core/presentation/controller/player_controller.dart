@@ -80,7 +80,6 @@ class PlayerController extends GetxController {
   void _listenToChangesInSong() {
     _audioHandler.mediaItem.listen((mediaItem) {
       currentPlayingSongIndex.value = mediaItems.indexOf(mediaItem!);
-      print("CURRENTLY PLAYING : $mediaItem");
     });
   }
 
