@@ -16,7 +16,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         slivers: [
           //  appbar
           settingsAppBar()
-          //  settings
+          //  general settings
+
         ],
       ),
     );
