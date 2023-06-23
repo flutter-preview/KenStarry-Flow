@@ -6,13 +6,17 @@ import 'package:flow/features/feature_main/presentation/main_screen.dart';
 import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
 import 'package:flow/theme/my_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:hive/hive.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  //  splash screen
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   final appDocumentDirectory =
       await path_provider.getApplicationDocumentsDirectory();
@@ -44,6 +48,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
+    FlutterNativeSplash.remove();
+
     return GetMaterialApp(
       title: "Flow",
       home: FutureBuilder(

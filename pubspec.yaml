@@ -50,8 +50,8 @@ flutter_native_splash:
     color: "#ffffff"
     color_dark: "#343a40"
     image: "assets/images/flow_logo.png"
-  android: false
-  ios: false
+  android: true
+  ios: true
   web: false
 
 flutter:
