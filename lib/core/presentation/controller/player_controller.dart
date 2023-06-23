@@ -67,6 +67,10 @@ class PlayerController extends GetxController {
         playerState.value = PlayerStates.paused;
       } else if (processingState != AudioProcessingState.completed) {
         playerState.value = PlayerStates.playing;
+      } else {
+        //  seek to the begining and start
+        _audioHandler.seek(Duration.zero);
+        _audioHandler.pause();
       }
     });
   }
