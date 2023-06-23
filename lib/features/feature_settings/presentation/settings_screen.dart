@@ -1,3 +1,4 @@
+import 'package:flow/features/feature_settings/presentation/components/settings_appbar.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -14,6 +15,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: CustomScrollView(
         slivers: [
           //  appbar
+          settingsAppBar()
           //  settings
         ],
       ),
