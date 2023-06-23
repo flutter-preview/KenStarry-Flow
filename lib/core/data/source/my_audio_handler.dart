@@ -14,6 +14,7 @@ class MyAudioHandler extends BaseAudioHandler {
   MyAudioHandler() {
     _player.playbackEventStream.map(_transformEvent).pipe(playbackState);
     _listenForCurrentSongIndexChanges();
+    _listenForDurationChanges();
   }
 
   @override
@@ -70,15 +71,18 @@ class MyAudioHandler extends BaseAudioHandler {
         tag: mediaItem);
   }
 
+  /// Index of Current Item
   void _listenForCurrentSongIndexChanges() {
     _player.currentIndexStream.listen((index) {
       final playlist = queue.value;
       if (index == null || playlist.isEmpty) return;
+      //  update the new song inside media item
       mediaItem.add(playlist[index]);
     });
   }
 
-  void listenForDurationChanges() {
+  /// Current Duration of Song Playing
+  void _listenForDurationChanges() {
     _player.durationStream.listen((duration) {
       var index = _player.currentIndex;
       final newQueue = queue.value;
@@ -89,6 +93,7 @@ class MyAudioHandler extends BaseAudioHandler {
         index = _player.shuffleIndices![index];
       }
 
+      //  update the old media item duration
       final oldMediaItem = newQueue[index];
       final newMediaItem = oldMediaItem.copyWith(duration: duration);
       newQueue[index] = newMediaItem;
