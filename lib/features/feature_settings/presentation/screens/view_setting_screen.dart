@@ -49,12 +49,16 @@ class _ViewSettingScreenState extends State<ViewSettingScreen> {
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Theme.of(context).scaffoldBackgroundColor,
-          statusBarIconBrightness:
-          _coreController.brightness.value == Brightness.dark
-              ? Brightness.light
-              : Brightness.dark,
-        ),
+            statusBarColor: Theme.of(context).scaffoldBackgroundColor,
+            statusBarIconBrightness:
+                _coreController.brightness.value == Brightness.dark
+                    ? Brightness.light
+                    : Brightness.dark,
+            systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+            systemNavigationBarIconBrightness:
+                _coreController.brightness.value == Brightness.dark
+                    ? Brightness.light
+                    : Brightness.dark),
         title: Text(
           getTitle(type: widget.type),
           style: Theme.of(context).textTheme.titleSmall,
