@@ -32,6 +32,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   flutter_native_splash: ^2.3.1
   audio_waveforms: ^1.0.4
+  flutter_colorpicker: ^1.0.3
 
 dev_dependencies:
   flutter_test:
