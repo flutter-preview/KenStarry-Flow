@@ -16,7 +16,7 @@ SliverAppBar themeSettingAppBar() {
     floating: false,
     pinned: true,
     leading: IconButton(
-        onPressed: () => Get.back(canPop: true),
+        onPressed: () => Get.back(),
         icon: Icon(
           Icons.arrow_back,
           color: Theme.of(Get.context!).iconTheme.color,

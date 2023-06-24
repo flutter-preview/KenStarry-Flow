@@ -8,11 +8,11 @@ import 'package:flow/features/feature_settings/presentation/controller/theme_con
 import 'package:get/get.dart';
 
 void initializeControllers() {
-  Get.lazyPut(() => CoreController());
-  Get.lazyPut(() => PlayerController());
-  Get.lazyPut(() => HomeController());
-  Get.lazyPut(() => ArtistsController());
-  Get.lazyPut(() => UserController());
-  Get.lazyPut(() => PlaylistController());
-  Get.lazyPut(() => ThemeController());
+  Get.lazyPut(() => CoreController(), fenix: true);
+  Get.lazyPut(() => PlayerController(), fenix: true);
+  Get.lazyPut(() => HomeController(), fenix: true);
+  Get.lazyPut(() => ArtistsController(), fenix: true);
+  Get.lazyPut(() => UserController(), fenix: true);
+  Get.lazyPut(() => PlaylistController(), fenix: true);
+  Get.lazyPut(() => ThemeController(), fenix: true);
 }

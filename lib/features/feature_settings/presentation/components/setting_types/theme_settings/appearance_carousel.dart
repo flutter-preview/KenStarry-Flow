@@ -38,7 +38,6 @@ class _AppearanceCarouselState extends State<AppearanceCarousel> {
             user: User(
                 themeType: _themeController
                     .themeTypes[_themeController.selectedThemeIndex.value]));
-        setState(() {});
       },
       child: Column(
         children: [
