@@ -17,8 +17,7 @@ class UserRepositoryImpl implements UserRepository {
   Future<void> deleteUserPrefs() async => await userBox.delete('user');
 
   @override
-  void getUserPrefs({required Function(ValueListenable<Box> box) observeBox}) =>
-      observeBox(userBox.listenable());
+  Future<User> getUserPrefs() async => await userBox.get('user') as User;
 
   @override
   Future<void> updateUserPrefs({required User user}) async {

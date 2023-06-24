@@ -18,9 +18,7 @@ class UserController extends GetxController {
 
   Future<void> deleteUserPrefs() async => await useCases.deleteUserPrefs();
 
-  void getUserPrefs({required Function(ValueListenable<Box> box) observeBox}) {
-    observeBox(box) => userPrefs.value = box;
-  }
+  Future<User> getUserPrefs() async => await useCases.getUserPrefs();
 
   Future<void> updateUserPrefs({required User user}) async =>
       await useCases.updateUserPrefs.call(user: user);

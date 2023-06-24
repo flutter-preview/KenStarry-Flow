@@ -7,7 +7,7 @@ abstract class UserRepository {
   Future<void> addUserPrefs({required User user});
 
   /// Get User Preferences
-  void getUserPrefs({required Function(ValueListenable<Box> box) observeBox});
+  Future<User> getUserPrefs();
 
   /// Update User Preferences
   Future<void> updateUserPrefs({required User user});

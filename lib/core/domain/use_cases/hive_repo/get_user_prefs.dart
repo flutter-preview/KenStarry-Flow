@@ -8,6 +8,5 @@ import '../../models/user.dart';
 class GetUserPrefs {
   final repo = locator.get<UserRepository>();
 
-  void call({required Function(ValueListenable<Box> box) observeBox}) =>
-      repo.getUserPrefs(observeBox: observeBox);
+  Future<User> call() => repo.getUserPrefs();
 }

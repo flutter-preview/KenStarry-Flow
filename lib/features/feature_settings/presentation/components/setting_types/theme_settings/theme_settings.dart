@@ -1,3 +1,4 @@
+import 'package:flow/core/presentation/controller/user_controller.dart';
 import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/appearance_section.dart';
 import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/theme_setting_appbar.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,16 @@ class ThemeSettings extends StatefulWidget {
 }
 
 class _ThemeSettingsState extends State<ThemeSettings> {
+
+  late final UserController _userController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _userController = Get.find<UserController>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
