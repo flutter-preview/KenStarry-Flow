@@ -37,10 +37,10 @@ class _AppearanceSectionState extends State<AppearanceSection> {
         CarouselSlider.builder(
             itemCount: themeMockups.length,
             itemBuilder: (context, index, realIndex) {
-              return AppearanceCarousel(mockup: themeMockups[index],);
+              return AppearanceCarousel(mockup: themeMockups[index], index: index,);
             },
             options: CarouselOptions(
-              height: 370,
+              height: 400,
               enableInfiniteScroll: false,
               viewportFraction: 0.7
             ))
