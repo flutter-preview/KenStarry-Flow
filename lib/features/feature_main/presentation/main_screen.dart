@@ -1,5 +1,5 @@
 import 'package:flow/core/domain/models/user.dart';
-import 'package:flow/core/presentation/controller/hive_controller.dart';
+import 'package:flow/core/presentation/controller/user_controller.dart';
 import 'package:flow/features/feature_artists/presentation/artists_screen.dart';
 import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:flow/features/feature_main/presentation/components/grant_permission_screen.dart';
@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
   late final PlayerController _playerController;
   late final HomeController _homeController;
   late final CoreController _coreController;
-  late final HiveController _hiveController;
+  late final UserController _hiveController;
   late final List<Widget> _screens;
   final audioPlayer = locator.get<AudioPlayer>();
 
@@ -40,7 +40,7 @@ class _MainScreenState extends State<MainScreen> {
     _playerController = Get.find<PlayerController>();
     _coreController = Get.find<CoreController>();
     _homeController = Get.find<HomeController>();
-    _hiveController = Get.find<HiveController>();
+    _hiveController = Get.find<UserController>();
 
     _screens = [
       const HomeScreen(),

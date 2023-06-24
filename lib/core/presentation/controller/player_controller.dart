@@ -2,7 +2,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:azlistview/azlistview.dart';
 import 'package:flow/core/data/source/my_audio_handler.dart';
 import 'package:flow/core/domain/models/user.dart';
-import 'package:flow/core/presentation/controller/hive_controller.dart';
+import 'package:flow/core/presentation/controller/user_controller.dart';
 import 'package:flow/core/utils/math_utils.dart';
 import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/features/feature_home/domain/model/az_item.dart';
@@ -16,7 +16,7 @@ import '../../../features/feature_home/domain/model/player_states.dart';
 class PlayerController extends GetxController {
   final homeUseCases = locator.get<HomeUseCases>();
   final _audioHandler = locator.get<AudioHandler>();
-  final _hive_controller = Get.find<HiveController>();
+  final _userController = Get.find<UserController>();
 
   final isPermissionGranted = false.obs;
   final RxList<SongModel> songs = <SongModel>[].obs;
@@ -201,7 +201,7 @@ class PlayerController extends GetxController {
 
     if (isStorageGranted) {
       //  save the value to the database
-      _hive_controller.updateUserPrefs(user: User(hasGrantedPermission: true));
+      _userController.updateUserPrefs(user: User(hasGrantedPermission: true));
     } else {
       isPermissionGranted.value = false;
     }

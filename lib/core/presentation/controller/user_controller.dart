@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
-class HiveController extends GetxController {
-  final useCases = locator.get<HiveUseCases>();
+class UserController extends GetxController {
+  final useCases = locator.get<UserUseCases>();
 
   /// User Prefs
   final userPrefs = Hive.box(HiveUtils.userBox).listenable().obs;

@@ -2,7 +2,7 @@ import 'package:flow/core/domain/models/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
-abstract class HiveRepository {
+abstract class UserRepository {
   /// Add User Preferences
   Future<void> addUserPrefs({required User user});
 

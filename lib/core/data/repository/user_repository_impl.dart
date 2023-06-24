@@ -1,4 +1,4 @@
-import 'package:flow/core/domain/repository/hive_repository.dart';
+import 'package:flow/core/domain/repository/user_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -6,7 +6,7 @@ import 'package:hive_flutter/adapters.dart';
 import '../../domain/models/user.dart';
 import '../../utils/hive_utils.dart';
 
-class HiveRepositoryImpl implements HiveRepository {
+class UserRepositoryImpl implements UserRepository {
   final Box userBox = Hive.box(HiveUtils.userBox);
 
   @override
