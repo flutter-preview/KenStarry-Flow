@@ -102,6 +102,7 @@ class _LightThemeMockupState extends State<LightThemeMockup> {
                           decoration: BoxDecoration(
                               color: accent.lightenColor(92),
                               borderRadius: BorderRadius.circular(8)),
+                          child: Icon(Icons.music_note_rounded, color: Theme.of(context).primaryColor, size: 16,),
                         ),
                         const SizedBox(
                           width: 8,

@@ -102,10 +102,12 @@ class _DarkThemeMockupState extends State<DarkThemeMockup> {
                           decoration: BoxDecoration(
                               color: bgDarkColor,
                               borderRadius: BorderRadius.circular(8)),
+                          child: Icon(Icons.music_note_rounded, color: Theme.of(context).primaryColor, size: 16),
                         ),
                         const SizedBox(
                           width: 8,
                         ),
+                        //  content
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(2.0),
