@@ -21,7 +21,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           settingsAppBar(),
           //  general settings
           SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
             sliver: SliverToBoxAdapter(
               child: Text(
                 "General",
@@ -34,8 +34,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                     (context, index) => SettingsCard(
-                        settingsCardModel: SettingsConstants.settings[index],
-                    onCardClicked: (){},),
+                          settingsCardModel: SettingsConstants.settings[index],
+                          onCardClicked: () {},
+                        ),
                     childCount: SettingsConstants.settings.length)),
           )
         ],
