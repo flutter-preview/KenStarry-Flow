@@ -1,4 +1,4 @@
-import 'package:flow/core/utils/string_extensions.dart';
+import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/di/locator.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flutter/material.dart';

@@ -4,7 +4,7 @@ import 'package:flow/core/data/source/my_audio_handler.dart';
 import 'package:flow/core/domain/models/user.dart';
 import 'package:flow/core/presentation/controller/hive_controller.dart';
 import 'package:flow/core/utils/math_utils.dart';
-import 'package:flow/core/utils/string_extensions.dart';
+import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/features/feature_home/domain/model/az_item.dart';
 import 'package:flow/features/feature_home/domain/use_case/home_use_cases.dart';
 import 'package:get/get.dart';
