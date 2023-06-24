@@ -1,4 +1,5 @@
 import 'package:flow/core/utils/extensions/color_extensions.dart';
+import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class ThemeMockup extends StatefulWidget {
@@ -46,7 +47,7 @@ class _ThemeMockupState extends State<ThemeMockup> {
                       width: 80,
                       height: 25,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColorDark,
+                        color: accent.lightenColor(92),
                         borderRadius: BorderRadius.circular(16)
                       ),
                     ),
@@ -57,7 +58,7 @@ class _ThemeMockupState extends State<ThemeMockup> {
                           width: 25,
                           height: 25,
                           decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColorDark,
+                              color: accent.lightenColor(92),
                               borderRadius: BorderRadius.circular(100)
                           ),
                         ),
@@ -66,7 +67,7 @@ class _ThemeMockupState extends State<ThemeMockup> {
                           width: 35,
                           height: 35,
                           decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColorDark,
+                              color: accent.lightenColor(92),
                               borderRadius: BorderRadius.circular(100)
                           ),
                           child: Icon(Icons.play_arrow_rounded, color: Theme.of(context).primaryColor,),
@@ -101,13 +102,27 @@ class _ThemeMockupState extends State<ThemeMockup> {
             //  phone navigation bar
             Align(
               alignment: AlignmentDirectional.bottomCenter,
-              child: Container(
-                width: 50,
-                height: 5,
-                decoration: BoxDecoration(
-                  color: Colors.black.lightenColor(80),
-                  borderRadius: BorderRadius.circular(30)
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  //  bottom nav
+                  Container(
+                    width: double.infinity,
+                    height: 80,
+                    decoration: BoxDecoration(
+                        color: accent.lightenColor(92),
+                        borderRadius: BorderRadius.circular(16)
+                    ),
+                  ),
+                  Container(
+                    width: 50,
+                    height: 5,
+                    decoration: BoxDecoration(
+                        color: Colors.black.lightenColor(80),
+                        borderRadius: BorderRadius.circular(30)
+                    ),
+                  )
+                ],
               ),
             )
           ],
