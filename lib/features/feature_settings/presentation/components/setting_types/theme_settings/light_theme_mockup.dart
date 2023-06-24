@@ -2,14 +2,14 @@ import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
 
-class ThemeMockup extends StatefulWidget {
-  const ThemeMockup({super.key});
+class LightThemeMockup extends StatefulWidget {
+  const LightThemeMockup({super.key});
 
   @override
-  State<ThemeMockup> createState() => _ThemeMockupState();
+  State<LightThemeMockup> createState() => _LightThemeMockupState();
 }
 
-class _ThemeMockupState extends State<ThemeMockup> {
+class _LightThemeMockupState extends State<LightThemeMockup> {
   @override
   Widget build(BuildContext context) {
     return Align(
