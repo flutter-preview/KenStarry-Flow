@@ -2,14 +2,14 @@ import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
 
-class LightThemeMockup extends StatefulWidget {
-  const LightThemeMockup({super.key});
+class DarkThemeMockup extends StatefulWidget {
+  const DarkThemeMockup({super.key});
 
   @override
-  State<LightThemeMockup> createState() => _LightThemeMockupState();
+  State<DarkThemeMockup> createState() => _DarkThemeMockupState();
 }
 
-class _LightThemeMockupState extends State<LightThemeMockup> {
+class _DarkThemeMockupState extends State<DarkThemeMockup> {
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -20,7 +20,7 @@ class _LightThemeMockupState extends State<LightThemeMockup> {
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
-            color: Theme.of(context).scaffoldBackgroundColor,
+            color: bgColorDarkMode,
             border: Border.all(color: Colors.black.lightenColor(90), width: 2)),
         child: Stack(
           fit: StackFit.loose,
@@ -34,7 +34,7 @@ class _LightThemeMockupState extends State<LightThemeMockup> {
                   width: 80,
                   height: 16,
                   decoration: BoxDecoration(
-                      color: Colors.black.lightenColor(90),
+                      color: Colors.black.lightenColor(50),
                       borderRadius: BorderRadius.circular(30)),
                 ),
 
@@ -48,7 +48,7 @@ class _LightThemeMockupState extends State<LightThemeMockup> {
                       width: 80,
                       height: 25,
                       decoration: BoxDecoration(
-                          color: accent.lightenColor(92),
+                          color: bgDarkColor,
                           borderRadius: BorderRadius.circular(16)),
                     ),
                     Row(
@@ -58,7 +58,7 @@ class _LightThemeMockupState extends State<LightThemeMockup> {
                           width: 25,
                           height: 25,
                           decoration: BoxDecoration(
-                              color: accent.lightenColor(92),
+                              color: bgDarkColor,
                               borderRadius: BorderRadius.circular(100)),
                         ),
                         const SizedBox(
@@ -68,7 +68,7 @@ class _LightThemeMockupState extends State<LightThemeMockup> {
                           width: 35,
                           height: 35,
                           decoration: BoxDecoration(
-                              color: accent.lightenColor(92),
+                              color: bgDarkColor,
                               borderRadius: BorderRadius.circular(100)),
                           child: Icon(
                             Icons.play_arrow_rounded,
@@ -92,7 +92,7 @@ class _LightThemeMockupState extends State<LightThemeMockup> {
                     height: 35,
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: bgColorDarkMode,
                         borderRadius: BorderRadius.circular(8)),
                     child: Row(
                       children: [
@@ -100,7 +100,7 @@ class _LightThemeMockupState extends State<LightThemeMockup> {
                           width: 30,
                           height: 30,
                           decoration: BoxDecoration(
-                              color: accent.lightenColor(92),
+                              color: bgDarkColor,
                               borderRadius: BorderRadius.circular(8)),
                         ),
                         const SizedBox(
@@ -118,14 +118,14 @@ class _LightThemeMockupState extends State<LightThemeMockup> {
                                   width: double.infinity,
                                   height: 12,
                                   decoration: BoxDecoration(
-                                      color: Colors.black.lightenColor(90),
+                                      color: Colors.black.lightenColor(50),
                                       borderRadius: BorderRadius.circular(8)),
                                 ),
                                 Container(
                                   width: 70,
                                   height: 8,
                                   decoration: BoxDecoration(
-                                      color: Colors.black.lightenColor(90),
+                                      color: Colors.black.lightenColor(50),
                                       borderRadius: BorderRadius.circular(8)),
                                 ),
                               ],
@@ -174,7 +174,7 @@ class _LightThemeMockupState extends State<LightThemeMockup> {
                     height: 80,
                     margin: const EdgeInsets.symmetric(horizontal: 8),
                     decoration: BoxDecoration(
-                        color: accent.lightenColor(92),
+                        color: bgDarkColor,
                         borderRadius: BorderRadius.circular(16)),
                   ),
                   const SizedBox(
@@ -184,7 +184,7 @@ class _LightThemeMockupState extends State<LightThemeMockup> {
                     width: 50,
                     height: 5,
                     decoration: BoxDecoration(
-                        color: Colors.black.lightenColor(80),
+                        color: Colors.black.lightenColor(50),
                         borderRadius: BorderRadius.circular(30)),
                   )
                 ],

@@ -1,3 +1,4 @@
+import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/dark_theme_mockup.dart';
 import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/light_theme_mockup.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +17,9 @@ class _AppearanceSectionState extends State<AppearanceSection> {
       children: [
         Text("Appearance", style: Theme.of(context).textTheme.titleSmall,),
         const SizedBox(height: 16,),
-        //
-        LightThemeMockup()
+        // themes carousel
+        LightThemeMockup(),
+        DarkThemeMockup()
       ],
     );
   }
