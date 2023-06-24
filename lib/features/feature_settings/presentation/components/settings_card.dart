@@ -1,12 +1,11 @@
+import 'package:flow/features/feature_settings/domain/model/settings_card_model.dart';
 import 'package:flutter/material.dart';
 
 class SettingsCard extends StatelessWidget {
 
-  final String title;
-  final IconData iconData;
-  final Color color;
+  final SettingsCardModel settingsCardModel;
 
-  const SettingsCard({super.key, required this.title, required this.iconData, required this.color});
+  const SettingsCard({super.key, required this.settingsCardModel});
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +20,10 @@ class SettingsCard extends StatelessWidget {
       child: Row(
         children: [
           //  icon
-          Icon(iconData, size: 24, color: color,),
+          Icon(settingsCardModel.iconData, size: 24, color: settingsCardModel.color,),
           const SizedBox(width: 8,),
           //  title
-          Text(title, style: Theme.of(context).textTheme.bodyLarge,)
+          Text(settingsCardModel.title, style: Theme.of(context).textTheme.bodyLarge,)
         ],
       ),
     );
