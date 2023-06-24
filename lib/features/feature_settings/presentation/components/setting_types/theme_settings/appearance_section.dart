@@ -26,13 +26,6 @@ class _AppearanceSectionState extends State<AppearanceSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Appearance",
-          style: Theme.of(context).textTheme.titleSmall,
-        ),
-        const SizedBox(
-          height: 16,
-        ),
         // themes carousel
         CarouselSlider.builder(
             itemCount: themeMockups.length,
@@ -42,7 +35,7 @@ class _AppearanceSectionState extends State<AppearanceSection> {
             options: CarouselOptions(
               height: 450,
               enableInfiniteScroll: false,
-              viewportFraction: 0.7
+              viewportFraction: 0.7,
             ))
       ],
     );

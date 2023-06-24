@@ -42,7 +42,7 @@ class _AppearanceCarouselState extends State<AppearanceCarousel> {
                     value: themeTypes[widget.index],
                     groupValue:
                         themeTypes[_themeController.selectedThemeIndex.value],
-                    onChanged: (value) {}),
+                    onChanged: (value) => _themeController.setSelectedThemeIndex(index: widget.index)),
               ),
               Text(
                 themeTypes[widget.index],
