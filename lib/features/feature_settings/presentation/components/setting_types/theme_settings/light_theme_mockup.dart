@@ -20,7 +20,7 @@ class _LightThemeMockupState extends State<LightThemeMockup> {
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
-            color: Theme.of(context).scaffoldBackgroundColor,
+            color: bgColorLightMode,
             border: Border.all(color: Colors.black.lightenColor(90), width: 2)),
         child: Stack(
           fit: StackFit.loose,
