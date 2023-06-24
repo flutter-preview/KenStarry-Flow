@@ -1,3 +1,4 @@
+import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flow/features/feature_settings/domain/model/setting_type.dart';
 import 'package:flow/features/feature_settings/presentation/components/setting_types/player_settings.dart';
 import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings.dart';
