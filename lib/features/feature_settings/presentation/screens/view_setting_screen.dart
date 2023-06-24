@@ -74,7 +74,10 @@ class _ViewSettingScreenState extends State<ViewSettingScreen> {
             )),
         centerTitle: true,
       ),
-      body: getScreen(type: widget.type),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: getScreen(type: widget.type),
+      ),
     );
   }
 }
