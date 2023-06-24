@@ -1,7 +1,10 @@
+import 'package:flow/features/feature_settings/domain/model/setting_type.dart';
 import 'package:flow/features/feature_settings/presentation/components/settings_appbar.dart';
 import 'package:flow/features/feature_settings/presentation/components/settings_card.dart';
+import 'package:flow/features/feature_settings/presentation/screens/view_setting_screen.dart';
 import 'package:flow/features/feature_settings/presentation/utils/settings_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -32,12 +35,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                    (context, index) => SettingsCard(
-                          settingsCardModel: SettingsConstants.settings[index],
-                          onCardClicked: () {},
-                        ),
-                    childCount: SettingsConstants.settings.length)),
+                delegate: SliverChildBuilderDelegate((context, index) {
+              return SettingsCard(
+                settingsCardModel: SettingsConstants.settings[index],
+                onCardClicked: () {
+                  //  open view settings screeen
+                  switch (index) {
+                    case 0:
+                      Get.to(() =>
+                          const ViewSettingScreen(type: SettingType.theme));
+                      break;
+                    case 1:
+                      Get.to(() =>
+                          const ViewSettingScreen(type: SettingType.player));
+                      break;
+                  }
+                },
+              );
+            }, childCount: SettingsConstants.settings.length)),
           )
         ],
       ),
