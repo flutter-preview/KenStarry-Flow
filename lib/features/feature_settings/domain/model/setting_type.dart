@@ -1,0 +1,1 @@
+enum SettingType { theme, player }
