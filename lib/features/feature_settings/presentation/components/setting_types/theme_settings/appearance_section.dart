@@ -18,7 +18,7 @@ class _AppearanceSectionState extends State<AppearanceSection> {
   void initState() {
     super.initState();
 
-    themeMockups = const [LightThemeMockup(), DarkThemeMockup()];
+    themeMockups = const [LightThemeMockup(), DarkThemeMockup(), LightThemeMockup()];
   }
 
   @override
@@ -40,7 +40,7 @@ class _AppearanceSectionState extends State<AppearanceSection> {
               return AppearanceCarousel(mockup: themeMockups[index], index: index,);
             },
             options: CarouselOptions(
-              height: 400,
+              height: 450,
               enableInfiniteScroll: false,
               viewportFraction: 0.7
             ))
