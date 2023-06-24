@@ -1,4 +1,5 @@
 import 'package:flow/features/feature_settings/presentation/components/settings_appbar.dart';
+import 'package:flow/features/feature_settings/presentation/components/settings_card.dart';
 import 'package:flow/features/feature_settings/presentation/utils/settings_constants.dart';
 import 'package:flutter/material.dart';
 
@@ -22,14 +23,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(
-              child: Text("General", style: Theme.of(context).textTheme.titleSmall,),
+              child: Text(
+                "General",
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
             ),
           ),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
-                    (context, index) => SettingsConstants.settings[index],
+                    (context, index) => SettingsCard(
+                        settingsCardModel: SettingsConstants.settings[index],
+                    onCardClicked: (){},),
                     childCount: SettingsConstants.settings.length)),
           )
         ],
