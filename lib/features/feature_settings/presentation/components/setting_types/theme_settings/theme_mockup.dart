@@ -16,12 +16,12 @@ class _ThemeMockupState extends State<ThemeMockup> {
       alignment: AlignmentDirectional.center,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.55,
-        height: 320,
+        height: 350,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
             color: Theme.of(context).scaffoldBackgroundColor,
-            border: Border.all(color: Colors.black.lightenColor(90), width: 3)),
+            border: Border.all(color: Colors.black.lightenColor(90), width: 2)),
         child: Stack(
           fit: StackFit.loose,
           children: [
