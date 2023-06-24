@@ -25,6 +25,59 @@ class _ThemeMockupState extends State<ThemeMockup> {
         child: Stack(
           fit: StackFit.loose,
           children: [
+            //  phone content
+            Column(
+              children: [
+                const SizedBox(height: 16),
+                //  app bar section
+                Container(
+                  width: 80,
+                  height: 16,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).textTheme.bodySmall!.color,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                //  library and play icons section
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 80,
+                      height: 25,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColorDark,
+                        borderRadius: BorderRadius.circular(16)
+                      ),
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          width: 25,
+                          height: 25,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColorDark,
+                              borderRadius: BorderRadius.circular(100)
+                          ),
+                        ),
+                        const SizedBox(width: 8,),
+                        Container(
+                          width: 35,
+                          height: 35,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColorDark,
+                              borderRadius: BorderRadius.circular(100)
+                          ),
+                          child: Icon(Icons.play_arrow_rounded, color: Theme.of(context).primaryColor,),
+                        )
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+
             //  phone camera
             Container(
               width: 20,
