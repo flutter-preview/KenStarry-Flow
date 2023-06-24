@@ -45,6 +45,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late final UserController _userController;
+  late final ThemeController _themeController;
 
   @override
   void initState() {
@@ -53,6 +54,7 @@ class _MyAppState extends State<MyApp> {
     //  initialize all controllers
     initializeControllers();
     _userController = Get.find<UserController>();
+    _themeController = Get.find<ThemeController>();
   }
 
   @override
@@ -66,24 +68,28 @@ class _MyAppState extends State<MyApp> {
 
           if (userPrefs == null) {
             _userController.addUserPrefs(
-                user: User(hasGrantedPermission: false, themeType: 'System Preferences'));
+                user: User(
+                    hasGrantedPermission: false,
+                    themeType: 'System Preferences'));
           }
 
-          print(
-              "Current Permission : ${userPrefs?.hasGrantedPermission}, Theme : ${userPrefs?.themeType}");
+          //  set the selected theme
+          _themeController.setSelectedThemeIndex(
+              index: _themeController.themeTypes
+                  .indexOf(userPrefs?.themeType ?? 'System Preferences'));
 
           return GetMaterialApp(
-                  title: "Flow",
-                  home: MainScreen(),
-                  theme: MyTheme.lightTheme,
-                  darkTheme: MyTheme.darkTheme,
-                  themeMode: userPrefs?.themeType == 'Light Theme'
-                      ? ThemeMode.light
-                      : userPrefs?.themeType == 'Dark Theme'
-                          ? ThemeMode.dark
-                          : ThemeMode.system,
-                  debugShowCheckedModeBanner: false,
-                );
+            title: "Flow",
+            home: MainScreen(),
+            theme: MyTheme.lightTheme,
+            darkTheme: MyTheme.darkTheme,
+            themeMode: userPrefs?.themeType == 'Light Theme'
+                ? ThemeMode.light
+                : userPrefs?.themeType == 'Dark Theme'
+                    ? ThemeMode.dark
+                    : ThemeMode.system,
+            debugShowCheckedModeBanner: false,
+          );
         });
   }
 }
