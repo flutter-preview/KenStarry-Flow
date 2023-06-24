@@ -15,7 +15,7 @@ class _ThemeMockupState extends State<ThemeMockup> {
       alignment: AlignmentDirectional.center,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.55,
-        height: 300,
+        height: 320,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
@@ -41,6 +41,19 @@ class _ThemeMockupState extends State<ThemeMockup> {
                     borderRadius: BorderRadius.circular(100),
                     color: Colors.black,
                   ),
+                ),
+              ),
+            ),
+
+            //  phone navigation bar
+            Align(
+              alignment: AlignmentDirectional.bottomCenter,
+              child: Container(
+                width: 50,
+                height: 5,
+                decoration: BoxDecoration(
+                  color: Colors.black.lightenColor(80),
+                  borderRadius: BorderRadius.circular(30)
                 ),
               ),
             )
