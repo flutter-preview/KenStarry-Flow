@@ -14,13 +14,11 @@ class AppearanceCarousel extends StatefulWidget {
 }
 
 class _AppearanceCarouselState extends State<AppearanceCarousel> {
-  late final List<String> themeTypes;
   late final ThemeController _themeController;
 
   @override
   void initState() {
     super.initState();
-    themeTypes = const ['Light Theme', 'Dark Theme', 'System Preferences'];
     _themeController = Get.find<ThemeController>();
   }
 
@@ -39,13 +37,14 @@ class _AppearanceCarouselState extends State<AppearanceCarousel> {
             children: [
               Obx(
                 () => Radio(
-                    value: themeTypes[widget.index],
-                    groupValue:
-                        themeTypes[_themeController.selectedThemeIndex.value],
-                    onChanged: (value) => _themeController.setSelectedThemeIndex(index: widget.index)),
+                    value: _themeController.themeTypes[widget.index],
+                    groupValue: _themeController
+                        .themeTypes[_themeController.selectedThemeIndex.value],
+                    onChanged: (value) => _themeController
+                        .setSelectedThemeIndex(index: widget.index)),
               ),
               Text(
-                themeTypes[widget.index],
+                _themeController.themeTypes[widget.index],
                 style: Theme.of(context).textTheme.bodyMedium,
               )
             ],
