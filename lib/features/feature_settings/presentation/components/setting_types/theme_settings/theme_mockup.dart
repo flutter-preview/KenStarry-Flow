@@ -19,10 +19,9 @@ class _ThemeMockupState extends State<ThemeMockup> {
         height: 320,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          color: Theme.of(context).scaffoldBackgroundColor,
-          border: Border.all(color: Colors.black.lightenColor(90), width: 3)
-        ),
+            borderRadius: BorderRadius.circular(24),
+            color: Theme.of(context).scaffoldBackgroundColor,
+            border: Border.all(color: Colors.black.lightenColor(90), width: 3)),
         child: Stack(
           fit: StackFit.loose,
           children: [
@@ -35,7 +34,8 @@ class _ThemeMockupState extends State<ThemeMockup> {
                   width: 80,
                   height: 16,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).textTheme.bodySmall!.color,
+                    color: Colors.black.lightenColor(90),
+                    borderRadius: BorderRadius.circular(30)
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -47,9 +47,8 @@ class _ThemeMockupState extends State<ThemeMockup> {
                       width: 80,
                       height: 25,
                       decoration: BoxDecoration(
-                        color: accent.lightenColor(92),
-                        borderRadius: BorderRadius.circular(16)
-                      ),
+                          color: accent.lightenColor(92),
+                          borderRadius: BorderRadius.circular(16)),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -59,22 +58,86 @@ class _ThemeMockupState extends State<ThemeMockup> {
                           height: 25,
                           decoration: BoxDecoration(
                               color: accent.lightenColor(92),
-                              borderRadius: BorderRadius.circular(100)
-                          ),
+                              borderRadius: BorderRadius.circular(100)),
                         ),
-                        const SizedBox(width: 8,),
+                        const SizedBox(
+                          width: 8,
+                        ),
                         Container(
                           width: 35,
                           height: 35,
                           decoration: BoxDecoration(
                               color: accent.lightenColor(92),
-                              borderRadius: BorderRadius.circular(100)
+                              borderRadius: BorderRadius.circular(100)),
+                          child: Icon(
+                            Icons.play_arrow_rounded,
+                            color: Theme.of(context).primaryColor,
                           ),
-                          child: Icon(Icons.play_arrow_rounded, color: Theme.of(context).primaryColor,),
                         )
                       ],
                     )
                   ],
+                ),
+
+                const SizedBox(height: 16),
+
+                //  song items list
+                Expanded(
+                  child: ListView.separated(
+                    itemCount: 5,
+                    itemBuilder: (context, index) => Container(
+                      width: double.infinity,
+                      height: 35,
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8)
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                color: accent.lightenColor(92),
+                                borderRadius: BorderRadius.circular(8)
+                            ),
+                          ),
+                          const SizedBox(width: 8,),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    height: 12,
+                                    decoration: BoxDecoration(
+                                        color: Colors.black.lightenColor(90),
+                                        borderRadius: BorderRadius.circular(8)
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 70,
+                                    height: 8,
+                                    decoration: BoxDecoration(
+                                        color: Colors.black.lightenColor(90),
+                                        borderRadius: BorderRadius.circular(8)
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    separatorBuilder: (context, index) => const SizedBox(
+                      height: 8,
+                    ),
+                  ),
                 )
               ],
             ),
@@ -109,18 +172,20 @@ class _ThemeMockupState extends State<ThemeMockup> {
                   Container(
                     width: double.infinity,
                     height: 80,
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
                     decoration: BoxDecoration(
                         color: accent.lightenColor(92),
-                        borderRadius: BorderRadius.circular(16)
-                    ),
+                        borderRadius: BorderRadius.circular(16)),
+                  ),
+                  const SizedBox(
+                    height: 8,
                   ),
                   Container(
                     width: 50,
                     height: 5,
                     decoration: BoxDecoration(
                         color: Colors.black.lightenColor(80),
-                        borderRadius: BorderRadius.circular(30)
-                    ),
+                        borderRadius: BorderRadius.circular(30)),
                   )
                 ],
               ),
