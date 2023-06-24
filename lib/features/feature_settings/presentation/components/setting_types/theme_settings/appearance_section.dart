@@ -7,7 +7,9 @@ class AppearanceSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text("Appearance", style: Theme.of(context).textTheme.titleSmall,),
         LightThemeMockup()
       ],
     );

@@ -48,36 +48,7 @@ class _ViewSettingScreenState extends State<ViewSettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Theme.of(context).scaffoldBackgroundColor,
-            statusBarIconBrightness:
-                _coreController.brightness.value == Brightness.dark
-                    ? Brightness.light
-                    : Brightness.dark,
-            systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
-            systemNavigationBarIconBrightness:
-                _coreController.brightness.value == Brightness.dark
-                    ? Brightness.light
-                    : Brightness.dark),
-        title: Text(
-          getTitle(type: widget.type),
-          style: Theme.of(context).textTheme.titleSmall,
-        ),
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 0,
-        leading: IconButton(
-            onPressed: () => Get.back(canPop: true),
-            icon: Icon(
-              Icons.arrow_back,
-              color: Theme.of(context).iconTheme.color,
-            )),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: getScreen(type: widget.type),
-      ),
+      body: getScreen(type: widget.type)
     );
   }
 }

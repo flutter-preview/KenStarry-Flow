@@ -1,4 +1,5 @@
 import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/appearance_section.dart';
+import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/theme_setting_appbar.dart';
 import 'package:flutter/material.dart';
 
 class ThemeSettings extends StatelessWidget {
@@ -6,12 +7,14 @@ class ThemeSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        //  appearance
-        AppearanceSection()
-        //  accent color
+    return CustomScrollView(
+      slivers: [
+        //  app bar
+        themeSettingAppBar(),
+        //  appearance section
+        SliverToBoxAdapter(
+          child: AppearanceSection(),
+        )
       ],
     );
   }
