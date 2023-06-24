@@ -10,6 +10,7 @@ class AppearanceSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Appearance", style: Theme.of(context).textTheme.titleSmall,),
+        const SizedBox(height: 16,),
         LightThemeMockup()
       ],
     );

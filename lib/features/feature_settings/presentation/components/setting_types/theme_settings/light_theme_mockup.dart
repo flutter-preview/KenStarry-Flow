@@ -34,11 +34,12 @@ class _LightThemeMockupState extends State<LightThemeMockup> {
                   width: 80,
                   height: 16,
                   decoration: BoxDecoration(
-                    color: Colors.black.lightenColor(90),
-                    borderRadius: BorderRadius.circular(30)
-                  ),
+                      color: Colors.black.lightenColor(90),
+                      borderRadius: BorderRadius.circular(30)),
                 ),
+
                 const SizedBox(height: 16),
+
                 //  library and play icons section
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,61 +83,60 @@ class _LightThemeMockupState extends State<LightThemeMockup> {
                 const SizedBox(height: 16),
 
                 //  song items list
-                Expanded(
-                  child: ListView.separated(
-                    itemCount: 5,
-                    itemBuilder: (context, index) => Container(
-                      width: double.infinity,
-                      height: 35,
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      decoration: BoxDecoration(
+                ListView.separated(
+                  itemCount: 5,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) => Container(
+                    width: double.infinity,
+                    height: 35,
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(8)
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                                color: accent.lightenColor(92),
-                                borderRadius: BorderRadius.circular(8)
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                              color: accent.lightenColor(92),
+                              borderRadius: BorderRadius.circular(8)),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Column(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                  height: 12,
+                                  decoration: BoxDecoration(
+                                      color: Colors.black.lightenColor(90),
+                                      borderRadius: BorderRadius.circular(8)),
+                                ),
+                                Container(
+                                  width: 70,
+                                  height: 8,
+                                  decoration: BoxDecoration(
+                                      color: Colors.black.lightenColor(90),
+                                      borderRadius: BorderRadius.circular(8)),
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(width: 8,),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: double.infinity,
-                                    height: 12,
-                                    decoration: BoxDecoration(
-                                        color: Colors.black.lightenColor(90),
-                                        borderRadius: BorderRadius.circular(8)
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 70,
-                                    height: 8,
-                                    decoration: BoxDecoration(
-                                        color: Colors.black.lightenColor(90),
-                                        borderRadius: BorderRadius.circular(8)
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
-                    separatorBuilder: (context, index) => const SizedBox(
-                      height: 8,
-                    ),
+                  ),
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 8,
                   ),
                 )
               ],

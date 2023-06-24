@@ -11,10 +11,11 @@ class ThemeSettings extends StatelessWidget {
       slivers: [
         //  app bar
         themeSettingAppBar(),
+
         //  appearance section
-        SliverToBoxAdapter(
-          child: AppearanceSection(),
-        )
+        SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(child: AppearanceSection()))
       ],
     );
   }
