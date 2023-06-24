@@ -7,7 +7,9 @@ class AppearanceSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text("Appearance", style: Theme.of(context).textTheme.titleSmall,)
+        Text("Appearance", style: Theme.of(context).textTheme.titleSmall,),
+
+        //  themes card
       ],
     );
   }
