@@ -1,3 +1,4 @@
+import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/theme_mockup.dart';
 import 'package:flutter/material.dart';
 
 class AppearanceSection extends StatelessWidget {
@@ -7,9 +8,7 @@ class AppearanceSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text("Appearance", style: Theme.of(context).textTheme.titleSmall,),
-
-        //  themes card
+        ThemeMockup()
       ],
     );
   }
