@@ -7,10 +7,10 @@ part 'user.g.dart';
 @HiveType(typeId: 1)
 class User extends HiveObject {
   @HiveField(0, defaultValue: false)
-  final bool hasGrantedPermission;
+  final bool? hasGrantedPermission;
 
-  @HiveField(1, defaultValue: null)
-  final ThemeType? themeType;
+  @HiveField(1)
+  final String? themeType;
 
-  User({required this.hasGrantedPermission, this.themeType});
+  User({this.hasGrantedPermission, this.themeType});
 }

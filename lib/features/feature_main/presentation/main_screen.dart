@@ -61,11 +61,6 @@ class _MainScreenState extends State<MainScreen> {
         builder: (context, box, widget) {
           final userPrefs = box.get('user') as User?;
 
-          if (userPrefs == null) {
-            _hiveController.addUserPrefs(
-                user: User(hasGrantedPermission: false));
-          }
-
           return AnnotatedRegion(
               value: SystemUiOverlayStyle(
                   statusBarColor: Theme.of(context).scaffoldBackgroundColor,
@@ -81,7 +76,7 @@ class _MainScreenState extends State<MainScreen> {
                           : Brightness.dark),
               child: Scaffold(
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                body: userPrefs!.hasGrantedPermission
+                body: userPrefs!.hasGrantedPermission!
                     ? Stack(fit: StackFit.loose, children: [
                         Obx(
                           () => IndexedStack(

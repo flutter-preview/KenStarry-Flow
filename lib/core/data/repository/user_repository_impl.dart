@@ -21,6 +21,12 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<void> updateUserPrefs({required User user}) async {
-    await userBox.put('user', user);
+    var oldUser = await userBox.get('user') as User;
+    var newUser = User(
+        hasGrantedPermission:
+            user.hasGrantedPermission ?? oldUser.hasGrantedPermission,
+        themeType: user.themeType ?? oldUser.themeType);
+
+    await userBox.put('user', newUser);
   }
 }

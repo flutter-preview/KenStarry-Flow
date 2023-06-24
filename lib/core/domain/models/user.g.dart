@@ -17,16 +17,19 @@ class UserAdapter extends TypeAdapter<User> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return User(
-      hasGrantedPermission: fields[0] == null ? false : fields[0] as bool,
+      hasGrantedPermission: fields[0] == null ? false : fields[0] as bool?,
+      themeType: fields[1] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.hasGrantedPermission);
+      ..write(obj.hasGrantedPermission)
+      ..writeByte(1)
+      ..write(obj.themeType);
   }
 
   @override

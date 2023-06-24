@@ -13,15 +13,6 @@ class ThemeSettings extends StatefulWidget {
 
 class _ThemeSettingsState extends State<ThemeSettings> {
 
-  late final UserController _userController;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _userController = Get.find<UserController>();
-  }
-
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(

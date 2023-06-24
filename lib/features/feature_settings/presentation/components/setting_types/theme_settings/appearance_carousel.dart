@@ -1,6 +1,10 @@
+import 'package:flow/features/feature_settings/domain/model/theme_type.dart';
 import 'package:flow/features/feature_settings/presentation/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../../../core/domain/models/user.dart';
+import '../../../../../../core/presentation/controller/user_controller.dart';
 
 class AppearanceCarousel extends StatefulWidget {
   final Widget mockup;
@@ -15,17 +19,27 @@ class AppearanceCarousel extends StatefulWidget {
 
 class _AppearanceCarouselState extends State<AppearanceCarousel> {
   late final ThemeController _themeController;
+  late final UserController _userController;
 
   @override
   void initState() {
     super.initState();
     _themeController = Get.find<ThemeController>();
+    _userController = Get.find<UserController>();
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _themeController.setSelectedThemeIndex(index: widget.index),
+      onTap: () async {
+        _themeController.setSelectedThemeIndex(index: widget.index);
+        //  update the user prefs
+        _userController.updateUserPrefs(
+            user: User(
+                themeType: _themeController
+                    .themeTypes[_themeController.selectedThemeIndex.value]));
+        setState(() {});
+      },
       child: Column(
         children: [
           widget.mockup,

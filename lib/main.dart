@@ -1,10 +1,12 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flow/core/domain/models/user.dart';
+import 'package:flow/core/presentation/controller/user_controller.dart';
 import 'package:flow/core/utils/hive_utils.dart';
 import 'package:flow/di/controllers_di.dart';
 import 'package:flow/di/locator.dart';
 import 'package:flow/features/feature_main/presentation/main_screen.dart';
 import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
+import 'package:flow/features/feature_settings/presentation/controller/theme_controller.dart';
 import 'package:flow/theme/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -15,7 +17,7 @@ import 'package:hive/hive.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  
+
   //  splash screen
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
@@ -25,6 +27,9 @@ Future<void> main() async {
   await Hive.initFlutter(appDocumentDirectory.path);
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(PlaylistAdapter());
+
+  await Hive.openBox(HiveUtils.userBox);
+  await Hive.openBox(HiveUtils.playlistBox);
 
   await invokeDI();
 
@@ -39,45 +44,46 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  late final UserController _userController;
+
   @override
   void initState() {
     super.initState();
 
     //  initialize all controllers
     initializeControllers();
+    _userController = Get.find<UserController>();
   }
 
   @override
   Widget build(BuildContext context) {
-
     FlutterNativeSplash.remove();
 
-    return GetMaterialApp(
-      title: "Flow",
-      home: FutureBuilder(
-        future: Future.wait([
-          Hive.openBox(HiveUtils.userBox),
-          Hive.openBox(HiveUtils.playlistBox)
-        ]),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.hasError) {
-            return const Text("Error occured");
-          } else if (snapshot.connectionState == ConnectionState.done &&
-              !snapshot.hasError) {
-            return const MainScreen();
-          } else {
-            return Scaffold(
-                body: Center(
-                    child: CircularProgressIndicator(
-                        color: Theme.of(context).primaryColor)));
+    return ValueListenableBuilder(
+        valueListenable: _userController.userPrefs.value,
+        builder: (context, box, widget) {
+          final userPrefs = box.get('user') as User?;
+
+          if (userPrefs == null) {
+            _userController.addUserPrefs(
+                user: User(hasGrantedPermission: false, themeType: 'System Preferences'));
           }
-        },
-      ),
-      theme: MyTheme.lightTheme,
-      darkTheme: MyTheme.darkTheme,
-      themeMode: ThemeMode.system,
-      debugShowCheckedModeBanner: false,
-    );
+
+          print(
+              "Current Permission : ${userPrefs?.hasGrantedPermission}, Theme : ${userPrefs?.themeType}");
+
+          return GetMaterialApp(
+                  title: "Flow",
+                  home: MainScreen(),
+                  theme: MyTheme.lightTheme,
+                  darkTheme: MyTheme.darkTheme,
+                  themeMode: userPrefs?.themeType == 'Light Theme'
+                      ? ThemeMode.light
+                      : userPrefs?.themeType == 'Dark Theme'
+                          ? ThemeMode.dark
+                          : ThemeMode.system,
+                  debugShowCheckedModeBanner: false,
+                );
+        });
   }
 }
