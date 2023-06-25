@@ -26,57 +26,63 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: [
-        //  color picker
-        ColorPicker(
-            pickerColor: _themeController.selectedAccentColorHex.value.toColor,
-            onColorChanged: (col) {
-              //  save this color to the theme controller
-              _themeController.setSelectedAccentColorHex(hex: col.toHex);
-            }),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          //  color picker
+          ColorPicker(
+              pickerColor: _themeController.selectedAccentColorHex.value.toColor,
+              enableAlpha: true,
+              labelTypes: [],
+              hexInputBar: true,
+              onColorChanged: (col) {
+                //  save this color to the theme controller
+                _themeController.setSelectedAccentColorHex(hex: col.toHex);
+              }),
 
-        Obx(
-          () => Align(
-            alignment: AlignmentDirectional.centerEnd,
-            child: UnconstrainedBox(
-              child: FilledButton(
-                  onPressed: () => Get.back(),
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          _themeController
-                              .selectedAccentColorHex.value.toColor)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.color_lens_rounded,
-                        color: Colors.white,
-                        size: 24,
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        "Save",
-                        style: TextStyle(
-                            fontSize: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.fontSize,
-                            fontWeight: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.fontWeight,
-                            color: getTextColorForBackground(_themeController
+          Obx(
+            () => Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: UnconstrainedBox(
+                child: FilledButton(
+                    onPressed: () => Get.back(),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            _themeController
                                 .selectedAccentColorHex.value.toColor)),
-                      ),
-                    ],
-                  )),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.color_lens_rounded,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          "Save",
+                          style: TextStyle(
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.fontSize,
+                              fontWeight: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.fontWeight,
+                              color: getTextColorForBackground(_themeController
+                                  .selectedAccentColorHex.value.toColor)),
+                        ),
+                      ],
+                    )),
+              ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }
