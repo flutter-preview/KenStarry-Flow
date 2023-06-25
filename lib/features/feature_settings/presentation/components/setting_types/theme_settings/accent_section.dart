@@ -27,9 +27,8 @@ class _AccentSectionState extends State<AccentSection> {
             FilledButton(
                 onPressed: () {},
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(accent),
-                  foregroundColor: MaterialStateProperty.all(Colors.white)
-                ),
+                    backgroundColor: MaterialStateProperty.all(accent),
+                    foregroundColor: MaterialStateProperty.all(Colors.white)),
                 child: Row(
                   children: [
                     const Icon(
@@ -37,20 +36,34 @@ class _AccentSectionState extends State<AccentSection> {
                       color: Colors.white,
                       size: 24,
                     ),
-                    const SizedBox(width: 8,),
+                    const SizedBox(
+                      width: 8,
+                    ),
                     Text(
                       "Color Picker",
                       style: TextStyle(
-                        fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
-                        fontWeight: Theme.of(context).textTheme.bodyMedium?.fontWeight,
-                        color: Colors.white
-                      ),
+                          fontSize:
+                              Theme.of(context).textTheme.bodyMedium?.fontSize,
+                          fontWeight: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.fontWeight,
+                          color: Colors.white),
                     ),
                   ],
                 ))
           ],
-        )
+        ),
         //  predefined colors
+        ListView.separated(
+          itemCount: predefinedAccentColors.length,
+          scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
+          itemBuilder: (context, index) {},
+          separatorBuilder: (context, index) => const SizedBox(
+            width: 8,
+          ),
+        )
       ],
     );
   }

@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
 
+/// Theme Settings Accent Colors
+const predefinedAccentColors = [
+  Color(0xFF00b4d8),
+  Color(0xFFfb8500),
+  Color(0xFFef233c),
+  Color(0xFFff006e),
+  Color(0xFF00f5d4),
+  Color(0xFFffd60a)
+];
+
 /// General Colors - light 90%, dark 70%
 const accent = Color(0xFF00b4d8);
 const accentLight = Color(0xfff0fdff);
