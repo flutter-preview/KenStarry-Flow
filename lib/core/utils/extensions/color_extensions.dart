@@ -20,6 +20,15 @@ extension ColorExtensions on Color {
         green + ((255 - green) * p).round(), blue + ((255 - blue) * p).round());
   }
 
+  /// Estimate Text color from background
+  Color get getTextColorForBackground(Color bgCol) {
+    if (ThemeData.estimateBrightnessForColor(bgCol) == Brightness.dark) {
+      return Colors.white;
+    }
+
+    return Colors.black;
+  }
+
   /// Color to Hex
   String get toHex => '#${value.toRadixString(16)}';
 
