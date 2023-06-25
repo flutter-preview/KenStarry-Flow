@@ -51,6 +51,7 @@ class _AppearanceCarouselState extends State<AppearanceCarousel> {
               Obx(
                 () => Radio(
                     value: _themeController.themeTypes[widget.index],
+                    fillColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
                     groupValue: _themeController
                         .themeTypes[_themeController.selectedThemeIndex.value],
                     onChanged: (value) => _themeController
