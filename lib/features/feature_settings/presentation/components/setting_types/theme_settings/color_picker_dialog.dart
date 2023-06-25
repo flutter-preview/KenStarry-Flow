@@ -1,5 +1,6 @@
 import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -27,15 +28,24 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   Widget build(BuildContext context) {
     return Wrap(
       children: [
+        //  color picker
+        ColorPicker(
+            pickerColor: _themeController.selectedAccentColorHex.value.toColor,
+            onColorChanged: (col) {
+              //  save this color to the theme controller
+              _themeController.setSelectedAccentColorHex(hex: col.toHex);
+            }),
+
         Obx(
           () => Align(
             alignment: AlignmentDirectional.centerEnd,
             child: UnconstrainedBox(
               child: FilledButton(
-                  onPressed: () {},
+                  onPressed: () => Get.back(),
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                          _themeController.selectedAccentColorHex.value.toColor)),
+                          _themeController
+                              .selectedAccentColorHex.value.toColor)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -48,12 +58,16 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         width: 8,
                       ),
                       Text(
-                        "Save Selection",
+                        "Save",
                         style: TextStyle(
-                            fontSize:
-                                Theme.of(context).textTheme.bodyMedium?.fontSize,
-                            fontWeight:
-                                Theme.of(context).textTheme.bodyMedium?.fontWeight,
+                            fontSize: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.fontSize,
+                            fontWeight: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.fontWeight,
                             color: getTextColorForBackground(_themeController
                                 .selectedAccentColorHex.value.toColor)),
                       ),
