@@ -1,6 +1,9 @@
+import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/accent_color_card.dart';
+import 'package:flow/features/feature_settings/presentation/controller/theme_controller.dart';
 import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AccentSection extends StatefulWidget {
   const AccentSection({super.key});
@@ -10,6 +13,15 @@ class AccentSection extends StatefulWidget {
 }
 
 class _AccentSectionState extends State<AccentSection> {
+  late final ThemeController _themeController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _themeController = Get.find<ThemeController>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -66,12 +78,17 @@ class _AccentSectionState extends State<AccentSection> {
             itemCount: predefinedAccentColors.length,
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) => AccentColorCard(
-                color: predefinedAccentColors[index],
-                isActive: false,
-                onTap: () {
-                  //  set this as the active color
-                }),
+            itemBuilder: (context, index) {
+              return Obx(
+                () => AccentColorCard(
+                    color: predefinedAccentColors[index],
+                    isActive: predefinedAccentColors[index].toHex ==
+                        _themeController.selectedAccentColorHexValue.value,
+                    onTap: () =>
+                        _themeController.setSelectedAccentColorHexValue(
+                            hex: predefinedAccentColors[index].toHex)),
+              );
+            },
             separatorBuilder: (context, index) => const SizedBox(
               width: 8,
             ),

@@ -21,5 +21,5 @@ extension ColorExtensions on Color {
   }
 
   /// Color to Hex
-  String get hexToColor => '#${value.toRadixString(16)}';
+  String get toHex => '#${value.toRadixString(16)}';
 }
