@@ -30,6 +30,8 @@ class _ThemeSettingsState extends State<ThemeSettings> {
         const SliverPadding(padding: EdgeInsets.symmetric(horizontal: 16),
         sliver: SliverToBoxAdapter(child: AccentSection(),),),
 
+        const SliverToBoxAdapter(child: SizedBox(height: 24)),
+
         //  save and discard buttons
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

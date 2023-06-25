@@ -10,7 +10,7 @@ class AccentColorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UnconstrainedBox(
-      child: Container(
+      child: SizedBox(
         width: 50,
         height: 50,
         child: Stack(

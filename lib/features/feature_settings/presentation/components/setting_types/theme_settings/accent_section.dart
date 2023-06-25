@@ -55,10 +55,11 @@ class _AccentSectionState extends State<AccentSection> {
                 ))
           ],
         ),
+        const SizedBox(height: 16,),
         //  predefined colors
         Container(
           width: double.infinity,
-          height: 80,
+          height: 60,
           child: ListView.separated(
             itemCount: predefinedAccentColors.length,
             scrollDirection: Axis.horizontal,
