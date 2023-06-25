@@ -38,34 +38,40 @@ class _AccentSectionState extends State<AccentSection> {
             ),
 
             //  open color picker
-            FilledButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(accent),
-                    foregroundColor: MaterialStateProperty.all(Colors.white)),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.color_lens_rounded,
-                      color: Colors.white,
-                      size: 24,
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      "Color Picker",
-                      style: TextStyle(
-                          fontSize:
-                              Theme.of(context).textTheme.bodyMedium?.fontSize,
-                          fontWeight: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.fontWeight,
-                          color: Colors.white),
-                    ),
-                  ],
-                ))
+            Obx(
+              () => FilledButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          _themeController
+                              .selectedAccentColorHex.value.toColor),
+                      foregroundColor: MaterialStateProperty.all(Colors.white)),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.color_lens_rounded,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        "Color Picker",
+                        style: TextStyle(
+                            fontSize: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.fontSize,
+                            fontWeight: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.fontWeight,
+                            color: Colors.white),
+                      ),
+                    ],
+                  )),
+            )
           ],
         ),
         const SizedBox(
@@ -83,12 +89,11 @@ class _AccentSectionState extends State<AccentSection> {
               return Obx(
                 () {
                   return AccentColorCard(
-                    color: predefinedAccentColors[index],
-                    isActive: predefinedAccentColors[index].toHex ==
-                        _themeController.selectedAccentColorHex.value,
-                    onTap: () =>
-                        _themeController.setSelectedAccentColorHex(
-                            hex: predefinedAccentColors[index].toHex));
+                      color: predefinedAccentColors[index],
+                      isActive: predefinedAccentColors[index].toHex ==
+                          _themeController.selectedAccentColorHex.value,
+                      onTap: () => _themeController.setSelectedAccentColorHex(
+                          hex: predefinedAccentColors[index].toHex));
                 },
               );
             },
