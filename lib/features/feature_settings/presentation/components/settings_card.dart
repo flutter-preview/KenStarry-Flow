@@ -54,7 +54,7 @@ class _SettingsCardState extends State<SettingsCard> {
               ),
             ),
             const SizedBox(
-              width: 8,
+              width: 16,
             ),
             //  title
             Text(
