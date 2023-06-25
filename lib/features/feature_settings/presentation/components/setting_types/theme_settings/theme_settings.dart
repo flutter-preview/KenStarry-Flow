@@ -32,9 +32,6 @@ class _ThemeSettingsState extends State<ThemeSettings> {
 
   @override
   Widget build(BuildContext context) {
-
-    print("THEME IN CONTROLLER : ${_themeController.selectedAccentColorHex.value}");
-
     return CustomScrollView(
       slivers: [
         //  app bar

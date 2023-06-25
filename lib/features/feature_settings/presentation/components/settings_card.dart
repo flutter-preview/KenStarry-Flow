@@ -1,7 +1,9 @@
 import 'package:flow/features/feature_settings/domain/model/settings_card_model.dart';
+import 'package:flow/features/feature_settings/presentation/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class SettingsCard extends StatelessWidget {
+class SettingsCard extends StatefulWidget {
 
   final SettingsCardModel settingsCardModel;
   final VoidCallback onCardClicked;
@@ -9,9 +11,24 @@ class SettingsCard extends StatelessWidget {
   const SettingsCard({super.key, required this.settingsCardModel, required this.onCardClicked});
 
   @override
+  State<SettingsCard> createState() => _SettingsCardState();
+}
+
+class _SettingsCardState extends State<SettingsCard> {
+
+  late final ThemeController _themeController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _themeController = Get.find<ThemeController>();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onCardClicked,
+      onTap: widget.onCardClicked,
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
@@ -23,10 +40,10 @@ class SettingsCard extends StatelessWidget {
         child: Row(
           children: [
             //  icon
-            Icon(settingsCardModel.iconData, size: 24, color: settingsCardModel.color,),
+            Icon(widget.settingsCardModel.iconData, size: 24, color: widget.settingsCardModel.color,),
             const SizedBox(width: 8,),
             //  title
-            Text(settingsCardModel.title, style: Theme.of(context).textTheme.bodyLarge,)
+            Text(widget.settingsCardModel.title, style: Theme.of(context).textTheme.bodyLarge,)
           ],
         ),
       ),

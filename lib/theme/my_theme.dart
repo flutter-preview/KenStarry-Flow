@@ -1,13 +1,19 @@
+import 'package:flow/core/utils/extensions/color_extensions.dart';
+import 'package:flow/features/feature_settings/presentation/controller/theme_controller.dart';
 import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MyTheme {
+  final Color accent;
+
+  MyTheme({required this.accent});
+
   /// Light Theme
-  static ThemeData get
-  lightTheme => ThemeData(
+  ThemeData get lightTheme => ThemeData(
       primaryColor: accent,
       scaffoldBackgroundColor: bgColorLightMode,
-      primaryColorDark: accentLight,
+      primaryColorDark: accent.lightenColor(92),
       iconTheme: const IconThemeData(color: textBlack300),
       fontFamily: 'Poppins',
       textTheme: const TextTheme(
@@ -26,10 +32,10 @@ class MyTheme {
       ));
 
   /// Dark Theme
-  static ThemeData get darkTheme => ThemeData(
+  ThemeData get darkTheme => ThemeData(
       primaryColor: accent,
       scaffoldBackgroundColor: bgColorDarkMode,
-      primaryColorDark: bgDarkColor,
+      primaryColorDark: accent.darkenColor(80),
       iconTheme: const IconThemeData(color: textWhite300),
       fontFamily: 'Poppins',
       textTheme: const TextTheme(
