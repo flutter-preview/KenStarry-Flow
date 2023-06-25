@@ -19,4 +19,7 @@ extension ColorExtensions on Color {
     return Color.fromARGB(alpha, red + ((255 - red) * p).round(),
         green + ((255 - green) * p).round(), blue + ((255 - blue) * p).round());
   }
+
+  /// Color to Hex
+  String get hexToColor => '#${value.toRadixString(16)}';
 }
