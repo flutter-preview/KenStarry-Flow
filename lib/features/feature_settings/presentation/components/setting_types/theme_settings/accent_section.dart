@@ -56,7 +56,7 @@ class _AccentSectionState extends State<AccentSection> {
                         width: 8,
                       ),
                       Text(
-                        "Color Picker",
+                        "Pick Color",
                         style: TextStyle(
                             fontSize: Theme.of(context)
                                 .textTheme
