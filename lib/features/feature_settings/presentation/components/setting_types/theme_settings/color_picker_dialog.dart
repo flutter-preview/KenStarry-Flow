@@ -32,7 +32,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         children: [
           //  color picker
           ColorPicker(
-              pickerColor: _themeController.selectedAccentColorHex.value.toColor,
+              pickerColor:
+                  _themeController.selectedAccentColorHex.value.toColor,
               enableAlpha: true,
               labelTypes: [],
               hexInputBar: true,
@@ -41,11 +42,27 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 _themeController.setSelectedAccentColorHex(hex: col.toHex);
               }),
 
-          Obx(
-            () => Align(
-              alignment: AlignmentDirectional.centerEnd,
-              child: UnconstrainedBox(
-                child: FilledButton(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Obx(
+                () => TextButton(
+                    onPressed: () => Get.back(),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).scaffoldBackgroundColor),
+                      foregroundColor: MaterialStateProperty.all(
+                          (_themeController.selectedAccentColorHex.value.toColor
+                              as Color)),
+                    ),
+                    child: Text("Discard")),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Obx(
+                () => FilledButton(
                     onPressed: () => Get.back(),
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
@@ -79,7 +96,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       ],
                     )),
               ),
-            ),
+            ],
           )
         ],
       ),
