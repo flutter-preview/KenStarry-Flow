@@ -1,3 +1,4 @@
+import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/features/feature_settings/domain/model/theme_type.dart';
 import 'package:flow/features/feature_settings/presentation/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,8 @@ class _AppearanceCarouselState extends State<AppearanceCarousel> {
               Obx(
                 () => Radio(
                     value: _themeController.themeTypes[widget.index],
-                    fillColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
+                    fillColor: MaterialStateProperty.all((_themeController
+                        .selectedAccentColorHex.value.toColor as Color)),
                     groupValue: _themeController
                         .themeTypes[_themeController.selectedThemeIndex.value],
                     onChanged: (value) => _themeController
