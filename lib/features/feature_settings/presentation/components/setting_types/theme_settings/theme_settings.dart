@@ -32,11 +32,22 @@ class _ThemeSettingsState extends State<ThemeSettings> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                TextButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).scaffoldBackgroundColor),
+                      foregroundColor: MaterialStateProperty.all(accent),
+                    ),
+                    child: Text("Discard")),
+                const SizedBox(
+                  width: 16,
+                ),
                 FilledButton(
                     onPressed: () {},
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(accent)),
-                    child: Text("Save"))
+                    child: Text("Save")),
               ],
             ),
           ),
