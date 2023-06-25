@@ -27,7 +27,7 @@ class _ThemeSettingsState extends State<ThemeSettings> {
             sliver: SliverToBoxAdapter(child: AppearanceSection())),
 
         //  Accent Picker section
-        SliverPadding(padding: EdgeInsets.symmetric(horizontal: 16),
+        const SliverPadding(padding: EdgeInsets.symmetric(horizontal: 16),
         sliver: SliverToBoxAdapter(child: AccentSection(),),),
 
         //  save and discard buttons
