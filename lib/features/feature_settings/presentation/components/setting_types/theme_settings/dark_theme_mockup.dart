@@ -127,7 +127,8 @@ class _DarkThemeMockupState extends State<DarkThemeMockup> {
                             width: 30,
                             height: 30,
                             decoration: BoxDecoration(
-                                color: bgDarkColor,
+                                color: (_themeController
+                                    .selectedAccentColorHex.value.toColor as Color).darkenColor(80),
                                 borderRadius: BorderRadius.circular(8)),
                             child: Icon(Icons.music_note_rounded,
                                 color: (_themeController.selectedAccentColorHex
@@ -201,13 +202,16 @@ class _DarkThemeMockupState extends State<DarkThemeMockup> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   //  bottom nav
-                  Container(
-                    width: double.infinity,
-                    height: 80,
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    decoration: BoxDecoration(
-                        color: bgDarkColor,
-                        borderRadius: BorderRadius.circular(16)),
+                  Obx(
+                  () => Container(
+                      width: double.infinity,
+                      height: 80,
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
+                      decoration: BoxDecoration(
+                          color: (_themeController
+                              .selectedAccentColorHex.value.toColor as Color).darkenColor(80),
+                          borderRadius: BorderRadius.circular(16)),
+                    ),
                   ),
                   const SizedBox(
                     height: 8,
