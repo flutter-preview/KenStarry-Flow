@@ -1,12 +1,14 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flow/core/domain/models/user.dart';
 import 'package:flow/core/presentation/controller/user_controller.dart';
+import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flow/core/utils/hive_utils.dart';
 import 'package:flow/di/controllers_di.dart';
 import 'package:flow/di/locator.dart';
 import 'package:flow/features/feature_main/presentation/main_screen.dart';
 import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
 import 'package:flow/features/feature_settings/presentation/controller/theme_controller.dart';
+import 'package:flow/theme/colors.dart';
 import 'package:flow/theme/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -70,13 +72,20 @@ class _MyAppState extends State<MyApp> {
             _userController.addUserPrefs(
                 user: User(
                     hasGrantedPermission: false,
-                    themeType: 'System Preferences'));
+                    themeType: 'System Preferences',
+                    accentColorHex: predefinedAccentColors[0].toHex));
           }
 
           //  set the selected theme
           _themeController.setSelectedThemeIndex(
               index: _themeController.themeTypes
                   .indexOf(userPrefs?.themeType ?? 'System Preferences'));
+
+          //  set the selected accent color
+          _themeController.setSelectedAccentColorHex(
+              hex: userPrefs?.accentColorHex ?? predefinedAccentColors[0].toHex);
+
+          print("ACCENT IN CONTROLLER : ${_themeController.selectedAccentColorHex.value}");
 
           return GetMaterialApp(
             title: "Flow",

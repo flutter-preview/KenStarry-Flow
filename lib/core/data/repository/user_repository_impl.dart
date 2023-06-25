@@ -25,7 +25,8 @@ class UserRepositoryImpl implements UserRepository {
     var newUser = User(
         hasGrantedPermission:
             user.hasGrantedPermission ?? oldUser.hasGrantedPermission,
-        themeType: user.themeType ?? oldUser.themeType);
+        themeType: user.themeType ?? oldUser.themeType,
+        accentColorHex: user.accentColorHex ?? oldUser.accentColorHex);
 
     await userBox.put('user', newUser);
   }
