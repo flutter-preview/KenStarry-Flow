@@ -2,6 +2,7 @@ import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/accent_color_card.dart';
 import 'package:flow/features/feature_settings/presentation/controller/theme_controller.dart';
+import 'package:flow/features/feature_settings/presentation/utils/showPickColorDialog.dart';
 import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,7 +41,7 @@ class _AccentSectionState extends State<AccentSection> {
             //  open color picker
             Obx(
               () => FilledButton(
-                  onPressed: () {},
+                  onPressed: () => showPickColorDialog(),
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                           _themeController

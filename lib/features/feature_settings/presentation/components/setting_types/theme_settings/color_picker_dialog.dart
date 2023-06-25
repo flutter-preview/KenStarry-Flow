@@ -25,36 +25,42 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Wrap(
       children: [
         Obx(
-          () => FilledButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      _themeController.selectedAccentColorHex.value.toColor)),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.color_lens_rounded,
-                    color: Colors.white,
-                    size: 24,
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "Save Selection",
-                    style: TextStyle(
-                        fontSize:
-                            Theme.of(context).textTheme.bodyMedium?.fontSize,
-                        fontWeight:
-                            Theme.of(context).textTheme.bodyMedium?.fontWeight,
-                        color: getTextColorForBackground(_themeController
-                            .selectedAccentColorHex.value.toColor)),
-                  ),
-                ],
-              )),
+          () => Align(
+            alignment: AlignmentDirectional.centerEnd,
+            child: UnconstrainedBox(
+              child: FilledButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          _themeController.selectedAccentColorHex.value.toColor)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.color_lens_rounded,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        "Save Selection",
+                        style: TextStyle(
+                            fontSize:
+                                Theme.of(context).textTheme.bodyMedium?.fontSize,
+                            fontWeight:
+                                Theme.of(context).textTheme.bodyMedium?.fontWeight,
+                            color: getTextColorForBackground(_themeController
+                                .selectedAccentColorHex.value.toColor)),
+                      ),
+                    ],
+                  )),
+            ),
+          ),
         )
       ],
     );

@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 void showPickColorDialog() =>
     showDialog(context: Get.context!, builder: (context) => AlertDialog(
       title: Text("Pick Accent Color"),
-      icon: Icon(Icons.color_lens_rounded, color: Theme.of(Get.context!).iconTheme.color),
+      titleTextStyle: Theme.of(context).textTheme.titleSmall,
+      icon: Icon(Icons.color_lens_rounded, color: Theme.of(context).iconTheme.color),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       content: const ColorPickerDialog(),
     ));
