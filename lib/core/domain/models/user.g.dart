@@ -19,17 +19,20 @@ class UserAdapter extends TypeAdapter<User> {
     return User(
       hasGrantedPermission: fields[0] == null ? false : fields[0] as bool?,
       themeType: fields[1] as String?,
+      accentColorHex: fields[2] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.hasGrantedPermission)
       ..writeByte(1)
-      ..write(obj.themeType);
+      ..write(obj.themeType)
+      ..writeByte(2)
+      ..write(obj.accentColorHex);
   }
 
   @override

@@ -1,7 +1,6 @@
 import 'package:hive/hive.dart';
 
-import '../../../features/feature_settings/domain/model/theme_type.dart';
-
+/// flutter packages pub run build_runner build
 part 'user.g.dart';
 
 @HiveType(typeId: 1)
@@ -12,5 +11,8 @@ class User extends HiveObject {
   @HiveField(1)
   final String? themeType;
 
-  User({this.hasGrantedPermission, this.themeType});
+  @HiveField(2)
+  final String? accentColorHex;
+
+  User({this.hasGrantedPermission, this.themeType, this.accentColorHex});
 }
