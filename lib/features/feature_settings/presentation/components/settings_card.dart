@@ -33,7 +33,7 @@ class _SettingsCardState extends State<SettingsCard> {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColorDark,
+          color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(16)
         ),
         margin: const EdgeInsets.symmetric(vertical: 8),
