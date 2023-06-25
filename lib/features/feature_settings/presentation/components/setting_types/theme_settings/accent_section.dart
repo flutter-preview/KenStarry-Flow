@@ -1,3 +1,4 @@
+import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/accent_color_card.dart';
 import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -55,13 +56,18 @@ class _AccentSectionState extends State<AccentSection> {
           ],
         ),
         //  predefined colors
-        ListView.separated(
-          itemCount: predefinedAccentColors.length,
-          scrollDirection: Axis.horizontal,
-          physics: const BouncingScrollPhysics(),
-          itemBuilder: (context, index) {},
-          separatorBuilder: (context, index) => const SizedBox(
-            width: 8,
+        Container(
+          width: double.infinity,
+          height: 80,
+          child: ListView.separated(
+            itemCount: predefinedAccentColors.length,
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index) =>
+                AccentColorCard(color: predefinedAccentColors[index]),
+            separatorBuilder: (context, index) => const SizedBox(
+              width: 8,
+            ),
           ),
         )
       ],
