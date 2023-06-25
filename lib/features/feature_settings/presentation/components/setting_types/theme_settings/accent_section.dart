@@ -55,17 +55,23 @@ class _AccentSectionState extends State<AccentSection> {
                 ))
           ],
         ),
-        const SizedBox(height: 16,),
+        const SizedBox(
+          height: 16,
+        ),
         //  predefined colors
-        Container(
+        SizedBox(
           width: double.infinity,
           height: 60,
           child: ListView.separated(
             itemCount: predefinedAccentColors.length,
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) =>
-                AccentColorCard(color: predefinedAccentColors[index]),
+            itemBuilder: (context, index) => AccentColorCard(
+                color: predefinedAccentColors[index],
+                isActive: false,
+                onTap: () {
+                  //  set this as the active color
+                }),
             separatorBuilder: (context, index) => const SizedBox(
               width: 8,
             ),
