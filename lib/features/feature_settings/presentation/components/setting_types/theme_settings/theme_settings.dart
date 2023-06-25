@@ -1,6 +1,7 @@
 import 'package:flow/core/presentation/controller/user_controller.dart';
 import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/appearance_section.dart';
 import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/theme_setting_appbar.dart';
+import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +13,6 @@ class ThemeSettings extends StatefulWidget {
 }
 
 class _ThemeSettingsState extends State<ThemeSettings> {
-
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -20,9 +20,27 @@ class _ThemeSettingsState extends State<ThemeSettings> {
         //  app bar
         themeSettingAppBar(),
         //  appearance section
+        const SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(child: AppearanceSection())),
+
+        //  save button
         SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverToBoxAdapter(child: AppearanceSection()))
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          sliver: SliverToBoxAdapter(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                FilledButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(accent)),
+                    child: Text("Save"))
+              ],
+            ),
+          ),
+        )
       ],
     );
   }
