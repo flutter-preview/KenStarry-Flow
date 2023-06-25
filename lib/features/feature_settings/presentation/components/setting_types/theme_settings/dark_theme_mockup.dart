@@ -1,6 +1,11 @@
 import 'package:flow/core/utils/extensions/color_extensions.dart';
+import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../../../controller/theme_controller.dart';
 
 class DarkThemeMockup extends StatefulWidget {
   const DarkThemeMockup({super.key});
@@ -10,6 +15,15 @@ class DarkThemeMockup extends StatefulWidget {
 }
 
 class _DarkThemeMockupState extends State<DarkThemeMockup> {
+  late final ThemeController _themeController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _themeController = Get.find<ThemeController>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -44,35 +58,47 @@ class _DarkThemeMockupState extends State<DarkThemeMockup> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      width: 80,
-                      height: 25,
-                      decoration: BoxDecoration(
-                          color: bgDarkColor,
-                          borderRadius: BorderRadius.circular(16)),
+                    Obx(
+                      () => Container(
+                        width: 80,
+                        height: 25,
+                        decoration: BoxDecoration(
+                            color: (_themeController.selectedAccentColorHex
+                                    .value.toColor as Color)
+                                .darkenColor(80),
+                            borderRadius: BorderRadius.circular(16)),
+                      ),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          width: 25,
-                          height: 25,
-                          decoration: BoxDecoration(
-                              color: bgDarkColor,
-                              borderRadius: BorderRadius.circular(100)),
+                        Obx(
+                          () => Container(
+                            width: 25,
+                            height: 25,
+                            decoration: BoxDecoration(
+                                color: (_themeController.selectedAccentColorHex
+                                        .value.toColor as Color)
+                                    .darkenColor(80),
+                                borderRadius: BorderRadius.circular(100)),
+                          ),
                         ),
                         const SizedBox(
                           width: 8,
                         ),
-                        Container(
-                          width: 35,
-                          height: 35,
-                          decoration: BoxDecoration(
-                              color: bgDarkColor,
-                              borderRadius: BorderRadius.circular(100)),
-                          child: Icon(
-                            Icons.play_arrow_rounded,
-                            color: Theme.of(context).primaryColor,
+                        Obx(
+                          () => Container(
+                            width: 35,
+                            height: 35,
+                            decoration: BoxDecoration(
+                                color: (_themeController
+                                    .selectedAccentColorHex.value.toColor as Color).darkenColor(80),
+                                borderRadius: BorderRadius.circular(100)),
+                            child: Icon(
+                              Icons.play_arrow_rounded,
+                              color: (_themeController.selectedAccentColorHex
+                                  .value.toColor as Color),
+                            ),
                           ),
                         )
                       ],
@@ -96,13 +122,18 @@ class _DarkThemeMockupState extends State<DarkThemeMockup> {
                         borderRadius: BorderRadius.circular(8)),
                     child: Row(
                       children: [
-                        Container(
-                          width: 30,
-                          height: 30,
-                          decoration: BoxDecoration(
-                              color: bgDarkColor,
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Icon(Icons.music_note_rounded, color: Theme.of(context).primaryColor, size: 16),
+                        Obx(
+                          () => Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                color: bgDarkColor,
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Icon(Icons.music_note_rounded,
+                                color: (_themeController.selectedAccentColorHex
+                                    .value.toColor as Color),
+                                size: 16),
+                          ),
                         ),
                         const SizedBox(
                           width: 8,
@@ -112,8 +143,7 @@ class _DarkThemeMockupState extends State<DarkThemeMockup> {
                           child: Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: Column(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
