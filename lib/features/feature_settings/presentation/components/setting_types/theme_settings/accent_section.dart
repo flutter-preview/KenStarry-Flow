@@ -44,8 +44,7 @@ class _AccentSectionState extends State<AccentSection> {
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                           _themeController
-                              .selectedAccentColorHex.value.toColor),
-                      foregroundColor: MaterialStateProperty.all(Colors.white)),
+                              .selectedAccentColorHex.value.toColor)),
                   child: Row(
                     children: [
                       const Icon(
@@ -67,7 +66,8 @@ class _AccentSectionState extends State<AccentSection> {
                                 .textTheme
                                 .bodyMedium
                                 ?.fontWeight,
-                            color: Colors.white),
+                            color: getTextColorForBackground(_themeController
+                                .selectedAccentColorHex.value.toColor)),
                       ),
                     ],
                   )),

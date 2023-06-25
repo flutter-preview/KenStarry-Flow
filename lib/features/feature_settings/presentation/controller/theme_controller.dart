@@ -5,7 +5,7 @@ class ThemeController extends GetxController {
   /// Theme Setting
   final selectedThemeIndex = 0.obs;
   final selectedThemeMode = ThemeMode.system.obs;
-  final selectedAccentColorHex = ''.obs;
+  final selectedAccentColorHex = '#00b4d8'.obs;
 
   final themeTypes = const ['Light Theme', 'Dark Theme', 'System Preferences'];
 
