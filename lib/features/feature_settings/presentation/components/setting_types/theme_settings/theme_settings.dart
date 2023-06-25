@@ -8,6 +8,7 @@ import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../core/domain/models/user.dart';
 import '../../../controller/theme_controller.dart';
 
 class ThemeSettings extends StatefulWidget {
@@ -19,12 +20,14 @@ class ThemeSettings extends StatefulWidget {
 
 class _ThemeSettingsState extends State<ThemeSettings> {
   late final ThemeController _themeController;
+  late final UserController _userController;
 
   @override
   void initState() {
     super.initState();
 
     _themeController = Get.find<ThemeController>();
+    _userController = Get.find<UserController>();
   }
 
   @override
@@ -59,7 +62,7 @@ class _ThemeSettingsState extends State<ThemeSettings> {
               children: [
                 Obx(
                   () => TextButton(
-                      onPressed: () {},
+                      onPressed: () => Get.back(),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
                             Theme.of(context).scaffoldBackgroundColor),
@@ -74,7 +77,18 @@ class _ThemeSettingsState extends State<ThemeSettings> {
                 ),
                 Obx(
                   () => FilledButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        //  update the user prefs
+                        _userController.updateUserPrefs(
+                            user: User(
+                                themeType: _themeController.themeTypes[
+                                    _themeController.selectedThemeIndex.value],
+                                accentColorHex: _themeController
+                                    .selectedAccentColorHex.value));
+
+                        //  pop
+                        Get.back();
+                      },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
                               (_themeController.selectedAccentColorHex.value

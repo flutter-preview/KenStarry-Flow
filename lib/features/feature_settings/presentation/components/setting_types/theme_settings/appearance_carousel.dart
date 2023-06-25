@@ -34,11 +34,6 @@ class _AppearanceCarouselState extends State<AppearanceCarousel> {
     return GestureDetector(
       onTap: () async {
         _themeController.setSelectedThemeIndex(index: widget.index);
-        //  update the user prefs
-        _userController.updateUserPrefs(
-            user: User(
-                themeType: _themeController
-                    .themeTypes[_themeController.selectedThemeIndex.value]));
       },
       child: Column(
         children: [
