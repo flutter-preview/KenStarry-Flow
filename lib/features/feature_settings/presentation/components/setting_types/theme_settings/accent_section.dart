@@ -1,3 +1,4 @@
+import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class AccentSection extends StatefulWidget {
@@ -15,6 +16,7 @@ class _AccentSectionState extends State<AccentSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               "Accent",
@@ -24,16 +26,25 @@ class _AccentSectionState extends State<AccentSection> {
             //  open color picker
             FilledButton(
                 onPressed: () {},
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(accent),
+                  foregroundColor: MaterialStateProperty.all(Colors.white)
+                ),
                 child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.color_lens_rounded,
                       color: Colors.white,
                       size: 24,
                     ),
+                    const SizedBox(width: 8,),
                     Text(
                       "Color Picker",
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: TextStyle(
+                        fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
+                        fontWeight: Theme.of(context).textTheme.bodyMedium?.fontWeight,
+                        color: Colors.white
+                      ),
                     ),
                   ],
                 ))
