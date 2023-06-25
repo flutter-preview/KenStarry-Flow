@@ -1,4 +1,5 @@
 import 'package:flow/core/presentation/controller/user_controller.dart';
+import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/accent_section.dart';
 import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/appearance_section.dart';
 import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/theme_setting_appbar.dart';
 import 'package:flow/theme/colors.dart';
@@ -19,12 +20,17 @@ class _ThemeSettingsState extends State<ThemeSettings> {
       slivers: [
         //  app bar
         themeSettingAppBar(),
+
         //  appearance section
         const SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(child: AppearanceSection())),
 
-        //  save button
+        //  Accent Picker section
+        SliverPadding(padding: EdgeInsets.symmetric(horizontal: 16),
+        sliver: SliverToBoxAdapter(child: AccentSection(),),),
+
+        //  save and discard buttons
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           sliver: SliverToBoxAdapter(
