@@ -1,11 +1,14 @@
+import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../theme/colors.dart';
 
 class ThemeController extends GetxController {
   /// Theme Setting
   final selectedThemeIndex = 0.obs;
   final selectedThemeMode = ThemeMode.system.obs;
-  final selectedAccentColorHex = '#00b4d8'.obs;
+  final selectedAccentColorHex = predefinedAccentColors[0].toHex.obs;
 
   final themeTypes = const ['Light Theme', 'Dark Theme', 'System Preferences'];
 
