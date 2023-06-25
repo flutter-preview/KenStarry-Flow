@@ -36,7 +36,7 @@ class _SettingsCardState extends State<SettingsCard> {
         decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(16)),
-        margin: const EdgeInsets.only(bottom: 16),
+        margin: const EdgeInsets.only(bottom: 24),
         child: Row(
           children: [
             //  icon
