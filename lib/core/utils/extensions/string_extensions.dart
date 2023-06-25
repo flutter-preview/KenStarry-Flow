@@ -12,6 +12,13 @@ extension StringExtensions on String {
   }
 
   /// Hex String to Color
-  Color get hexToColor =>
-      Color(int.parse(substring(0, 6), radix: 16) + 0xFF000000);
+  get toColor {
+    var hexColor = this.replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF" + hexColor;
+    }
+    if (hexColor.length == 8) {
+      return Color(int.parse("0x$hexColor"));
+    }
+  }
 }

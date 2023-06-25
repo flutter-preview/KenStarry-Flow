@@ -22,4 +22,7 @@ extension ColorExtensions on Color {
 
   /// Color to Hex
   String get toHex => '#${value.toRadixString(16)}';
+
+  /// Color to int value
+  int get toIntValue => value;
 }

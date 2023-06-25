@@ -1,4 +1,5 @@
 import 'package:flow/core/utils/extensions/color_extensions.dart';
+import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/features/feature_settings/presentation/components/setting_types/theme_settings/accent_color_card.dart';
 import 'package:flow/features/feature_settings/presentation/controller/theme_controller.dart';
 import 'package:flow/theme/colors.dart';
@@ -80,13 +81,15 @@ class _AccentSectionState extends State<AccentSection> {
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               return Obx(
-                () => AccentColorCard(
+                () {
+                  return AccentColorCard(
                     color: predefinedAccentColors[index],
                     isActive: predefinedAccentColors[index].toHex ==
-                        _themeController.selectedAccentColorHexValue.value,
+                        _themeController.selectedAccentColorHex.value,
                     onTap: () =>
-                        _themeController.setSelectedAccentColorHexValue(
-                            hex: predefinedAccentColors[index].toHex)),
+                        _themeController.setSelectedAccentColorHex(
+                            hex: predefinedAccentColors[index].toHex));
+                },
               );
             },
             separatorBuilder: (context, index) => const SizedBox(
