@@ -32,6 +32,7 @@ Future<void> playerDI({required GetIt locator}) async {
       config: const AudioServiceConfig(
           androidNotificationChannelId: 'com.kenstarry.flow.audio',
           androidNotificationChannelName: 'Flow Audio Service',
+          androidNotificationClickStartsActivity: true,
           androidNotificationOngoing: true,
           androidStopForegroundOnPause: true)));
 
