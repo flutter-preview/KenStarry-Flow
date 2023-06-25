@@ -10,4 +10,8 @@ extension StringExtensions on String {
 
     return formattedString;
   }
+
+  /// Hex String to Color
+  Color get hexToColor =>
+      Color(int.parse(substring(0, 6), radix: 16) + 0xFF000000);
 }
