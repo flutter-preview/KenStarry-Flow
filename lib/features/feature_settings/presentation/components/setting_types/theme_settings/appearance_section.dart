@@ -35,6 +35,9 @@ class _AppearanceSectionState extends State<AppearanceSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        //  appearance header
+        Text("Appearance", style: Theme.of(context).textTheme.titleSmall,),
+        const SizedBox(height: 16,),
         // themes carousel
         CarouselSlider.builder(
             itemCount: themeMockups.length,
