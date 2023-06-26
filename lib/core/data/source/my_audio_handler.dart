@@ -122,6 +122,9 @@ class MyAudioHandler extends BaseAudioHandler {
     _player.currentIndexStream.listen((index) {
       final playlist = queue.value;
       if (index == null || playlist.isEmpty) return;
+      if (_player.shuffleModeEnabled) {
+        index = _player.shuffleIndices!.indexOf(index);
+      }
       //  update the new song inside media item
       mediaItem.add(playlist[index]);
     });
