@@ -92,6 +92,7 @@ class PlayerController extends GetxController {
   void _listenToCurrentPosition() {
     AudioService.position.listen((pos) {
       position.value = pos.toString().split(".")[0];
+      sliderValue.value = pos.inSeconds.toDouble();
     });
   }
 
@@ -100,6 +101,8 @@ class PlayerController extends GetxController {
     _audioHandler.mediaItem.listen((mediaItem) {
       duration.value = mediaItem?.duration.toString().split(".")[0] ??
           Duration.zero.toString().split(".")[0];
+      maxSlider.value = mediaItem?.duration?.inSeconds.toDouble() ??
+          Duration.zero.inSeconds.toDouble();
     });
   }
 
@@ -164,8 +167,6 @@ class PlayerController extends GetxController {
   ///  Play Song
   Future<void> playSong({required int index}) async {
     currentPlayingSongIndex.value = index;
-    // observeSongDuration();
-    // observeSongPosition();
     await homeUseCases.playSongUseCase
         .invoke(mediaItems: mediaItems, index: index);
   }
@@ -178,16 +179,12 @@ class PlayerController extends GetxController {
   /// Next Song
   Future<void> playNextSong({required int index}) async {
     currentPlayingSongIndex.value = index;
-    // observeSongDuration();
-    // observeSongPosition();
     await homeUseCases.playNextSongUseCase.invoke();
   }
 
   /// Prev Song
   Future<void> playPrevSong({required int index}) async {
     currentPlayingSongIndex.value = index;
-    // observeSongDuration();
-    // observeSongPosition();
     await homeUseCases.playPrevSongUseCase.invoke();
   }
 
@@ -207,22 +204,6 @@ class PlayerController extends GetxController {
   /// Check if song is playing
   void isSongPlaying() => homeUseCases.isSongPlayingUseCase
       .invoke(onStateChanged: (state) => playerState.value = state);
-
-  /// Observe Song Duration
-  void observeSongDuration() {
-    homeUseCases.observeSongDurUseCase.invoke(onDurationChanged: (dur) {
-      duration.value = dur.toString().split(".")[0];
-      maxSlider.value = dur.inSeconds.toDouble();
-    });
-  }
-
-  /// Observe Song Position
-  void observeSongPosition() {
-    homeUseCases.observeSongPosUseCase.invoke(onPositionChanged: (pos) {
-      position.value = pos.toString().split(".")[0];
-      sliderValue.value = pos.inSeconds.toDouble();
-    });
-  }
 
   /// Check Storage Permission
   Future<void> checkPermission() async {
