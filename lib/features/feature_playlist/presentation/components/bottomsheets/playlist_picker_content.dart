@@ -87,14 +87,16 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                           itemBuilder: (context, index) {
                             var playlist = playlists[index];
 
+                            //  current playing song
+                            final currentSong = _playerController.songs
+                                .elementAt(_playerController
+                                .currentPlayingSongIndex.value!);
+
                             return PlaylistCardSmall(
                               playlist: playlist,
                               playlistController: _playlistController,
+                              isChecked: playlist.playlistSongIds!.contains(currentSong.id.toString()),
                               onTap: () {
-                                //  current playing song
-                                final currentSong = _playerController.songs
-                                    .elementAt(_playerController
-                                        .currentPlayingSongIndex.value!);
 
                                 final songIdsInPlaylist =
                                     playlist.playlistSongIds!;
@@ -121,9 +123,6 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                                 _playlistController.updatePlaylist(
                                     index: playlists.indexOf(playlist),
                                     playlist: updatedPlaylist);
-
-                                print(
-                                    "SONGS IN PLAYLIST: ${playlist.playlistSongIds}");
                               },
                             );
                           },
