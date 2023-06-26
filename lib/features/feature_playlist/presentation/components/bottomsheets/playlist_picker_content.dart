@@ -1,3 +1,4 @@
+import 'package:flow/core/presentation/components/show_snackbar.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flow/features/feature_playlist/presentation/components/playlist_card_small.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,7 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
               ),
               //  create playlist button
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   //  hide the current bottom sheet
                   Get.back();
                   //  open create playlist bottomsheet
@@ -97,8 +98,8 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                 },
                 child: UnconstrainedBox(
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
                         color: Theme.of(context).primaryColorDark,
                         borderRadius: BorderRadius.circular(30)),
@@ -179,6 +180,22 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                                 _playlistController.updatePlaylist(
                                     index: playlists.indexOf(playlist),
                                     playlist: updatedPlaylist);
+
+                                Get.back();
+
+                                playlist.playlistSongIds!
+                                        .contains(currentSong.id.toString())
+                                    ? showSnackbar(
+                                        title: "Added to ${playlist.playlistName}",
+                                        message:
+                                            "${currentSong.displayNameWOExt} added to playlist successfully!",
+                                        iconData: Icons.done_rounded)
+                                    : showSnackbar(
+                                        title: "Removed from ${playlist.playlistName}",
+                                        message:
+                                            "${currentSong.displayNameWOExt} removed from playlist successfully!",
+                                        iconData: Icons.done_rounded);
+                                ;
                               },
                             );
                           },
@@ -193,42 +210,6 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                         ),
                       );
               }),
-
-          const SizedBox(
-            height: 16,
-          ),
-
-          //  sybmit button
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          Theme.of(context).scaffoldBackgroundColor),
-                      foregroundColor: MaterialStateProperty.all(
-                          Theme.of(context).primaryColor)),
-                  onPressed: () {
-                    //  remove the songs from the database
-                    Navigator.pop(context);
-                  },
-                  child: Text("Cancel")),
-              const SizedBox(
-                width: 8,
-              ),
-              TextButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          Theme.of(context).primaryColor),
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50)))),
-                  onPressed: () async {
-                    Get.back(canPop: true);
-                  },
-                  child: Text("Save"))
-            ],
-          )
         ],
       ),
     );
