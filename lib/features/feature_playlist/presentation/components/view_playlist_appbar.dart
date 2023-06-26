@@ -17,7 +17,6 @@ SliverAppBar viewPlaylistAppBar() {
                     themeController.selectedThemeMode.value == ThemeMode.dark
                 ? Brightness.light
                 : Brightness.dark),
-    expandedHeight: 100,
     floating: false,
     elevation: 0,
     leading: IconButton(

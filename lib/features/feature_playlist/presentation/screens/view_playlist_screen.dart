@@ -46,6 +46,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
 
     return Scaffold(
         body: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
       slivers: [
 
         //  App Bar
@@ -129,6 +130,8 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                   : SliverToBoxAdapter(
                       child: const CircularProgressIndicator());
             }),
+
+        const SliverToBoxAdapter(child: SizedBox(height: 24)),
 
         //  music items
         Obx(
