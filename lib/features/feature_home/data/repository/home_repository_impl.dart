@@ -38,7 +38,7 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<void> playSong({required List<MediaItem> mediaItems, required int index}) async {
     try {
-      await audioHandler.skipToQueueItem(index);
+      await audioHandler.play();
     } on Exception catch (error) {
       throw Exception(error);
     }

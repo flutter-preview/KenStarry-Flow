@@ -13,10 +13,19 @@ class MyAudioHandler extends BaseAudioHandler {
   final _playlistQueue = ConcatenatingAudioSource(children: []);
 
   MyAudioHandler() {
+    _loadEmptyPlaylist();
     _player.playbackEventStream.map(_transformEvent).pipe(playbackState);
     _listenForCurrentSongIndexChanges();
     _listenForDurationChanges();
     _listenForSequenceStateChanges();
+  }
+
+  Future<void> _loadEmptyPlaylist() async {
+    try {
+      await _player.setAudioSource(_playlistQueue);
+    } catch (e) {
+      print("Error: $e");
+    }
   }
 
   @override
@@ -46,24 +55,10 @@ class MyAudioHandler extends BaseAudioHandler {
   }
 
   @override
-  Future<void> skipToNext() async {
-    currentSongIndex += 1;
-    mediaItem.add(songsMediaItems[currentSongIndex]);
-    await _player.setAudioSource(_playlistQueue[currentSongIndex]);
-    _player.play();
-
-    _listenForDurationChanges();
-  }
+  Future<void> skipToNext() async => await _player.seekToNext();
 
   @override
-  Future<void> skipToPrevious() async {
-    currentSongIndex -= 1;
-    mediaItem.add(songsMediaItems[currentSongIndex]);
-    await _player.setAudioSource(_playlistQueue[currentSongIndex]);
-    _player.play();
-
-    _listenForDurationChanges();
-  }
+  Future<void> skipToPrevious() async => await _player.seekToPrevious();
 
   /// Seek
   @override
