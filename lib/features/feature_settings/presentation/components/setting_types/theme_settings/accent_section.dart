@@ -37,19 +37,28 @@ class _AccentSectionState extends State<AccentSection> {
               "Accent",
               style: Theme.of(context).textTheme.titleSmall,
             ),
-
             Row(
               children: [
-                Text("Pick custom color", style: Theme.of(context).textTheme.bodySmall,),
-                const SizedBox(width: 8,),
+                Text(
+                  "Pick custom color",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
 
-                Icon(Icons.chevron_right_rounded, color: Theme.of(context).iconTheme.color,),
-                const SizedBox(width: 8,),
+                Icon(
+                  Icons.chevron_right_rounded,
+                  color: Theme.of(context).iconTheme.color,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
 
                 //  open color picker
                 Obx(
-                      () => UnconstrainedBox(
-                        child: FilledButton(
+                  () => UnconstrainedBox(
+                    child: FilledButton(
                         onPressed: () => showPickColorDialog(),
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
@@ -76,12 +85,13 @@ class _AccentSectionState extends State<AccentSection> {
                                       .textTheme
                                       .bodyMedium
                                       ?.fontWeight,
-                                  color: getTextColorForBackground(_themeController
-                                      .selectedAccentColorHex.value.toColor)),
+                                  color: getTextColorForBackground(
+                                      _themeController.selectedAccentColorHex
+                                          .value.toColor)),
                             ),
                           ],
                         )),
-                      ),
+                  ),
                 )
               ],
             )
