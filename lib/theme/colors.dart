@@ -33,3 +33,4 @@ const textWhite300 = Color(0xFFB9B9B9);
 const textWhite100 = Color(0xFFA0A0A0);
 
 const buttonColor = Color(0xFF1F212C);
+const errorColor = Color(0xFFFF0000);

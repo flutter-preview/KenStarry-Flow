@@ -2,6 +2,7 @@ import 'package:flow/core/presentation/components/show_toast.dart';
 import 'package:flow/core/presentation/controller/core_controller.dart';
 import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
 import 'package:flow/features/feature_playlist/presentation/controller/playlist_controller.dart';
+import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -20,15 +21,12 @@ class _CreatePlaylistBottomSheetContentState
     extends State<CreatePlaylistBottomSheetContent> {
   late final PlaylistController _playlistController;
   late final TextEditingController _playlistNameController;
-  late final FToast toast;
 
   @override
   void initState() {
     super.initState();
     _playlistController = Get.find<PlaylistController>();
     _playlistNameController = TextEditingController();
-    toast = FToast();
-    toast.init(context);
 
     _playlistNameController.addListener(() {
       //  update text inside controller
@@ -55,34 +53,71 @@ class _CreatePlaylistBottomSheetContentState
               )),
 
           //  Playlist Name
-          TextField(
-            autofocus: true,
-            controller: _playlistNameController,
-            keyboardType: TextInputType.text,
-            maxLength: 200,
-            maxLines: 1,
-            textInputAction: TextInputAction.done,
-            style: Theme.of(context).textTheme.bodyLarge,
-            cursorColor: Theme.of(context).primaryColor,
-            decoration: InputDecoration(
-                hintText: "Playlist Name",
-                hintStyle: TextStyle(
-                    color: Theme.of(context).textTheme.bodyMedium?.color,
-                    fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
-                    fontWeight:
-                        Theme.of(context).textTheme.bodyMedium?.fontWeight),
-                icon: Icon(
-                  Icons.playlist_add,
-                  color: Theme.of(context).primaryColor,
+          Column(
+            children: [
+              TextField(
+                autofocus: true,
+                controller: _playlistNameController,
+                keyboardType: TextInputType.text,
+                maxLength: 200,
+                maxLines: 1,
+                textInputAction: TextInputAction.done,
+                style: Theme.of(context).textTheme.bodyLarge,
+                cursorColor: Theme.of(context).primaryColor,
+                decoration: InputDecoration(
+                    hintText: "Playlist Name",
+                    hintStyle: TextStyle(
+                        color: Theme.of(context).textTheme.bodyMedium?.color,
+                        fontSize:
+                            Theme.of(context).textTheme.bodyMedium?.fontSize,
+                        fontWeight:
+                            Theme.of(context).textTheme.bodyMedium?.fontWeight),
+                    icon: Icon(
+                      Icons.playlist_add,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    contentPadding: const EdgeInsets.all(16),
+                    filled: true,
+                    fillColor: Theme.of(context).primaryColorDark,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: BorderSide.none)),
+                cursorOpacityAnimates: true,
+                onChanged: (text) {
+                  _playlistController.setPlaylistExists(
+                      doesPlaylistExist: false);
+                },
+              ),
+              Obx(
+                () => Visibility(
+                  visible: _playlistController.doesPlaylistExist.value,
+                  maintainState: false,
+                  maintainSize: false,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.error,
+                        color: errorColor,
+                        size: 16,
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        "Playlist Exists",
+                        style: TextStyle(
+                          fontSize:
+                              Theme.of(context).textTheme.bodySmall?.fontSize,
+                          fontWeight:
+                              Theme.of(context).textTheme.bodySmall?.fontWeight,
+                          color: errorColor,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                contentPadding: const EdgeInsets.all(16),
-                filled: true,
-                fillColor: Theme.of(context).primaryColorDark,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide.none)),
-            cursorOpacityAnimates: true,
-            onChanged: (text) {},
+              )
+            ],
           ),
 
           //  playlist submit buttons
@@ -112,7 +147,8 @@ class _CreatePlaylistBottomSheetContentState
                         .map((playlist) => playlist.playlistName)
                         .contains(_playlistNameController.text)) {
                       //  playlist already exists
-                      showToast(toast: toast, iconData: Icons.error, msg: "Playlist Already exists.");
+                      _playlistController.setPlaylistExists(
+                          doesPlaylistExist: true);
                     } else {
                       //  add playlist to database
                       _playlistController.addPlaylist(
