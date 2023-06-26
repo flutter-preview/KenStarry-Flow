@@ -9,7 +9,13 @@ class PlaylistRepositoryImpl implements PlaylistRepository {
 
   @override
   Future<void> addPlaylist({required Playlist playlist}) async {
-    await playlistBox.add(playlist);
+    var newPlaylist = Playlist(
+      playlistName: playlist.playlistName ?? '',
+      playlistImageUri: playlist.playlistImageUri ?? '',
+      playlistCreatedDate: playlist.playlistCreatedDate ?? DateTime.now(),
+      playlistSongIds: playlist.playlistSongIds ?? []
+    );
+    await playlistBox.add(newPlaylist);
   }
 
   @override

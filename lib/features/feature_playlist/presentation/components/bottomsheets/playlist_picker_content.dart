@@ -91,13 +91,39 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                               playlist: playlist,
                               playlistController: _playlistController,
                               onTap: () {
-                                _playlistController.pickedPlaylists
-                                        .contains(playlist)
-                                    ? _playlistController
-                                        .unPickPlaylistToAddSong(
-                                            playlist: playlist)
-                                    : _playlistController.pickPlaylistToAddSong(
-                                        playlist: playlist);
+                                //  current playing song
+                                final currentSong = _playerController.songs
+                                    .elementAt(_playerController
+                                        .currentPlayingSongIndex.value!);
+
+                                final songIdsInPlaylist =
+                                    playlist.playlistSongIds!;
+
+                                if (playlist.playlistSongIds!
+                                    .contains(currentSong.id.toString())) {
+                                  _playlistController.unPickPlaylistToAddSong(
+                                      playlist: playlist);
+                                  //  remove song from DB
+                                  songIdsInPlaylist
+                                      .remove(currentSong.id.toString());
+                                } else {
+                                  _playlistController.pickPlaylistToAddSong(
+                                      playlist: playlist);
+                                  //  add song to playlist in DB and update the database with new value
+                                  songIdsInPlaylist
+                                      .add(currentSong.id.toString());
+                                }
+
+                                final updatedPlaylist = Playlist(
+                                    playlistSongIds: songIdsInPlaylist);
+
+                                //  publish playlist back to database
+                                _playlistController.updatePlaylist(
+                                    index: playlists.indexOf(playlist),
+                                    playlist: updatedPlaylist);
+
+                                print(
+                                    "SONGS IN PLAYLIST: ${playlist.playlistSongIds}");
                               },
                             );
                           },
