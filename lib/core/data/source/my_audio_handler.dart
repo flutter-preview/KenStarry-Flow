@@ -74,6 +74,7 @@ class MyAudioHandler extends BaseAudioHandler {
     }
 
     _player.seek(Duration.zero, index: index);
+    _player.play();
   }
 
   @override

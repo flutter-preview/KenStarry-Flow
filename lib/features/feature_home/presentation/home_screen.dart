@@ -210,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   playerController: _playerController,
                                   homeController: _homeController);
                             } else {
-                              _playerController.playSong(index: index);
+                              _playerController.playSongAtIndex(index: index);
 
                               //  open player screen bottom sheet
                               showPlayerBottomSheet(

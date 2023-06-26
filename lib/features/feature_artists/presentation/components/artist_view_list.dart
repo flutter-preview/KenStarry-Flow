@@ -48,7 +48,7 @@ class ArtistViewList extends StatelessWidget {
                         playerController: _playerController,
                         homeController: _homeController);
                   } else {
-                    _playerController.playSong(index: currentIndex);
+                    _playerController.playSongAtIndex(index: currentIndex);
 
                     //  open player screen bottom sheet
                     showPlayerBottomSheet(

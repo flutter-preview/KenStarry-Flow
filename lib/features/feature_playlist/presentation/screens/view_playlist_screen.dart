@@ -159,7 +159,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                           playerController: _playerController,
                           homeController: _homeController);
                     } else {
-                      _playerController.playSong(index: currentSongIndex);
+                      _playerController.playSongAtIndex(index: currentSongIndex);
 
                       //  open player screen bottom sheet
                       showPlayerBottomSheet(
