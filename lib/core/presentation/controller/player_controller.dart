@@ -19,9 +19,11 @@ class PlayerController extends GetxController {
   final _userController = Get.find<UserController>();
 
   final isPermissionGranted = false.obs;
+
   final RxList<SongModel> songs = <SongModel>[].obs;
   List<ISuspensionBean> azSongs =
       List<ISuspensionBean>.empty(growable: true).obs;
+
   final totalSongs = 0.obs;
   final totalSongsDuration = ''.obs;
 
@@ -37,6 +39,7 @@ class PlayerController extends GetxController {
   final Rx<int?> currentPlayingSongIndex = 0.obs;
   final playerState = PlayerStates.stopped.obs;
   final isPlaying = false.obs;
+  final isShuffleModeEnabled = false.obs;
 
   @override
   void onInit() {
@@ -81,6 +84,17 @@ class PlayerController extends GetxController {
     _audioHandler.mediaItem.listen((mediaItem) {
       currentPlayingSongIndex.value = mediaItems.indexOf(mediaItem!);
     });
+  }
+
+  /// Shuffle Songs
+  void shuffle() {
+    final enable = !isShuffleModeEnabled.value;
+    //  change shuffle mode
+    isShuffleModeEnabled.value = enable;
+
+    enable
+        ? _audioHandler.setShuffleMode(AudioServiceShuffleMode.all)
+        : _audioHandler.setShuffleMode(AudioServiceShuffleMode.none);
   }
 
   void setTotalSongsDuration({required List<SongModel> songs}) {
