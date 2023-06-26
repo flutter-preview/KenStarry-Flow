@@ -6,6 +6,6 @@ import '../../../../di/locator.dart';
 class PlaySongUseCase {
   final repo = locator.get<HomeRepository>();
 
-  Future<void> invoke({required List<MediaItem> mediaItems, required int index}) async =>
-      await repo.playSong(mediaItems: mediaItems, index: index);
+  Future<void> invoke() async =>
+      await repo.playSong();
 }

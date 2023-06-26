@@ -11,7 +11,7 @@ abstract class HomeRepository {
   Future<List<SongModel>> getAllSongs();
 
   /// Play Song
-  Future<void> playSong({required List<MediaItem> mediaItems, required int index});
+  Future<void> playSong();
 
   Future<void> playSongAtIndex({required int index});
 
