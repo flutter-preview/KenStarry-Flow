@@ -20,8 +20,9 @@ class PlaylistCardSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: SizedBox(
+      child: Container(
         height: 70,
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Row(
           children: [
             //  playlist Image
