@@ -154,6 +154,11 @@ class PlayerController extends GetxController {
         .invoke(mediaItems: mediaItems, index: index);
   }
 
+  /// Play Song At Index
+  Future<void> playSongAtIndex({required int index}) async {
+    await homeUseCases.playSongAtIndexUseCase.invoke(index: index);
+  }
+
   /// Pause Song
   Future<void> pauseSong() async {
     await homeUseCases.pauseSongUseCase.invoke();

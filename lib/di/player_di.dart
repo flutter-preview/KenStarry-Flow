@@ -8,6 +8,7 @@ import 'package:flow/features/feature_home/domain/use_case/observe_song_pos_use_
 import 'package:flow/features/feature_home/domain/use_case/pause_song_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/play_next_song_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/play_prev_song_use_case.dart';
+import 'package:flow/features/feature_home/domain/use_case/play_song_at_index_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/play_song_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/seek_song_use_case.dart';
 import 'package:get_it/get_it.dart';
@@ -50,5 +51,6 @@ Future<void> playerDI({required GetIt locator}) async {
       observeSongDurUseCase: ObserveSongDurUseCase(),
       observeSongPosUseCase: ObserveSongPosUseCase(),
       playNextSongUseCase: PlayNextSongUseCase(),
-      playPrevSongUseCase: PlayPrevSongUseCase()));
+      playPrevSongUseCase: PlayPrevSongUseCase(),
+      playSongAtIndexUseCase: PlaySongAtIndexUseCase()));
 }
