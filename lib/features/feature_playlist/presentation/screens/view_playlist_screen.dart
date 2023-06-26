@@ -135,38 +135,41 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
 
         //  music items
         Obx(
-          () => SliverList(
-            delegate: SliverChildBuilderDelegate(
-                childCount: _playlistController.playlistSongs.length,
-                (context, index) {
-              var currentSongIndex = _playerController.songs
-                  .indexOf(_playlistController.playlistSongs[index]);
+          () => SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                  childCount: _playlistController.playlistSongs.length,
+                  (context, index) {
+                var currentSongIndex = _playerController.songs
+                    .indexOf(_playlistController.playlistSongs[index]);
 
-              return SongCard(
-                song: _playlistController.playlistSongs[index],
-                songIndex: currentSongIndex,
-                coreController: _coreController,
-                playerController: _playerController,
-                onSongTapped: () {
-                  if (_playerController.playerState.value ==
-                          PlayerStates.playing &&
-                      _playerController.currentPlayingSongIndex.value ==
-                          currentSongIndex) {
-                    //  open player screen bottom sheet
-                    showPlayerBottomSheet(
-                        playerController: _playerController,
-                        homeController: _homeController);
-                  } else {
-                    _playerController.playSong(index: currentSongIndex);
+                return SongCard(
+                  song: _playlistController.playlistSongs[index],
+                  songIndex: currentSongIndex,
+                  coreController: _coreController,
+                  playerController: _playerController,
+                  onSongTapped: () {
+                    if (_playerController.playerState.value ==
+                            PlayerStates.playing &&
+                        _playerController.currentPlayingSongIndex.value ==
+                            currentSongIndex) {
+                      //  open player screen bottom sheet
+                      showPlayerBottomSheet(
+                          playerController: _playerController,
+                          homeController: _homeController);
+                    } else {
+                      _playerController.playSong(index: currentSongIndex);
 
-                    //  open player screen bottom sheet
-                    showPlayerBottomSheet(
-                        playerController: _playerController,
-                        homeController: _homeController);
-                  }
-                },
-              );
-            }),
+                      //  open player screen bottom sheet
+                      showPlayerBottomSheet(
+                          playerController: _playerController,
+                          homeController: _homeController);
+                    }
+                  },
+                );
+              }),
+            ),
           ),
         )
       ],

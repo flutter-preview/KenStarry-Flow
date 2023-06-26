@@ -20,7 +20,7 @@ SliverAppBar viewPlaylistAppBar() {
     floating: false,
     elevation: 0,
     leading: IconButton(
-        onPressed: () {},
+        onPressed: () => Get.back(),
         icon: Icon(
           Icons.arrow_back,
           color: Theme.of(Get.context!).iconTheme.color,
