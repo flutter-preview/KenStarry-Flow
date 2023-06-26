@@ -54,7 +54,7 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<void> playNextSong({required int index}) async {
+  Future<void> playNextSong() async {
     try {
       await audioHandler.skipToNext();
     } on Exception catch (error) {
@@ -63,7 +63,7 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<void> playPrevSong({required int index}) async {
+  Future<void> playPrevSong() async {
     try {
       await audioHandler.skipToPrevious();
     } on Exception catch (error) {

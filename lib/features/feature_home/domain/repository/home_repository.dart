@@ -17,10 +17,10 @@ abstract class HomeRepository {
   Future<void> pauseSong();
 
   /// Next Song
-  Future<void> playNextSong({required int index});
+  Future<void> playNextSong();
 
   /// Prev Song
-  Future<void> playPrevSong({required int index});
+  Future<void> playPrevSong();
 
   /// Seek song using slider
   void seekSong({required int seconds});

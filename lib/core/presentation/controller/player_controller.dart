@@ -47,6 +47,7 @@ class PlayerController extends GetxController {
     _listenToChangesInPlaylist();
     _listenToPlaybackState();
     _listenToChangesInSong();
+    _listenToCurrentPosition();
   }
 
   /// Listen To Playlist changed from audio handler
@@ -83,6 +84,13 @@ class PlayerController extends GetxController {
   void _listenToChangesInSong() {
     _audioHandler.mediaItem.listen((mediaItem) {
       currentPlayingSongIndex.value = mediaItems.indexOf(mediaItem!);
+    });
+  }
+
+  /// Listen to song position
+  void _listenToCurrentPosition() {
+    AudioService.position.listen((pos) {
+      position.value = pos.toString().split(".")[0];
     });
   }
 
@@ -163,7 +171,7 @@ class PlayerController extends GetxController {
     currentPlayingSongIndex.value = index;
     observeSongDuration();
     observeSongPosition();
-    await homeUseCases.playNextSongUseCase.invoke(index: index);
+    await homeUseCases.playNextSongUseCase.invoke();
   }
 
   /// Prev Song
@@ -171,7 +179,7 @@ class PlayerController extends GetxController {
     currentPlayingSongIndex.value = index;
     observeSongDuration();
     observeSongPosition();
-    await homeUseCases.playPrevSongUseCase.invoke(index: index);
+    await homeUseCases.playPrevSongUseCase.invoke();
   }
 
   /// Seek Song
@@ -182,7 +190,6 @@ class PlayerController extends GetxController {
   /// Get Songs
   Future<List<SongModel>> getSongs() async {
     var songs = await homeUseCases.getSongsUseCase.invoke();
-
     this.songs.value = songs;
     totalSongs.value = songs.length;
     return songs;
