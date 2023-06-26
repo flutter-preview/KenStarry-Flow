@@ -142,16 +142,30 @@ class _PlayerScreenState extends State<PlayerScreen>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //  shuffle playback
-              Container(
-                width: 35,
-                height: 35,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColorDark,
-                    borderRadius: BorderRadius.circular(100)),
-                child: Icon(
-                  Icons.shuffle,
-                  size: 16,
-                  color: Theme.of(context).iconTheme.color,
+              GestureDetector(
+                onTap: () {
+                  //  shuffle songs
+                  playerController.shuffle();
+                },
+                child: Container(
+                  width: 35,
+                  height: 35,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColorDark,
+                      borderRadius: BorderRadius.circular(100)),
+                  child: Obx(
+                    () => playerController.isShuffleModeEnabled.value
+                        ? Icon(
+                            Icons.shuffle,
+                            size: 16,
+                            color: Theme.of(context).primaryColor,
+                          )
+                        : Icon(
+                            Icons.shuffle,
+                            size: 16,
+                            color: Theme.of(context).iconTheme.color,
+                          ),
+                  ),
                 ),
               ),
 
@@ -261,7 +275,8 @@ class _PlayerScreenState extends State<PlayerScreen>
                     if (playerController.sliderValue.value ==
                         playerController.maxSlider.value) {
                       //  go to next song
-                      playerController.playSong(index:
+                      playerController.playSong(
+                          index:
                               playerController.currentPlayingSongIndex.value! +
                                   1);
                     }

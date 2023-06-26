@@ -26,10 +26,19 @@ void showPlayerBottomSheet(
       builder: (context, modalSetState) {
         return PlayerScreen(
           songs: playerController.songs,
-          onNextSong: () => playerController.playNextSong(
-              index: playerController.currentPlayingSongIndex.value! + 1),
-          onPreviousSong: () => playerController.playNextSong(
-              index: playerController.currentPlayingSongIndex.value! - 1),
+          onNextSong: () {
+            if (playerController.currentPlayingSongIndex.value! <
+                playerController.songs.length - 1) {
+              playerController.playNextSong(
+                  index: playerController.currentPlayingSongIndex.value! + 1);
+            }
+          },
+          onPreviousSong: () {
+            if (playerController.currentPlayingSongIndex.value! > 0) {
+              playerController.playPrevSong(
+                  index: playerController.currentPlayingSongIndex.value! - 1);
+            }
+          },
           onPlaylistClicked: () => playlistPickerSheet(),
         );
       },
