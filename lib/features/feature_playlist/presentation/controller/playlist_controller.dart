@@ -23,10 +23,14 @@ class PlaylistController extends GetxController {
   final playlistSongs = <SongModel>[].obs;
 
   final doesPlaylistExist = false.obs;
+  final isPlaylistFieldEmpty = false.obs;
 
   void getPlaylistSongs({required Playlist playlist}) {
     var filteredSongs = playerController.songs
-        .where((song) => playlist.playlistSongIds!.map((id) => int.parse(id)).contains(song.id)).toList();
+        .where((song) => playlist.playlistSongIds!
+            .map((id) => int.parse(id))
+            .contains(song.id))
+        .toList();
 
     playlistSongs.clear();
     playlistSongs.addAll(filteredSongs);
@@ -35,7 +39,11 @@ class PlaylistController extends GetxController {
   void setSelectedPlaylistIndex({required int index}) =>
       selectedPlaylistIndex.value = index;
 
-  void setPlaylistExists({required bool doesPlaylistExist}) => this.doesPlaylistExist.value = doesPlaylistExist;
+  void setPlaylistExists({required bool doesPlaylistExist}) =>
+      this.doesPlaylistExist.value = doesPlaylistExist;
+
+  void setIsPlaylistFieldEmpty({required bool isFieldEmpty}) =>
+      isPlaylistFieldEmpty.value = isFieldEmpty;
 
   void initializePlaylists({required List<Playlist>? playlists}) =>
       this.playlists.value = playlists ?? [];

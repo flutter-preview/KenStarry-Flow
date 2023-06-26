@@ -1,6 +1,7 @@
 import 'package:flow/core/presentation/components/show_toast.dart';
 import 'package:flow/core/presentation/controller/core_controller.dart';
 import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
+import 'package:flow/features/feature_playlist/presentation/components/bottomsheets/create_playlist_error.dart';
 import 'package:flow/features/feature_playlist/presentation/controller/playlist_controller.dart';
 import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -86,35 +87,23 @@ class _CreatePlaylistBottomSheetContentState
                 onChanged: (text) {
                   _playlistController.setPlaylistExists(
                       doesPlaylistExist: false);
+                  _playlistController.setIsPlaylistFieldEmpty(isFieldEmpty: false);
                 },
+              ),
+              Obx(
+                () => Visibility(
+                  visible: _playlistController.isPlaylistFieldEmpty.value,
+                  maintainState: false,
+                  maintainSize: false,
+                  child: createPlaylistError(msg: "Field cannot be empty"),
+                ),
               ),
               Obx(
                 () => Visibility(
                   visible: _playlistController.doesPlaylistExist.value,
                   maintainState: false,
                   maintainSize: false,
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.error,
-                        color: errorColor,
-                        size: 16,
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        "Playlist Exists",
-                        style: TextStyle(
-                          fontSize:
-                              Theme.of(context).textTheme.bodySmall?.fontSize,
-                          fontWeight:
-                              Theme.of(context).textTheme.bodySmall?.fontWeight,
-                          color: errorColor,
-                        ),
-                      )
-                    ],
-                  ),
+                  child: createPlaylistError(msg: "Playlist Exists"),
                 ),
               )
             ],
@@ -143,24 +132,30 @@ class _CreatePlaylistBottomSheetContentState
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)))),
                   onPressed: () {
-                    if (_playlistController.playlists
-                        .map((playlist) => playlist.playlistName)
-                        .contains(_playlistNameController.text)) {
-                      //  playlist already exists
-                      _playlistController.setPlaylistExists(
-                          doesPlaylistExist: true);
+                    if (_playlistNameController.text.isEmpty) {
+                      //  display empty text
+                      _playlistController.setIsPlaylistFieldEmpty(
+                          isFieldEmpty: true);
                     } else {
-                      //  add playlist to database
-                      _playlistController.addPlaylist(
-                          playlist: Playlist(
-                              playlistName: _playlistNameController.text));
+                      if (_playlistController.playlists
+                          .map((playlist) => playlist.playlistName)
+                          .contains(_playlistNameController.text)) {
+                        //  playlist already exists
+                        _playlistController.setPlaylistExists(
+                            doesPlaylistExist: true);
+                      } else {
+                        //  add playlist to database
+                        _playlistController.addPlaylist(
+                            playlist: Playlist(
+                                playlistName: _playlistNameController.text));
 
-                      Navigator.of(context).pop();
+                        Navigator.of(context).pop();
 
-                      showSnackbar(
-                          title: "${_playlistNameController.text} Created",
-                          message: "Playlist created successfully!",
-                          iconData: Icons.playlist_add_check_rounded);
+                        showSnackbar(
+                            title: "${_playlistNameController.text} Created",
+                            message: "Playlist created successfully!",
+                            iconData: Icons.playlist_add_check_rounded);
+                      }
                     }
                   },
                   child: Text("Save"))
