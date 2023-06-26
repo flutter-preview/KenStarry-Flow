@@ -1,6 +1,9 @@
+import 'package:flow/core/presentation/components/show_toast.dart';
+import 'package:flow/core/presentation/controller/core_controller.dart';
 import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
 import 'package:flow/features/feature_playlist/presentation/controller/playlist_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/presentation/components/show_snackbar.dart';
@@ -17,12 +20,15 @@ class _CreatePlaylistBottomSheetContentState
     extends State<CreatePlaylistBottomSheetContent> {
   late final PlaylistController _playlistController;
   late final TextEditingController _playlistNameController;
+  late final FToast toast;
 
   @override
   void initState() {
     super.initState();
     _playlistController = Get.find<PlaylistController>();
     _playlistNameController = TextEditingController();
+    toast = FToast();
+    toast.init(context);
 
     _playlistNameController.addListener(() {
       //  update text inside controller
@@ -61,10 +67,10 @@ class _CreatePlaylistBottomSheetContentState
             decoration: InputDecoration(
                 hintText: "Playlist Name",
                 hintStyle: TextStyle(
-                  color: Theme.of(context).textTheme.bodyMedium?.color,
-                  fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
-                  fontWeight: Theme.of(context).textTheme.bodyMedium?.fontWeight
-                ),
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
+                    fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
+                    fontWeight:
+                        Theme.of(context).textTheme.bodyMedium?.fontWeight),
                 icon: Icon(
                   Icons.playlist_add,
                   color: Theme.of(context).primaryColor,
@@ -102,16 +108,24 @@ class _CreatePlaylistBottomSheetContentState
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)))),
                   onPressed: () {
-                    //  add playlist to database
-                    _playlistController.addPlaylist(
-                        playlist: Playlist(
-                            playlistName: _playlistNameController.text));
+                    if (_playlistController.playlists
+                        .map((playlist) => playlist.playlistName)
+                        .contains(_playlistNameController.text)) {
+                      //  playlist already exists
+                      showToast(toast: toast, iconData: Icons.error, msg: "Playlist Already exists.");
+                    } else {
+                      //  add playlist to database
+                      _playlistController.addPlaylist(
+                          playlist: Playlist(
+                              playlistName: _playlistNameController.text));
 
-                    Navigator.of(context).pop();
+                      Navigator.of(context).pop();
 
-                    showSnackbar(title: "${_playlistNameController.text} Created",
-                        message: "Playlist created successfully!",
-                        iconData: Icons.playlist_add_check_rounded);
+                      showSnackbar(
+                          title: "${_playlistNameController.text} Created",
+                          message: "Playlist created successfully!",
+                          iconData: Icons.playlist_add_check_rounded);
+                    }
                   },
                   child: Text("Save"))
             ],
