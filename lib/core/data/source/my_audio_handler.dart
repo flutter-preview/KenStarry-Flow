@@ -66,10 +66,14 @@ class MyAudioHandler extends BaseAudioHandler {
 
   @override
   Future<void> skipToQueueItem(int index) async {
-    currentSongIndex = index;
-    mediaItem.add(songsMediaItems[index]);
-    await _player.setAudioSource(_playlistQueue[index]);
-    _player.play();
+    if (index < 0 || index >= queue.value.length) return;
+
+    //  check if shuffling is enabled
+    if (_player.shuffleModeEnabled) {
+      index = _player.shuffleIndices![index];
+    }
+
+    _player.seek(Duration.zero, index: index);
   }
 
   @override
