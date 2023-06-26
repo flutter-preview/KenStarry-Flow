@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../../domain/model/playlist.dart';
 import '../../controller/playlist_controller.dart';
 import '../playlist_card.dart';
+import 'create_playlist_bottom_sheet.dart';
 
 class PlaylistPickerContent extends StatefulWidget {
   const PlaylistPickerContent({super.key});
@@ -87,24 +88,32 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                 height: 8,
               ),
               //  create playlist button
-              UnconstrainedBox(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorDark,
-                      borderRadius: BorderRadius.circular(30)),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.add,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      Text(
-                        "New Playlist",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      )
-                    ],
+              GestureDetector(
+                onTap: (){
+                  //  hide the current bottom sheet
+                  Get.back();
+                  //  open create playlist bottomsheet
+                  createPlaylistBottomSheet(fromPlayerScreen: true);
+                },
+                child: UnconstrainedBox(
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColorDark,
+                        borderRadius: BorderRadius.circular(30)),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.add,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        Text(
+                          "New Playlist",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
