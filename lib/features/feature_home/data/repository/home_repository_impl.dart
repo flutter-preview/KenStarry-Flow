@@ -36,9 +36,19 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<void> playSong({required List<MediaItem> mediaItems, required int index}) async {
+  Future<void> playSong(
+      {required List<MediaItem> mediaItems, required int index}) async {
     try {
       await audioHandler.play();
+    } on Exception catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  @override
+  Future<void> playSongAtIndex({required int index}) async {
+    try {
+      await audioHandler.skipToQueueItem(index);
     } on Exception catch (error) {
       throw Exception(error);
     }
@@ -87,29 +97,26 @@ class HomeRepositoryImpl implements HomeRepository {
           onStateChanged(PlayerStates.stopped);
         }
       });
-
     } on Exception catch (error) {
       throw Exception(error);
     }
   }
 
   @override
-  void observeSongDuration({required void Function(Duration dur) onDurationChanged}) {
+  void observeSongDuration(
+      {required void Function(Duration dur) onDurationChanged}) {
     try {
-
       audioPlayer.durationStream.listen((d) => onDurationChanged(d!));
-
     } on Exception catch (error) {
       throw Exception(error);
     }
   }
 
   @override
-  void observeSongPosition({required void Function(Duration pos) onPositionChanged}) {
+  void observeSongPosition(
+      {required void Function(Duration pos) onPositionChanged}) {
     try {
-
       audioPlayer.positionStream.listen((p) => onPositionChanged(p));
-
     } on Exception catch (error) {
       throw Exception(error);
     }

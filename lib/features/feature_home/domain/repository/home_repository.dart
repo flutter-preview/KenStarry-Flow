@@ -13,6 +13,8 @@ abstract class HomeRepository {
   /// Play Song
   Future<void> playSong({required List<MediaItem> mediaItems, required int index});
 
+  Future<void> playSongAtIndex({required int index});
+
   /// Pause Song
   Future<void> pauseSong();
 
