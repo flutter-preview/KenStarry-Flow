@@ -30,48 +30,60 @@ class _AccentSectionState extends State<AccentSection> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               "Accent",
               style: Theme.of(context).textTheme.titleSmall,
             ),
 
-            //  open color picker
-            Obx(
-              () => FilledButton(
-                  onPressed: () => showPickColorDialog(),
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          _themeController
-                              .selectedAccentColorHex.value.toColor)),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.color_lens_rounded,
-                        color: Colors.white,
-                        size: 24,
+            Row(
+              children: [
+                Text("Pick custom color", style: Theme.of(context).textTheme.bodySmall,),
+                const SizedBox(width: 8,),
+
+                Icon(Icons.chevron_right_rounded, color: Theme.of(context).iconTheme.color,),
+                const SizedBox(width: 8,),
+
+                //  open color picker
+                Obx(
+                      () => UnconstrainedBox(
+                        child: FilledButton(
+                        onPressed: () => showPickColorDialog(),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                _themeController
+                                    .selectedAccentColorHex.value.toColor)),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.color_lens_rounded,
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              "Color Picker",
+                              style: TextStyle(
+                                  fontSize: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.fontSize,
+                                  fontWeight: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.fontWeight,
+                                  color: getTextColorForBackground(_themeController
+                                      .selectedAccentColorHex.value.toColor)),
+                            ),
+                          ],
+                        )),
                       ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        "Pick Color",
-                        style: TextStyle(
-                            fontSize: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.fontSize,
-                            fontWeight: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.fontWeight,
-                            color: getTextColorForBackground(_themeController
-                                .selectedAccentColorHex.value.toColor)),
-                      ),
-                    ],
-                  )),
+                )
+              ],
             )
           ],
         ),

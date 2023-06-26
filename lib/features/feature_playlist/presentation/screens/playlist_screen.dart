@@ -42,7 +42,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       InkWell(
                         borderRadius: BorderRadius.circular(100),
                         onTap: () {
-                          //  show songs
+                          //  shuffle songs
                         },
                         child: Ink(
                             width: 35,
