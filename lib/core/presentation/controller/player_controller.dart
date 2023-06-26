@@ -38,7 +38,6 @@ class PlayerController extends GetxController {
   // Index of the currently playing song
   final Rx<int?> currentPlayingSongIndex = 0.obs;
   final playerState = PlayerStates.stopped.obs;
-  final isPlaying = false.obs;
   final isShuffleModeEnabled = false.obs;
 
   @override
@@ -72,11 +71,10 @@ class PlayerController extends GetxController {
       } else if (!isPlaying) {
         playerState.value = PlayerStates.paused;
       } else if (processingState != AudioProcessingState.completed) {
-        playerState.value = PlayerStates.playing;
+        playerState.value = PlayerStates.paused;
       } else {
-        //  increment the current playing song index
-        currentPlayingSongIndex.value = currentPlayingSongIndex.value! + 1;
-        playSong(index: currentPlayingSongIndex.value!);
+        _audioHandler.seek(Duration.zero);
+        _audioHandler.pause();
       }
     });
   }
@@ -147,21 +145,6 @@ class PlayerController extends GetxController {
 
     //  Add media to audio handler
     _audioHandler.addQueueItems(mediaItems);
-  }
-
-  Future<void> setCurrentSong({required SongModel song}) async {
-    //  remove currently playing song
-    _audioHandler.removeQueueItemAt(0);
-
-    var mediaItem = MediaItem(
-        id: song.id.toString(),
-        title: song.displayNameWOExt,
-        artist: song.artist,
-        duration: Duration(milliseconds: song.duration!),
-        extras: {'url': song.uri});
-
-    _audioHandler.addQueueItem(mediaItem);
-    _audioHandler.play();
   }
 
   ///  Play Song
