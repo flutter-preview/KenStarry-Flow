@@ -42,23 +42,70 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //  header
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Add to Playlist",
-                style: Theme.of(context).textTheme.titleSmall,
+              SizedBox(
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Add to Playlist",
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+
+                    //  playlist count
+                    Row(
+                      children: [
+                        Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: Theme.of(context).primaryColorDark),
+                          child: Center(
+                              child: Icon(
+                            Icons.account_tree_rounded,
+                            color: Theme.of(context).primaryColor,
+                            size: 16,
+                          )),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          _playlistController.playlists.length == 1
+                              ? "${_playlistController.playlists.length} playlist"
+                              : "${_playlistController.playlists.length} playlists",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              //  playlist count
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColorDark,
-                    borderRadius: BorderRadius.circular(30)),
-                child: Text(
-                  "${_playlistController.playlists.length} playlists",
-                  style: Theme.of(context).textTheme.bodySmall,
+              const SizedBox(
+                height: 8,
+              ),
+              //  create playlist button
+              UnconstrainedBox(
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColorDark,
+                      borderRadius: BorderRadius.circular(30)),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.add,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      Text(
+                        "New Playlist",
+                        style: Theme.of(context).textTheme.bodySmall,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -90,14 +137,14 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                             //  current playing song
                             final currentSong = _playerController.songs
                                 .elementAt(_playerController
-                                .currentPlayingSongIndex.value!);
+                                    .currentPlayingSongIndex.value!);
 
                             return PlaylistCardSmall(
                               playlist: playlist,
                               playlistController: _playlistController,
-                              isChecked: playlist.playlistSongIds!.contains(currentSong.id.toString()),
+                              isChecked: playlist.playlistSongIds!
+                                  .contains(currentSong.id.toString()),
                               onTap: () {
-
                                 final songIdsInPlaylist =
                                     playlist.playlistSongIds!;
 
@@ -152,7 +199,10 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                           Theme.of(context).scaffoldBackgroundColor),
                       foregroundColor: MaterialStateProperty.all(
                           Theme.of(context).primaryColor)),
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () {
+                    //  remove the songs from the database
+                    Navigator.pop(context);
+                  },
                   child: Text("Cancel")),
               const SizedBox(
                 width: 8,
@@ -165,30 +215,6 @@ class _PlaylistPickerContentState extends State<PlaylistPickerContent> {
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)))),
                   onPressed: () async {
-                    //  do this for each selected playlist
-                    for (var playlist in _playlistController.pickedPlaylists) {
-                      //  get index of selected playlist
-                      var index =
-                          _playlistController.playlists.indexOf(playlist);
-                      //  get the current playlist songs
-                      Playlist currentPlaylist =
-                          await _playlistController.getPlaylist(index: index);
-                      //  add this song to the playlist
-                      List<String>? songIDsInPlaylist =
-                          currentPlaylist.playlistSongIds;
-                      //  add songs to the current playlist
-                      songIDsInPlaylist?.add(_playerController
-                          .songs[
-                              _playerController.currentPlayingSongIndex.value!]
-                          .id
-                          .toString());
-                      //  post the results back to the database and update with the new list
-                      _playlistController.updatePlaylist(
-                          index: index,
-                          playlist:
-                              Playlist(playlistSongIds: songIDsInPlaylist));
-                    }
-
                     Get.back(canPop: true);
                   },
                   child: Text("Save"))
