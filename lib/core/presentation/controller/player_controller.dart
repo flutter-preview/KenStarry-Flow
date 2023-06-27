@@ -120,6 +120,9 @@ class PlayerController extends GetxController {
     _audioHandler.setShuffleMode(AudioServiceShuffleMode.none);
   }
 
+  /// Repeat Mode
+  
+
   void setTotalSongsDuration({required List<SongModel> songs}) {
     var durations = songs.map((song) => song.duration);
     var totalDuration =
