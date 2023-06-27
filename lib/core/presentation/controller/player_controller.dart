@@ -268,6 +268,11 @@ class PlayerController extends GetxController {
   void isSongPlaying() => homeUseCases.isSongPlayingUseCase
       .invoke(onStateChanged: (state) => playerState.value = state);
 
+  /// Disposing our Audio Player
+  void disposeAudio() {
+    _audioHandler.stop();
+  }
+
   /// Check Storage Permission
   Future<void> checkPermission() async {
     //  request access to storage
