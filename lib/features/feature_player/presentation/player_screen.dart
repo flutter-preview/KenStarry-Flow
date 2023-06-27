@@ -67,9 +67,10 @@ class _PlayerScreenState extends State<PlayerScreen>
                   width: 250,
                   height: 250,
                   child: QueryArtworkWidget(
-                    id: widget
-                        .songs[playerController.currentPlayingSongIndex.value!]
-                        .id,
+                    id: playerController.mediaItemsInitial
+                        .elementAt(
+                        playerController.currentPlayingSongIndex.value!)
+                        .extras!['imageUrl'],
                     keepOldArtwork: true,
                     type: ArtworkType.AUDIO,
                     artworkWidth: double.infinity,
