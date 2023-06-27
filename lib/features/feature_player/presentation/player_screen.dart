@@ -5,6 +5,7 @@ import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/di/locator.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
+import 'package:flow/features/feature_player/presentation/components/quick_action.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -329,31 +330,43 @@ class _PlayerScreenState extends State<PlayerScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //  playlist icon
-              IconButton(
-                  onPressed: widget.onPlaylistClicked,
-                  color: Theme.of(context).primaryColorDark,
-                  icon: Icon(
+              quickAction(
+                  child: Icon(
                     Icons.playlist_add,
                     color: Theme.of(context).primaryColor,
-                  )),
+                  ),
+                  onTap: () => widget.onPlaylistClicked),
+
+              const SizedBox(
+                width: 8,
+              ),
 
               //  favourites
-              IconButton(
-                  onPressed: () {},
-                  color: Theme.of(context).primaryColorDark,
-                  icon: Icon(
+              quickAction(
+                  child: Icon(
                     Icons.favorite_outline_rounded,
                     color: Theme.of(context).primaryColor,
-                  )),
+                  ),
+                  onTap: () {}),
+
+              const SizedBox(
+                width: 8,
+              ),
 
               //  playback
-              IconButton(
-                  onPressed: () {},
-                  color: Theme.of(context).primaryColorDark,
-                  icon: Icon(
-                    Icons.one_x_mobiledata_rounded,
-                    color: Theme.of(context).primaryColor,
-                  )),
+              quickAction(
+                  child: Text(
+                    "1 x",
+                    style: TextStyle(
+                        fontSize:
+                            Theme.of(context).textTheme.bodyLarge?.fontSize,
+                        fontWeight:
+                            Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                        color: Theme.of(context).primaryColor),
+                  ),
+                  onTap: () {
+                    //  add current song speed
+                  })
             ],
           )
         ],
