@@ -28,7 +28,7 @@ class ArtistViewList extends StatelessWidget {
             itemCount: _artistsController.artistSongs.length,
             itemBuilder: (context, index) {
               //  get index of this song from the main songs list
-              final currentIndex = _playerController.songs
+              final currentIndex = _playerController.mediaItemsInitial
                   .indexOf(
                   _artistsController.artistSongs[index]);
 
