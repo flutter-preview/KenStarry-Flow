@@ -1,3 +1,4 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -7,7 +8,7 @@ import '../../../../theme/colors.dart';
 import '../../../../core/presentation/controller/player_controller.dart';
 
 class SongCardPlaying extends StatelessWidget {
-  final SongModel song;
+  final MediaItem song;
   final int songIndex;
   final CoreController coreController;
   final PlayerController playerController;
@@ -43,7 +44,7 @@ class SongCardPlaying extends StatelessWidget {
               height: 60,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
               child: QueryArtworkWidget(
-                id: song.id,
+                id: song.extras!['imageUrl'],
                 keepOldArtwork: true,
                 type: ArtworkType.AUDIO,
                 artworkFit: BoxFit.cover,
@@ -65,7 +66,7 @@ class SongCardPlaying extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    song.displayNameWOExt,
+                    song.title,
                     style: Theme.of(context).textTheme.bodyMedium,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
