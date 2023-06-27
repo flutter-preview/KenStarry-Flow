@@ -1,4 +1,5 @@
 import 'package:audio_service/audio_service.dart';
+import 'package:flow/core/domain/models/repeat_state.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 import '../models/player_states.dart';
@@ -29,6 +30,9 @@ abstract class PlayerRepository {
 
   /// Shuffle Songs
   void shuffle({required bool isShuffleModeEnabled});
+
+  /// Repeat
+  void repeat({required RepeatState repeatState});
 
   /// Check if song is playing
   void isSongPlaying({required void Function(PlayerStates) onStateChanged});

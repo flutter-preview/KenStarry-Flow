@@ -7,6 +7,7 @@ import 'package:on_audio_query_platform_interface/src/models/song_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../di/locator.dart';
+import '../../domain/models/repeat_state.dart';
 
 class PlayerRepositoryImpl implements PlayerRepository {
   final audioQuery = locator.get<OnAudioQuery>();
@@ -91,6 +92,21 @@ class PlayerRepositoryImpl implements PlayerRepository {
     isShuffleModeEnabled
         ? _audioHandler.setShuffleMode(AudioServiceShuffleMode.all)
         : _audioHandler.setShuffleMode(AudioServiceShuffleMode.none);
+  }
+
+  @override
+  void repeat({required RepeatState repeatState}) {
+    switch (repeatState) {
+      case RepeatState.off:
+        _audioHandler.setRepeatMode(AudioServiceRepeatMode.none);
+        break;
+      case RepeatState.repeatSong:
+        _audioHandler.setRepeatMode(AudioServiceRepeatMode.one);
+        break;
+      case RepeatState.repeatPlaylist:
+        _audioHandler.setRepeatMode(AudioServiceRepeatMode.all);
+        break;
+    }
   }
 
   @override
