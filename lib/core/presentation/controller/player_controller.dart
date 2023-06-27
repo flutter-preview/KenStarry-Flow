@@ -55,7 +55,7 @@ class PlayerController extends GetxController {
     _audioHandler.queue.listen((playlist) {
       if (playlist.isEmpty) return;
       // songs.value = playlist.map((item) => SongModel()).toList();
-      print(playlist.toString());
+      mediaItems = playlist;
     });
   }
 
@@ -139,6 +139,8 @@ class PlayerController extends GetxController {
             id: song.id.toString(),
             title: song.displayNameWOExt,
             artist: song.artist,
+            genre: song.genre,
+            album: song.album,
             duration: Duration(milliseconds: song.duration!),
             extras: {'url': song.uri}))
         .toList();

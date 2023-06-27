@@ -139,7 +139,7 @@ class MyAudioHandler extends BaseAudioHandler {
       if (index == null || newQueue.isEmpty) return;
 
       if (_player.shuffleModeEnabled) {
-        index = _player.shuffleIndices![index];
+        index = _player.shuffleIndices!.indexOf(index);
       }
 
       //  update the old media item duration
