@@ -154,11 +154,7 @@ class _HomeBottomBarState extends State<HomeBottomBar>
                                                   _playerController
                                                       .maxSlider.value) {
                                                 //  go to next song
-                                                _playerController.playSong(
-                                                    index: _playerController
-                                                            .currentPlayingSongIndex
-                                                            .value! +
-                                                        1);
+                                                _playerController.playSong();
                                               }
                                             },
                                             thumbColor:
@@ -182,11 +178,7 @@ class _HomeBottomBarState extends State<HomeBottomBar>
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          _playerController.playSong(
-                                              index: _playerController
-                                                      .currentPlayingSongIndex
-                                                      .value! -
-                                                  1);
+                                          _playerController.playPrevSong();
                                         },
                                         child: const Icon(
                                             Icons.skip_previous_rounded),
@@ -201,9 +193,7 @@ class _HomeBottomBarState extends State<HomeBottomBar>
                                               PlayerStates.playing) {
                                             _playerController.pauseSong();
                                           } else {
-                                            var player =
-                                                locator.get<AudioPlayer>();
-                                            player.play();
+                                            _playerController.playSong();
                                           }
                                         },
                                         child: Icon(
@@ -218,11 +208,7 @@ class _HomeBottomBarState extends State<HomeBottomBar>
 
                                       GestureDetector(
                                         onTap: () {
-                                          _playerController.playSong(
-                                              index: _playerController
-                                                      .currentPlayingSongIndex
-                                                      .value! +
-                                                  1);
+                                          _playerController.playNextSong();
                                         },
                                         child:
                                             const Icon(Icons.skip_next_rounded),

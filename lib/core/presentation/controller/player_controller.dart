@@ -185,8 +185,8 @@ class PlayerController extends GetxController {
   }
 
   ///  Play Song
-  Future<void> playSong({required int index}) async {
-    currentPlayingSongIndex.value = index;
+  Future<void> playSong({int? index}) async {
+    // currentPlayingSongIndex.value = index;
     await playerUseCases.playSongUseCase.invoke();
   }
 
@@ -201,14 +201,14 @@ class PlayerController extends GetxController {
   }
 
   /// Next Song
-  Future<void> playNextSong({required int index}) async {
+  Future<void> playNextSong({int? index}) async {
     //  turn off repeat and turn it on for the current song
     final currentRepeatState = repeatButtonState.value;
 
     //  turn off repeat
     _audioHandler.setRepeatMode(AudioServiceRepeatMode.none);
 
-    currentPlayingSongIndex.value = index;
+    // currentPlayingSongIndex.value = index;
     await playerUseCases.playNextSongUseCase.invoke();
 
     //  turn on repeat
@@ -226,13 +226,13 @@ class PlayerController extends GetxController {
   }
 
   /// Prev Song
-  Future<void> playPrevSong({required int index}) async {
+  Future<void> playPrevSong({int? index}) async {
     //  turn off repeat and turn it on for the current song
     final currentRepeatState = repeatButtonState.value;
     //  turn off repeat
     _audioHandler.setRepeatMode(AudioServiceRepeatMode.none);
 
-    currentPlayingSongIndex.value = index;
+    // currentPlayingSongIndex.value = index;
     await playerUseCases.playPrevSongUseCase.invoke();
 
     //  turn on repeat

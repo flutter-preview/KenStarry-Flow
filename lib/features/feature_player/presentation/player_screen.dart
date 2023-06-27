@@ -172,14 +172,15 @@ class _PlayerScreenState extends State<PlayerScreen>
                   width: 35,
                   height: 35,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorDark,
+                      color: playerController.isShuffleModeEnabled.value ? Theme.of(context).primaryColor
+                      : Theme.of(context).primaryColorDark,
                       borderRadius: BorderRadius.circular(100)),
                   child: Obx(
                     () => playerController.isShuffleModeEnabled.value
-                        ? Icon(
+                        ? const Icon(
                             Icons.shuffle,
                             size: 16,
-                            color: Theme.of(context).primaryColor,
+                            color: Colors.white,
                           )
                         : Icon(
                             Icons.shuffle,
@@ -197,6 +198,7 @@ class _PlayerScreenState extends State<PlayerScreen>
                   children: [
                     InkWell(
                       onTap: widget.onPreviousSong,
+                      borderRadius: BorderRadius.circular(100),
                       child: Container(
                         width: 45,
                         height: 45,
@@ -210,6 +212,7 @@ class _PlayerScreenState extends State<PlayerScreen>
                         ),
                       ),
                     ),
+
                     InkWell(
                         onTap: () {
                           //  play or pause music
@@ -219,8 +222,7 @@ class _PlayerScreenState extends State<PlayerScreen>
                             playerController.pauseSong();
                           } else {
                             _animationController.reverse();
-                            var player = locator.get<AudioPlayer>();
-                            player.play();
+                            playerController.playSong();
                           }
                         },
                         borderRadius: BorderRadius.circular(100),
@@ -238,8 +240,10 @@ class _PlayerScreenState extends State<PlayerScreen>
                                 color: Theme.of(context).primaryColor,
                               ),
                             ))),
+
                     InkWell(
                       onTap: widget.onNextSong,
+                      borderRadius: BorderRadius.circular(100),
                       child: Container(
                         width: 45,
                         height: 45,
