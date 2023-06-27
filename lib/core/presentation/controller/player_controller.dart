@@ -176,20 +176,16 @@ class PlayerController extends GetxController {
   }
 
   ///  Play Song
-  Future<void> playSong({int? index}) async {
-    // currentPlayingSongIndex.value = index;
-    await playerUseCases.playSongUseCase.invoke();
-  }
+  Future<void> playSong({int? index}) async =>
+      await playerUseCases.playSongUseCase.invoke();
 
   /// Play Song At Index
-  Future<void> playSongAtIndex({required int index}) async {
-    await playerUseCases.playSongAtIndexUseCase.invoke(index: index);
-  }
+  Future<void> playSongAtIndex({required int index}) async =>
+      await playerUseCases.playSongAtIndexUseCase.invoke(index: index);
 
   /// Pause Song
-  Future<void> pauseSong() async {
-    await playerUseCases.pauseSongUseCase.invoke();
-  }
+  Future<void> pauseSong() async =>
+      await playerUseCases.pauseSongUseCase.invoke();
 
   /// Next Song
   Future<void> playNextSong({int? index}) async =>
@@ -197,33 +193,13 @@ class PlayerController extends GetxController {
           .invoke(currentRepeatState: repeatButtonState.value);
 
   /// Prev Song
-  Future<void> playPrevSong({int? index}) async {
-    //  turn off repeat and turn it on for the current song
-    final currentRepeatState = repeatButtonState.value;
-    //  turn off repeat
-    _audioHandler.setRepeatMode(AudioServiceRepeatMode.none);
-
-    // currentPlayingSongIndex.value = index;
-    await playerUseCases.playPrevSongUseCase.invoke();
-
-    //  turn on repeat
-    switch (currentRepeatState) {
-      case RepeatState.off:
-        _audioHandler.setRepeatMode(AudioServiceRepeatMode.none);
-        break;
-      case RepeatState.repeatSong:
-        _audioHandler.setRepeatMode(AudioServiceRepeatMode.one);
-        break;
-      case RepeatState.repeatPlaylist:
-        _audioHandler.setRepeatMode(AudioServiceRepeatMode.all);
-        break;
-    }
-  }
+  Future<void> playPrevSong({int? index}) async =>
+      await playerUseCases.playPrevSongUseCase
+          .invoke(currentRepeatState: repeatButtonState.value);
 
   /// Seek Song
-  void seekSong({required int seconds}) {
-    playerUseCases.seekSongUseCase.invoke(seconds: seconds);
-  }
+  void seekSong({required int seconds}) =>
+      playerUseCases.seekSongUseCase.invoke(seconds: seconds);
 
   /// Get Songs
   Future<List<SongModel>> getSongs() async {

@@ -23,7 +23,7 @@ abstract class PlayerRepository {
   Future<void> playNextSong({required RepeatState currentRepeatState});
 
   /// Prev Song
-  Future<void> playPrevSong();
+  Future<void> playPrevSong({required RepeatState currentRepeatState});
 
   /// Seek song using slider
   void seekSong({required int seconds});
