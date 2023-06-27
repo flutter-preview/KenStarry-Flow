@@ -1,3 +1,4 @@
+import 'package:flow/core/presentation/components/show_toast.dart';
 import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/di/locator.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
@@ -41,6 +42,7 @@ class _PlayerScreenState extends State<PlayerScreen>
         AnimationController(duration: const Duration(seconds: 1), vsync: this);
 
     _toast = FToast();
+    _toast.init(context);
   }
 
   @override
@@ -150,6 +152,12 @@ class _PlayerScreenState extends State<PlayerScreen>
                 onTap: () {
                   //  shuffle songs
                   playerController.shuffle();
+
+                  if (playerController.isShuffleModeEnabled.value) {
+                    showToast(toast: _toast, iconData: Icons.shuffle_rounded, msg: "Shuffle on");
+                  } else {
+                    showToast(toast: _toast, iconData: Icons.shuffle_rounded, msg: "Shuffle off");
+                  }
                 },
                 child: Container(
                   width: 35,
