@@ -1,6 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:azlistview/azlistview.dart';
 import 'package:flow/core/domain/models/repeat_state.dart';
+import 'package:flow/core/domain/models/speed_state.dart';
 import 'package:flow/core/domain/models/user.dart';
 import 'package:flow/core/presentation/controller/user_controller.dart';
 import 'package:flow/core/presentation/notifiers/repeat_button_notifier.dart';
@@ -43,6 +44,7 @@ class PlayerController extends GetxController {
   final Rx<int?> currentPlayingSongIndex = 0.obs;
   final playerState = PlayerStates.stopped.obs;
   final repeatButtonState = RepeatState.off.obs;
+  final speedState = SpeedState.one.obs;
   final isShuffleModeEnabled = false.obs;
 
   @override
@@ -140,8 +142,32 @@ class PlayerController extends GetxController {
   }
 
   /// Set Speed
-  void setSpeed({required double speed}) {
+  void setSpeed() {
+    nextSpeedState();
+
+    var speed = 1.0;
+
+    switch (speedState.value) {
+      case SpeedState.one:
+        speed = 1.0;
+        break;
+      case SpeedState.two:
+        speed = 2.0;
+        break;
+      case SpeedState.three:
+        speed = 3.0;
+        break;
+      case SpeedState.five:
+        speed = 5.0;
+        break;
+    }
+
     playerUseCases.setSpeedUseCase.invoke(speed: speed);
+  }
+
+  void nextSpeedState() {
+    final next = (speedState.value.index + 1) % SpeedState.values.length;
+    speedState.value = SpeedState.values[next];
   }
 
   void setTotalSongsDuration({required List<SongModel> songs}) {

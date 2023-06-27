@@ -1,5 +1,6 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flow/core/domain/models/repeat_state.dart';
+import 'package:flow/core/domain/models/speed_state.dart';
 import 'package:flow/core/presentation/components/show_toast.dart';
 import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flow/core/utils/extensions/string_extensions.dart';
@@ -335,7 +336,7 @@ class _PlayerScreenState extends State<PlayerScreen>
                     Icons.playlist_add,
                     color: Theme.of(context).primaryColor,
                   ),
-                  onTap: () => widget.onPlaylistClicked),
+                  onTap: widget.onPlaylistClicked),
 
               const SizedBox(
                 width: 8,
@@ -355,17 +356,30 @@ class _PlayerScreenState extends State<PlayerScreen>
 
               //  playback
               quickAction(
-                  child: Text(
-                    "1 x",
-                    style: TextStyle(
-                        fontSize:
-                            Theme.of(context).textTheme.bodyLarge?.fontSize,
-                        fontWeight:
-                            Theme.of(context).textTheme.bodyLarge?.fontWeight,
-                        color: Theme.of(context).primaryColor),
+                  child: Obx(
+                    () => Text(
+                      playerController.speedState.value == SpeedState.one
+                          ? "1 x"
+                          : playerController.speedState.value == SpeedState.two
+                              ? "2 x"
+                              : playerController.speedState.value ==
+                                      SpeedState.three
+                                  ? "3 x"
+                                  : playerController.speedState.value ==
+                                          SpeedState.five
+                                      ? "5 x"
+                                      : "1 x",
+                      style: TextStyle(
+                          fontSize:
+                              Theme.of(context).textTheme.bodyLarge?.fontSize,
+                          fontWeight:
+                              Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                          color: Theme.of(context).primaryColor),
+                    ),
                   ),
                   onTap: () {
                     //  add current song speed
+                    playerController.setSpeed();
                   })
             ],
           )
