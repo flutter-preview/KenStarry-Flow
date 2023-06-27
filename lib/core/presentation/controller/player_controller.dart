@@ -1,10 +1,8 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:azlistview/azlistview.dart';
-import 'package:flow/core/data/source/my_audio_handler.dart';
 import 'package:flow/core/domain/models/user.dart';
 import 'package:flow/core/presentation/controller/user_controller.dart';
 import 'package:flow/core/utils/math_utils.dart';
-import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/features/feature_home/domain/model/az_item.dart';
 import 'package:flow/features/feature_home/domain/use_case/home_use_cases.dart';
 import 'package:get/get.dart';
@@ -143,7 +141,7 @@ class PlayerController extends GetxController {
             genre: song.genre,
             album: song.album,
             duration: Duration(milliseconds: song.duration!),
-            extras: {'url': song.uri}))
+            extras: {'url': song.uri, 'imageUrl': song.id}))
         .toList();
 
     //  Add media to audio handler
