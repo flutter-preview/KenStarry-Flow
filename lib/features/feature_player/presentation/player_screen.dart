@@ -230,8 +230,8 @@ class _PlayerScreenState extends State<PlayerScreen>
                                         PlayerStates.playing
                                     ? Icons.pause_rounded
                                     : Icons.play_arrow_rounded,
-                                    color: Theme.of(context).primaryColor,
-                                    size: 36,
+                                color: Theme.of(context).primaryColor,
+                                size: 36,
                               ))),
                         )),
                     InkWell(

@@ -143,22 +143,32 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(100),
                       onTap: () {
                         if (_playerController.mediaItemsInitial.isNotEmpty) {
-                          //  start playing the first song
-                          //  TODO Play song index saved in the database
-                          _playerController.playSong();
+                          //  play or pause music
+                          if (_playerController.playerState.value ==
+                              PlayerStates.playing) {
+                            _playerController.pauseSong();
+                          } else {
+                            //  play first song
+                            _playerController.playSongAtIndex(index: 0);
+                          }
                         }
                       },
-                      child: Ink(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColorDark,
-                              borderRadius: BorderRadius.circular(50)),
-                          child: Icon(
-                            Icons.play_arrow,
-                            color: Theme.of(context).primaryColor,
-                            size: 32,
-                          )),
+                      child: Obx(
+                          () => Ink(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColorDark,
+                                borderRadius: BorderRadius.circular(50)),
+                            child: Icon(
+                              _playerController.playerState.value ==
+                                  PlayerStates.playing
+                                  ? Icons.pause_rounded
+                                  : Icons.play_arrow_rounded,
+                              color: Theme.of(context).primaryColor,
+                              size: 32,
+                            )),
+                      ),
                     ),
                   ],
                 ),
