@@ -202,8 +202,28 @@ class PlayerController extends GetxController {
 
   /// Next Song
   Future<void> playNextSong({required int index}) async {
+
+    //  turn off repeat and turn it on for the current song
+    final currentRepeatState = repeatButtonState.value;
+
+    //  turn off repeat
+    _audioHandler.setRepeatMode(AudioServiceRepeatMode.none);
+
     currentPlayingSongIndex.value = index;
     await homeUseCases.playNextSongUseCase.invoke();
+
+    //  turn on repeat
+    switch (currentRepeatState) {
+      case RepeatState.off:
+        _audioHandler.setRepeatMode(AudioServiceRepeatMode.none);
+        break;
+      case RepeatState.repeatSong:
+        _audioHandler.setRepeatMode(AudioServiceRepeatMode.one);
+        break;
+      case RepeatState.repeatPlaylist:
+        _audioHandler.setRepeatMode(AudioServiceRepeatMode.all);
+        break;
+    }
   }
 
   /// Prev Song
