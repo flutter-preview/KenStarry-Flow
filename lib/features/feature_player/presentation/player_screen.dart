@@ -34,24 +34,14 @@ class PlayerScreen extends StatefulWidget {
 class _PlayerScreenState extends State<PlayerScreen>
     with TickerProviderStateMixin {
   final PlayerController playerController = Get.find();
-  late final AnimationController _animationController;
   late final FToast _toast;
 
   @override
   void initState() {
     super.initState();
 
-    _animationController =
-        AnimationController(duration: const Duration(seconds: 1), vsync: this);
-
     _toast = FToast();
     _toast.init(context);
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
   }
 
   @override
@@ -221,28 +211,29 @@ class _PlayerScreenState extends State<PlayerScreen>
                           //  play or pause music
                           if (playerController.playerState.value ==
                               PlayerStates.playing) {
-                            _animationController.forward();
                             playerController.pauseSong();
                           } else {
-                            _animationController.reverse();
                             playerController.playSong();
                           }
                         },
                         borderRadius: BorderRadius.circular(100),
-                        child: Container(
-                            width: 70,
-                            height: 70,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColorDark,
-                                borderRadius: BorderRadius.circular(100)),
-                            child: Center(
-                              child: AnimatedIcon(
-                                icon: AnimatedIcons.pause_play,
-                                progress: _animationController,
-                                size: 36,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ))),
+                        child: Obx(
+                          () => Container(
+                              width: 70,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColorDark,
+                                  borderRadius: BorderRadius.circular(100)),
+                              child: Center(
+                                  child: Icon(
+                                playerController.playerState.value ==
+                                        PlayerStates.playing
+                                    ? Icons.pause_rounded
+                                    : Icons.play_arrow_rounded,
+                                    color: Theme.of(context).primaryColor,
+                                    size: 36,
+                              ))),
+                        )),
                     InkWell(
                       onTap: widget.onNextSong,
                       borderRadius: BorderRadius.circular(100),
@@ -334,7 +325,8 @@ class _PlayerScreenState extends State<PlayerScreen>
                 baseBarColor: Theme.of(context).primaryColorDark,
                 progressBarColor: Theme.of(context).primaryColor,
                 thumbColor: Theme.of(context).primaryColor,
-                thumbGlowColor: Theme.of(context).primaryColorDark.withOpacity(0.7),
+                thumbGlowColor:
+                    Theme.of(context).primaryColorDark.withOpacity(0.7),
                 onSeek: (dur) {
                   playerController.seekSong(seconds: dur.inSeconds);
                 },
