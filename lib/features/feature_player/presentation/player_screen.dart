@@ -331,6 +331,10 @@ class _PlayerScreenState extends State<PlayerScreen>
                 total: playerController.progressDuration.value,
                 timeLabelLocation: TimeLabelLocation.sides,
                 timeLabelTextStyle: Theme.of(context).textTheme.bodySmall,
+                baseBarColor: Theme.of(context).primaryColorDark,
+                progressBarColor: Theme.of(context).primaryColor,
+                thumbColor: Theme.of(context).primaryColor,
+                thumbGlowColor: Theme.of(context).primaryColorDark.withOpacity(0.7),
                 onSeek: (dur) {
                   playerController.seekSong(seconds: dur.inSeconds);
                 },
