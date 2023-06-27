@@ -182,7 +182,8 @@ class _PlayerScreenState extends State<PlayerScreen>
                         ? Icon(
                             Icons.shuffle,
                             size: 16,
-                            color: getTextColorForBackground(Theme.of(context).primaryColor),
+                            color: getTextColorForBackground(
+                                Theme.of(context).primaryColor),
                           )
                         : Icon(
                             Icons.shuffle,
@@ -291,7 +292,10 @@ class _PlayerScreenState extends State<PlayerScreen>
                     width: 35,
                     height: 35,
                     decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColorDark,
+                        color: playerController.repeatButtonState.value ==
+                                RepeatState.off
+                            ? Theme.of(context).primaryColorDark
+                            : Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(100)),
                     child: playerController.repeatButtonState.value ==
                             RepeatState.off
@@ -305,12 +309,12 @@ class _PlayerScreenState extends State<PlayerScreen>
                             ? Icon(
                                 Icons.repeat_one_rounded,
                                 size: 16,
-                                color: Theme.of(context).iconTheme.color,
+                                color: getTextColorForBackground(Theme.of(context).primaryColor),
                               )
                             : Icon(
                                 Icons.repeat,
                                 size: 16,
-                                color: Theme.of(context).primaryColor,
+                                color: getTextColorForBackground(Theme.of(context).primaryColor),
                               ),
                   ),
                 ),
