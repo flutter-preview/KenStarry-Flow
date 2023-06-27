@@ -327,8 +327,14 @@ class _PlayerScreenState extends State<PlayerScreen>
 
           //  slider
           Obx(() => ProgressBar(
-              progress: playerController.progressElapsed.value,
-              total: playerController.progressDuration.value,)),
+                progress: playerController.progressElapsed.value,
+                total: playerController.progressDuration.value,
+                timeLabelLocation: TimeLabelLocation.sides,
+                timeLabelTextStyle: Theme.of(context).textTheme.bodySmall,
+                onSeek: (dur) {
+                  playerController.seekSong(seconds: dur.inSeconds);
+                },
+              )),
 
           //  quick actions
           Row(
