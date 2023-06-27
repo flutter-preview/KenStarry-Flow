@@ -11,6 +11,7 @@ class MyAudioHandler extends BaseAudioHandler {
 
   List<MediaItem> songsMediaItems = [];
   final _playlistQueue = ConcatenatingAudioSource(children: []);
+  var currentRepeatMode = AudioServiceRepeatMode.none;
 
   MyAudioHandler() {
     _loadEmptyPlaylist();
@@ -57,6 +58,8 @@ class MyAudioHandler extends BaseAudioHandler {
   /// Repeat Mode
   @override
   Future<void> setRepeatMode(AudioServiceRepeatMode repeatMode) async {
+    currentRepeatMode = repeatMode;
+
     switch (repeatMode) {
       case AudioServiceRepeatMode.none:
         _player.setLoopMode(LoopMode.off);
@@ -72,7 +75,25 @@ class MyAudioHandler extends BaseAudioHandler {
   }
 
   @override
-  Future<void> skipToNext() async => await _player.seekToNext();
+  Future<void> skipToNext() async {
+    //  reset playback loop mode
+    _player.setLoopMode(LoopMode.off);
+
+    await _player.seekToNext();
+
+    switch (currentRepeatMode) {
+      case AudioServiceRepeatMode.none:
+        _player.setLoopMode(LoopMode.off);
+        break;
+      case AudioServiceRepeatMode.one:
+        _player.setLoopMode(LoopMode.one);
+        break;
+      case AudioServiceRepeatMode.group:
+      case AudioServiceRepeatMode.all:
+        _player.setLoopMode(LoopMode.all);
+        break;
+    }
+  }
 
   @override
   Future<void> skipToPrevious() async => await _player.seekToPrevious();
