@@ -1,3 +1,5 @@
+import 'package:audio_service/audio_service.dart';
+import 'package:flow/core/utils/songs_to_media_items.dart';
 import 'package:flow/features/feature_artists/domain/use_cases/artists_use_cases.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
@@ -12,7 +14,7 @@ class ArtistsController extends GetxController {
   /// All Artists
   final artists = <ArtistModel>[].obs;
 
-  final artistSongs = <SongModel>[].obs;
+  final artistSongs = <MediaItem>[].obs;
 
   void setArtists({required List<ArtistModel> artists}) =>
       this.artists.value = artists;
@@ -25,7 +27,7 @@ class ArtistsController extends GetxController {
       {required ArtistModel artist, required List<SongModel> songs}) {
     //  filter the songs
     final filteredList = songs.where((song) => song.artistId == artist.id).toList();
-    artistSongs.value = filteredList;
+    artistSongs.value = songsToMediaItems(songs: songs);
   }
 
   /// Get Artist songs total duration

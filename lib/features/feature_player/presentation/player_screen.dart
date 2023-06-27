@@ -95,20 +95,20 @@ class _PlayerScreenState extends State<PlayerScreen>
                   width: double.infinity,
                   height: 50,
                   child: Marquee(
-                    text: widget
-                        .songs[playerController.currentPlayingSongIndex.value!]
-                        .displayNameWOExt,
+                    text: playerController.mediaItems
+                        .elementAt(
+                            playerController.currentPlayingSongIndex.value!)
+                        .title,
                     style: Theme.of(context).textTheme.bodyLarge,
                     pauseAfterRound: const Duration(seconds: 1),
                     crossAxisAlignment: CrossAxisAlignment.center,
                   ),
                 ),
                 Text(
-                    widget
-                            .songs[
-                                playerController.currentPlayingSongIndex.value!]
-                            .artist ??
-                        "Unknown Artist",
+                    playerController.mediaItems
+                        .elementAt(
+                        playerController.currentPlayingSongIndex.value!)
+                        .artist ?? "Unknow Artist",
                     style: Theme.of(context).textTheme.bodySmall)
               ],
             ),
@@ -128,7 +128,7 @@ class _PlayerScreenState extends State<PlayerScreen>
                   children: [
                     Text(
                       "${(playerController.currentPlayingSongIndex.value! + 1).toString().addCommas} / "
-                      "${widget.songs.length.toString().addCommas}",
+                      "${playerController.mediaItems.length.toString().addCommas}",
                       style: Theme.of(context).textTheme.bodySmall,
                     )
                   ],

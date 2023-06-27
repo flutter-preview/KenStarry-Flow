@@ -1,5 +1,7 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flow/core/utils/hive_utils.dart';
+import 'package:flow/core/utils/songs_to_media_items.dart';
 import 'package:flow/di/locator.dart';
 import 'package:flow/features/feature_playlist/domain/use_case/playlist_use_cases.dart';
 import 'package:get/get.dart';
@@ -20,7 +22,7 @@ class PlaylistController extends GetxController {
 
   // VIEW PLAYLIST SCREEN
   final selectedPlaylistIndex = 0.obs;
-  final playlistSongs = <SongModel>[].obs;
+  final playlistSongs = <MediaItem>[].obs;
 
   final doesPlaylistExist = false.obs;
   final isPlaylistFieldEmpty = false.obs;
@@ -33,7 +35,7 @@ class PlaylistController extends GetxController {
         .toList();
 
     playlistSongs.clear();
-    playlistSongs.addAll(filteredSongs);
+    playlistSongs.addAll(songsToMediaItems(songs: filteredSongs));
   }
 
   void setSelectedPlaylistIndex({required int index}) =>

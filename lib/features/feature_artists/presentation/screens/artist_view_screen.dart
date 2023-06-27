@@ -47,8 +47,8 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
       _artistsController.getArtistSongs(
           artist: widget.artist, songs: _playerController.songs);
 
-      _playerController.setTotalSongsDuration(
-          songs: _artistsController.artistSongs);
+      // _playerController.setTotalSongsDuration(
+      //     songs: _artistsController.artistSongs);
     });
   }
 
@@ -84,8 +84,8 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
                         artist: _artistsController.artists[page],
                         songs: _playerController.songs);
 
-                    _playerController.setTotalSongsDuration(
-                        songs: _artistsController.artistSongs);
+                    // _playerController.setTotalSongsDuration(
+                    //     songs: _artistsController.artistSongs);
                   },
                 ),
               ),

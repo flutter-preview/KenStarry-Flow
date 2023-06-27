@@ -195,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding:
                         const EdgeInsets.only(top: 8.0, bottom: 8, left: 8, right: 24),
                         child: SongCard(
-                          song: songs[index],
+                          song: _playerController.mediaItems[index],
                           songIndex: index,
                           coreController: _coreController,
                           playerController: _playerController,
