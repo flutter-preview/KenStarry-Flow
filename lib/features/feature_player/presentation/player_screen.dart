@@ -2,6 +2,7 @@ import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/di/locator.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:marquee/marquee.dart';
@@ -30,6 +31,7 @@ class _PlayerScreenState extends State<PlayerScreen>
     with TickerProviderStateMixin {
   final PlayerController playerController = Get.find();
   late final AnimationController _animationController;
+  late final FToast _toast;
 
   @override
   void initState() {
@@ -37,6 +39,8 @@ class _PlayerScreenState extends State<PlayerScreen>
 
     _animationController =
         AnimationController(duration: const Duration(seconds: 1), vsync: this);
+
+    _toast = FToast();
   }
 
   @override

@@ -11,6 +11,7 @@ import 'package:flow/features/feature_home/domain/use_case/play_prev_song_use_ca
 import 'package:flow/features/feature_home/domain/use_case/play_song_at_index_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/play_song_use_case.dart';
 import 'package:flow/features/feature_home/domain/use_case/seek_song_use_case.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
