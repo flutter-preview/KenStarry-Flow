@@ -139,6 +139,11 @@ class PlayerController extends GetxController {
     repeatButtonState.value = RepeatState.values[next];
   }
 
+  /// Set Speed
+  void setSpeed({required double speed}) {
+    playerUseCases.setSpeedUseCase.invoke(speed: speed);
+  }
+
   void setTotalSongsDuration({required List<SongModel> songs}) {
     var durations = songs.map((song) => song.duration);
     var totalDuration =

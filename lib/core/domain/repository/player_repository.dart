@@ -34,6 +34,9 @@ abstract class PlayerRepository {
   /// Repeat
   void repeat({required RepeatState repeatState});
 
+  /// Speed
+  void setSpeed({required double speed});
+
   /// Check if song is playing
   void isSongPlaying({required void Function(PlayerStates) onStateChanged});
 

@@ -144,6 +144,11 @@ class PlayerRepositoryImpl implements PlayerRepository {
   }
 
   @override
+  void setSpeed({required double speed}) {
+    _audioHandler.setSpeed(speed);
+  }
+
+  @override
   void isSongPlaying({required void Function(PlayerStates) onStateChanged}) {
     try {
       _audioHandler.playbackState.listen((state) {
