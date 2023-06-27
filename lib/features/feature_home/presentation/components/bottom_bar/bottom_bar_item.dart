@@ -1,3 +1,4 @@
+import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,12 +17,12 @@ Widget bottomBarItem(
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(24),
-                    color: Theme.of(Get.context!).primaryColorDark
+                    color: Theme.of(Get.context!).primaryColor
                   ),
                   child: Icon(
                     icon,
                     size: 22,
-                    color: Theme.of(Get.context!).primaryColor,
+                    color: getTextColorForBackground(Theme.of(Get.context!).primaryColor),
                   ),
                 )
               : Icon(
