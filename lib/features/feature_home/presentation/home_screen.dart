@@ -1,8 +1,8 @@
 import 'package:azlistview/azlistview.dart';
-import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flow/core/presentation/components/show_player_bottom_sheet.dart';
 import 'package:flow/core/presentation/controller/core_controller.dart';
 import 'package:flow/core/domain/models/player_states.dart';
+import 'package:flow/core/presentation/controller/user_controller.dart';
 import 'package:flow/features/feature_home/presentation/components/song_card.dart';
 import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
@@ -14,8 +14,6 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '../../../core/presentation/components/show_toast.dart';
-import '../../../core/utils/extensions/color_extensions.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -30,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late final PlayerController _playerController;
   late final CoreController _coreController;
   late final HomeController _homeController;
+  late final UserController _userController;
   late final ItemScrollController _scrollController;
   late final FToast _toast;
 
@@ -40,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _playerController = Get.find();
     _coreController = Get.find();
     _homeController = Get.find();
+    _userController = Get.find();
     _scrollController = ItemScrollController();
     _toast = FToast();
     _toast.init(context);

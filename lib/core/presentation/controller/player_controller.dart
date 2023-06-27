@@ -57,6 +57,8 @@ class PlayerController extends GetxController {
     _listenToTotalDuration();
   }
 
+  void setCurrentPlayingSongIndex({required int index}) => currentPlayingSongIndex.value = index;
+
   /// Listen To Playlist changed from audio handler
   void _listenToChangesInPlaylist() {
     _audioHandler.queue.listen((playlist) {

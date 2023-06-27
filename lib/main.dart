@@ -1,5 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flow/core/domain/models/user.dart';
+import 'package:flow/core/domain/models/user_player_prefs.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flow/core/presentation/controller/user_controller.dart';
 import 'package:flow/core/utils/extensions/color_extensions.dart';
@@ -101,12 +102,12 @@ class _MyAppState extends State<MyApp> {
             title: "Flow",
             home: MainScreen(),
             theme: MyTheme(
-                    accent:
-                        _themeController.selectedAccentColorHex.value.toColor as Color)
+                    accent: _themeController
+                        .selectedAccentColorHex.value.toColor as Color)
                 .lightTheme,
             darkTheme: MyTheme(
-                    accent:
-                        _themeController.selectedAccentColorHex.value.toColor as Color)
+                    accent: _themeController
+                        .selectedAccentColorHex.value.toColor as Color)
                 .darkTheme,
             themeMode: userPrefs?.themeType == 'Light Theme'
                 ? ThemeMode.light
