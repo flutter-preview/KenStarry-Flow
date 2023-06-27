@@ -69,7 +69,7 @@ class _PlayerScreenState extends State<PlayerScreen>
                   child: QueryArtworkWidget(
                     id: playerController.mediaItemsInitial
                         .elementAt(
-                        playerController.currentPlayingSongIndex.value!)
+                            playerController.currentPlayingSongIndex.value!)
                         .extras!['imageUrl'],
                     keepOldArtwork: true,
                     type: ArtworkType.AUDIO,
@@ -168,15 +168,16 @@ class _PlayerScreenState extends State<PlayerScreen>
                         msg: "Shuffle off");
                   }
                 },
-                child: Container(
-                  width: 35,
-                  height: 35,
-                  decoration: BoxDecoration(
-                      color: playerController.isShuffleModeEnabled.value ? Theme.of(context).primaryColor
-                      : Theme.of(context).primaryColorDark,
-                      borderRadius: BorderRadius.circular(100)),
-                  child: Obx(
-                    () => playerController.isShuffleModeEnabled.value
+                child: Obx(
+                  () => Container(
+                    width: 35,
+                    height: 35,
+                    decoration: BoxDecoration(
+                        color: playerController.isShuffleModeEnabled.value
+                            ? Theme.of(context).primaryColor
+                            : Theme.of(context).primaryColorDark,
+                        borderRadius: BorderRadius.circular(100)),
+                    child: playerController.isShuffleModeEnabled.value
                         ? const Icon(
                             Icons.shuffle,
                             size: 16,
@@ -212,7 +213,6 @@ class _PlayerScreenState extends State<PlayerScreen>
                         ),
                       ),
                     ),
-
                     InkWell(
                         onTap: () {
                           //  play or pause music
@@ -240,7 +240,6 @@ class _PlayerScreenState extends State<PlayerScreen>
                                 color: Theme.of(context).primaryColor,
                               ),
                             ))),
-
                     InkWell(
                       onTap: widget.onNextSong,
                       borderRadius: BorderRadius.circular(100),
