@@ -326,14 +326,19 @@ class _PlayerScreenState extends State<PlayerScreen>
           Obx(
             () => Row(
               children: [
-                SizedBox(
-                  width: 40,
-                  child: Text(
-                    playerController.position.value,
-                    style: Theme.of(context).textTheme.bodySmall,
+                Expanded(
+                  flex: 1,
+                  child: Align(
+                    alignment: AlignmentDirectional.center,
+                    child: Text(
+                      playerController.position.value,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   ),
                 ),
+                
                 Expanded(
+                  flex: 5,
                     child: Slider(
                   value: playerController.sliderValue.value,
                   min: const Duration(seconds: 0).inSeconds.toDouble(),
@@ -355,11 +360,15 @@ class _PlayerScreenState extends State<PlayerScreen>
                   activeColor: Theme.of(context).primaryColor,
                   inactiveColor: Theme.of(context).primaryColorDark,
                 )),
-                SizedBox(
-                  width: 40,
-                  child: Text(
-                    playerController.duration.value,
-                    style: Theme.of(context).textTheme.bodySmall,
+                
+                Expanded(
+                  flex: 1,
+                  child: Align(
+                    alignment: AlignmentDirectional.center,
+                    child: Text(
+                      playerController.duration.value,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   ),
                 )
               ],
