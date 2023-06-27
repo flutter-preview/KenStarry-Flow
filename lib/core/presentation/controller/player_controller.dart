@@ -1,7 +1,9 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:azlistview/azlistview.dart';
+import 'package:flow/core/domain/models/repeat_state.dart';
 import 'package:flow/core/domain/models/user.dart';
 import 'package:flow/core/presentation/controller/user_controller.dart';
+import 'package:flow/core/presentation/notifiers/repeat_button_notifier.dart';
 import 'package:flow/core/utils/math_utils.dart';
 import 'package:flow/core/utils/songs_to_media_items.dart';
 import 'package:flow/features/feature_home/domain/model/az_item.dart';
@@ -38,6 +40,7 @@ class PlayerController extends GetxController {
   // Index of the currently playing song
   final Rx<int?> currentPlayingSongIndex = 0.obs;
   final playerState = PlayerStates.stopped.obs;
+  final repeatButtonState = RepeatState.off.obs;
   final isShuffleModeEnabled = false.obs;
 
   @override
@@ -121,8 +124,12 @@ class PlayerController extends GetxController {
   }
 
   /// Repeat Mode
-  void repeat() {
+  void repeat() {}
 
+  //  move to the next state
+  void nextRepeatState() {
+    final next = (repeatButtonState.value.index + 1) % RepeatState.values.length;
+    repeatButtonState.value = RepeatState.values[next];
   }
 
   void setTotalSongsDuration({required List<SongModel> songs}) {
