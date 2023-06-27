@@ -27,6 +27,9 @@ abstract class PlayerRepository {
   /// Seek song using slider
   void seekSong({required int seconds});
 
+  /// Shuffle Songs
+  void shuffle({required bool isShuffleModeEnabled});
+
   /// Check if song is playing
   void isSongPlaying({required void Function(PlayerStates) onStateChanged});
 

@@ -11,7 +11,7 @@ import '../../../di/locator.dart';
 class PlayerRepositoryImpl implements PlayerRepository {
   final audioQuery = locator.get<OnAudioQuery>();
   final audioPlayer = locator.get<AudioPlayer>();
-  final audioHandler = locator.get<AudioHandler>();
+  final _audioHandler = locator.get<AudioHandler>();
 
   @override
   Future<bool> checkPermission() async {
@@ -38,7 +38,7 @@ class PlayerRepositoryImpl implements PlayerRepository {
   @override
   Future<void> playSong() async {
     try {
-      await audioHandler.play();
+      await _audioHandler.play();
     } on Exception catch (error) {
       throw Exception(error);
     }
@@ -47,7 +47,7 @@ class PlayerRepositoryImpl implements PlayerRepository {
   @override
   Future<void> playSongAtIndex({required int index}) async {
     try {
-      await audioHandler.skipToQueueItem(index);
+      await _audioHandler.skipToQueueItem(index);
     } on Exception catch (error) {
       throw Exception(error);
     }
@@ -56,7 +56,7 @@ class PlayerRepositoryImpl implements PlayerRepository {
   @override
   Future<void> pauseSong() async {
     try {
-      await audioHandler.pause();
+      await _audioHandler.pause();
     } on Exception catch (error) {
       throw Exception(error);
     }
@@ -65,7 +65,7 @@ class PlayerRepositoryImpl implements PlayerRepository {
   @override
   Future<void> playNextSong() async {
     try {
-      await audioHandler.skipToNext();
+      await _audioHandler.skipToNext();
     } on Exception catch (error) {
       throw Exception(error);
     }
@@ -74,7 +74,7 @@ class PlayerRepositoryImpl implements PlayerRepository {
   @override
   Future<void> playPrevSong() async {
     try {
-      await audioHandler.skipToPrevious();
+      await _audioHandler.skipToPrevious();
     } on Exception catch (error) {
       throw Exception(error);
     }
@@ -83,13 +83,20 @@ class PlayerRepositoryImpl implements PlayerRepository {
   @override
   void seekSong({required int seconds}) {
     var duration = Duration(seconds: seconds);
-    audioHandler.seek(duration);
+    _audioHandler.seek(duration);
+  }
+
+  @override
+  void shuffle({required bool isShuffleModeEnabled}) {
+    isShuffleModeEnabled
+        ? _audioHandler.setShuffleMode(AudioServiceShuffleMode.all)
+        : _audioHandler.setShuffleMode(AudioServiceShuffleMode.none);
   }
 
   @override
   void isSongPlaying({required void Function(PlayerStates) onStateChanged}) {
     try {
-      audioHandler.playbackState.listen((state) {
+      _audioHandler.playbackState.listen((state) {
         if (state.playing) {
           onStateChanged(PlayerStates.playing);
         } else {

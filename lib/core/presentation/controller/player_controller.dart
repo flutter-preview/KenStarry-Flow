@@ -82,7 +82,7 @@ class PlayerController extends GetxController {
     });
   }
 
-  /// Get Currently Playing Media Item from Audio Handler
+  /// Listen to Currently Playing Media Item from Audio Handler
   void _listenToChangesInSong() {
     _audioHandler.mediaItem.listen((mediaItem) {
       currentPlayingSongIndex.value = mediaItemsInitial.indexOf(mediaItem!);
@@ -113,9 +113,8 @@ class PlayerController extends GetxController {
     //  change shuffle mode
     isShuffleModeEnabled.value = enable;
 
-    enable
-        ? _audioHandler.setShuffleMode(AudioServiceShuffleMode.all)
-        : _audioHandler.setShuffleMode(AudioServiceShuffleMode.none);
+    playerUseCases.shuffleUseCase
+        .invoke(isShuffleModeEnabled: enable);
   }
 
   void disableShuffle() {
@@ -144,7 +143,8 @@ class PlayerController extends GetxController {
 
   //  move to the next state
   void nextRepeatState() {
-    final next = (repeatButtonState.value.index + 1) % RepeatState.values.length;
+    final next =
+        (repeatButtonState.value.index + 1) % RepeatState.values.length;
     repeatButtonState.value = RepeatState.values[next];
   }
 
@@ -202,7 +202,6 @@ class PlayerController extends GetxController {
 
   /// Next Song
   Future<void> playNextSong({required int index}) async {
-
     //  turn off repeat and turn it on for the current song
     final currentRepeatState = repeatButtonState.value;
 
@@ -228,7 +227,6 @@ class PlayerController extends GetxController {
 
   /// Prev Song
   Future<void> playPrevSong({required int index}) async {
-
     //  turn off repeat and turn it on for the current song
     final currentRepeatState = repeatButtonState.value;
     //  turn off repeat

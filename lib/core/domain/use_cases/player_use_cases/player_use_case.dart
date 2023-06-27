@@ -6,6 +6,7 @@ import 'package:flow/core/domain/use_cases/player_use_cases/play_prev_song_use_c
 import 'package:flow/core/domain/use_cases/player_use_cases/play_song_at_index_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/play_song_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/seek_song_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/shuffle_use_case.dart';
 
 import 'is_song_playing_use_case.dart';
 import 'observe_song_dur_use_case.dart';
@@ -17,6 +18,7 @@ class PlayerUseCases {
   final PlaySongUseCase playSongUseCase;
   final PauseSongUseCase pauseSongUseCase;
   final SeekSongUseCase seekSongUseCase;
+  final ShuffleUseCase shuffleUseCase;
   final IsSongPlayingUseCase isSongPlayingUseCase;
   final ObserveSongDurUseCase observeSongDurUseCase;
   final ObserveSongPosUseCase observeSongPosUseCase;
@@ -30,6 +32,7 @@ class PlayerUseCases {
       required this.playSongUseCase,
       required this.pauseSongUseCase,
       required this.seekSongUseCase,
+      required this.shuffleUseCase,
       required this.isSongPlayingUseCase,
       required this.observeSongDurUseCase,
       required this.observeSongPosUseCase,

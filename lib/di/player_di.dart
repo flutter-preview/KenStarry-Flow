@@ -11,6 +11,7 @@ import 'package:flow/core/domain/use_cases/player_use_cases/play_prev_song_use_c
 import 'package:flow/core/domain/use_cases/player_use_cases/play_song_at_index_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/play_song_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/seek_song_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/shuffle_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
@@ -48,6 +49,7 @@ Future<void> playerDI({required GetIt locator}) async {
       playSongUseCase: PlaySongUseCase(),
       pauseSongUseCase: PauseSongUseCase(),
       seekSongUseCase: SeekSongUseCase(),
+      shuffleUseCase: ShuffleUseCase(),
       isSongPlayingUseCase: IsSongPlayingUseCase(),
       observeSongDurUseCase: ObserveSongDurUseCase(),
       observeSongPosUseCase: ObserveSongPosUseCase(),
