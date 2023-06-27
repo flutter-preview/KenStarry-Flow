@@ -100,33 +100,19 @@ SliverAppBar myAppBar({required FToast toast}) {
               InkWell(
                 borderRadius: BorderRadius.circular(100),
                 onTap: () {
-                  if (playerController.mediaItemsInitial.isNotEmpty) {
-                    //  play or pause music
-                    if (playerController.playerState.value ==
-                        PlayerStates.playing) {
-                      playerController.pauseSong();
-                    } else {
-                      //  play first song
-                      playerController.playSongAtIndex(index: 0);
-                    }
-                  }
+                  //  open library options
                 },
-                child: Obx(
-                      () => Ink(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: Theme.of(Get.context!).primaryColorDark,
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Icon(
-                        playerController.playerState.value ==
-                            PlayerStates.playing
-                            ? Icons.pause_rounded
-                            : Icons.play_arrow_rounded,
-                        color: Theme.of(Get.context!).primaryColor,
-                        size: 32,
-                      )),
-                ),
+                child: Ink(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: Theme.of(Get.context!).primaryColorDark,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                      color: Theme.of(Get.context!).primaryColor,
+                      size: 32,
+                    ))
               ),
             ],
           ),
