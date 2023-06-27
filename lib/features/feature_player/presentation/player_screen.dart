@@ -260,6 +260,12 @@ class _PlayerScreenState extends State<PlayerScreen>
               GestureDetector(
                 onTap: () {
                   playerController.repeat();
+
+                  switch (playerController.repeatButtonState.value) {
+                    case RepeatState.off:
+                    case RepeatState.repeatSong:
+                    case RepeatState.repeatPlaylist:
+                  }
                 },
                 child: Obx(
                   () => Container(
