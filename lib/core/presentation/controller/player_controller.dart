@@ -15,7 +15,7 @@ import '../../../di/locator.dart';
 import '../../domain/models/player_states.dart';
 
 class PlayerController extends GetxController {
-  final homeUseCases = locator.get<PlayerUseCases>();
+  final playerUseCases = locator.get<PlayerUseCases>();
   final _audioHandler = locator.get<AudioHandler>();
   final _userController = Get.find<UserController>();
 
@@ -187,17 +187,17 @@ class PlayerController extends GetxController {
   ///  Play Song
   Future<void> playSong({required int index}) async {
     currentPlayingSongIndex.value = index;
-    await homeUseCases.playSongUseCase.invoke();
+    await playerUseCases.playSongUseCase.invoke();
   }
 
   /// Play Song At Index
   Future<void> playSongAtIndex({required int index}) async {
-    await homeUseCases.playSongAtIndexUseCase.invoke(index: index);
+    await playerUseCases.playSongAtIndexUseCase.invoke(index: index);
   }
 
   /// Pause Song
   Future<void> pauseSong() async {
-    await homeUseCases.pauseSongUseCase.invoke();
+    await playerUseCases.pauseSongUseCase.invoke();
   }
 
   /// Next Song
@@ -210,7 +210,7 @@ class PlayerController extends GetxController {
     _audioHandler.setRepeatMode(AudioServiceRepeatMode.none);
 
     currentPlayingSongIndex.value = index;
-    await homeUseCases.playNextSongUseCase.invoke();
+    await playerUseCases.playNextSongUseCase.invoke();
 
     //  turn on repeat
     switch (currentRepeatState) {
@@ -235,7 +235,7 @@ class PlayerController extends GetxController {
     _audioHandler.setRepeatMode(AudioServiceRepeatMode.none);
 
     currentPlayingSongIndex.value = index;
-    await homeUseCases.playPrevSongUseCase.invoke();
+    await playerUseCases.playPrevSongUseCase.invoke();
 
     //  turn on repeat
     switch (currentRepeatState) {
@@ -253,19 +253,19 @@ class PlayerController extends GetxController {
 
   /// Seek Song
   void seekSong({required int seconds}) {
-    homeUseCases.seekSongUseCase.invoke(seconds: seconds);
+    playerUseCases.seekSongUseCase.invoke(seconds: seconds);
   }
 
   /// Get Songs
   Future<List<SongModel>> getSongs() async {
-    var songs = await homeUseCases.getSongsUseCase.invoke();
+    var songs = await playerUseCases.getSongsUseCase.invoke();
     this.songs.value = songs;
     totalSongs.value = songs.length;
     return songs;
   }
 
   /// Check if song is playing
-  void isSongPlaying() => homeUseCases.isSongPlayingUseCase
+  void isSongPlaying() => playerUseCases.isSongPlayingUseCase
       .invoke(onStateChanged: (state) => playerState.value = state);
 
   /// Disposing our Audio Player
@@ -281,7 +281,7 @@ class PlayerController extends GetxController {
   /// Check Storage Permission
   Future<void> checkPermission() async {
     //  request access to storage
-    var isStorageGranted = await homeUseCases.checkPermissionUseCase.invoke();
+    var isStorageGranted = await playerUseCases.checkPermissionUseCase.invoke();
 
     if (isStorageGranted) {
       //  save the value to the database
