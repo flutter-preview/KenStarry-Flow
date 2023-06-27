@@ -203,7 +203,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           onSongTapped: () {
 
                             //  DISABLE SHUFFLE MODE
-                            _playerController.disableShuffle();
+                            if (_playerController.isShuffleModeEnabled.value) {
+                              _playerController.disableShuffle();
+                              //  Reenable shuffle
+                              _playerController.shuffle();
+                            }
 
                             if (_playerController.playerState.value ==
                                 PlayerStates.playing &&
