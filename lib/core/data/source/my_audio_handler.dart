@@ -53,6 +53,16 @@ class MyAudioHandler extends BaseAudioHandler {
     return super.stop();
   }
 
+  /// Custom Actions
+  @override
+  Future customAction(String name, [Map<String, dynamic>? extras]) async {
+    //  dispose the player
+    if (name == 'dispose') {
+      await _player.dispose();
+      super.stop();
+    }
+  }
+
   /// Shuffle
   @override
   Future<void> setShuffleMode(AudioServiceShuffleMode shuffleMode) async {
