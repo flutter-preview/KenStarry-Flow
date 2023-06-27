@@ -1,3 +1,4 @@
+import 'package:flow/core/domain/models/repeat_state.dart';
 import 'package:flow/core/presentation/components/show_toast.dart';
 import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/di/locator.dart';
@@ -112,9 +113,10 @@ class _PlayerScreenState extends State<PlayerScreen>
                 ),
                 Text(
                     playerController.mediaItemsInitial
-                        .elementAt(
-                        playerController.currentPlayingSongIndex.value!)
-                        .artist ?? "Unknow Artist",
+                            .elementAt(
+                                playerController.currentPlayingSongIndex.value!)
+                            .artist ??
+                        "Unknow Artist",
                     style: Theme.of(context).textTheme.bodySmall)
               ],
             ),
@@ -154,9 +156,15 @@ class _PlayerScreenState extends State<PlayerScreen>
                   playerController.shuffle();
 
                   if (playerController.isShuffleModeEnabled.value) {
-                    showToast(toast: _toast, iconData: Icons.shuffle_rounded, msg: "Shuffle on");
+                    showToast(
+                        toast: _toast,
+                        iconData: Icons.shuffle_rounded,
+                        msg: "Shuffle on");
                   } else {
-                    showToast(toast: _toast, iconData: Icons.shuffle_rounded, msg: "Shuffle off");
+                    showToast(
+                        toast: _toast,
+                        iconData: Icons.shuffle_rounded,
+                        msg: "Shuffle off");
                   }
                 },
                 child: Container(
@@ -250,17 +258,35 @@ class _PlayerScreenState extends State<PlayerScreen>
 
               //  repeat playback
               GestureDetector(
-                onTap: (){},
-                child: Container(
-                  width: 35,
-                  height: 35,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorDark,
-                      borderRadius: BorderRadius.circular(100)),
-                  child: Icon(
-                    Icons.repeat,
-                    size: 16,
-                    color: Theme.of(context).iconTheme.color,
+                onTap: () {
+                  playerController.repeat();
+                },
+                child: Obx(
+                  () => Container(
+                    width: 35,
+                    height: 35,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColorDark,
+                        borderRadius: BorderRadius.circular(100)),
+                    child: playerController.repeatButtonState.value ==
+                            RepeatState.off
+                        ? Icon(
+                            Icons.repeat,
+                            size: 16,
+                            color: Theme.of(context).iconTheme.color,
+                          )
+                        : playerController.repeatButtonState.value ==
+                                RepeatState.repeatSong
+                            ? Icon(
+                                Icons.repeat_one_rounded,
+                                size: 16,
+                                color: Theme.of(context).iconTheme.color,
+                              )
+                            : Icon(
+                                Icons.repeat,
+                                size: 16,
+                                color: Theme.of(context).primaryColor,
+                              ),
                   ),
                 ),
               ),
