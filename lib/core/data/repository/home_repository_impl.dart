@@ -1,12 +1,12 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flow/features/feature_home/domain/model/player_states.dart';
-import 'package:flow/features/feature_home/domain/repository/home_repository.dart';
+import 'package:flow/core/domain/repository/home_repository.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_query_platform_interface/src/models/song_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../../../di/locator.dart';
+import '../../../di/locator.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
   final audioQuery = locator.get<OnAudioQuery>();

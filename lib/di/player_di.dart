@@ -17,8 +17,8 @@ import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 import '../core/data/source/my_audio_handler.dart';
-import '../features/feature_home/data/repository/home_repository_impl.dart';
-import '../features/feature_home/domain/repository/home_repository.dart';
+import '../core/data/repository/home_repository_impl.dart';
+import '../core/domain/repository/home_repository.dart';
 
 /// ORDER MATTERS!!
 Future<void> playerDI({required GetIt locator}) async {

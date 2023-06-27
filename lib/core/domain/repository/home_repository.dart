@@ -1,7 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-import '../model/player_states.dart';
+import '../../../features/feature_home/domain/model/player_states.dart';
 
 abstract class HomeRepository {
   /// Check Storage Permission

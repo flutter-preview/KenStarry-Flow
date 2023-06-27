@@ -1,5 +1,5 @@
 import 'package:audio_service/audio_service.dart';
-import 'package:flow/features/feature_home/domain/repository/home_repository.dart';
+import 'package:flow/core/domain/repository/home_repository.dart';
 
 import '../../../../di/locator.dart';
 
