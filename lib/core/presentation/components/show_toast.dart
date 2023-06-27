@@ -4,26 +4,29 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 Widget customToast({required IconData iconData, required String msg}) =>
-    Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: Theme.of(Get.context!).primaryColorDark),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            iconData,
-            color: Theme.of(Get.context!).primaryColor,
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          Text(
-            msg,
-            style: Theme.of(Get.context!).textTheme.bodyMedium,
-          )
-        ],
+    IgnorePointer(
+      ignoring: true,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: Theme.of(Get.context!).primaryColorDark),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              iconData,
+              color: Theme.of(Get.context!).primaryColor,
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            Text(
+              msg,
+              style: Theme.of(Get.context!).textTheme.bodyMedium,
+            )
+          ],
+        ),
       ),
     );
 
