@@ -1,5 +1,6 @@
 import 'package:flow/core/domain/models/repeat_state.dart';
 import 'package:flow/core/presentation/components/show_toast.dart';
+import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/di/locator.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
@@ -178,10 +179,10 @@ class _PlayerScreenState extends State<PlayerScreen>
                             : Theme.of(context).primaryColorDark,
                         borderRadius: BorderRadius.circular(100)),
                     child: playerController.isShuffleModeEnabled.value
-                        ? const Icon(
+                        ? Icon(
                             Icons.shuffle,
                             size: 16,
-                            color: Colors.white,
+                            color: getTextColorForBackground(Theme.of(context).primaryColor),
                           )
                         : Icon(
                             Icons.shuffle,
