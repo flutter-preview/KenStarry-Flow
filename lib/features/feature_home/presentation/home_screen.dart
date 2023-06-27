@@ -201,6 +201,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           coreController: _coreController,
                           playerController: _playerController,
                           onSongTapped: () {
+
+                            //  DISABLE SHUFFLE MODE
+                            _playerController.disableShuffle();
+
                             if (_playerController.playerState.value ==
                                 PlayerStates.playing &&
                                 _playerController

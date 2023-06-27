@@ -141,7 +141,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
               delegate: SliverChildBuilderDelegate(
                   childCount: _playlistController.playlistSongs.length,
                   (context, index) {
-                var currentSongIndex = _playerController.songs
+                var currentSongIndex = _playerController.mediaItemsInitial
                     .indexOf(_playlistController.playlistSongs[index]);
 
                 return SongCard(
@@ -150,6 +150,10 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                   coreController: _coreController,
                   playerController: _playerController,
                   onSongTapped: () {
+
+                    //  DISABLE SHUFFLE MODE
+                    _playerController.disableShuffle();
+
                     if (_playerController.playerState.value ==
                             PlayerStates.playing &&
                         _playerController.currentPlayingSongIndex.value ==
