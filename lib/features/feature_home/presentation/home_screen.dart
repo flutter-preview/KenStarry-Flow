@@ -110,8 +110,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     InkWell(
                       borderRadius: BorderRadius.circular(100),
                       onTap: () {
-                        if (_playerController.songs.isNotEmpty) {
+                        if (_playerController.mediaItemsInitial.isNotEmpty) {
                           //  start playing the first song
+                          //  TODO Play song index saved in the database
                           _playerController.playSong(index: 0);
                         }
                       },
@@ -190,12 +191,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           )),
                         ),
                       ),
-                      itemCount: _playerController.mediaItemsDynamic.length,
+                      itemCount: _playerController.mediaItemsInitial.length,
                       itemBuilder: (context, index) => Padding(
                         padding:
                         const EdgeInsets.only(top: 8.0, bottom: 8, left: 8, right: 24),
                         child: SongCard(
-                          song: _playerController.mediaItemsDynamic[index],
+                          song: _playerController.mediaItemsInitial[index],
                           songIndex: index,
                           coreController: _coreController,
                           playerController: _playerController,
