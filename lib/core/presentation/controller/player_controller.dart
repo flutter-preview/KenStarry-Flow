@@ -34,6 +34,8 @@ class PlayerController extends GetxController {
   // UI
   final duration = ''.obs;
   final position = ''.obs;
+  final progressDuration = Duration.zero.obs;
+  final progressElapsed = Duration.zero.obs;
   final maxSlider = 0.0.obs;
   final sliderValue = 0.0.obs;
 
@@ -94,6 +96,7 @@ class PlayerController extends GetxController {
     AudioService.position.listen((pos) {
       position.value = pos.toString().split(".")[0];
       sliderValue.value = pos.inSeconds.toDouble();
+      progressElapsed.value = pos;
     });
   }
 
@@ -104,6 +107,8 @@ class PlayerController extends GetxController {
           Duration.zero.toString().split(".")[0];
       maxSlider.value = mediaItem?.duration?.inSeconds.toDouble() ??
           Duration.zero.inSeconds.toDouble();
+
+      progressDuration.value = mediaItem?.duration ?? Duration.zero;
     });
   }
 
@@ -113,8 +118,7 @@ class PlayerController extends GetxController {
     //  change shuffle mode
     isShuffleModeEnabled.value = enable;
 
-    playerUseCases.shuffleUseCase
-        .invoke(isShuffleModeEnabled: enable);
+    playerUseCases.shuffleUseCase.invoke(isShuffleModeEnabled: enable);
   }
 
   void disableShuffle() {

@@ -1,3 +1,4 @@
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flow/core/domain/models/repeat_state.dart';
 import 'package:flow/core/presentation/components/show_toast.dart';
 import 'package:flow/core/utils/extensions/color_extensions.dart';
@@ -309,12 +310,14 @@ class _PlayerScreenState extends State<PlayerScreen>
                             ? Icon(
                                 Icons.repeat_one_rounded,
                                 size: 16,
-                                color: getTextColorForBackground(Theme.of(context).primaryColor),
+                                color: getTextColorForBackground(
+                                    Theme.of(context).primaryColor),
                               )
                             : Icon(
                                 Icons.repeat,
                                 size: 16,
-                                color: getTextColorForBackground(Theme.of(context).primaryColor),
+                                color: getTextColorForBackground(
+                                    Theme.of(context).primaryColor),
                               ),
                   ),
                 ),
@@ -336,31 +339,12 @@ class _PlayerScreenState extends State<PlayerScreen>
                     ),
                   ),
                 ),
-                
+                //  slider
                 Expanded(
                   flex: 5,
-                    child: Slider(
-                  value: playerController.sliderValue.value,
-                  min: const Duration(seconds: 0).inSeconds.toDouble(),
-                  max: playerController.maxSlider.value,
-                  onChanged: (newValue) {
-                    playerController.seekSong(seconds: newValue.toInt());
-                    newValue = newValue;
-
-                    if (playerController.sliderValue.value ==
-                        playerController.maxSlider.value) {
-                      //  go to next song
-                      playerController.playSong(
-                          index:
-                              playerController.currentPlayingSongIndex.value! +
-                                  1);
-                    }
-                  },
-                  thumbColor: Theme.of(context).primaryColor,
-                  activeColor: Theme.of(context).primaryColor,
-                  inactiveColor: Theme.of(context).primaryColorDark,
-                )),
-                
+                    child: Obx(() => ProgressBar(
+                        progress: playerController.progressElapsed.value,
+                        total: playerController.progressDuration.value))),
                 Expanded(
                   flex: 1,
                   child: Align(
