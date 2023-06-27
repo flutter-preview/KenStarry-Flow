@@ -1,5 +1,5 @@
 import 'package:flow/di/locator.dart';
-import 'package:flow/features/feature_home/domain/model/player_states.dart';
+import 'package:flow/core/domain/models/player_states.dart';
 import 'package:flow/core/domain/repository/player_repository.dart';
 
 class IsSongPlayingUseCase {

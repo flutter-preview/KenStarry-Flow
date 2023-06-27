@@ -7,7 +7,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/presentation/components/show_player_bottom_sheet.dart';
-import '../../../feature_home/domain/model/player_states.dart';
+import '../../../../core/domain/models/player_states.dart';
 import '../../../feature_home/presentation/components/song_card.dart';
 
 class ArtistViewList extends StatelessWidget {

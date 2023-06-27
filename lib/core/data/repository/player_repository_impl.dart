@@ -1,5 +1,5 @@
 import 'package:audio_service/audio_service.dart';
-import 'package:flow/features/feature_home/domain/model/player_states.dart';
+import 'package:flow/core/domain/models/player_states.dart';
 import 'package:flow/core/domain/repository/player_repository.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';

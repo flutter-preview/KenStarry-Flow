@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 import '../../../di/locator.dart';
-import '../../../features/feature_home/domain/model/player_states.dart';
+import '../../domain/models/player_states.dart';
 
 class PlayerController extends GetxController {
   final homeUseCases = locator.get<HomeUseCases>();

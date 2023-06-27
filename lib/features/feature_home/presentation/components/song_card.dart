@@ -1,6 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flow/core/presentation/controller/core_controller.dart';
-import 'package:flow/features/feature_home/domain/model/player_states.dart';
+import 'package:flow/core/domain/models/player_states.dart';
 import 'package:flow/features/feature_home/presentation/components/song_card_playing.dart';
 import 'package:flow/features/feature_home/presentation/components/song_card_standard.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';

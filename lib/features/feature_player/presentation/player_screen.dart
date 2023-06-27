@@ -10,7 +10,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-import '../../feature_home/domain/model/player_states.dart';
+import '../../../core/domain/models/player_states.dart';
 
 class PlayerScreen extends StatefulWidget {
   final List<SongModel> songs;

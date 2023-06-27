@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../core/presentation/components/show_player_bottom_sheet.dart';
-import '../../../feature_home/domain/model/player_states.dart';
+import '../../../../core/domain/models/player_states.dart';
 import '../../../feature_home/presentation/components/song_card.dart';
 import '../controller/playlist_controller.dart';
 
