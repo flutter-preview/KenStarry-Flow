@@ -129,20 +129,7 @@ class PlayerController extends GetxController {
   /// Repeat Mode
   void repeat() {
     nextRepeatState();
-
-    final repeatMode = repeatButtonState.value;
-
-    switch (repeatMode) {
-      case RepeatState.off:
-        _audioHandler.setRepeatMode(AudioServiceRepeatMode.none);
-        break;
-      case RepeatState.repeatSong:
-        _audioHandler.setRepeatMode(AudioServiceRepeatMode.one);
-        break;
-      case RepeatState.repeatPlaylist:
-        _audioHandler.setRepeatMode(AudioServiceRepeatMode.all);
-        break;
-    }
+    playerUseCases.repeatUseCase.invoke(repeatState: repeatButtonState.value);
   }
 
   //  move to the next state
