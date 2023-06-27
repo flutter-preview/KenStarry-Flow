@@ -95,7 +95,7 @@ class _PlayerScreenState extends State<PlayerScreen>
                   width: double.infinity,
                   height: 50,
                   child: Marquee(
-                    text: playerController.mediaItems
+                    text: playerController.mediaItemsInitial
                         .elementAt(
                             playerController.currentPlayingSongIndex.value!)
                         .title,
@@ -105,7 +105,7 @@ class _PlayerScreenState extends State<PlayerScreen>
                   ),
                 ),
                 Text(
-                    playerController.mediaItems
+                    playerController.mediaItemsInitial
                         .elementAt(
                         playerController.currentPlayingSongIndex.value!)
                         .artist ?? "Unknow Artist",
@@ -128,7 +128,7 @@ class _PlayerScreenState extends State<PlayerScreen>
                   children: [
                     Text(
                       "${(playerController.currentPlayingSongIndex.value! + 1).toString().addCommas} / "
-                      "${playerController.mediaItems.length.toString().addCommas}",
+                      "${playerController.mediaItemsInitial.length.toString().addCommas}",
                       style: Theme.of(context).textTheme.bodySmall,
                     )
                   ],

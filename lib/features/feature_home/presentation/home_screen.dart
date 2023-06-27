@@ -190,12 +190,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           )),
                         ),
                       ),
-                      itemCount: _playerController.mediaItems.length,
+                      itemCount: _playerController.mediaItemsDynamic.length,
                       itemBuilder: (context, index) => Padding(
                         padding:
                         const EdgeInsets.only(top: 8.0, bottom: 8, left: 8, right: 24),
                         child: SongCard(
-                          song: _playerController.mediaItems[index],
+                          song: _playerController.mediaItemsDynamic[index],
                           songIndex: index,
                           coreController: _coreController,
                           playerController: _playerController,

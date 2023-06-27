@@ -3,6 +3,7 @@ import 'package:azlistview/azlistview.dart';
 import 'package:flow/core/domain/models/user.dart';
 import 'package:flow/core/presentation/controller/user_controller.dart';
 import 'package:flow/core/utils/math_utils.dart';
+import 'package:flow/core/utils/songs_to_media_items.dart';
 import 'package:flow/features/feature_home/domain/model/az_item.dart';
 import 'package:flow/features/feature_home/domain/use_case/home_use_cases.dart';
 import 'package:get/get.dart';
@@ -26,7 +27,7 @@ class PlayerController extends GetxController {
   final totalSongsDuration = ''.obs;
 
   late List<MediaItem> mediaItemsInitial;
-  late List<MediaItem> mediaItems;
+  late List<MediaItem> mediaItemsDynamic;
 
   // UI
   final duration = ''.obs;
@@ -54,7 +55,7 @@ class PlayerController extends GetxController {
     _audioHandler.queue.listen((playlist) {
       if (playlist.isEmpty) return;
       // songs.value = playlist.map((item) => SongModel()).toList();
-      mediaItems = playlist;
+      mediaItemsDynamic = playlist;
     });
   }
 
@@ -78,11 +79,10 @@ class PlayerController extends GetxController {
     });
   }
 
-  /// Listen to Song Changes (Next and Prev)
+  /// Get Currently Playing Media Item from Audio Handler
   void _listenToChangesInSong() {
     _audioHandler.mediaItem.listen((mediaItem) {
-      currentPlayingSongIndex.value = mediaItems.indexOf(mediaItem!);
-      print("CURRENT SONG ${mediaItem.title}");
+      currentPlayingSongIndex.value = mediaItemsInitial.indexOf(mediaItem!);
     });
   }
 
@@ -134,7 +134,9 @@ class PlayerController extends GetxController {
             tag: s.displayNameWOExt[0].toUpperCase()))
         .toList();
 
-    mediaItems = songs
+    mediaItemsInitial = songsToMediaItems(songs: songs);
+
+    mediaItemsDynamic = songs
         .map((song) => MediaItem(
             id: song.id.toString(),
             title: song.displayNameWOExt,
@@ -146,7 +148,7 @@ class PlayerController extends GetxController {
         .toList();
 
     //  Add media to audio handler
-    _audioHandler.addQueueItems(mediaItems);
+    _audioHandler.addQueueItems(mediaItemsDynamic);
   }
 
   ///  Play Song
