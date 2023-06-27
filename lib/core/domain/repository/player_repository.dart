@@ -3,7 +3,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 import '../../../features/feature_home/domain/model/player_states.dart';
 
-abstract class HomeRepository {
+abstract class PlayerRepository {
   /// Check Storage Permission
   Future<bool> checkPermission();
 

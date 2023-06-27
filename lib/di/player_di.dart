@@ -17,8 +17,8 @@ import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 import '../core/data/source/my_audio_handler.dart';
-import '../core/data/repository/home_repository_impl.dart';
-import '../core/domain/repository/home_repository.dart';
+import '../core/data/repository/player_repository_impl.dart';
+import '../core/domain/repository/player_repository.dart';
 
 /// ORDER MATTERS!!
 Future<void> playerDI({required GetIt locator}) async {
@@ -39,7 +39,7 @@ Future<void> playerDI({required GetIt locator}) async {
           androidStopForegroundOnPause: true)));
 
   /// Provide Home Repository
-  locator.registerSingleton<HomeRepository>(HomeRepositoryImpl());
+  locator.registerSingleton<PlayerRepository>(PlayerRepositoryImpl());
 
   /// Provide Home Use Cases
   locator.registerSingleton<HomeUseCases>(HomeUseCases(
