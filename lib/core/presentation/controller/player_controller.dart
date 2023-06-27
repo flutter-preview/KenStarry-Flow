@@ -121,7 +121,9 @@ class PlayerController extends GetxController {
   }
 
   /// Repeat Mode
-  
+  void repeat() {
+
+  }
 
   void setTotalSongsDuration({required List<SongModel> songs}) {
     var durations = songs.map((song) => song.duration);
