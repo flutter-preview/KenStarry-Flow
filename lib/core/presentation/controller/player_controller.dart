@@ -7,7 +7,7 @@ import 'package:flow/core/presentation/notifiers/repeat_button_notifier.dart';
 import 'package:flow/core/utils/math_utils.dart';
 import 'package:flow/core/utils/songs_to_media_items.dart';
 import 'package:flow/features/feature_home/domain/model/az_item.dart';
-import 'package:flow/features/feature_home/domain/use_case/home_use_cases.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/home_use_cases.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 

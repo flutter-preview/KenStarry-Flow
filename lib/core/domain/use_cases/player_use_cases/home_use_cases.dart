@@ -1,11 +1,11 @@
-import 'package:flow/features/feature_home/domain/use_case/check_permission_use_case.dart';
-import 'package:flow/features/feature_home/domain/use_case/get_songs_use_case.dart';
-import 'package:flow/features/feature_home/domain/use_case/pause_song_use_case.dart';
-import 'package:flow/features/feature_home/domain/use_case/play_next_song_use_case.dart';
-import 'package:flow/features/feature_home/domain/use_case/play_prev_song_use_case.dart';
-import 'package:flow/features/feature_home/domain/use_case/play_song_at_index_use_case.dart';
-import 'package:flow/features/feature_home/domain/use_case/play_song_use_case.dart';
-import 'package:flow/features/feature_home/domain/use_case/seek_song_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/check_permission_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/get_songs_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/pause_song_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/play_next_song_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/play_prev_song_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/play_song_at_index_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/play_song_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/seek_song_use_case.dart';
 
 import 'is_song_playing_use_case.dart';
 import 'observe_song_dur_use_case.dart';
