@@ -1,7 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/check_permission_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/get_songs_use_case.dart';
-import 'package:flow/core/domain/use_cases/player_use_cases/home_use_cases.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/player_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/is_song_playing_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/observe_song_dur_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/observe_song_pos_use_case.dart';
@@ -42,7 +42,7 @@ Future<void> playerDI({required GetIt locator}) async {
   locator.registerSingleton<PlayerRepository>(PlayerRepositoryImpl());
 
   /// Provide Home Use Cases
-  locator.registerSingleton<HomeUseCases>(HomeUseCases(
+  locator.registerSingleton<PlayerUseCases>(PlayerUseCases(
       checkPermissionUseCase: CheckPermissionUseCase(),
       getSongsUseCase: GetSongsUseCase(),
       playSongUseCase: PlaySongUseCase(),

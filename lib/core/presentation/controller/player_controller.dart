@@ -7,7 +7,7 @@ import 'package:flow/core/presentation/notifiers/repeat_button_notifier.dart';
 import 'package:flow/core/utils/math_utils.dart';
 import 'package:flow/core/utils/songs_to_media_items.dart';
 import 'package:flow/features/feature_home/domain/model/az_item.dart';
-import 'package:flow/core/domain/use_cases/player_use_cases/home_use_cases.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/player_use_case.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -15,7 +15,7 @@ import '../../../di/locator.dart';
 import '../../domain/models/player_states.dart';
 
 class PlayerController extends GetxController {
-  final homeUseCases = locator.get<HomeUseCases>();
+  final homeUseCases = locator.get<PlayerUseCases>();
   final _audioHandler = locator.get<AudioHandler>();
   final _userController = Get.find<UserController>();
 

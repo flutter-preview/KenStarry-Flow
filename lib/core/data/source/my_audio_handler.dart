@@ -3,7 +3,7 @@ import 'package:flow/di/locator.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-import '../../domain/use_cases/player_use_cases/home_use_cases.dart';
+import '../../domain/use_cases/player_use_cases/player_use_case.dart';
 
 class MyAudioHandler extends BaseAudioHandler {
   final _player = locator.get<AudioPlayer>();
