@@ -326,38 +326,9 @@ class _PlayerScreenState extends State<PlayerScreen>
           ),
 
           //  slider
-          Obx(
-            () => Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Align(
-                    alignment: AlignmentDirectional.center,
-                    child: Text(
-                      playerController.position.value,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ),
-                ),
-                //  slider
-                Expanded(
-                  flex: 5,
-                    child: Obx(() => ProgressBar(
-                        progress: playerController.progressElapsed.value,
-                        total: playerController.progressDuration.value))),
-                Expanded(
-                  flex: 1,
-                  child: Align(
-                    alignment: AlignmentDirectional.center,
-                    child: Text(
-                      playerController.duration.value,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
+          Obx(() => ProgressBar(
+              progress: playerController.progressElapsed.value,
+              total: playerController.progressDuration.value,)),
 
           //  quick actions
           Row(
