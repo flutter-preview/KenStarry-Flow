@@ -270,6 +270,11 @@ class PlayerController extends GetxController {
 
   /// Disposing our Audio Player
   void disposeAudio() {
+    _audioHandler.customAction('dispose');
+  }
+
+  /// Stopping our Audio Player
+  void stopAudio() {
     _audioHandler.stop();
   }
 
