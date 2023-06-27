@@ -1,5 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flow/core/domain/models/user.dart';
+import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flow/core/presentation/controller/user_controller.dart';
 import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flow/core/utils/extensions/string_extensions.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late final UserController _userController;
   late final ThemeController _themeController;
+  late final PlayerController _playerController;
 
   @override
   void initState() {
@@ -59,6 +61,13 @@ class _MyAppState extends State<MyApp> {
     initializeControllers();
     _userController = Get.find<UserController>();
     _themeController = Get.find<ThemeController>();
+    _playerController = Get.find<PlayerController>();
+  }
+
+  @override
+  void dispose() {
+    _playerController.dispose();
+    super.dispose();
   }
 
   @override
