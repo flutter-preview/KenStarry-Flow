@@ -66,8 +66,8 @@ class MyAudioHandler extends BaseAudioHandler {
         break;
       case AudioServiceRepeatMode.group:
       case AudioServiceRepeatMode.all:
-      _player.setLoopMode(LoopMode.all);
-      break;
+        _player.setLoopMode(LoopMode.all);
+        break;
     }
   }
 
@@ -210,6 +210,11 @@ class MyAudioHandler extends BaseAudioHandler {
         bufferedPosition: _player.bufferedPosition,
         speed: _player.speed,
         queueIndex: event.currentIndex,
+        repeatMode: const {
+          LoopMode.off: AudioServiceRepeatMode.none,
+          LoopMode.one: AudioServiceRepeatMode.one,
+          LoopMode.all: AudioServiceRepeatMode.all,
+        }[_player.loopMode]!,
         shuffleMode: (_player.shuffleModeEnabled)
             ? AudioServiceShuffleMode.all
             : AudioServiceShuffleMode.none);
