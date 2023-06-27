@@ -94,6 +94,11 @@ class MyAudioHandler extends BaseAudioHandler {
   }
 
   @override
+  Future<void> setSpeed(double speed) async {
+    _player.setSpeed(speed);
+  }
+
+  @override
   Future<void> skipToNext() async {
     //  reset playback loop mode
     _player.setLoopMode(LoopMode.off);

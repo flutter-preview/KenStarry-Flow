@@ -73,17 +73,13 @@ SliverAppBar myAppBar({required FToast toast}) {
                     width: 35,
                     height: 35,
                     decoration: BoxDecoration(
-                        color:
-                        playerController.isShuffleModeEnabled.value
-                            ? Theme.of(Get.context!).primaryColor
-                            : Theme.of(Get.context!).primaryColorDark,
+                        color: Theme.of(Get.context!).primaryColorDark,
                         borderRadius: BorderRadius.circular(50)),
                     child: playerController.isShuffleModeEnabled.value
                         ? Icon(
                       Icons.shuffle,
                       size: 16,
-                      color: getTextColorForBackground(
-                          Theme.of(Get.context!).primaryColor),
+                      color: Theme.of(Get.context!).primaryColor,
                     )
                         : Icon(
                       Icons.shuffle,
@@ -110,7 +106,8 @@ SliverAppBar myAppBar({required FToast toast}) {
                         borderRadius: BorderRadius.circular(50)),
                     child: Icon(
                       Icons.keyboard_arrow_down_rounded,
-                      color: Theme.of(Get.context!).primaryColor,
+                      color: getTextColorForBackground(
+                          Theme.of(Get.context!).primaryColorDark),
                       size: 32,
                     ))
               ),
