@@ -249,16 +249,19 @@ class _PlayerScreenState extends State<PlayerScreen>
               ),
 
               //  repeat playback
-              Container(
-                width: 35,
-                height: 35,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColorDark,
-                    borderRadius: BorderRadius.circular(100)),
-                child: Icon(
-                  Icons.repeat,
-                  size: 16,
-                  color: Theme.of(context).iconTheme.color,
+              GestureDetector(
+                onTap: (){},
+                child: Container(
+                  width: 35,
+                  height: 35,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColorDark,
+                      borderRadius: BorderRadius.circular(100)),
+                  child: Icon(
+                    Icons.repeat,
+                    size: 16,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
                 ),
               ),
             ],
