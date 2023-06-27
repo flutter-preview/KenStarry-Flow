@@ -64,9 +64,27 @@ class PlayerRepositoryImpl implements PlayerRepository {
   }
 
   @override
-  Future<void> playNextSong() async {
+  Future<void> playNextSong({required RepeatState currentRepeatState}) async {
     try {
+
+      //  turn off repeat
+      _audioHandler.setRepeatMode(AudioServiceRepeatMode.none);
+
       await _audioHandler.skipToNext();
+
+      //  turn on repeat
+      switch (currentRepeatState) {
+        case RepeatState.off:
+          _audioHandler.setRepeatMode(AudioServiceRepeatMode.none);
+          break;
+        case RepeatState.repeatSong:
+          _audioHandler.setRepeatMode(AudioServiceRepeatMode.one);
+          break;
+        case RepeatState.repeatPlaylist:
+          _audioHandler.setRepeatMode(AudioServiceRepeatMode.all);
+          break;
+      }
+
     } on Exception catch (error) {
       throw Exception(error);
     }

@@ -20,7 +20,7 @@ abstract class PlayerRepository {
   Future<void> pauseSong();
 
   /// Next Song
-  Future<void> playNextSong();
+  Future<void> playNextSong({required RepeatState currentRepeatState});
 
   /// Prev Song
   Future<void> playPrevSong();
