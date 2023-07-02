@@ -236,7 +236,7 @@ class PlayerController extends GetxController {
 
   ///  Play Song
   Future<void> playSong({int? index}) async =>
-      await playerUseCases.playSongUseCase.invoke();
+      await playerUseCases.playSongUseCase();
 
   /// Play Song At Index
   Future<void> playSongAtIndex({required int index}) async =>
