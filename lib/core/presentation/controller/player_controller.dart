@@ -300,7 +300,7 @@ class PlayerController extends GetxController {
   /// Check Storage Permission
   Future<void> checkPermission() async {
     //  request access to storage
-    var isStorageGranted = await playerUseCases.checkPermissionUseCase.invoke();
+    var isStorageGranted = await playerUseCases.checkPermissionUseCase();
 
     if (isStorageGranted) {
       //  save the value to the database
