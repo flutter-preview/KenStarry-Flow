@@ -9,6 +9,7 @@ import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flow/features/feature_player/presentation/components/artist_song_name_player_section.dart';
 import 'package:flow/features/feature_player/presentation/components/artwork_player_section.dart';
 import 'package:flow/features/feature_player/presentation/components/quick_action.dart';
+import 'package:flow/features/feature_player/presentation/components/song_count_player_section.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -63,7 +64,7 @@ class _PlayerScreenState extends State<PlayerScreen>
           const ArtistSongNamePlayerSection(),
 
           //  song Count
-
+          const SongCountPlayerSection(),
 
           //  seekbar buttons
           Row(
