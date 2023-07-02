@@ -6,6 +6,7 @@ import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/di/locator.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
+import 'package:flow/features/feature_player/presentation/components/artwork_player_section.dart';
 import 'package:flow/features/feature_player/presentation/components/quick_action.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -55,39 +56,7 @@ class _PlayerScreenState extends State<PlayerScreen>
         runSpacing: 20,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          Obx(
-            () => UnconstrainedBox(
-              child: SizedBox(
-                  width: 250,
-                  height: 250,
-                  child: QueryArtworkWidget(
-                    id: playerController.mediaItemsInitial
-                        .elementAt(
-                            playerController.currentPlayingSongIndex.value!)
-                        .extras!['imageUrl'],
-                    keepOldArtwork: true,
-                    type: ArtworkType.AUDIO,
-                    artworkWidth: double.infinity,
-                    artworkHeight: double.infinity,
-                    artworkBorder: BorderRadius.circular(300),
-                    artworkFit: BoxFit.cover,
-                    artworkQuality: FilterQuality.high,
-                    nullArtworkWidget: Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColorDark,
-                          borderRadius: BorderRadius.circular(300)),
-                      child: Icon(
-                        Icons.music_note_outlined,
-                        size: 120,
-                        color: Theme.of(context).iconTheme.color,
-                      ),
-                    ),
-                    quality: 100,
-                  )),
-            ),
-          ),
+          ArtworkPlayerSection()
 
           //  artist and song name
           Obx(
