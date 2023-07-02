@@ -277,9 +277,7 @@ class PlayerController extends GetxController {
       .invoke(onStateChanged: (state) => playerState.value = state);
 
   /// Disposing our Audio Player
-  void disposeAudio() {
-    _audioHandler.customAction('dispose');
-  }
+  void disposeAudio() => playerUseCases.disposeAudioUseCase();
 
   /// Stopping our Audio Player
   void stopAudio() {
