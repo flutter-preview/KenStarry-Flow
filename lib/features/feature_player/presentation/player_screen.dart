@@ -68,7 +68,12 @@ class _PlayerScreenState extends State<PlayerScreen>
           const SongCountPlayerSection(),
 
           //  seekbar buttons
-          const SeekbarPlayerSection(),
+          SeekbarPlayerSection(
+            toast: _toast,
+            onNextSong: widget.onNextSong,
+            onPreviousSong: widget.onPreviousSong,
+            onPlaylistClicked: widget.onPlaylistClicked,
+          ),
 
           //  slider
           Obx(() => ProgressBar(

@@ -3,6 +3,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../../../core/domain/models/player_states.dart';
+import '../../../../core/domain/models/repeat_state.dart';
 import '../../../../core/presentation/components/show_toast.dart';
 import '../../../../core/presentation/controller/player_controller.dart';
 
@@ -102,11 +104,11 @@ class _SeekbarPlayerSectionState extends State<SeekbarPlayerSection> {
               InkWell(
                   onTap: () {
                     //  play or pause music
-                    if (playerController.playerState.value ==
+                    if (_playerController.playerState.value ==
                         PlayerStates.playing) {
-                      playerController.pauseSong();
+                      _playerController.pauseSong();
                     } else {
-                      playerController.playSong();
+                      _playerController.playSong();
                     }
                   },
                   borderRadius: BorderRadius.circular(100),
@@ -119,7 +121,7 @@ class _SeekbarPlayerSectionState extends State<SeekbarPlayerSection> {
                             borderRadius: BorderRadius.circular(100)),
                         child: Center(
                             child: Icon(
-                          playerController.playerState.value ==
+                          _playerController.playerState.value ==
                                   PlayerStates.playing
                               ? Icons.pause_rounded
                               : Icons.play_arrow_rounded,
@@ -150,21 +152,21 @@ class _SeekbarPlayerSectionState extends State<SeekbarPlayerSection> {
         //  repeat playback
         GestureDetector(
           onTap: () {
-            playerController.repeat();
-            switch (playerController.repeatButtonState.value) {
+            _playerController.repeat();
+            switch (_playerController.repeatButtonState.value) {
               case RepeatState.off:
                 showToast(
-                    toast: _toast, iconData: Icons.repeat, msg: "Repeat off");
+                    toast: widget.toast, iconData: Icons.repeat, msg: "Repeat off");
                 break;
               case RepeatState.repeatSong:
                 showToast(
-                    toast: _toast,
+                    toast: widget.toast,
                     iconData: Icons.repeat_one_rounded,
                     msg: "Repeating current song");
                 break;
               case RepeatState.repeatPlaylist:
                 showToast(
-                    toast: _toast,
+                    toast: widget.toast,
                     iconData: Icons.repeat,
                     msg: "Repeating all songs");
                 break;
@@ -177,13 +179,13 @@ class _SeekbarPlayerSectionState extends State<SeekbarPlayerSection> {
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColorDark,
                   borderRadius: BorderRadius.circular(100)),
-              child: playerController.repeatButtonState.value == RepeatState.off
+              child: _playerController.repeatButtonState.value == RepeatState.off
                   ? Icon(
                       Icons.repeat,
                       size: 16,
                       color: Theme.of(context).iconTheme.color,
                     )
-                  : playerController.repeatButtonState.value ==
+                  : _playerController.repeatButtonState.value ==
                           RepeatState.repeatSong
                       ? Icon(
                           Icons.repeat_one_rounded,
