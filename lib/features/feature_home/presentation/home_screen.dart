@@ -23,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //  Artists Section
             ArtistsSubSection()
             //  Genres Section
+
             //  Playlists section
           ],
         ),
