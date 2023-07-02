@@ -96,7 +96,8 @@ class PlayerController extends GetxController {
   void _listenToChangesInSong() {
     _audioHandler.mediaItem.listen((mediaItem) {
       currentPlayingSongIndex.value = mediaItemsInitial.indexOf(mediaItem!);
-      currentPlayingSongIndexDynamic.value = mediaItemsDynamic.indexOf(mediaItem);
+      currentPlayingSongIndexDynamic.value =
+          mediaItemsDynamic.indexOf(mediaItem);
     });
   }
 
@@ -231,9 +232,7 @@ class PlayerController extends GetxController {
   }
 
   /// Clear Queue
-  Future<void> clearQueue() async {
-    await _audioHandler.customAction('clearQueue');
-  }
+  Future<void> clearQueue() async => await playerUseCases.clearQueueUseCase();
 
   ///  Play Song
   Future<void> playSong({int? index}) async =>
