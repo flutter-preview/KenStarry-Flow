@@ -286,11 +286,11 @@ class PlayerController extends GetxController {
     await playerUseCases.addPlayerPrefsUseCase.invoke(playerPrefs: playerPrefs);
   }
 
-  Future<void> deletePlayerPrefs() async => await playerUseCases.deletePlayerPrefsUseCase();
+  Future<void> deletePlayerPrefs() async =>
+      await playerUseCases.deletePlayerPrefsUseCase();
 
-  Future<PlayerPrefs> getPlayerPrefs() async {
-    return await playerUseCases.getPlayerPrefsUseCase.invoke();
-  }
+  Future<PlayerPrefs> getPlayerPrefs() async =>
+      await playerUseCases.getPlayerPrefsUseCase();
 
   Future<void> updatePlayerPrefs({required PlayerPrefs playerPrefs}) async {
     await playerUseCases.updatePlayerPrefsUseCase
