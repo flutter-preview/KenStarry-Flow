@@ -41,6 +41,12 @@ abstract class PlayerRepository {
   /// Clear Queue
   Future<void> clearQueue();
 
+  /// Dispose Audio
+  void disposeAudio();
+
+  /// Stop Audio
+  void stopAudio();
+
   /// Check if song is playing
   void isSongPlaying({required void Function(PlayerStates) onStateChanged});
 
