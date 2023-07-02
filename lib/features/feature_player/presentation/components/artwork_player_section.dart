@@ -1,4 +1,7 @@
+import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -10,6 +13,15 @@ class ArtworkPlayerSection extends StatefulWidget {
 }
 
 class _ArtworkPlayerSectionState extends State<ArtworkPlayerSection> {
+  late final PlayerController _playerController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _playerController = Get.find();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -18,8 +30,8 @@ class _ArtworkPlayerSectionState extends State<ArtworkPlayerSection> {
             width: 250,
             height: 250,
             child: QueryArtworkWidget(
-              id: playerController.mediaItemsInitial
-                  .elementAt(playerController.currentPlayingSongIndex.value!)
+              id: _playerController.mediaItemsInitial
+                  .elementAt(_playerController.currentPlayingSongIndex.value!)
                   .extras!['imageUrl'],
               keepOldArtwork: true,
               type: ArtworkType.AUDIO,

@@ -56,7 +56,7 @@ class _PlayerScreenState extends State<PlayerScreen>
         runSpacing: 20,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          ArtworkPlayerSection()
+          const ArtworkPlayerSection()
 
           //  artist and song name
           Obx(
