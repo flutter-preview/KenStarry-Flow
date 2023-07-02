@@ -280,9 +280,7 @@ class PlayerController extends GetxController {
   void disposeAudio() => playerUseCases.disposeAudioUseCase();
 
   /// Stopping our Audio Player
-  void stopAudio() {
-    _audioHandler.stop();
-  }
+  void stopAudio() => playerUseCases.stopAudioUseCase();
 
   Future<void> addPlayerPrefs({required PlayerPrefs playerPrefs}) async {
     await playerUseCases.addPlayerPrefsUseCase.invoke(playerPrefs: playerPrefs);
