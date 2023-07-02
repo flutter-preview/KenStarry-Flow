@@ -12,7 +12,11 @@ class ThemeController extends GetxController {
 
   final themeTypes = const ['Light Theme', 'Dark Theme', 'System Preferences'];
 
-  final themeModes = const [ThemeMode.light, ThemeMode.dark, ThemeMode.system];
+  final themeModes = const {
+    'Light Theme': ThemeMode.light,
+    'Dark Theme': ThemeMode.dark,
+    'System Preferences': ThemeMode.system
+  };
 
   void setSelectedThemeIndex({required int index}) =>
       selectedThemeIndex.value = index;

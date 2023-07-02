@@ -80,7 +80,26 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();
 
-    return ValueListenableBuilder(
+    return _playerController.mediaItemsInitial.isNotEmpty ? GetMaterialApp(
+      title: "Flow",
+      home: MainScreen(),
+      theme: MyTheme(
+          accent: _themeController
+              .selectedAccentColorHex.value.toColor as Color,
+          context: context)
+          .lightTheme,
+      darkTheme: MyTheme(
+          accent: _themeController
+              .selectedAccentColorHex.value.toColor as Color,
+          context: context)
+          .darkTheme,
+      themeMode: userPrefs?.themeType == 'Light Theme'
+          ? ThemeMode.light
+          : userPrefs?.themeType == 'Dark Theme'
+          ? ThemeMode.dark
+          : ThemeMode.system,
+      debugShowCheckedModeBanner: false,
+    ) : ValueListenableBuilder(
         valueListenable: _userController.userPrefs.value,
         builder: (context, box, widget) {
           final userPrefs = box.get('user') as User?;
