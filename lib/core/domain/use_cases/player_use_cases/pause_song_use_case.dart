@@ -3,7 +3,7 @@ import 'package:flow/core/domain/repository/player_repository.dart';
 
 class PauseSongUseCase {
 
-  final repo = locator.get<PlayerRepository>();
+  final repository = locator.get<PlayerRepository>();
 
-  Future<void> invoke() async => await repo.pauseSong();
+  Future<void> call() async => await repository.pauseSong();
 }
