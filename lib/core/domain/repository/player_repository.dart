@@ -38,6 +38,9 @@ abstract class PlayerRepository {
   /// Speed
   void setSpeed({required double speed});
 
+  /// Clear Queue
+  void clearQueue();
+
   /// Check if song is playing
   void isSongPlaying({required void Function(PlayerStates) onStateChanged});
 
