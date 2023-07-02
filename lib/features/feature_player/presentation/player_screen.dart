@@ -8,6 +8,7 @@ import 'package:flow/di/locator.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flow/features/feature_player/presentation/components/artist_song_name_player_section.dart';
 import 'package:flow/features/feature_player/presentation/components/artwork_player_section.dart';
+import 'package:flow/features/feature_player/presentation/components/progress_bar_player_section.dart';
 import 'package:flow/features/feature_player/presentation/components/quick_action.dart';
 import 'package:flow/features/feature_player/presentation/components/seekbar_player_section.dart';
 import 'package:flow/features/feature_player/presentation/components/song_count_player_section.dart';
@@ -75,21 +76,8 @@ class _PlayerScreenState extends State<PlayerScreen>
             onPlaylistClicked: widget.onPlaylistClicked,
           ),
 
-          //  slider
-          Obx(() => ProgressBar(
-                progress: playerController.progressElapsed.value,
-                total: playerController.progressDuration.value,
-                timeLabelLocation: TimeLabelLocation.sides,
-                timeLabelTextStyle: Theme.of(context).textTheme.bodySmall,
-                baseBarColor: Theme.of(context).primaryColorDark,
-                progressBarColor: Theme.of(context).primaryColor,
-                thumbColor: Theme.of(context).primaryColor,
-                thumbGlowColor:
-                    Theme.of(context).primaryColorDark.withOpacity(0.7),
-                onSeek: (dur) {
-                  playerController.seekSong(seconds: dur.inSeconds);
-                },
-              )),
+          //  Progress bar
+          const ProgressBarPlayerSection(),
 
           //  quick actions
           Row(
