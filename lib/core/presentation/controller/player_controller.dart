@@ -247,8 +247,7 @@ class PlayerController extends GetxController {
   }
 
   /// Pause Song
-  Future<void> pauseSong() async =>
-      await playerUseCases.pauseSongUseCase.invoke();
+  Future<void> pauseSong() async => await playerUseCases.pauseSongUseCase();
 
   /// Next Song
   Future<void> playNextSong({int? index}) async =>

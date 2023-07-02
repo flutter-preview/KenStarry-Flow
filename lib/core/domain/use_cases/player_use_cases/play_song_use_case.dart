@@ -4,8 +4,7 @@ import 'package:flow/core/domain/repository/player_repository.dart';
 import '../../../../di/locator.dart';
 
 class PlaySongUseCase {
-  final repo = locator.get<PlayerRepository>();
+  final repository = locator.get<PlayerRepository>();
 
-  Future<void> invoke() async =>
-      await repo.playSong();
+  Future<void> call() async => await repository.playSong();
 }
