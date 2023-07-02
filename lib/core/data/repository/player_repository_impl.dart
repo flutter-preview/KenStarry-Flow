@@ -1,6 +1,8 @@
 import 'package:audio_service/audio_service.dart';
+import 'package:flow/core/domain/models/player_prefs.dart';
 import 'package:flow/core/domain/models/player_states.dart';
 import 'package:flow/core/domain/repository/player_repository.dart';
+import 'package:flow/core/utils/hive_utils.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_query_platform_interface/src/models/song_model.dart';
@@ -8,11 +10,13 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../di/locator.dart';
 import '../../domain/models/repeat_state.dart';
+import 'package:hive/hive.dart';
 
 class PlayerRepositoryImpl implements PlayerRepository {
   final audioQuery = locator.get<OnAudioQuery>();
   final audioPlayer = locator.get<AudioPlayer>();
   final _audioHandler = locator.get<AudioHandler>();
+  final _playerPrefsBox = Hive.box(HiveUtils.playerPrefsBox);
 
   @override
   Future<bool> checkPermission() async {
@@ -66,7 +70,6 @@ class PlayerRepositoryImpl implements PlayerRepository {
   @override
   Future<void> playNextSong({required RepeatState currentRepeatState}) async {
     try {
-
       //  turn off repeat
       _audioHandler.setRepeatMode(AudioServiceRepeatMode.none);
 
@@ -84,7 +87,6 @@ class PlayerRepositoryImpl implements PlayerRepository {
           _audioHandler.setRepeatMode(AudioServiceRepeatMode.all);
           break;
       }
-
     } on Exception catch (error) {
       throw Exception(error);
     }
@@ -181,5 +183,30 @@ class PlayerRepositoryImpl implements PlayerRepository {
     } on Exception catch (error) {
       throw Exception(error);
     }
+  }
+
+  @override
+  Future<void> addPlayerPrefs({required PlayerPrefs playerPrefs}) async {
+    await _playerPrefsBox.put('playerPrefs', playerPrefs);
+  }
+
+  @override
+  Future<void> deletePlayerPrefs() async {
+    await _playerPrefsBox.delete('playerPrefs');
+  }
+
+  @override
+  Future<PlayerPrefs> getPlayerPrefs() async {
+    return await _playerPrefsBox.get('playerPrefs');
+  }
+
+  @override
+  Future<void> updatePlayerPrefs({required PlayerPrefs? playerPrefs}) async {
+    var oldPrefs = await _playerPrefsBox.get('playerPrefs') as PlayerPrefs?;
+    var newPrefs = PlayerPrefs(
+        currentSongIndex:
+            playerPrefs?.currentSongIndex ?? oldPrefs?.currentSongIndex);
+
+    await _playerPrefsBox.put('playerPrefs', newPrefs);
   }
 }

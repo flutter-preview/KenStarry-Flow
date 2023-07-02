@@ -2,12 +2,14 @@ import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flow/features/feature_settings/presentation/controller/theme_controller.dart';
 import 'package:flow/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class MyTheme {
   final Color accent;
+  final BuildContext context;
 
-  MyTheme({required this.accent});
+  MyTheme({required this.accent, required this.context});
 
   /// Light Theme
   ThemeData get lightTheme => ThemeData(

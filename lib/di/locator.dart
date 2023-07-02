@@ -7,8 +7,8 @@ import 'package:get_it/get_it.dart';
 
 var locator = GetIt.instance;
 
-Future<void> invokeDI() async {
-  await playerDI(locator: locator);
+Future<void> invokeDI({required int index}) async {
+  await playerDI(locator: locator, index: index);
   artistsDI(locator: locator);
   await coreDI(locator: locator);
   userDI(locator: locator);

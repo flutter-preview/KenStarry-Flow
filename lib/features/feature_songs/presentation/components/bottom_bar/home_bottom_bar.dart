@@ -1,7 +1,7 @@
 import 'package:flow/core/presentation/components/show_player_bottom_sheet.dart';
 import 'package:flow/core/domain/models/player_states.dart';
-import 'package:flow/features/feature_home/presentation/components/bottom_bar/bottom_bar_item.dart';
-import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
+import 'package:flow/features/feature_songs/presentation/components/bottom_bar/bottom_bar_item.dart';
+import 'package:flow/features/feature_songs/presentation/controller/songs_controller.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +20,7 @@ class HomeBottomBar extends StatefulWidget {
 class _HomeBottomBarState extends State<HomeBottomBar>
     with TickerProviderStateMixin {
   late final PlayerController _playerController;
-  late final HomeController _homeController;
+  late final SongsController _homeController;
 
   @override
   void initState() {
@@ -238,15 +238,15 @@ class _HomeBottomBarState extends State<HomeBottomBar>
                           _homeController.setBottomNavTabIndex(index: 0);
                         }),
                     bottomBarItem(
-                        title: "Playlist",
-                        icon: Icons.playlist_play_rounded,
+                        title: "Songs",
+                        icon: Icons.music_note_rounded,
                         isSelected: _homeController.currentTabIndex.value == 1,
                         onTap: () {
                           _homeController.setBottomNavTabIndex(index: 1);
                         }),
                     bottomBarItem(
-                        title: "Artists",
-                        icon: Icons.music_note_outlined,
+                        title: "Playlists",
+                        icon: Icons.playlist_play_rounded,
                         isSelected: _homeController.currentTabIndex.value == 2,
                         onTap: () {
                           _homeController.setBottomNavTabIndex(index: 2);

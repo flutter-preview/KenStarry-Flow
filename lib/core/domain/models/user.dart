@@ -1,4 +1,4 @@
-import 'package:flow/core/domain/models/user_player_prefs.dart';
+import 'package:flow/core/domain/models/player_prefs.dart';
 import 'package:hive/hive.dart';
 
 /// flutter packages pub run build_runner build

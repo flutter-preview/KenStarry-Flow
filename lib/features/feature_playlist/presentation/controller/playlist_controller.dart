@@ -7,13 +7,13 @@ import 'package:flow/features/feature_playlist/domain/use_case/playlist_use_case
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 
 import '../../domain/model/playlist.dart';
 
 class PlaylistController extends GetxController {
   final useCases = locator.get<PlaylistUseCases>();
   final playerController = Get.find<PlayerController>();
+  final _audioHandler = locator.get<AudioHandler>();
   final playlistsBox = Hive.box(HiveUtils.playlistBox).listenable().obs;
   final playlists = <Playlist>[].obs;
 

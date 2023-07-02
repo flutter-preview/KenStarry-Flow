@@ -1,6 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flow/core/domain/models/user.dart';
-import 'package:flow/core/domain/models/user_player_prefs.dart';
+import 'package:flow/core/domain/models/player_prefs.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flow/core/presentation/controller/user_controller.dart';
 import 'package:flow/core/utils/extensions/color_extensions.dart';
@@ -33,11 +33,16 @@ Future<void> main() async {
   await Hive.initFlutter(appDocumentDirectory.path);
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(PlaylistAdapter());
+  Hive.registerAdapter(PlayerPrefsAdapter());
 
   await Hive.openBox(HiveUtils.userBox);
   await Hive.openBox(HiveUtils.playlistBox);
+  await Hive.openBox(HiveUtils.playerPrefsBox);
 
-  await invokeDI();
+  final playerPrefs = await Hive.box(HiveUtils.playerPrefsBox)
+      .get('playerPrefs') as PlayerPrefs?;
+
+  await invokeDI(index: playerPrefs?.currentSongIndex ?? 0);
 
   runApp(const MyApp());
 }
@@ -103,11 +108,13 @@ class _MyAppState extends State<MyApp> {
             home: MainScreen(),
             theme: MyTheme(
                     accent: _themeController
-                        .selectedAccentColorHex.value.toColor as Color)
+                        .selectedAccentColorHex.value.toColor as Color,
+                    context: context)
                 .lightTheme,
             darkTheme: MyTheme(
                     accent: _themeController
-                        .selectedAccentColorHex.value.toColor as Color)
+                        .selectedAccentColorHex.value.toColor as Color,
+                    context: context)
                 .darkTheme,
             themeMode: userPrefs?.themeType == 'Light Theme'
                 ? ThemeMode.light

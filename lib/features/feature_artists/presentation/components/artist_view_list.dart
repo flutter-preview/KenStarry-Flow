@@ -1,20 +1,20 @@
 import 'package:flow/core/presentation/controller/core_controller.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flow/features/feature_artists/presentation/controller/artists_controller.dart';
-import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
+import 'package:flow/features/feature_songs/presentation/controller/songs_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/presentation/components/show_player_bottom_sheet.dart';
 import '../../../../core/domain/models/player_states.dart';
-import '../../../feature_home/presentation/components/song_card.dart';
+import '../../../feature_songs/presentation/components/song_card.dart';
 
 class ArtistViewList extends StatelessWidget {
 
   final ArtistsController _artistsController = Get.find<ArtistsController>();
   final PlayerController _playerController = Get.find<PlayerController>();
-  final HomeController _homeController = Get.find<HomeController>();
+  final SongsController _homeController = Get.find<SongsController>();
   final CoreController _coreController = Get.find<CoreController>();
 
   ArtistViewList({super.key});

@@ -1,4 +1,5 @@
 import 'package:audio_service/audio_service.dart';
+import 'package:flow/core/domain/models/player_prefs.dart';
 import 'package:flow/core/domain/models/repeat_state.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -45,4 +46,16 @@ abstract class PlayerRepository {
 
   /// Observe Song Position
   void observeSongPosition({required void Function(Duration pos) onPositionChanged});
+
+  /// Add Player Preferences
+  Future<void> addPlayerPrefs({required PlayerPrefs playerPrefs});
+
+  /// Get Player Preferences
+  Future<PlayerPrefs> getPlayerPrefs();
+
+  /// Update Player Preferences
+  Future<void> updatePlayerPrefs({required PlayerPrefs playerPrefs});
+
+  /// Delete Player Preferences
+  Future<void> deletePlayerPrefs();
 }

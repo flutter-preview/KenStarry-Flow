@@ -1,14 +1,15 @@
-import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
+import 'package:flow/features/feature_songs/presentation/controller/songs_controller.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
 import 'package:flow/features/feature_playlist/presentation/components/bottomsheets/playlist_picker_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../features/feature_player/presentation/player_screen.dart';
+import '../../domain/models/player_prefs.dart';
 
 void showPlayerBottomSheet(
     {required PlayerController playerController,
-    required HomeController homeController}) {
+    required SongsController homeController}) {
   homeController.scrollToIndex(
       index: playerController.currentPlayingSongIndex.value!);
 
@@ -29,22 +30,27 @@ void showPlayerBottomSheet(
           onNextSong: () {
             if (playerController.currentPlayingSongIndex.value! <
                 playerController.songs.length - 1) {
-              playerController.playNextSong(
-                  index: playerController.currentPlayingSongIndex.value! + 1);
+              playerController.playNextSong();
+
+              playerController.updatePlayerPrefs(
+                  playerPrefs: PlayerPrefs(
+                      currentSongIndex:
+                          playerController.currentPlayingSongIndex.value! + 1));
             }
           },
           onPreviousSong: () {
             if (playerController.currentPlayingSongIndex.value! > 0) {
-              playerController.playPrevSong(
-                  index: playerController.currentPlayingSongIndex.value! - 1);
+              playerController.playPrevSong();
+
+              playerController.updatePlayerPrefs(
+                  playerPrefs: PlayerPrefs(
+                      currentSongIndex:
+                      playerController.currentPlayingSongIndex.value! - 1));
             }
           },
           onPlaylistClicked: () => playlistPickerSheet(),
         );
       },
     ),
-  ).whenComplete(() {
-    //  open home screen
-    homeController.setBottomNavTabIndex(index: 0);
-  });
+  ).whenComplete(() {});
 }

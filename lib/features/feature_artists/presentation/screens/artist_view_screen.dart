@@ -4,7 +4,7 @@ import 'package:flow/features/feature_artists/presentation/components/artist_vie
 import 'package:flow/features/feature_artists/presentation/components/artist_view_list.dart';
 import 'package:flow/features/feature_artists/presentation/controller/artists_controller.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
-import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
+import 'package:flow/features/feature_songs/presentation/controller/songs_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:get/get.dart';
@@ -24,7 +24,7 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
   late final ArtistsController _artistsController;
   late final CoreController _coreController;
   late final PlayerController _playerController;
-  late final HomeController _homeController;
+  late final SongsController _homeController;
   late PageController _pageController;
 
   @override
@@ -34,7 +34,7 @@ class _ArtistViewScreenState extends State<ArtistViewScreen> {
     _artistsController = Get.find<ArtistsController>();
     _coreController = Get.find<CoreController>();
     _playerController = Get.find<PlayerController>();
-    _homeController = Get.find<HomeController>();
+    _homeController = Get.find<SongsController>();
 
     //  scroll to the index where the artist has been clicked
     _pageController = PageController(

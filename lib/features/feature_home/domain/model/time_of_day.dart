@@ -1,0 +1,1 @@
+enum MyTimeOfDay {morning, afternoon, evening}

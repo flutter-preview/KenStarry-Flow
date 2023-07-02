@@ -7,13 +7,18 @@ import 'package:flow/core/presentation/controller/user_controller.dart';
 import 'package:flow/core/presentation/notifiers/repeat_button_notifier.dart';
 import 'package:flow/core/utils/math_utils.dart';
 import 'package:flow/core/utils/songs_to_media_items.dart';
-import 'package:flow/features/feature_home/domain/model/az_item.dart';
+import 'package:flow/features/feature_songs/domain/model/az_item.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/player_use_case.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 import '../../../di/locator.dart';
+import '../../domain/models/player_prefs.dart';
 import '../../domain/models/player_states.dart';
+import 'package:collection/collection.dart';
+
+import '../../utils/hive_utils.dart';
 
 class PlayerController extends GetxController {
   final playerUseCases = locator.get<PlayerUseCases>();
@@ -30,7 +35,7 @@ class PlayerController extends GetxController {
   final totalSongsDuration = ''.obs;
 
   late List<MediaItem> mediaItemsInitial;
-  late List<MediaItem> mediaItemsDynamic;
+  List<MediaItem> mediaItemsDynamic = <MediaItem>[].obs;
 
   // UI
   final duration = ''.obs;
@@ -42,6 +47,7 @@ class PlayerController extends GetxController {
 
   // Index of the currently playing song
   final Rx<int?> currentPlayingSongIndex = 0.obs;
+  final Rx<int?> currentPlayingSongIndexDynamic = 0.obs;
   final playerState = PlayerStates.stopped.obs;
   final repeatButtonState = RepeatState.off.obs;
   final speedState = SpeedState.one.obs;
@@ -56,8 +62,6 @@ class PlayerController extends GetxController {
     _listenToCurrentPosition();
     _listenToTotalDuration();
   }
-
-  void setCurrentPlayingSongIndex({required int index}) => currentPlayingSongIndex.value = index;
 
   /// Listen To Playlist changed from audio handler
   void _listenToChangesInPlaylist() {
@@ -92,6 +96,7 @@ class PlayerController extends GetxController {
   void _listenToChangesInSong() {
     _audioHandler.mediaItem.listen((mediaItem) {
       currentPlayingSongIndex.value = mediaItemsInitial.indexOf(mediaItem!);
+      currentPlayingSongIndexDynamic.value = mediaItemsDynamic.indexOf(mediaItem);
     });
   }
 
@@ -117,7 +122,7 @@ class PlayerController extends GetxController {
   }
 
   /// Shuffle Songs
-  void shuffle() {
+  void shuffleSongs() {
     final enable = !isShuffleModeEnabled.value;
     //  change shuffle mode
     isShuffleModeEnabled.value = enable;
@@ -125,9 +130,9 @@ class PlayerController extends GetxController {
     playerUseCases.shuffleUseCase.invoke(isShuffleModeEnabled: enable);
   }
 
-  void disableShuffle() {
+  Future<void> disableShuffle() async {
     isShuffleModeEnabled.value = false;
-    _audioHandler.setShuffleMode(AudioServiceShuffleMode.none);
+    await _audioHandler.setShuffleMode(AudioServiceShuffleMode.none);
   }
 
   /// Repeat Mode
@@ -192,20 +197,42 @@ class PlayerController extends GetxController {
         .toList();
 
     mediaItemsInitial = songsToMediaItems(songs: songs);
-
-    mediaItemsDynamic = songs
-        .map((song) => MediaItem(
-            id: song.id.toString(),
-            title: song.displayNameWOExt,
-            artist: song.artist,
-            genre: song.genre,
-            album: song.album,
-            duration: Duration(milliseconds: song.duration!),
-            extras: {'url': song.uri, 'imageUrl': song.id}))
-        .toList();
+    mediaItemsDynamic = songsToMediaItems(songs: songs);
 
     //  Add media to audio handler
-    _audioHandler.addQueueItems(mediaItemsDynamic);
+    addPlaylistSongsToQueue(mediaItems: mediaItemsDynamic, songIndex: 0);
+  }
+
+  /// Add Playlist Songs to Queue
+  void addPlaylistSongsToQueue(
+      {required List<MediaItem> mediaItems, required int songIndex}) {
+    final equal = const ListEquality().equals;
+
+    //  check if the current queue already contains these songs
+    if (!equal(_audioHandler.queue.value, mediaItems)) {
+      replaceItemsInQueue(mediaItems: mediaItems, index: songIndex);
+    } else {
+      //  set UI current media item index
+      currentPlayingSongIndexDynamic.value = songIndex;
+      //  set audio handlers current media item index
+      _audioHandler.customAction('setMediaItemIndex', {'index': songIndex});
+    }
+  }
+
+  /// Add Songs To Queue
+  void replaceItemsInQueue(
+      {required List<MediaItem> mediaItems, required int index}) async {
+    await clearQueue().whenComplete(
+        () => _audioHandler.addQueueItems(mediaItems).whenComplete(() {
+              currentPlayingSongIndexDynamic.value = index;
+              //  set audio handlers current media item index
+              _audioHandler.customAction('setMediaItemIndex', {'index': index});
+            }));
+  }
+
+  /// Clear Queue
+  Future<void> clearQueue() async {
+    await _audioHandler.customAction('clearQueue');
   }
 
   ///  Play Song
@@ -215,6 +242,10 @@ class PlayerController extends GetxController {
   /// Play Song At Index
   Future<void> playSongAtIndex({required int index}) async =>
       await playerUseCases.playSongAtIndexUseCase.invoke(index: index);
+
+  Future<void> jumpToSongAtIndex({required int index}) async {
+    _audioHandler.customAction('jumpToQueueItem', {'index': index});
+  }
 
   /// Pause Song
   Future<void> pauseSong() async =>
@@ -254,6 +285,23 @@ class PlayerController extends GetxController {
   /// Stopping our Audio Player
   void stopAudio() {
     _audioHandler.stop();
+  }
+
+  Future<void> addPlayerPrefs({required PlayerPrefs playerPrefs}) async {
+    await playerUseCases.addPlayerPrefsUseCase.invoke(playerPrefs: playerPrefs);
+  }
+
+  Future<void> deletePlayerPrefs() async {
+    await playerUseCases.deletePlayerPrefsUseCase.invoke();
+  }
+
+  Future<PlayerPrefs> getPlayerPrefs() async {
+    return await playerUseCases.getPlayerPrefsUseCase.invoke();
+  }
+
+  Future<void> updatePlayerPrefs({required PlayerPrefs playerPrefs}) async {
+    await playerUseCases.updatePlayerPrefsUseCase
+        .invoke(playerPrefs: playerPrefs);
   }
 
   /// Check Storage Permission

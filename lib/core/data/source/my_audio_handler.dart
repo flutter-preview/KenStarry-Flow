@@ -7,16 +7,15 @@ import '../../domain/use_cases/player_use_cases/player_use_case.dart';
 
 class MyAudioHandler extends BaseAudioHandler {
   final _player = locator.get<AudioPlayer>();
-  int currentSongIndex = 0;
 
   List<MediaItem> songsMediaItems = [];
   final _playlistQueue = ConcatenatingAudioSource(children: []);
   var currentRepeatMode = AudioServiceRepeatMode.none;
 
-  MyAudioHandler() {
+  MyAudioHandler({required int index}) {
     _loadEmptyPlaylist();
     _player.playbackEventStream.map(_transformEvent).pipe(playbackState);
-    _listenForCurrentSongIndexChanges();
+    _listenForCurrentSongIndexChanges(index: index);
     _listenForDurationChanges();
     _listenForSequenceStateChanges();
   }
@@ -51,16 +50,6 @@ class MyAudioHandler extends BaseAudioHandler {
     await _player.stop();
     //  Alert System
     return super.stop();
-  }
-
-  /// Custom Actions
-  @override
-  Future customAction(String name, [Map<String, dynamic>? extras]) async {
-    //  dispose the player
-    if (name == 'dispose') {
-      await _player.dispose();
-      super.stop();
-    }
   }
 
   /// Shuffle
@@ -197,8 +186,36 @@ class MyAudioHandler extends BaseAudioHandler {
         tag: mediaItem);
   }
 
+  /// Custom Actions
+  @override
+  Future customAction(String name, [Map<String, dynamic>? extras]) async {
+    //  dispose the player
+    if (name == 'dispose') {
+      await _player.dispose();
+      super.stop();
+    } else if (name == 'jumpToQueueItem') {
+      var index = extras!['index'];
+
+      _player.seek(Duration.zero, index: index);
+      _player.play();
+    } else if (name == 'clearQueue') {
+      await _playlistQueue.clear().whenComplete(() => queue.value.clear());
+    } else if (name == 'setMediaItemIndex') {
+      final playlist = queue.value;
+
+      if (_player.currentIndex != extras!['index']) {
+        _player.seek(Duration.zero, index: extras['index']);
+        mediaItem.add(playlist[extras['index']]);
+      }
+    }
+  }
+
   /// Index of Current Item
-  void _listenForCurrentSongIndexChanges() {
+  void _listenForCurrentSongIndexChanges({int? index}) {
+    if (index != null) {
+      _player.seek(Duration.zero, index: index);
+    }
+
     _player.currentIndexStream.listen((index) {
       final playlist = queue.value;
       if (index == null || playlist.isEmpty) return;

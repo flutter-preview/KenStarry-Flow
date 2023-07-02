@@ -1,6 +1,6 @@
 import 'package:flow/features/feature_artists/presentation/components/artists_list.dart';
 import 'package:flow/features/feature_artists/presentation/controller/artists_controller.dart';
-import 'package:flow/features/feature_main/presentation/components/artists_appbar.dart';
+import 'package:flow/features/feature_artists/presentation/components/artists_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

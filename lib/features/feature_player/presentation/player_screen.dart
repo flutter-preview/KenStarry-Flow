@@ -97,10 +97,12 @@ class _PlayerScreenState extends State<PlayerScreen>
                   width: double.infinity,
                   height: 50,
                   child: Marquee(
-                    text: playerController.mediaItemsInitial
-                        .elementAt(
-                            playerController.currentPlayingSongIndex.value!)
-                        .title,
+                    text: playerController.mediaItemsDynamic.isEmpty
+                        ? "Unknown"
+                        : playerController.mediaItemsDynamic
+                            .elementAt(playerController
+                                .currentPlayingSongIndexDynamic.value!)
+                            .title,
                     style: Theme.of(context).textTheme.bodyLarge,
                     pauseAfterRound: const Duration(seconds: 1),
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,8 +132,8 @@ class _PlayerScreenState extends State<PlayerScreen>
                 child: Row(
                   children: [
                     Text(
-                      "${(playerController.currentPlayingSongIndex.value! + 1).toString().addCommas} / "
-                      "${playerController.mediaItemsInitial.length.toString().addCommas}",
+                      "${(playerController.currentPlayingSongIndexDynamic.value! + 1).toString().addCommas} / "
+                      "${playerController.mediaItemsDynamic.length.toString().addCommas}",
                       style: Theme.of(context).textTheme.bodySmall,
                     )
                   ],
@@ -148,7 +150,7 @@ class _PlayerScreenState extends State<PlayerScreen>
               GestureDetector(
                 onTap: () {
                   //  shuffle songs
-                  playerController.shuffle();
+                  playerController.shuffleSongs();
 
                   if (playerController.isShuffleModeEnabled.value) {
                     showToast(

@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flow/core/presentation/controller/core_controller.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
-import 'package:flow/features/feature_home/presentation/controller/home_controller.dart';
+import 'package:flow/features/feature_songs/presentation/controller/songs_controller.dart';
 import 'package:flow/features/feature_playlist/domain/model/playlist.dart';
 import 'package:flow/features/feature_playlist/presentation/components/view_playlist_appbar.dart';
 import 'package:flow/features/feature_playlist/presentation/components/view_playlist_carousel_card.dart';
@@ -11,7 +11,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../core/presentation/components/show_player_bottom_sheet.dart';
 import '../../../../core/domain/models/player_states.dart';
-import '../../../feature_home/presentation/components/song_card.dart';
+import '../../../feature_songs/presentation/components/song_card.dart';
 import '../controller/playlist_controller.dart';
 
 class ViewPlaylistScreen extends StatefulWidget {
@@ -27,7 +27,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
   late final PlaylistController _playlistController;
   late final PlayerController _playerController;
   late final CoreController _coreController;
-  late final HomeController _homeController;
+  late final SongsController _homeController;
   late final CarouselController _carouselController;
 
   @override
@@ -36,7 +36,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
     _playlistController = Get.find<PlaylistController>();
     _playerController = Get.find<PlayerController>();
     _coreController = Get.find<CoreController>();
-    _homeController = Get.find<HomeController>();
+    _homeController = Get.find<SongsController>();
     _carouselController = CarouselController();
   }
 
@@ -46,9 +46,8 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
 
     return Scaffold(
         body: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       slivers: [
-
         //  App Bar
         viewPlaylistAppBar(),
 
@@ -150,12 +149,18 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                   coreController: _coreController,
                   playerController: _playerController,
                   onSongTapped: () {
+                    //  add songs in this playlist only to queue
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      _playerController.addPlaylistSongsToQueue(
+                          mediaItems: _playlistController.playlistSongs,
+                          songIndex: index);
+                    });
 
                     //  DISABLE SHUFFLE MODE
                     if (_playerController.isShuffleModeEnabled.value) {
                       _playerController.disableShuffle();
                       //  Reenable shuffle
-                      _playerController.shuffle();
+                      // _playerController.shuffleSongs();
                     }
 
                     if (_playerController.playerState.value ==
@@ -167,7 +172,8 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                           playerController: _playerController,
                           homeController: _homeController);
                     } else {
-                      _playerController.playSongAtIndex(index: currentSongIndex);
+                      _playerController.playSongAtIndex(
+                          index: currentSongIndex);
 
                       //  open player screen bottom sheet
                       showPlayerBottomSheet(

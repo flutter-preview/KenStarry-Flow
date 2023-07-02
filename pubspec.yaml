@@ -1,7 +1,7 @@
 name: flow
 description: Music Player app using Flutter
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: '>=3.0.3 <4.0.0'
@@ -9,11 +9,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.5
   get: ^4.6.5
   just_audio: ^0.9.34
   on_audio_query: ^2.9.0
-  permission_handler: ^10.3.0
+  permission_handler: ^10.4.1
   get_it: ^7.6.0
   marquee: ^2.2.3
   scroll_to_index: ^3.0.1
@@ -40,10 +40,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.2
   # hive builder
   hive_generator: ^2.0.0
-  build_runner: ^2.4.4
+  build_runner: ^2.4.6
 
 # dart run flutter_native_splash:create
 flutter_native_splash:

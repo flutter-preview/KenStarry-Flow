@@ -9,7 +9,11 @@ import 'package:flow/core/domain/use_cases/player_use_cases/repeat_use_case.dart
 import 'package:flow/core/domain/use_cases/player_use_cases/seek_song_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/set_speed_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/shuffle_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/update_player_prefs_use_case.dart';
 
+import 'add_player_prefs_use_case.dart';
+import 'delete_player_prefs_use_case.dart';
+import 'get_player_prefs_use_case.dart';
 import 'is_song_playing_use_case.dart';
 import 'observe_song_dur_use_case.dart';
 import 'observe_song_pos_use_case.dart';
@@ -29,6 +33,10 @@ class PlayerUseCases {
   final PlayNextSongUseCase playNextSongUseCase;
   final PlayPrevSongUseCase playPrevSongUseCase;
   final PlaySongAtIndexUseCase playSongAtIndexUseCase;
+  final AddPlayerPrefsUseCase addPlayerPrefsUseCase;
+  final DeletePlayerPrefsUseCase deletePlayerPrefsUseCase;
+  final GetPlayerPrefsUseCase getPlayerPrefsUseCase;
+  final UpdatePlayerPrefsUseCase updatePlayerPrefsUseCase;
 
   PlayerUseCases(
       {required this.checkPermissionUseCase,
@@ -44,5 +52,9 @@ class PlayerUseCases {
       required this.observeSongPosUseCase,
       required this.playNextSongUseCase,
       required this.playPrevSongUseCase,
-      required this.playSongAtIndexUseCase});
+      required this.playSongAtIndexUseCase,
+      required this.addPlayerPrefsUseCase,
+      required this.deletePlayerPrefsUseCase,
+      required this.getPlayerPrefsUseCase,
+      required this.updatePlayerPrefsUseCase});
 }

@@ -1,38 +1,25 @@
-import 'package:flow/features/feature_main/presentation/components/artists_appbar.dart';
+import 'package:flow/features/feature_home/domain/model/time_of_day.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
-
-import '../../../feature_main/presentation/components/my_appbar.dart';
 
 class HomeController extends GetxController {
-  /// Current selected tab index
-  final currentTabIndex = 0.obs;
+  final timeOfDay = MyTimeOfDay.morning.obs;
 
-  /// Bottom bar collapsed state
-  final isBottomBarCollapsed = false.obs;
+  @override
+  void onInit() {
+    super.onInit();
 
-  /// Hide Bottom bar
-  final isBottomBarHidden = false.obs;
-
-  /// List Controller
-  final AutoScrollController controller = AutoScrollController(
-      viewportBoundaryGetter: () =>
-          Rect.fromLTRB(0, 0, 0, MediaQuery.of(Get.context!).padding.bottom),
-      axis: Axis.vertical);
-
-  void setBottomNavTabIndex({required int index}) {
-    currentTabIndex.value = index;
+    final DateTime dateTime = DateTime.now();
+    getGreetingsFromHour(hour: dateTime.hour);
   }
 
-  void setBottomBarHiddenState({required bool isHidden}) => isBottomBarHidden.value = isHidden;
-
-  void setBottomBarCollapsedState({required bool isCollapsed}) =>
-      isBottomBarCollapsed.value = isCollapsed;
-
-  Future<void> scrollToIndex(
-          {required int index,
-          AutoScrollPosition preferPosition = AutoScrollPosition.middle}) async =>
-      controller.scrollToIndex(index,
-          preferPosition: preferPosition, duration: const Duration(milliseconds: 10));
+  void getGreetingsFromHour({required int hour}) {
+    if (hour > 0 && hour < 12) {
+      timeOfDay.value = MyTimeOfDay.morning;
+    } else if (hour >= 12 && hour < 17) {
+      timeOfDay.value = MyTimeOfDay.afternoon;
+    } else {
+      timeOfDay.value = MyTimeOfDay.evening;
+    }
+  }
 }

@@ -1,5 +1,8 @@
 import 'package:audio_service/audio_service.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/add_player_prefs_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/check_permission_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/delete_player_prefs_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/get_player_prefs_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/get_songs_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/player_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/is_song_playing_use_case.dart';
@@ -14,6 +17,7 @@ import 'package:flow/core/domain/use_cases/player_use_cases/repeat_use_case.dart
 import 'package:flow/core/domain/use_cases/player_use_cases/seek_song_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/set_speed_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/shuffle_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/update_player_prefs_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
@@ -24,7 +28,7 @@ import '../core/data/repository/player_repository_impl.dart';
 import '../core/domain/repository/player_repository.dart';
 
 /// ORDER MATTERS!!
-Future<void> playerDI({required GetIt locator}) async {
+Future<void> playerDI({required GetIt locator, required int index}) async {
   /// Initialize Audio Player
   locator.registerSingleton<AudioPlayer>(AudioPlayer());
 
@@ -33,7 +37,7 @@ Future<void> playerDI({required GetIt locator}) async {
 
   /// Registering our audio handler
   locator.registerSingleton<AudioHandler>(await AudioService.init(
-      builder: () => MyAudioHandler(),
+      builder: () => MyAudioHandler(index: index),
       config: const AudioServiceConfig(
           androidNotificationChannelId: 'com.kenstarry.flow.audio',
           androidNotificationChannelName: 'Flow Audio Service',
@@ -59,5 +63,9 @@ Future<void> playerDI({required GetIt locator}) async {
       observeSongPosUseCase: ObserveSongPosUseCase(),
       playNextSongUseCase: PlayNextSongUseCase(),
       playPrevSongUseCase: PlayPrevSongUseCase(),
-      playSongAtIndexUseCase: PlaySongAtIndexUseCase()));
+      playSongAtIndexUseCase: PlaySongAtIndexUseCase(),
+      addPlayerPrefsUseCase: AddPlayerPrefsUseCase(),
+      deletePlayerPrefsUseCase: DeletePlayerPrefsUseCase(),
+      getPlayerPrefsUseCase: GetPlayerPrefsUseCase(),
+      updatePlayerPrefsUseCase: UpdatePlayerPrefsUseCase()));
 }
