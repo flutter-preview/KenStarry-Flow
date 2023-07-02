@@ -4,7 +4,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class GetSongsUseCase {
 
-  var repo = locator.get<PlayerRepository>();
+  var repository = locator.get<PlayerRepository>();
 
-  Future<List<SongModel>> invoke() async => await repo.getAllSongs();
+  Future<List<SongModel>> call() async => await repository.getAllSongs();
 }
