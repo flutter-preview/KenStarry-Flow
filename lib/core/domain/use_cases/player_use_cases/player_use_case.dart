@@ -1,4 +1,5 @@
 import 'package:flow/core/domain/use_cases/player_use_cases/check_permission_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/clear_queue_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/get_songs_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/pause_song_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/play_next_song_use_case.dart';
@@ -27,6 +28,7 @@ class PlayerUseCases {
   final ShuffleUseCase shuffleUseCase;
   final RepeatUseCase repeatUseCase;
   final SetSpeedUseCase setSpeedUseCase;
+  final ClearQueueUseCase clearQueueUseCase;
   final IsSongPlayingUseCase isSongPlayingUseCase;
   final ObserveSongDurUseCase observeSongDurUseCase;
   final ObserveSongPosUseCase observeSongPosUseCase;
@@ -47,6 +49,7 @@ class PlayerUseCases {
       required this.shuffleUseCase,
       required this.repeatUseCase,
       required this.setSpeedUseCase,
+      required this.clearQueueUseCase,
       required this.isSongPlayingUseCase,
       required this.observeSongDurUseCase,
       required this.observeSongPosUseCase,

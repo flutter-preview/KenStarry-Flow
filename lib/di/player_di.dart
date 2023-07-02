@@ -1,6 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/add_player_prefs_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/check_permission_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/clear_queue_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/delete_player_prefs_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/get_player_prefs_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/get_songs_use_case.dart';
@@ -58,6 +59,7 @@ Future<void> playerDI({required GetIt locator, required int index}) async {
       shuffleUseCase: ShuffleUseCase(),
       repeatUseCase: RepeatUseCase(),
       setSpeedUseCase: SetSpeedUseCase(),
+      clearQueueUseCase: ClearQueueUseCase(),
       isSongPlayingUseCase: IsSongPlayingUseCase(),
       observeSongDurUseCase: ObserveSongDurUseCase(),
       observeSongPosUseCase: ObserveSongPosUseCase(),
