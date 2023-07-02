@@ -80,62 +80,7 @@ class _PlayerScreenState extends State<PlayerScreen>
           const ProgressBarPlayerSection(),
 
           //  quick actions
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //  playlist icon
-              quickAction(
-                  child: Icon(
-                    Icons.playlist_add,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  onTap: widget.onPlaylistClicked),
 
-              const SizedBox(
-                width: 8,
-              ),
-
-              //  favourites
-              quickAction(
-                  child: Icon(
-                    Icons.favorite_outline_rounded,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  onTap: () {}),
-
-              const SizedBox(
-                width: 8,
-              ),
-
-              //  playback
-              quickAction(
-                  child: Obx(
-                    () => Text(
-                      playerController.speedState.value == SpeedState.one
-                          ? "1 x"
-                          : playerController.speedState.value == SpeedState.two
-                              ? "2 x"
-                              : playerController.speedState.value ==
-                                      SpeedState.three
-                                  ? "3 x"
-                                  : playerController.speedState.value ==
-                                          SpeedState.five
-                                      ? "5 x"
-                                      : "1 x",
-                      style: TextStyle(
-                          fontSize:
-                              Theme.of(context).textTheme.bodyLarge?.fontSize,
-                          fontWeight:
-                              Theme.of(context).textTheme.bodyLarge?.fontWeight,
-                          color: Theme.of(context).primaryColor),
-                    ),
-                  ),
-                  onTap: () {
-                    //  add current song speed
-                    playerController.setSpeed();
-                  })
-            ],
-          )
         ],
       ),
     );
