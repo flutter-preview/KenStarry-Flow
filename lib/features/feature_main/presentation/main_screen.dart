@@ -78,33 +78,52 @@ class _MainScreenState extends State<MainScreen> {
               child: Scaffold(
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 body: userPrefs!.hasGrantedPermission!
-                    ? FutureBuilder<List<SongModel>>(
-                        future: _playerController.getSongs(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Center(
-                                child: CircularProgressIndicator(
-                                    color: Theme.of(context).primaryColor));
-                          }
-                          if (snapshot.data == null) {
-                            return const Text(
-                              "No data found",
-                              style: TextStyle(color: Colors.white),
-                            );
-                          }
+                    ? _playerController.mediaItemsInitial.isEmpty
+                        ? FutureBuilder<List<SongModel>>(
+                            future: _playerController.getSongs(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                    child: CircularProgressIndicator(
+                                        color: Theme.of(context).primaryColor));
+                              }
+                              if (snapshot.data == null) {
+                                return const Text(
+                                  "No data found",
+                                  style: TextStyle(color: Colors.white),
+                                );
+                              }
 
-                          if (snapshot.data!.isEmpty) {
-                            return const Text("Empty data",
-                                style: TextStyle(color: Colors.white));
-                          }
+                              if (snapshot.data!.isEmpty) {
+                                return const Text("Empty data",
+                                    style: TextStyle(color: Colors.white));
+                              }
 
-                          //  my songs
-                          var songs = snapshot.data!;
-                          _playerController.initializeSongs(
-                              songs: songs,);
+                              //  my songs
+                              var songs = snapshot.data!;
+                              _playerController.initializeSongs(
+                                songs: songs,
+                              );
 
-                          return Stack(fit: StackFit.loose, children: [
+                              return Stack(fit: StackFit.loose, children: [
+                                Obx(
+                                  () => IndexedStack(
+                                    index:
+                                        _homeController.currentTabIndex.value,
+                                    children: _screens,
+                                  ),
+                                ),
+
+                                //  Floating bottom bar
+                                const Align(
+                                  alignment: AlignmentDirectional.bottomCenter,
+                                  child: HomeBottomBar(),
+                                )
+                              ]);
+                            },
+                          )
+                        : Stack(fit: StackFit.loose, children: [
                             Obx(
                               () => IndexedStack(
                                 index: _homeController.currentTabIndex.value,
@@ -117,9 +136,7 @@ class _MainScreenState extends State<MainScreen> {
                               alignment: AlignmentDirectional.bottomCenter,
                               child: HomeBottomBar(),
                             )
-                          ]);
-                        },
-                      )
+                          ])
                     : GrantPermissionPage(),
               ));
         });
