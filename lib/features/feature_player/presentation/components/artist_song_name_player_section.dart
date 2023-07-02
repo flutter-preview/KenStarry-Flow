@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:marquee/marquee.dart';
 
 import '../../../../core/presentation/controller/player_controller.dart';
 
@@ -32,10 +33,10 @@ class _ArtistSongNamePlayerSectionState extends State<ArtistSongNamePlayerSectio
             width: double.infinity,
             height: 50,
             child: Marquee(
-              text: playerController.mediaItemsDynamic.isEmpty
+              text: _playerController.mediaItemsDynamic.isEmpty
                   ? "Unknown"
-                  : playerController.mediaItemsDynamic
-                  .elementAt(playerController
+                  : _playerController.mediaItemsDynamic
+                  .elementAt(_playerController
                   .currentPlayingSongIndexDynamic.value!)
                   .title,
               style: Theme.of(context).textTheme.bodyLarge,
@@ -44,9 +45,9 @@ class _ArtistSongNamePlayerSectionState extends State<ArtistSongNamePlayerSectio
             ),
           ),
           Text(
-              playerController.mediaItemsInitial
+              _playerController.mediaItemsInitial
                   .elementAt(
-                  playerController.currentPlayingSongIndex.value!)
+                  _playerController.currentPlayingSongIndex.value!)
                   .artist ??
                   "Unknow Artist",
               style: Theme.of(context).textTheme.bodySmall)
