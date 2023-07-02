@@ -63,27 +63,7 @@ class _PlayerScreenState extends State<PlayerScreen>
           const ArtistSongNamePlayerSection(),
 
           //  song Count
-          Obx(
-            () => UnconstrainedBox(
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColorDark,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Row(
-                  children: [
-                    Text(
-                      "${(playerController.currentPlayingSongIndexDynamic.value! + 1).toString().addCommas} / "
-                      "${playerController.mediaItemsDynamic.length.toString().addCommas}",
-                      style: Theme.of(context).textTheme.bodySmall,
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
+
 
           //  seekbar buttons
           Row(
