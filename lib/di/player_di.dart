@@ -3,6 +3,7 @@ import 'package:flow/core/domain/use_cases/player_use_cases/add_player_prefs_use
 import 'package:flow/core/domain/use_cases/player_use_cases/check_permission_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/clear_queue_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/delete_player_prefs_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/dispose_audio_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/get_player_prefs_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/get_songs_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/player_use_case.dart';
@@ -18,6 +19,7 @@ import 'package:flow/core/domain/use_cases/player_use_cases/repeat_use_case.dart
 import 'package:flow/core/domain/use_cases/player_use_cases/seek_song_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/set_speed_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/shuffle_use_case.dart';
+import 'package:flow/core/domain/use_cases/player_use_cases/stop_audio_use_case.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/update_player_prefs_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -60,6 +62,8 @@ Future<void> playerDI({required GetIt locator, required int index}) async {
       repeatUseCase: RepeatUseCase(),
       setSpeedUseCase: SetSpeedUseCase(),
       clearQueueUseCase: ClearQueueUseCase(),
+      disposeAudioUseCase: DisposeAudioUseCase(),
+      stopAudioUseCase: StopAudioUseCase(),
       isSongPlayingUseCase: IsSongPlayingUseCase(),
       observeSongDurUseCase: ObserveSongDurUseCase(),
       observeSongPosUseCase: ObserveSongPosUseCase(),
