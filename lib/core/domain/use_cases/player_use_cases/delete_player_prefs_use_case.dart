@@ -7,5 +7,5 @@ class DeletePlayerPrefsUseCase {
 
   final repo = locator.get<PlayerRepository>();
 
-  Future<void> invoke() async => await repo.deletePlayerPrefs();
+  Future<void> call() async => await repo.deletePlayerPrefs();
 }
