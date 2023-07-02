@@ -266,7 +266,7 @@ class PlayerController extends GetxController {
 
   /// Get Songs
   Future<List<SongModel>> getSongs() async {
-    var songs = await playerUseCases.getSongsUseCase.invoke();
+    var songs = await playerUseCases.getSongsUseCase();
     this.songs.value = songs;
     totalSongs.value = songs.length;
     return songs;
