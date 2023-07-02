@@ -39,7 +39,7 @@ abstract class PlayerRepository {
   void setSpeed({required double speed});
 
   /// Clear Queue
-  void clearQueue();
+  Future<void> clearQueue();
 
   /// Check if song is playing
   void isSongPlaying({required void Function(PlayerStates) onStateChanged});
