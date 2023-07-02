@@ -6,6 +6,7 @@ import 'package:flow/core/utils/extensions/color_extensions.dart';
 import 'package:flow/core/utils/extensions/string_extensions.dart';
 import 'package:flow/di/locator.dart';
 import 'package:flow/core/presentation/controller/player_controller.dart';
+import 'package:flow/features/feature_player/presentation/components/artist_song_name_player_section.dart';
 import 'package:flow/features/feature_player/presentation/components/artwork_player_section.dart';
 import 'package:flow/features/feature_player/presentation/components/quick_action.dart';
 import 'package:flutter/material.dart';
@@ -56,37 +57,10 @@ class _PlayerScreenState extends State<PlayerScreen>
         runSpacing: 20,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          const ArtworkPlayerSection()
+          const ArtworkPlayerSection(),
 
           //  artist and song name
-          Obx(
-            () => Column(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: Marquee(
-                    text: playerController.mediaItemsDynamic.isEmpty
-                        ? "Unknown"
-                        : playerController.mediaItemsDynamic
-                            .elementAt(playerController
-                                .currentPlayingSongIndexDynamic.value!)
-                            .title,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                    pauseAfterRound: const Duration(seconds: 1),
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                  ),
-                ),
-                Text(
-                    playerController.mediaItemsInitial
-                            .elementAt(
-                                playerController.currentPlayingSongIndex.value!)
-                            .artist ??
-                        "Unknow Artist",
-                    style: Theme.of(context).textTheme.bodySmall)
-              ],
-            ),
-          ),
+          const ArtistSongNamePlayerSection(),
 
           //  song Count
           Obx(
