@@ -34,7 +34,7 @@ class PlayerController extends GetxController {
   final totalSongs = 0.obs;
   final totalSongsDuration = ''.obs;
 
-  late List<MediaItem> mediaItemsInitial;
+  List<MediaItem> mediaItemsInitial = <MediaItem>[].obs;
   List<MediaItem> mediaItemsDynamic = <MediaItem>[].obs;
 
   // UI
