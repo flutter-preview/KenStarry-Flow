@@ -155,6 +155,12 @@ class PlayerRepositoryImpl implements PlayerRepository {
       await _audioHandler.customAction('clearQueue');
 
   @override
+  void disposeAudio() => _audioHandler.customAction('dispose');
+
+  @override
+  void stopAudio() => _audioHandler.stop();
+
+  @override
   void isSongPlaying({required void Function(PlayerStates) onStateChanged}) {
     try {
       _audioHandler.playbackState.listen((state) {
