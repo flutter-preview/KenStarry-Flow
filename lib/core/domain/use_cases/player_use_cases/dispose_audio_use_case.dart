@@ -1,0 +1,8 @@
+import 'package:flow/core/domain/repository/player_repository.dart';
+import 'package:flow/di/locator.dart';
+
+class DisposeAudioUseCase {
+  final repository = locator.get<PlayerRepository>();
+
+  void call() => repository.disposeAudio();
+}
