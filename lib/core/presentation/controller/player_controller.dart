@@ -4,13 +4,11 @@ import 'package:flow/core/domain/models/repeat_state.dart';
 import 'package:flow/core/domain/models/speed_state.dart';
 import 'package:flow/core/domain/models/user.dart';
 import 'package:flow/core/presentation/controller/user_controller.dart';
-import 'package:flow/core/presentation/notifiers/repeat_button_notifier.dart';
 import 'package:flow/core/utils/math_utils.dart';
 import 'package:flow/core/utils/songs_to_media_items.dart';
 import 'package:flow/features/feature_songs/domain/model/az_item.dart';
 import 'package:flow/core/domain/use_cases/player_use_cases/player_use_case.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 import '../../../di/locator.dart';
@@ -18,7 +16,6 @@ import '../../domain/models/player_prefs.dart';
 import '../../domain/models/player_states.dart';
 import 'package:collection/collection.dart';
 
-import '../../utils/hive_utils.dart';
 
 class PlayerController extends GetxController {
   final playerUseCases = locator.get<PlayerUseCases>();
